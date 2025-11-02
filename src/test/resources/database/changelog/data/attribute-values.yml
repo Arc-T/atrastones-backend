@@ -1,0 +1,140 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-15
+      author: taha
+      changes:
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: طلا
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: نقره
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: پلاتین
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: استیل
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: تیتانیوم
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: چرم
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: پلاستیک
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: سیلیکون
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: فلز
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: الماس
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: یاقوت
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: زمرد
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: یاقوت کبود
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: مروارید
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attribute_values
+            columns:
+              - column:
+                  name: value
+                  value: عقیق
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

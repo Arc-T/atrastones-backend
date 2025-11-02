@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-10
+      author: taha
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: زیور آلات
+              - column:
+                  name: url
+                  value: accessory
+              - column:
+                  name: icon
+                  value: null
+              - column:
+                  name: parent_id
+                  value: null
+              - column:
+                  name: display_order
+                  value: 0
+              - column:
+                  name: description
+                  value: ''
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: دستبند
+              - column:
+                  name: url
+                  value: bracelet
+              - column:
+                  name: icon
+                  value: null
+              - column:
+                  name: parent_id
+                  value: 1
+              - column:
+                  name: display_order
+                  value: 0
+              - column:
+                  name: description
+                  value: ''
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

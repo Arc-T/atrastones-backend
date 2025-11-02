@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-5
+      author: taha
+      changes:
+        - insert:
+            tableName: service_groups
+            columns:
+              - column:
+                  name: name
+                  value: حمل و نقل
+              - column:
+                  name: description
+                  value: انواع روش‌های ارسال کالا (پست، حضوری، اسنپ)
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

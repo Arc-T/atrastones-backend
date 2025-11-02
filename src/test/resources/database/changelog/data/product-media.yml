@@ -1,0 +1,152 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-21
+      author: taha
+      changes:
+        - insert:
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: media_type_id
+                  value: 1
+              - column:
+                  name: url
+                  value: "/media/products/1/diamond-ring-front.jpg"
+              - column:
+                  name: name
+                  value: "test"
+              - column:
+                  name: display_order
+                  value: 0
+              - column:
+                  name: extension
+                  value: "jpg"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:11:00"
+        - insert:
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: media_type_id
+                  value: 1
+              - column:
+                  name: url
+                  value: "/media/products/1/diamond-ring-side.jpg"
+              - column:
+                  name: name
+                  value: "fun"
+              - column:
+                  name: display_order
+                  value: 1
+              - column:
+                  name: extension
+                  value: "jpg"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:12:00"
+        - insert:
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: media_type_id
+                  value: 2
+              - column:
+                  name: url
+                  value: "/media/products/1/diamond-ring-showcase.mp4"
+              - column:
+                  name: name
+                  value: "adfadf"
+              - column:
+                  name: display_order
+                  value: 2
+              - column:
+                  name: extension
+                  value: "mp4"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:13:00"
+        - insert:
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: media_type_id
+                  value: 1
+              - column:
+                  name: url
+                  value: "/media/products/2/ruby-necklace-front.jpg"
+              - column:
+                  name: name
+                  value: "front"
+              - column:
+                  name: display_order
+                  value: 0
+              - column:
+                  name: extension
+                  value: "jpg"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:14:00"
+        - insert:
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: media_type_id
+                  value: 1
+              - column:
+                  name: url
+                  value: "/media/products/2/ruby-necklace-closeup.jpg"
+              - column:
+                  name: name
+                  value: "1234"
+              - column:
+                  name: display_order
+                  value: 1
+              - column:
+                  name: extension
+                  value: "jpg"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:15:00"
+        - insert:
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: media_type_id
+                  value: 2
+              - column:
+                  name: name
+                  value: "123424123412"
+              - column:
+                  name: url
+                  value: "/media/products/2/ruby-necklace-video.mp4"
+              - column:
+                  name: url
+                  value: "423"
+              - column:
+                  name: display_order
+                  value: 2
+              - column:
+                  name: extension
+                  value: "mp4"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:16:00"

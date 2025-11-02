@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-6
+      author: taha
+      changes:
+        - insert:
+            tableName: services
+            columns:
+              - column:
+                  name: name
+                  value: پست
+              - column:
+                  name: cost
+                  value: 50000
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: description
+                  value: ارسال از طریق شرکت پست جمهوری اسلامی ایران
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: services
+            columns:
+              - column:
+                  name: name
+                  value: حضوری
+              - column:
+                  name: cost
+                  value: 0
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: description
+                  value: تحویل حضوری توسط مشتری
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: services
+            columns:
+              - column:
+                  name: name
+                  value: اسنپ
+              - column:
+                  name: cost
+                  value: 70000
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: description
+                  value: ارسال از طریق پیک اسنپ
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

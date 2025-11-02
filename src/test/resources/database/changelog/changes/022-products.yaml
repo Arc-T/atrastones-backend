@@ -1,0 +1,131 @@
+databaseChangeLog:
+  - changeSet:
+      id: 22
+      author: taha
+      changes:
+        - createTable:
+            tableName: products
+            comment: Stores product details with prices in Toman
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_products_category
+                    references: categories(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: shop_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_products_shop
+                    references: shops(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: quantity
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                  remarks: Price in Toman
+              - column:
+                  name: discount_id
+                  type: ${integer_value.type}
+                  constraints:
+#                    nullable: true
+#                    foreignKeyName: fk_products_discount
+#                    references: discounts(id)
+#                    deleteSetNull: true
+#                    updateRestrict: true
+              - column:
+                  name: service_group_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_products_service_group
+                    references: service_groups(id)
+                    deleteSetNull: true
+                    updateRestrict: true
+              - column:
+                  name: discount_amount
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: true
+                  remarks: Discount amount in Toman
+              - column:
+                  name: status
+                  type: ENUM('ACTIVE', 'INACTIVE', 'OUT_OF_STOCK')
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: ${large_text.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: deleted_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+            indexes:
+              - index:
+                  name: idx_products_category
+                  columns:
+                    - column:
+                        name: category_id
+                    - column:
+                        name: price
+                    - column:
+                        name: status
+              - index:
+                  name: idx_products_shop
+                  columns:
+                    - column:
+                        name: shop_id
+              - index:
+                  name: idx_products_discount
+                  columns:
+                    - column:
+                        name: discount_id
+              - index:
+                  name: idx_products_status
+                  columns:
+                    - column:
+                        name: status
+              - index:
+                  name: idx_products_deleted_at
+                  columns:
+                    - column:
+                        name: deleted_at

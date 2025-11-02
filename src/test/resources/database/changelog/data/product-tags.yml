@@ -1,0 +1,101 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-18
+      author: taha
+      changes:
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: tag_id
+                  value: 1
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:00:00"
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: tag_id
+                  value: 2
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:01:00"
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: tag_id
+                  value: 4
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:02:00"
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: tag_id
+                  value: 1
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:03:00"
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: tag_id
+                  value: 3
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:04:00"
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: tag_id
+                  value: 4
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:05:00"
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: tag_id
+                  value: 1
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:06:00"
+        - insert:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: tag_id
+                  value: 5
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:07:00"

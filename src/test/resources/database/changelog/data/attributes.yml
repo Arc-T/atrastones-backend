@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-11
+      author: taha
+      changes:
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: جنس سنگ
+              - column:
+                  name: category_id
+                  value: 2
+              - column:
+                  name: type
+                  value: TEXT
+              - column:
+                  name: is_filterable
+                  value: false
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: جنس بند
+              - column:
+                  name: category_id
+                  value: 2
+              - column:
+                  name: type
+                  value: TEXT
+              - column:
+                  name: is_filterable
+                  value: false
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

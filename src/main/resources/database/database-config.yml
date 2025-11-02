@@ -1,0 +1,9 @@
+DB:
+  URL:
+    jdbc:mysql://localhost:3306/atrastones?allowPublicKeyRetrieval=true&useSSL=false
+  USERNAME:
+    root
+  PASSWORD:
+    1234321
+  DRIVER:
+    com.mysql.cj.jdbc.Driver

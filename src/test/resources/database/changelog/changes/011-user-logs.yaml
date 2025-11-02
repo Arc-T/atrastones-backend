@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11
+      author: taha
+      changes:
+        - createTable:
+            tableName: user_logs
+            comment: Logs user activities
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_logs_user
+                    references: users(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: action_type
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                  remarks: e.g., LOGIN, PURCHASE
+              - column:
+                  name: action_id
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                  remarks: Reference to entity (e.g., order ID)
+              - column:
+                  name: ip_address
+                  type: ${medium_text.type}
+                  constraints:
+                    nullable: false
+                  remarks: Supports IPv4/IPv6
+              - column:
+                  name: user_agent
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+            indexes:
+              - index:
+                  name: idx_logs_user
+                  columns:
+                    - column:
+                        name: user_id
+                    - column:
+                        name: created_at
+              - index:
+                  name: idx_logs_action_type
+                  columns:
+                    - column:
+                        name: action_type

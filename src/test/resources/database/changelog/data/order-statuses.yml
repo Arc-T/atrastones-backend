@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-7
+      author: taha
+      changes:
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: PENDING
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: DELIVERED
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: RETURNED
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: CANCELLED
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

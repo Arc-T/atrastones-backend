@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: taha
+      changes:
+        - createTable:
+            tableName: permissions
+            comment: Stores permissions for RBAC
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
+                  remarks: Permission description
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+        - addUniqueConstraint:
+            tableName: permissions
+            columnNames: name
+            constraintName: uk_permissions_name

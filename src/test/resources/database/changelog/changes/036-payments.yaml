@@ -1,0 +1,100 @@
+databaseChangeLog:
+  - changeSet:
+      id: 36
+      author: taha
+      changes:
+        - createTable:
+            tableName: payments
+            comment: Stores payment transactions
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_payments_user
+                    references: users(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: order_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_payments_order
+                    references: orders(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: payment_method
+                  type: ENUM('CARD', 'WEB', 'APP', 'CASH', 'GATEWAY')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                  remarks: Amount in Toman
+              - column:
+                  name: status
+                  type: ENUM('PENDING', 'PAID', 'FAILED', 'REFUNDED')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: authority
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
+                  remarks: Payment gateway authority code
+              - column:
+                  name: reference_id
+                  type: ${medium_text.type}
+                  constraints:
+                    nullable: true
+                  remarks: Gateway reference ID
+              - column:
+                  name: fee_type
+                  type: ${name.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: fee
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: true
+                  remarks: Fee in Toman
+              - column:
+                  name: description
+                  type: ${medium_text.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+            indexes:
+              - index:
+                  name: idx_payments_user
+                  columns:
+                    - column:
+                        name: user_id
+              - index:
+                  name: idx_payments_order
+                  columns:
+                    - column:
+                        name: order_id
+              - index:
+                  name: idx_payments_reference
+                  columns:
+                    - column:
+                        name: reference_id

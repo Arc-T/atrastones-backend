@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 14
+      author: taha
+      changes:
+        - createTable:
+            tableName: attributes
+            comment: Stores product attributes
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                  remarks: Supports Persian names
+              - column:
+                  name: category_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_attributes_category
+                    references: categories(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: type
+                  type: ENUM('TEXT', 'NUMBER', 'SELECT', 'MULTISELECT')
+                  defaultValue: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_filterable
+                  type: ${boolean_flag.type}
+                  defaultValue: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+            indexes:
+              - index:
+                  name: idx_attributes_category
+                  columns:
+                    - column:
+                        name: category_id
+              - index:
+                  name: idx_attributes_filterable
+                  columns:
+                    - column:
+                        name: is_filterable

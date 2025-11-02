@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-12
+      author: taha
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: SUPER_ADMIN
+              - column:
+                  name: description
+                  value: this role has all the permissions available in every part of the software

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 38
+      author: taha
+      changes:
+        - createTable:
+            tableName: order_remaining_balances
+            comment: Tracks remaining order balances
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk

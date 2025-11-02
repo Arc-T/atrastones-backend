@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-11
+      author: taha
+      changes:
+        - insert:
+            tableName: attribute_values_map
+            columns:
+              - column:
+                  name: attribute_id
+                  valueNumeric: 1
+              - column:
+                  name: attribute_value_id
+                  valueNumeric: 1
+        - insert:
+            tableName: attribute_values_map
+            columns:
+              - column:
+                  name: attribute_id
+                  valueNumeric: 1
+              - column:
+                  name: attribute_value_id
+                  valueNumeric: 2
+        - insert:
+            tableName: attribute_values_map
+            columns:
+              - column:
+                  name: attribute_id
+                  valueNumeric: 1
+              - column:
+                  name: attribute_value_id
+                  valueNumeric: 3
+        - insert:
+            tableName: attribute_values_map
+            columns:
+              - column:
+                  name: attribute_id
+                  valueNumeric: 2
+              - column:
+                  name: attribute_value_id
+                  valueNumeric: 2
+        - insert:
+            tableName: attribute_values_map
+            columns:
+              - column:
+                  name: attribute_id
+                  valueNumeric: 2
+              - column:
+                  name: attribute_value_id
+                  valueNumeric: 3

@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 39
+      author: taha
+      changes:
+        - createTable:
+            tableName: sms_statuses
+            comment: Stores SMS status codes
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: status
+                  type: ${medium_text.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true

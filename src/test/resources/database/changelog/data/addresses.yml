@@ -1,0 +1,104 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-4
+      author: taha
+      changes:
+        - insert:
+            tableName: addresses
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: address_type
+                  value: HOME
+              - column:
+                  name: province_id
+                  valueNumeric: 1
+              - column:
+                  name: address_line
+                  value: 123 Elm St, City A
+              - column:
+                  name: postal_code
+                  value: 1234567890
+              - column:
+                  name: latitude
+                  valueNumeric: 35.6895
+              - column:
+                  name: longitude
+                  valueNumeric: 51.3890
+              - column:
+                  name: description
+                  value: Primary residence
+              - column:
+                  name: created_at
+                  valueDate: 2025-09-23 10:00:00
+              - column:
+                  name: updated_at
+                  valueDate: null
+        - insert:
+            tableName: addresses
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: address_type
+                  value: WORK
+              - column:
+                  name: province_id
+                  valueNumeric: 15
+              - column:
+                  name: address_line
+                  value: 456 Oak Ave, City B
+              - column:
+                  name: postal_code
+                  value: 0987654321
+              - column:
+                  name: latitude
+                  valueNumeric: 40.7128
+              - column:
+                  name: longitude
+                  valueNumeric: -74.0060
+              - column:
+                  name: description
+                  value: Office location
+              - column:
+                  name: created_at
+                  valueDate: 2025-09-23 11:00:00
+              - column:
+                  name: updated_at
+                  valueDate: null
+        - insert:
+            tableName: addresses
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: address_type
+                  value: OTHER
+              - column:
+                  name: province_id
+                  valueNumeric: 30
+              - column:
+                  name: address_line
+                  value: 789 Pine Rd, City C
+              - column:
+                  name: postal_code
+                  value: 1122334455
+              - column:
+                  name: latitude
+                  valueNumeric: 34.0522
+              - column:
+                  name: longitude
+                  valueNumeric: -118.2437
+              - column:
+                  name: description
+                  value: Vacation home
+              - column:
+                  name: created_at
+                  valueDate: 2025-09-23 12:00:00
+              - column:
+                  name: updated_at
+                  valueDate: null

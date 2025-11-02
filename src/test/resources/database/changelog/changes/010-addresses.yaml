@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11
+      author: taha
+      changes:
+        - createTable:
+            tableName: addresses
+            comment: Stores user addresses
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_addresses_user
+                    references: users(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: address_type
+                  type: ENUM('HOME', 'WORK', 'OTHER')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: province_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_addresses_province
+                    references: provinces(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: address_line
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: postal_code
+                  type: ${tiny_text.type}
+                  constraints:
+                    nullable: true
+                  remarks: postal code (10 digits)
+              - column:
+                  name: latitude
+                  type: ${gps.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: longitude
+                  type: ${gps.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: description
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+            indexes:
+              - index:
+                  name: idx_addresses_user
+                  columns:
+                    - column:
+                        name: user_id
+              - index:
+                  name: idx_addresses_province
+                  columns:
+                    - column:
+                        name: province_id

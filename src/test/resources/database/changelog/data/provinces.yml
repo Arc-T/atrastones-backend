@@ -1,0 +1,284 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-1
+      author: taha
+      changes:
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: البرز
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: اردبیل
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: بوشهر
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: چهارمحال و بختیاری
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: آذربایجان شرقی
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: اصفهان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: فارس
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: گیلان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: گلستان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: همدان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: هرمزگان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: ایلام
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: کرمان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: کرمانشاه
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: خوزستان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: کهگیلویه و بویراحمد
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: کردستان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: لرستان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: مرکزی
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: مازندران
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: خراسان شمالی
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: قزوین
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: قم
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: خراسان رضوی
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: سمنان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: سیستان و بلوچستان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: خراسان جنوبی
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: تهران
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: آذربایجان غربی
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: یزد
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: provinces
+            columns:
+              - column:
+                  name: name
+                  value: زنجان
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

@@ -1,0 +1,290 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-8
+      author: taha
+      changes:
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 0
+              - column:
+                  name: status
+                  value: نام کاربری یا رمز عبور اشتباه می باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 1
+              - column:
+                  name: status
+                  value: ارسال موفقیت آمیز.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 2
+              - column:
+                  name: status
+                  value: اعتبار کافی نمی باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 3
+              - column:
+                  name: status
+                  value: محدودیت در ارسال روزانه
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 4
+              - column:
+                  name: status
+                  value: محدودیت در حجم ارسال
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 5
+              - column:
+                  name: status
+                  value: شماره فرستنده معتبر نمی باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 6
+              - column:
+                  name: status
+                  value: سامانه در حال بروزرسانی می باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 7
+              - column:
+                  name: status
+                  value: متن حاوی کلمه فیلتر شده می باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 9
+              - column:
+                  name: status
+                  value: ارسال از خطوط عمومی از طریق وب سرویس امکان پذیر نمی باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 10
+              - column:
+                  name: status
+                  value: کاربر مورد نظر فعال نمی باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 11
+              - column:
+                  name: status
+                  value: ارسال نشده
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 12
+              - column:
+                  name: status
+                  value: مدارک کاربر کامل نمی باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 14
+              - column:
+                  name: status
+                  value: متن حاوی لینک می باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 15
+              - column:
+                  name: status
+                  value: ارسال به بیش از 1 شماره همراه بدون درج "لغو11" ممکن نیست.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 16
+              - column:
+                  name: status
+                  value: شماره گیرنده ای یافت نشد
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 17
+              - column:
+                  name: status
+                  value: متن پیامک خالی می باشد
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 18
+              - column:
+                  name: status
+                  value: در صف ارسال می باشد.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 19
+              - column:
+                  name: status
+                  value: خطای منطقی رخ داده است.
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: sms_statuses
+            columns:
+              - column:
+                  name: code
+                  value: 35
+              - column:
+                  name: status
+                  value: در REST به معنای وجود شماره در لیست سیاه مخابرات می‌باشد
+              - column:
+                  name: description
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

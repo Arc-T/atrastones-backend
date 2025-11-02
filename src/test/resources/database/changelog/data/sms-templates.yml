@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-9
+      author: taha
+      changes:
+        - insert:
+            tableName: sms_templates
+            columns:
+              - column:
+                  name: name
+                  value: OTP
+              - column:
+                  name: message
+                  value: 'کد ورود شما: {0} \n\n دستسازه‌های سنگی آترا'
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

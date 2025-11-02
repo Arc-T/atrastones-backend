@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-23
+      author: taha
+      changes:
+        - insert:
+            tableName: user_group_roles
+            columns:
+              - column:
+                  name: role_id
+                  value: 1
+              - column:
+                  name: user_group_id
+                  value: 1

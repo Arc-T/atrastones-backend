@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: 30
+      author: taha
+      changes:
+        - createTable:
+            tableName: product_media
+            comment: Stores product images/videos
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_media_product
+                    references: products(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: media_type_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_media_type
+                    references: media_types(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: url
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: false
+                  remarks: URL to media file
+              - column:
+                  name: name
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: false
+                  remarks: name of the file
+              - column:
+                  name: display_order
+                  type: ${integer_value.type}
+                  defaultValue: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: extension
+                  type: ${tiny_text.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+            indexes:
+              - index:
+                  name: idx_media_product
+                  columns:
+                    - column:
+                        name: product_id
+              - index:
+                  name: idx_media_type
+                  columns:
+                    - column:
+                        name: media_type_id

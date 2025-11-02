@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 26
+      author: taha
+      changes:
+        - createTable:
+            tableName: product_reviews
+            comment: Stores product reviews and comments
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_reviews_product
+                    references: products(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_reviews_user
+                    references: users(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: action_type
+                  type: ENUM('LIKE', 'COMMENT', 'SHARE', 'COMPARE', 'QUESTION', 'SAVED')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: action_details
+                  type: ${medium_text.type}
+                  constraints:
+                    nullable: false
+                  remarks: Supports Persian comments
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: deleted_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+            indexes:
+              - index:
+                  name: idx_reviews_product
+                  columns:
+                    - column:
+                        name: product_id
+              - index:
+                  name: idx_reviews_user
+                  columns:
+                    - column:
+                        name: user_id
+              - index:
+                  name: idx_reviews_deleted_at
+                  columns:
+                    - column:
+                        name: deleted_at
+              - index:
+                  name: idx_reviews_unique
+                  unique: true
+                  columns:
+                    - column:
+                        name: product_id
+                    - column:
+                        name: user_id

@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 35
+      author: taha
+      changes:
+        - createTable:
+            tableName: invoices
+            comment: Stores invoices for orders
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_invoices_order
+                    references: orders(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: invoice_type_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_invoices_type
+                    references: invoice_types(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: total_price
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                  remarks: Total in Toman
+              - column:
+                  name: description
+                  type: ${medium_text.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+            indexes:
+              - index:
+                  name: idx_invoices_order
+                  columns:
+                    - column:
+                        name: order_id
+              - index:
+                  name: idx_invoices_type
+                  columns:
+                    - column:
+                        name: invoice_type_id

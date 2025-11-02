@@ -1,0 +1,75 @@
+databaseChangeLog:
+  - changeSet:
+      id: 28
+      author: taha
+      changes:
+        - createTable:
+            tableName: product_attribute_values
+            comment: Maps products to attribute values
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_attr_values_product
+                    references: products(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: attribute_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_attr_values_attribute
+                    references: attributes(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: attribute_value_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_attr_values_value
+                    references: attribute_values(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+            indexes:
+              - index:
+                  name: idx_product_attr_values_product
+                  columns:
+                    - column:
+                        name: product_id
+              - index:
+                  name: idx_product_attr_values_attribute
+                  columns:
+                    - column:
+                        name: attribute_id
+              - index:
+                  name: idx_product_attr_values_value
+                  columns:
+                    - column:
+                        name: attribute_value_id
+              - index:
+                  name: idx_product_attr_values_unique
+                  unique: true
+                  columns:
+                    - column:
+                        name: product_id
+                    - column:
+                        name: attribute_id
+                    - column:
+                        name: attribute_value_id

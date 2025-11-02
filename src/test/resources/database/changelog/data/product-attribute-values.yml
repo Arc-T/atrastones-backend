@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-19
+      author: taha
+      changes:
+        - insert:
+            tableName: product_attribute_values
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: attribute_id
+                  value: 1
+              - column:
+                  name: attribute_value_id
+                  value: 9
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:56:00"
+        - insert:
+            tableName: product_attribute_values
+            columns:
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: attribute_id
+                  value: 2
+              - column:
+                  name: attribute_value_id
+                  value: 6
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:57:00"
+        - insert:
+            tableName: product_attribute_values
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: attribute_id
+                  value: 1
+              - column:
+                  name: attribute_value_id
+                  value: 7
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:58:00"
+        - insert:
+            tableName: product_attribute_values
+            columns:
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: attribute_id
+                  value: 2
+              - column:
+                  name: attribute_value_id
+                  value: 8
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:59:00"
+        - insert:
+            tableName: product_attribute_values
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: attribute_id
+                  value: 1
+              - column:
+                  name: attribute_value_id
+                  value: 9
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:00:00"
+        - insert:
+            tableName: product_attribute_values
+            columns:
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: attribute_id
+                  value: 2
+              - column:
+                  name: attribute_value_id
+                  value: 6
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:01:00"

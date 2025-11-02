@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 31
+      author: taha
+      changes:
+        - createTable:
+            tableName: wishlist
+            comment: Stores user wishlist
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_wishlist_user
+                    references: users(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: product_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_wishlist_product
+                    references: products(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+            indexes:
+              - index:
+                  name: idx_wishlist_user
+                  columns:
+                    - column:
+                        name: user_id
+              - index:
+                  name: idx_wishlist_product
+                  columns:
+                    - column:
+                        name: product_id
+              - index:
+                  name: idx_wishlist_unique
+                  unique: true
+                  columns:
+                    - column:
+                        name: user_id
+                    - column:
+                        name: product_id

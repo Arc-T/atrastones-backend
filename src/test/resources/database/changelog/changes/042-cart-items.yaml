@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 42
+      author: taha
+      changes:
+        - createTable:
+            tableName: cart_items
+            comment: Stores items in user carts
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: cart_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cart_items_cart
+                    references: carts(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: item_type
+                  type: ${item_type.type}
+                  constraints:
+                    nullable: false
+                    checkConstraint: item_type IN ('PRODUCT', 'SERVICE')
+              - column:
+                  name: item_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+            indexes:
+              - index:
+                  name: idx_cart_items_cart
+                  columns:
+                    - column:
+                        name: cart_id

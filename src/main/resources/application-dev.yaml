@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: AtraStonesAccessory
+
+  config:
+    import: classpath:database/database-config.yml
+
+  main:
+    lazy-initialization: true
+
+  threads:
+    virtual:
+      enabled: true
+
+  mvc:
+    static-path-pattern: /media/**
+    log-resolved-exception: false
+
+  web:
+    locale: fa_IR
+    locale-resolver: accept_header
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 30MB
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: NON_NULL
+
+  datasource:
+    url: ${DB.URL}
+    driver-class-name: ${DB.DRIVER}
+    username: ${DB.USERNAME}
+    password: ${DB.PASSWORD}
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 8
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      pool-name: Mysql-Pooling
+      auto-commit: false
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+
+server:
+  address: 0.0.0.0
+  port: 8080
+  error:
+    whitelabel:
+      enabled: true
+    include-stacktrace: always
+
+logging:
+  level:
+    com.zaxxer.hikari.HikariConfig: info
+  file:
+    name: logs/atrastones.log
+
+###################################################################### VARIABLES ######################################################################
+
+sms:
+  mellipayamak:
+    username: your-username
+    password: your-password
+    from: your-from-number
+    url: https://rest.payamak-panel.com/api/SendSMS/SendSMS

@@ -1,0 +1,126 @@
+package com.atrastones.shop.handler;
+
+import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+@Slf4j
+@RestControllerAdvice
+public class ApiExceptionHandler {
+
+    private final MessageSource messageSource;
+
+    public ApiExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiErrorResponse> handleUnexpected(Exception ex) {
+        log.error("Unexpected error", ex);
+        return buildErrorResponse("INTERNAL.SERVER.ERROR", HttpStatus.INTERNAL_SERVER_ERROR, null);
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<ApiErrorResponse> handleDatabase(DataAccessException ex) {
+        log.error("Database access error", ex);
+        return buildErrorResponse("DATABASE.ERROR", HttpStatus.INTERNAL_SERVER_ERROR, null);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleNotFound(EntityNotFoundException ex) {
+        log.warn("Entity not found: {}", ex.getMessage());
+        String detailedMessage = resolveMessage("ENTITY.NOT.FOUND") + ": " + ex.getMessage();
+        return buildErrorResponse(HttpStatus.NOT_FOUND, detailedMessage, null);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
+        Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.toMap(
+                        FieldError::getField,
+                        fe -> Optional.ofNullable(fe.getDefaultMessage())
+                                .orElse(resolveMessage("VALIDATION.DEFAULT")),
+                        (existing, replacement) -> existing
+                ));
+
+        List<String> globalErrors = ex.getBindingResult().getGlobalErrors().stream()
+                .map(ObjectError::getDefaultMessage)
+                .toList();
+
+        Map<String, Object> details = new ConcurrentHashMap<>();
+        if (!fieldErrors.isEmpty()) {
+            details.put("fieldErrors", fieldErrors);
+        }
+        if (!globalErrors.isEmpty()) {
+            details.put("globalErrors", globalErrors);
+        }
+
+        return buildErrorResponse("VALIDATION.ERROR", HttpStatus.BAD_REQUEST, details);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiErrorResponse> handleAuthentication(AuthenticationException ex) {
+        log.debug("Authentication failed: {}", ex.getMessage());
+        return buildErrorResponse("FORBIDDEN.AUTHENTICATION", HttpStatus.FORBIDDEN, null);
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> handleAuthorization(AuthorizationDeniedException ex) {
+        log.debug("Authorization denied: {}", ex.getMessage());
+        return buildErrorResponse("FORBIDDEN.AUTHORIZATION", HttpStatus.FORBIDDEN, null);
+    }
+
+    // -------------------------------------- Helper methods --------------------------------------
+
+    private ResponseEntity<ApiErrorResponse> buildErrorResponse(String messageKey, HttpStatus status, Map<String, Object> details) {
+        return buildErrorResponse(status, resolveMessage(messageKey), details);
+    }
+
+    private ResponseEntity<ApiErrorResponse> buildErrorResponse(HttpStatus status, String message, Map<String, Object> details) {
+        return ResponseEntity.status(status)
+                .body(new ApiErrorResponse(
+                        status.value(),
+                        message,
+                        details,
+                        Instant.now(),
+                        UUID.randomUUID().toString() // correlationId for tracing
+                ));
+    }
+
+    private String resolveMessage(String key) {
+        Locale locale = LocaleContextHolder.getLocale();
+        try {
+            return messageSource.getMessage(key, null, locale);
+        } catch (Exception e) {
+            log.warn("Missing i18n message for key: {}", key);
+            return key;
+        }
+    }
+
+    // -------------------------------------- Error Response DTO --------------------------------------
+
+    public record ApiErrorResponse(
+            int status,
+            String message,
+            Map<String, Object> details,
+            Instant timestamp,
+            String correlationId
+    ) {
+    }
+}

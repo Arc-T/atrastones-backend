@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: taha
+      changes:
+        - createTable:
+            tableName: user_group_roles
+            comment: Maps roles to user groups
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_group_roles_role
+                    references: roles(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: user_group_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_group_roles_user_group
+                    references: user_groups(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+            indexes:
+              - index:
+                  name: idx_user_group_roles_role
+                  columns:
+                    - column:
+                        name: role_id
+              - index:
+                  name: idx_user_group_roles_user_group
+                  columns:
+                    - column:
+                        name: user_group_id
+              - index:
+                  name: idx_user_group_roles_unique
+                  unique: true
+                  columns:
+                    - column:
+                        name: role_id
+                    - column:
+                        name: user_group_id

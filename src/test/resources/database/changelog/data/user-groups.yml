@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-2
+      author: taha
+      changes:
+        - insert:
+            tableName: user_groups
+            columns:
+              - column:
+                  name: name
+                  value: Admin
+              - column:
+                  name: description
+                  value: Administrators with full access to the system.
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: user_groups
+            columns:
+              - column:
+                  name: name
+                  value: Customer
+              - column:
+                  name: description
+                  value: Normal customers with minimal access
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP

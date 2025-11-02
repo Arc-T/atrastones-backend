@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: AtraStones
+
+  threads:
+    virtual:
+      enabled: true
+
+  mvc:
+    static-path-pattern: /media/**
+
+  web:
+    resources:
+      static-locations: file:uploads/
+    locale: fa_IR
+    locale-resolver: ACCEPT_HEADER
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 30MB
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/atrastones?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 8
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      pool-name: Mysql-Pooling
+      auto-commit: false
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+
+  data:
+    jdbc:
+      dialect: mysql
+    jpa:
+      repositories:
+        enabled: false
+
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: false
+        id:
+          new_generator_mappings: false
+        search:
+          autoregister_listeners: false
+
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+    include-stacktrace: never
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+    accept-count: 100
+    connection-timeout: 20000
+    basedir: /var/log/atrastones
+    accesslog:
+      enabled: true
+      pattern: "%a %{yyyy-MM-dd HH:mm:ssXXX}t %r %s (%D microseconds)"
+
+jwt:
+  secret: ${JWT_SECRET}
+
+logging:
+  level:
+    root: WARN
+    org.springframework.web: ERROR
+    org.hibernate: ERROR
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+###################################################################### VARIABLES ######################################################################
+sms:
+  mellipayamak:
+    username: your-username
+    password: your-password
+    from: your-from-number

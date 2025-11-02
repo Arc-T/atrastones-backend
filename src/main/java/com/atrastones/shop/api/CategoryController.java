@@ -1,0 +1,52 @@
+package com.atrastones.shop.api;
+
+import com.atrastones.shop.dto.CategoryDTO;
+import com.atrastones.shop.model.service.contract.CategoryService;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+@RequestMapping(path = "/categories")
+public class CategoryController {
+
+    private final CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> readAll() {
+        return ResponseEntity.ok(categoryService.getAll());
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<CategoryDTO>> readAllPageable(Pageable pageable) {
+        return ResponseEntity.ok(categoryService.getAllPageable(pageable));
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDTO> create(@Valid @RequestBody CategoryDTO category) {
+        return ResponseEntity.created(URI.create("/categories/" + categoryService.save(category)))
+                .build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody CategoryDTO category) {
+        categoryService.edit(id, category);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        categoryService.remove(id);
+        return ResponseEntity.noContent().build();
+    }
+
+}

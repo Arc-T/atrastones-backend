@@ -1,0 +1,215 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-16
+      author: taha
+      changes:
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: "حلقه طلا با الماس"
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: shop_id
+                  value: 1
+              - column:
+                  name: quantity
+                  value: 5
+              - column:
+                  name: price
+                  value: 15000000
+              - column:
+                  name: discount_id
+                  value: null
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: discount_amount
+                  value: 1000000
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: description
+                  value: "حلقه طلای 18 عیار با الماس 0.5 قیراط، طراحی کلاسیک و شیک"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:56:00"
+              - column:
+                  name: updated_at
+                  value: null
+              - column:
+                  name: deleted_at
+                  value: null
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: "گردنبند نقره با یاقوت"
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: shop_id
+                  value: 1
+              - column:
+                  name: quantity
+                  value: 3
+              - column:
+                  name: price
+                  value: 8000000
+              - column:
+                  name: discount_id
+                  value: null
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: discount_amount
+                  value: 500000
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: description
+                  value: "گردنبند نقره با نگین یاقوت قرمز، مناسب برای استفاده روزمره"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:57:00"
+              - column:
+                  name: updated_at
+                  value: null
+              - column:
+                  name: deleted_at
+                  value: null
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: "دستبند استیل با زمرد"
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: shop_id
+                  value: 1
+              - column:
+                  name: quantity
+                  value: 8
+              - column:
+                  name: price
+                  value: 12000000
+              - column:
+                  name: discount_id
+                  value: null
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: discount_amount
+                  value: null
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: description
+                  value: "دستبند استیل ضدزنگ با زمرد سبز طبیعی، سبک و مقاوم"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:58:00"
+              - column:
+                  name: updated_at
+                  value: null
+              - column:
+                  name: deleted_at
+                  value: null
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: "گوشواره چرم با مروارید"
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: shop_id
+                  value: 1
+              - column:
+                  name: quantity
+                  value: 2
+              - column:
+                  name: price
+                  value: 6000000
+              - column:
+                  name: discount_id
+                  value: 1
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: discount_amount
+                  value: 300000
+              - column:
+                  name: status
+                  value: "OUT_OF_STOCK"
+              - column:
+                  name: description
+                  value: "گوشواره با بند چرم و مروارید سفید، طراحی مدرن و هنری"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 11:59:00"
+              - column:
+                  name: updated_at
+                  value: null
+              - column:
+                  name: deleted_at
+                  value: null
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: name
+                  value: "انگشتر تیتانیوم با عقیق"
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: shop_id
+                  value: 1
+              - column:
+                  name: quantity
+                  value: 4
+              - column:
+                  name: price
+                  value: 9000000
+              - column:
+                  name: discount_id
+                  value: null
+              - column:
+                  name: service_group_id
+                  value: 1
+              - column:
+                  name: discount_amount
+                  value: null
+              - column:
+                  name: status
+                  value: "INACTIVE"
+              - column:
+                  name: description
+                  value: "انگشتر تیتانیوم سبک با نگین عقیق قهوه‌ای، ایده‌آل برای مردان"
+              - column:
+                  name: created_at
+                  value: "2025-09-22 12:00:00"
+              - column:
+                  name: updated_at
+                  value: null
+              - column:
+                  name: deleted_at
+                  value: null

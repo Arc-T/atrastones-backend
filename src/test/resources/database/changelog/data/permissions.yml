@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-13
+      author: taha
+      changes:
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: ALL_PERMISSIONS
+              - column:
+                  name: description
+                  value: exclusive permission only for super admin role to access everything(only for programmer)

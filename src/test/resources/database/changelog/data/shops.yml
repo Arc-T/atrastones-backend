@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1758107172817-4
+      author: taha
+      changes:
+        - insert:
+            tableName: shops
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: name
+                  value: دستسازه های سنگی آترا
+              - column:
+                  name: phone
+                  value: 361629708
+              - column:
+                  name: address_id
+                  value: 1
+              - column:
+                  name: status
+                  value: PENDING
+              - column:
+                  name: description
+                  value: A family-owned bakery specializing in artisan breads and pastries since 1995. We use only the finest organic ingredients.
+              - column:
+                  name: created_at
+                  value: 2023-05-15 09:30:00

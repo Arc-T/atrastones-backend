@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 19
+      author: taha
+      changes:
+        - createTable:
+            tableName: services
+            comment: Stores services with costs in Toman
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cost
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                  remarks: Cost in Toman
+              - column:
+                  name: service_group_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_services_group
+                    references: service_groups(id)
+                    deleteRestrict: true
+                    updateRestrict: true
+              - column:
+                  name: description
+                  type: ${medium_text.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: deleted_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+            indexes:
+              - index:
+                  name: idx_services_group
+                  columns:
+                    - column:
+                        name: service_group_id
+              - index:
+                  name: idx_services_deleted_at
+                  columns:
+                    - column:
+                        name: deleted_at
