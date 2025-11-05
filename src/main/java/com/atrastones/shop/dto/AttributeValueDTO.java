@@ -1,5 +1,6 @@
 package com.atrastones.shop.dto;
 
+import com.atrastones.shop.model.entity.AttributeValue;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
@@ -16,5 +17,20 @@ public class AttributeValueDTO {
     String value;
 
     LocalDateTime createdAt;
+
+    public static AttributeValueDTO toDTO(AttributeValue attributeValue) {
+        return AttributeValueDTO.builder()
+                .id(attributeValue.getId())
+                .value(attributeValue.getValue())
+                .build();
+    }
+
+    public static AttributeValueDTO toFullDTO(AttributeValue attributeValue) {
+        return AttributeValueDTO.builder()
+                .id(attributeValue.getId())
+                .value(attributeValue.getValue())
+                .createdAt(attributeValue.getCreatedAt())
+                .build();
+    }
 
 }

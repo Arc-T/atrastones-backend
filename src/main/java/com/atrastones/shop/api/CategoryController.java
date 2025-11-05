@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/categories")
@@ -19,6 +20,11 @@ public class CategoryController {
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<CategoryDTO>> read(@PathVariable Long id) {
+        return ResponseEntity.ok(categoryService.get(id));
     }
 
     @GetMapping
