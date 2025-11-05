@@ -25,6 +25,9 @@ public class Category {
 
     private String icon;
 
+    @Column(name = "parent_id")
+    private Long parentId;
+
     @Column(name = "display_order")
     private int displayOrder;
 
@@ -41,6 +44,7 @@ public class Category {
     /* **************************** FOREIGN-KEY RELATIONS **********************************/
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private Category parent;
 
     /* ******************************* TABLE RELATIONS ************************************/

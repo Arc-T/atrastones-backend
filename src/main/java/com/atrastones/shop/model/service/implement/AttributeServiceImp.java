@@ -1,7 +1,6 @@
 package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.AttributeDTO;
-import com.atrastones.shop.mapper.contract.AttributeMapper;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.model.service.contract.AttributeService;
 import org.springframework.data.domain.Page;
@@ -17,11 +16,9 @@ import java.util.Optional;
 public class AttributeServiceImp implements AttributeService {
 
     private final AttributeRepository attributeRepository;
-    private final AttributeMapper attributeMapper;
 
-    public AttributeServiceImp(AttributeRepository attributeRepository, AttributeMapper attributeMapper) {
+    public AttributeServiceImp(AttributeRepository attributeRepository) {
         this.attributeRepository = attributeRepository;
-        this.attributeMapper = attributeMapper;
     }
 
     @Override
@@ -54,7 +51,7 @@ public class AttributeServiceImp implements AttributeService {
 
     @Override
     public Page<AttributeDTO> getAllPaginated(Pageable pageable) {
-        return attributeRepository.getAllPaginated(pageable).map(attributeMapper::toFullDTO);
+        return attributeRepository.getAllPaginated(pageable).map(AttributeDTO::toFullDTO);
     }
 
     @Override

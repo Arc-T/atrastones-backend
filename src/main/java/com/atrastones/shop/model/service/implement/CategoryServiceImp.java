@@ -1,13 +1,13 @@
 package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.CategoryDTO;
-import com.atrastones.shop.mapper.contract.CategoryMapper;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
 import com.atrastones.shop.model.service.contract.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,30 +17,28 @@ import java.util.Optional;
 public class CategoryServiceImp implements CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final CategoryMapper categoryMapper;
 
-    public CategoryServiceImp(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
+    public CategoryServiceImp(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.categoryMapper = categoryMapper;
     }
 
     @Override
     public Optional<CategoryDTO> get(Long id) {
-        return Optional.empty();
+        return categoryRepository.get(id).map(CategoryDTO::toEntity);
     }
 
     @Override
     public List<CategoryDTO> getAll() {
         return categoryRepository.getAll()
                 .stream()
-                .map(categoryMapper::toDTO)
+                .map(CategoryDTO::toEntity)
                 .toList();
     }
 
     @Override
     public Page<CategoryDTO> getAllPageable(Pageable pageable) {
         return categoryRepository.getAllPaginated(pageable)
-                .map(categoryMapper::toDTO);
+                .map(CategoryDTO::toFullDTO);
     }
 
     @Override
@@ -54,16 +52,19 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         categoryRepository.delete(id);
     }
 
     @Override
+    @Transactional
     public Long save(CategoryDTO category) {
         return categoryRepository.create(category);
     }
 
     @Override
+    @Transactional
     public void edit(Long id, CategoryDTO category) {
         categoryRepository.update(id, category);
     }
