@@ -1,10 +1,12 @@
 package com.atrastones.shop.model.repository.implement;
 
+import com.atrastones.shop.api.CategoryFilter;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.entity.Category;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -110,7 +112,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
     }
 
     @Override
-    public List<Category> getAll() {
+    public List<Category> getAll(CategoryFilter filter) {
 
         String SELECT_CATEGORY_HQL = """
                 SELECT c FROM Category c
@@ -120,21 +122,28 @@ public class CategoryRepositoryImp implements CategoryRepository {
     }
 
     @Override
-    public Page<Category> getAllPaginated(Pageable pageable) {
+    public Page<Category> getAllPaginated(Pageable pageable, CategoryFilter filter) {
 
-        String SELECT_CATEGORIES_HQL = """
-                SELECT c FROM Category c
-                """;
+        StringBuilder jpql = new StringBuilder("SELECT c FROM Category c WHERE 1=1");
 
-        return PageableExecutionUtils.getPage(
-                entityManager.createQuery(SELECT_CATEGORIES_HQL, Category.class)
-                        .setFirstResult((int) pageable.getOffset())
-                        .setMaxResults(pageable.getPageSize())
-                        .getResultList(),
-                pageable,
-                this::count
-        );
+        if (Boolean.TRUE.equals(filter.getOnlyChildren()))
+            jpql.append(" AND c.parentId IS NOT NULL");
 
+        else if (Boolean.TRUE.equals(filter.getOnlyParents()))
+            jpql.append(" AND c.parentId IS NULL");
+
+        if (filter.getName() != null)
+            jpql.append(" AND LOWER(c.name) LIKE LOWER(:name)");
+
+        TypedQuery<Category> query = entityManager.createQuery(jpql.toString(), Category.class);
+
+        if (filter.getName() != null)
+            query.setParameter("name", "%" + filter.getName() + "%");
+
+        query.setFirstResult((int) pageable.getOffset());
+        query.setMaxResults(pageable.getPageSize());
+
+        return PageableExecutionUtils.getPage(query.getResultList(), pageable, this::count);
     }
 
     // -------------------------------------- OPERATION --------------------------------------

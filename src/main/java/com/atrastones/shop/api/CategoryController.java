@@ -28,13 +28,13 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> readAll() {
-        return ResponseEntity.ok(categoryService.getAll());
+    public ResponseEntity<List<CategoryDTO>> readAll(CategoryFilter filter) {
+        return ResponseEntity.ok(categoryService.getAll(filter));
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<CategoryDTO>> readAllPageable(Pageable pageable) {
-        return ResponseEntity.ok(categoryService.getAllPageable(pageable));
+    public ResponseEntity<Page<CategoryDTO>> readAllPageable(Pageable pageable, CategoryFilter filter) {
+        return ResponseEntity.ok(categoryService.getAllPageable(pageable, filter));
     }
 
     @PostMapping
