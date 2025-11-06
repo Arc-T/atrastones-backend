@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.contract;
 
-import com.atrastones.shop.api.CategoryFilter;
+import com.atrastones.shop.api.filter.CategoryFilter;
 import com.atrastones.shop.dto.CategoryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

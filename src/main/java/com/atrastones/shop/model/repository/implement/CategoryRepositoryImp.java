@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.api.CategoryFilter;
+import com.atrastones.shop.api.filter.CategoryFilter;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.entity.Category;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -113,37 +114,18 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
     @Override
     public List<Category> getAll(CategoryFilter filter) {
-
-        String SELECT_CATEGORY_HQL = """
-                SELECT c FROM Category c
-                """;
-
-        return entityManager.createQuery(SELECT_CATEGORY_HQL, Category.class).getResultList();
+        return buildCategoryQueryWithFilters(filter).getResultList();
     }
 
     @Override
     public Page<Category> getAllPaginated(Pageable pageable, CategoryFilter filter) {
 
-        StringBuilder jpql = new StringBuilder("SELECT c FROM Category c WHERE 1=1");
+        List<Category> categories = buildCategoryQueryWithFilters(filter)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
 
-        if (Boolean.TRUE.equals(filter.getOnlyChildren()))
-            jpql.append(" AND c.parentId IS NOT NULL");
-
-        else if (Boolean.TRUE.equals(filter.getOnlyParents()))
-            jpql.append(" AND c.parentId IS NULL");
-
-        if (filter.getName() != null)
-            jpql.append(" AND LOWER(c.name) LIKE LOWER(:name)");
-
-        TypedQuery<Category> query = entityManager.createQuery(jpql.toString(), Category.class);
-
-        if (filter.getName() != null)
-            query.setParameter("name", "%" + filter.getName() + "%");
-
-        query.setFirstResult((int) pageable.getOffset());
-        query.setMaxResults(pageable.getPageSize());
-
-        return PageableExecutionUtils.getPage(query.getResultList(), pageable, this::count);
+        return PageableExecutionUtils.getPage(categories, pageable, categories::size);
     }
 
     // -------------------------------------- OPERATION --------------------------------------
@@ -171,6 +153,44 @@ public class CategoryRepositoryImp implements CategoryRepository {
                 .param("id", id)
                 .query(Boolean.class)
                 .single();
+    }
+
+    // -------------------------------------- HELPERS --------------------------------------
+
+    /**
+     * Builds a {@link TypedQuery} for fetching {@link Category} entities
+     * based on the optional filters provided in {@link CategoryFilter}.
+     * <p>
+     * The resulting query supports the following filters:
+     * <ul>
+     *     <li><b>name</b> → performs a case-insensitive partial match on the category name</li>
+     *     <li><b>onlyParents</b> → selects categories without a parent (null parentId)</li>
+     *     <li><b>onlyChildren</b> → selects categories that have a parent (non-null parentId)</li>
+     * </ul>
+     *
+     * @param filter contains optional filter fields used to refine the query
+     * @return a {@link TypedQuery} ready for execution (parameters already set)
+     */
+    private TypedQuery<Category> buildCategoryQueryWithFilters(CategoryFilter filter) {
+        // Base HQL query — always valid since WHERE 1=1 allows dynamic appending of conditions
+        StringBuilder hql = new StringBuilder("SELECT c FROM Category c WHERE 1=1");
+        // Filter for categories that are only children or only parents
+        if (Boolean.TRUE.equals(filter.onlyChildren())) {
+            hql.append(" AND c.parentId IS NOT NULL");
+        } else if (Boolean.TRUE.equals(filter.onlyParents())) {
+            hql.append(" AND c.parentId IS NULL");
+        }
+        // Filter by name (case-insensitive, partial match)
+        if (StringUtils.hasText(filter.name())) {
+            hql.append(" AND LOWER(c.name) LIKE LOWER(:name)");
+        }
+        // Create the typed query from EntityManager
+        TypedQuery<Category> query = entityManager.createQuery(hql.toString(), Category.class);
+        // Bind parameters safely (only if name filter is present)
+        if (StringUtils.hasText(filter.name()))
+            query.setParameter("name", "%" + filter.name().trim() + "%");
+
+        return query;
     }
 
 }

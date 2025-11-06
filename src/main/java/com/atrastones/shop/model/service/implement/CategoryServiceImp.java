@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.implement;
 
-import com.atrastones.shop.api.CategoryFilter;
+import com.atrastones.shop.api.filter.CategoryFilter;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
 import com.atrastones.shop.model.service.contract.CategoryService;
