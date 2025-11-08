@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.service.implement;
 
+import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.*;
-import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
 import com.atrastones.shop.model.service.contract.ProductService;
 import org.springframework.data.domain.Page;
@@ -41,13 +41,13 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getAllListed() {
+    public List<ProductDTO> getAll(ProductFilter filter) {
         return List.of();
     }
 
     @Override
-    public Page<ProductDTO> getAllPaginated(Pageable pageable) {
-        return productRepository.getAllPaginated(pageable).map(this::toDTO);
+    public Page<ProductDTO> getAllPaginated(Pageable pageable, ProductFilter filter) {
+        return productRepository.getAllPaginated(pageable, filter).map(ProductDTO::toDTO);
     }
 
     @Override
@@ -95,25 +95,6 @@ public class ProductServiceImp implements ProductService {
     @Override
     public boolean exists(Long id) {
         return false;
-    }
-
-    private ProductDTO toDTO(Product product) {
-
-        return ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .categoryId(product.getCategory().getId())
-                .shopId(product.getShop().getId())
-                .quantity(product.getQuantity())
-                .price(product.getPrice())
-//                .discountId(product.getDiscount().getId())
-//                .discountAmount(product.getDiscount().getAmount())
-                .status(product.getStatus())
-                .description(product.getDescription())
-                .createdAt(product.getCreatedAt())
-                .updatedAt(product.getUpdatedAt())
-                .build();
-
     }
 
 }

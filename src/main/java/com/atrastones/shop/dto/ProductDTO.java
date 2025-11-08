@@ -1,5 +1,6 @@
 package com.atrastones.shop.dto;
 
+import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.type.ProductStatus;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -44,5 +45,26 @@ public class ProductDTO {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    // ********************** DTOs **********************
+
+    public static ProductDTO toDTO(Product product) {
+
+        return ProductDTO.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .categoryId(product.getCategory().getId())
+                .shopId(product.getShop().getId())
+                .quantity(product.getQuantity())
+                .price(product.getPrice())
+//                .discountId(product.getDiscount().getId())
+//                .discountAmount(product.getDiscount().getAmount())
+                .status(product.getStatus())
+                .description(product.getDescription())
+                .createdAt(product.getCreatedAt())
+                .updatedAt(product.getUpdatedAt())
+                .build();
+
+    }
 
 }

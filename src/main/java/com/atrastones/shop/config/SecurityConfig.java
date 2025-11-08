@@ -3,7 +3,6 @@ package com.atrastones.shop.config;
 import com.atrastones.shop.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -39,7 +38,8 @@ public class SecurityConfig {
                                 "/categories/**",
                                 "/authentication/**",
                                 "/actuator/**",
-                                "/media/**"
+                                "/media/**",
+                                "/products/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

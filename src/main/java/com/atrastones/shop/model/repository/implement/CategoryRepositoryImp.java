@@ -7,6 +7,7 @@ import com.atrastones.shop.model.repository.contract.CategoryRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -23,6 +24,7 @@ import java.util.Optional;
  * Handles CRUD operations for categories. Uses {@link JdbcClient} for simple operations (create, update, delete, exists)
  * for performance, and {@link EntityManager} for select queries to leverage ORM benefits.
  */
+@Slf4j
 @Repository
 public class CategoryRepositoryImp implements CategoryRepository {
 
@@ -172,23 +174,22 @@ public class CategoryRepositoryImp implements CategoryRepository {
      * @return a {@link TypedQuery} ready for execution (parameters already set)
      */
     private TypedQuery<Category> buildCategoryQueryWithFilters(CategoryFilter filter) {
-        // Base HQL query — always valid since WHERE 1=1 allows dynamic appending of conditions
+
         StringBuilder hql = new StringBuilder("SELECT c FROM Category c WHERE 1=1");
-        // Filter for categories that are only children or only parents
-        if (Boolean.TRUE.equals(filter.onlyChildren())) {
+
+        if (Boolean.TRUE.equals(filter.getOnlyChildren()))
             hql.append(" AND c.parentId IS NOT NULL");
-        } else if (Boolean.TRUE.equals(filter.onlyParents())) {
+
+        else if (Boolean.TRUE.equals(filter.getOnlyParents()))
             hql.append(" AND c.parentId IS NULL");
-        }
-        // Filter by name (case-insensitive, partial match)
-        if (StringUtils.hasText(filter.name())) {
+
+        if (StringUtils.hasText(filter.getName()))
             hql.append(" AND LOWER(c.name) LIKE LOWER(:name)");
-        }
-        // Create the typed query from EntityManager
+
         TypedQuery<Category> query = entityManager.createQuery(hql.toString(), Category.class);
-        // Bind parameters safely (only if name filter is present)
-        if (StringUtils.hasText(filter.name()))
-            query.setParameter("name", "%" + filter.name().trim() + "%");
+
+        if (StringUtils.hasText(filter.getName()))
+            query.setParameter("name", "%" + filter.getName().trim() + "%");
 
         return query;
     }

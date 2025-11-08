@@ -1,5 +1,6 @@
 package com.atrastones.shop.api;
 
+import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.service.contract.ProductService;
 import jakarta.validation.Valid;
@@ -9,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/products")
@@ -26,11 +26,9 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.get(id));
     }
 
-    @GetMapping(params = {"categoryId", "attributeIds"})
-    public ResponseEntity<Page<ProductDTO>> readAll(Pageable pageable,
-                                                    @RequestParam(required = false) Long categoryId,
-                                                    @RequestParam(required = false) List<Long> attributeIds) {
-        return ResponseEntity.ok(productService.getAllPaginated(pageable));
+    @GetMapping("/page")
+    public ResponseEntity<Page<ProductDTO>> readAllPaginated(Pageable pageable, ProductFilter filter) {
+        return ResponseEntity.ok(productService.getAllPaginated(pageable, filter));
     }
 
     @PostMapping

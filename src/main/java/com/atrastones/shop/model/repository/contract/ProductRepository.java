@@ -1,5 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
+import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.entity.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -67,9 +68,10 @@ public interface ProductRepository {
      * Retrieves all products paginated, including associated entities.
      *
      * @param pageable the pagination information
+     * @param filter the filters of the products
      * @return a Page of products
      */
-    Page<Product> getAllPaginated(Pageable pageable);
+    Page<Product> getAllPaginated(Pageable pageable, ProductFilter filter);
 
     /**
      * Retrieves all products for a given category ID.

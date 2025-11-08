@@ -29,8 +29,8 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> readAll(CategoryFilter sortParams) {
-        return ResponseEntity.ok(categoryService.getAll(sortParams));
+    public ResponseEntity<List<CategoryDTO>> readAll(CategoryFilter filter) {
+        return ResponseEntity.ok(categoryService.getAll(filter));
     }
 
     @GetMapping("/page")

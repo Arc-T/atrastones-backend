@@ -1,5 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
+import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
@@ -137,7 +138,7 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public Page<Product> getAllPaginated(Pageable pageable) {
+    public Page<Product> getAllPaginated(Pageable pageable, ProductFilter filter) {
 
         String SELECT_ALL_PRODUCTS_HQL = """
                 SELECT p FROM Product p
@@ -145,13 +146,13 @@ public class ProductRepositoryImp implements ProductRepository {
                          JOIN FETCH p.category
                 """;
 
+        List<Product> products = entityManager.createQuery(SELECT_ALL_PRODUCTS_HQL, Product.class)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+
         return PageableExecutionUtils.getPage(
-                entityManager.createQuery(SELECT_ALL_PRODUCTS_HQL, Product.class)
-                        .setFirstResult((int) pageable.getOffset())
-                        .setMaxResults(pageable.getPageSize())
-                        .getResultList(),
-                pageable,
-                this::count
+                products, pageable, products::size
         );
     }
 
