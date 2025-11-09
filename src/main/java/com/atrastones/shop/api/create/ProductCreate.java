@@ -10,9 +10,17 @@ import java.util.List;
 public class ProductCreate {
 
     String name;
+
     BigDecimal price;
+
+    Long quantity;
+
     Long categoryId;
+
     String description;
+
+    Long serviceGroupId;
+
     List<MultipartFile> media;
 
 }

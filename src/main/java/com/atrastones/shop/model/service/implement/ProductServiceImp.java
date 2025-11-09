@@ -34,9 +34,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public Long save(ProductCreate product) {
-        log.info("__________________________________");
-        log.info("Product: {}", product);
-        return 0L;
+        return productRepository.create(product);
     }
 
     @Override

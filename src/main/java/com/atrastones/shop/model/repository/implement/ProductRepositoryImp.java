@@ -1,5 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
+import com.atrastones.shop.api.create.ProductCreate;
 import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.entity.Product;
@@ -35,23 +36,21 @@ public class ProductRepositoryImp implements ProductRepository {
     // ---------------------------- CREATE ----------------------------
 
     @Override
-    public Long create(ProductDTO product) {
+    public Long create(ProductCreate product) {
 
         String INSERT_PRODUCT_SQL = """
-                INSERT INTO products (name, category_id, shop_id, quantity, price, service_group_id, discount_id, discount_amount, description)
-                       VALUES (:name, :category_id, :shop_id, :quantity, :price, :service_group_id, :discount_id, :discount_amount, :description)
+                INSERT INTO products (name, category_id, shop_id, quantity, price, service_group_id, description)
+                       VALUES (:name, :category_id, :shop_id, :quantity, :price, :service_group_id, :description)
                 """;
 
-        return JdbcUtils.insert(
+        JdbcUtils.insert(
                 jdbcClient.sql(INSERT_PRODUCT_SQL)
                         .param("name", product.getName())
                         .param("category_id", product.getCategoryId())
-                        .param("shop_id", product.getShopId())
+                        .param("shop_id", 1) //TODO: this should be get dynamically
                         .param("quantity", product.getQuantity())
                         .param("price", product.getPrice())
                         .param("service_group_id", product.getServiceGroupId())
-                        .param("discount_id", product.getDiscountId())
-                        .param("discount_amount", product.getDiscountAmount())
                         .param("description", product.getDescription())
         );
     }

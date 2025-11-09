@@ -1,5 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
+import com.atrastones.shop.api.create.ProductCreate;
 import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.entity.*;
@@ -21,7 +22,7 @@ public interface ProductRepository {
      * @return the generated ID of the new product
      * @throws RuntimeException if the insert fails
      */
-    Long create(ProductDTO product);
+    Long create(ProductCreate product);
 
     /**
      * Retrieves a product by ID.

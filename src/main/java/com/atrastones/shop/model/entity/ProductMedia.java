@@ -17,6 +17,9 @@ public class ProductMedia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
+    private byte[] content;
+
     private String url;
 
     private String title;
