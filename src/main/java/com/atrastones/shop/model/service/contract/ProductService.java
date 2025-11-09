@@ -1,5 +1,6 @@
 package com.atrastones.shop.model.service.contract;
 
+import com.atrastones.shop.api.create.ProductCreate;
 import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.*;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,7 @@ public interface ProductService {
 
     void remove(Long id);
 
-    Long save(ProductDTO product);
+    Long save(ProductCreate product);
 
     void edit(Long id, ProductDTO product);
 

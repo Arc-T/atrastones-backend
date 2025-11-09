@@ -458,7 +458,8 @@ CREATE TABLE IF NOT EXISTS `media_types`
 CREATE TABLE IF NOT EXISTS `product_media`
 (
     `id`            INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `product_id`    INT          NOT NULL,
+    `product_id`    INT                   DEFAULT NULL,
+    `content`       BLOB,
     `media_type_id` INT          NOT NULL,
     `name`          VARCHAR(50)  NOT NULL COMMENT 'name of the file',
     `url`           VARCHAR(255) NOT NULL COMMENT 'URL to media file',
