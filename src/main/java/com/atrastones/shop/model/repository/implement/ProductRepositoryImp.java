@@ -43,14 +43,14 @@ public class ProductRepositoryImp implements ProductRepository {
                        VALUES (:name, :category_id, :shop_id, :quantity, :price, :service_group_id, :description)
                 """;
 
-        JdbcUtils.insert(
+        return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_PRODUCT_SQL)
                         .param("name", product.getName())
                         .param("category_id", product.getCategoryId())
                         .param("shop_id", 1) //TODO: this should be get dynamically
                         .param("quantity", product.getQuantity())
                         .param("price", product.getPrice())
-                        .param("service_group_id", product.getServiceGroupId())
+                        .param("service_group_id", 1) //TODO: this should be get dynamically
                         .param("description", product.getDescription())
         );
     }
@@ -72,7 +72,7 @@ public class ProductRepositoryImp implements ProductRepository {
                 jdbcClient.sql(UPDATE_PRODUCT_SQL)
                         .param("id", product.getId())
                         .param("name", product.getName())
-                        .param("category_id", product.getCategoryId())
+                        .param("category_id", 1)
                         .param("shop_id", product.getShopId())
                         .param("quantity", product.getQuantity())
                         .param("price", product.getPrice())
@@ -139,20 +139,28 @@ public class ProductRepositoryImp implements ProductRepository {
     @Override
     public Page<Product> getAllPaginated(Pageable pageable, ProductFilter filter) {
 
-        String SELECT_ALL_PRODUCTS_HQL = """
-                SELECT p FROM Product p
-                         JOIN FETCH p.shop
-                         JOIN FETCH p.category
+        String SELECT_PRODUCT_IDS = """
+                SELECT p.id FROM Product p
                 """;
 
-        List<Product> products = entityManager.createQuery(SELECT_ALL_PRODUCTS_HQL, Product.class)
+        List<Long> productIds = entityManager.createQuery(SELECT_PRODUCT_IDS, Long.class)
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
 
-        return PageableExecutionUtils.getPage(
-                products, pageable, products::size
-        );
+        String SELECT_PRODUCT_RELATIONS = """
+                SELECT p FROM Product p
+                         JOIN FETCH p.shop
+                         JOIN FETCH p.category
+                         LEFT JOIN FETCH p.media
+                         WHERE p.id IN :ids
+                """;
+
+        List<Product> products = entityManager.createQuery(SELECT_PRODUCT_RELATIONS, Product.class)
+                .setParameter("ids", productIds)
+                .getResultList();
+
+        return PageableExecutionUtils.getPage(products, pageable, products::size);
     }
 
     @Override

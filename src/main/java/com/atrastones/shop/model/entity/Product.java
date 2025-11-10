@@ -73,7 +73,7 @@ public class Product {
     )
     private Set<Tag> tags;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<ProductMedia> media;
 
     @OneToMany(fetch = FetchType.LAZY)

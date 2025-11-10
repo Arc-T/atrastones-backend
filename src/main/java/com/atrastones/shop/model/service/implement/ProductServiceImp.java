@@ -3,12 +3,15 @@ package com.atrastones.shop.model.service.implement;
 import com.atrastones.shop.api.create.ProductCreate;
 import com.atrastones.shop.api.filter.ProductFilter;
 import com.atrastones.shop.dto.*;
+import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
 import com.atrastones.shop.model.service.contract.ProductService;
+import com.atrastones.shop.utils.MediaUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +21,11 @@ import java.util.Optional;
 public class ProductServiceImp implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMediaRepository productMediaRepository;
 
-    public ProductServiceImp(ProductRepository productRepository) {
+    public ProductServiceImp(ProductRepository productRepository, ProductMediaRepository productMediaRepository) {
         this.productRepository = productRepository;
+        this.productMediaRepository = productMediaRepository;
     }
 
     @Override
@@ -33,8 +38,16 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    @Transactional
     public Long save(ProductCreate product) {
-        return productRepository.create(product);
+        long createdProductId = productRepository.create(product);
+        if (product.getMedia() != null && !product.getMedia().isEmpty()) {
+            List<Long> insertedMedia = productMediaRepository.createBatch(
+                    MediaUtils.uploadProductMedia(createdProductId, product.getMedia()));
+            if (insertedMedia.isEmpty() || insertedMedia.size() != product.getMedia().size())
+                throw new RuntimeException("Media Inserted Problem");//TODO: error name
+        }
+        return createdProductId;
     }
 
     @Override

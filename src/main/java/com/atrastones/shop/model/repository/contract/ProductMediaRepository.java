@@ -3,18 +3,20 @@ package com.atrastones.shop.model.repository.contract;
 import com.atrastones.shop.dto.ProductMediaDTO;
 import jakarta.persistence.EntityNotFoundException;
 
+import java.util.List;
+
 public interface ProductMediaRepository {
 
     // ---------------------------------- CREATE ----------------------------------
 
     /**
-     * Creates a new media and returns its generated ID.
+     * Inserts a new product media record into the database and returns its generated ID.
      *
-     * @param productMedia the productMedia data to create
-     * @return the generated ID of the new media
+     * @param productMedia the product media data to insert; must not be null
+     * @return the generated ID of the newly created media record
      * @throws RuntimeException if the insert fails
      */
-    Long create(ProductMediaDTO productMedia);
+    List<Long> createBatch(List<ProductMediaDTO> productMedia);
 
     // ---------------------------------- UPDATE ----------------------------------
 

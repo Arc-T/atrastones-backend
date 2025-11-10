@@ -19,6 +19,8 @@ spring:
   web:
     locale: fa_IR
     locale-resolver: accept_header
+    resources:
+      static-locations: file:uploads/
 
   messages:
     basename: i18n/messages
@@ -31,7 +33,6 @@ spring:
       max-request-size: 30MB
 
   jackson:
-    property-naming-strategy: SNAKE_CASE
     default-property-inclusion: NON_NULL
 
   datasource:

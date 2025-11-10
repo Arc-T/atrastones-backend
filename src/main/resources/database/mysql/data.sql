@@ -144,3 +144,13 @@ INSERT INTO `attribute_values_map` (`attribute_id`, `attribute_value_id`)
 VALUES (1, 1),
        (1, 2),
        (1, 3);
+
+INSERT INTO `media_types` (`name`, `description`)
+VALUES ('IMAGE', 'Standard image file (JPEG, PNG, GIF)'),
+       ('VIDEO', 'Video file (MP4, AVI, MOV)'),
+       ('PDF', 'PDF document file'),
+       ('AUDIO', 'Audio file (MP3, WAV)'),
+       ('ICON', 'Small icon image used for UI elements'),
+       ('THUMBNAIL', 'Thumbnail image for previews'),
+       ('DOCUMENT', 'Other document types, e.g., DOCX, XLSX'),
+       ('SVG', 'Vector graphic in SVG format');

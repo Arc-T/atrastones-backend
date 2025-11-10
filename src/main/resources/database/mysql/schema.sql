@@ -458,14 +458,13 @@ CREATE TABLE IF NOT EXISTS `media_types`
 CREATE TABLE IF NOT EXISTS `product_media`
 (
     `id`            INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `product_id`    INT                   DEFAULT NULL,
-    `content`       BLOB,
+    `product_id`    INT          NOT NULL,
     `media_type_id` INT          NOT NULL,
-    `name`          VARCHAR(50)  NOT NULL COMMENT 'name of the file',
     `url`           VARCHAR(255) NOT NULL COMMENT 'URL to media file',
     `display_order` INT          NOT NULL DEFAULT 0,
     `extension`     VARCHAR(10)  NOT NULL,
     `created_at`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX `idx_media_url` (`url`),
     INDEX `idx_media_product` (`product_id`),
     INDEX `idx_media_type` (`media_type_id`),
     CONSTRAINT `fk_media_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,

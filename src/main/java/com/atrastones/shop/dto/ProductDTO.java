@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,8 +20,6 @@ public class ProductDTO {
 
     @NotNull
     private String name;
-
-    private Long categoryId;
 
     private Long shopId;
 
@@ -46,17 +45,25 @@ public class ProductDTO {
 
     private LocalDateTime updatedAt;
 
-    // ********************** DTOs **********************
+    // ********************** RELATIONS **********************
+
+    private CategoryDTO category;
+
+    private List<ProductMediaDTO> media;
+
+    // ********************** DTO **********************
 
     public static ProductDTO toDTO(Product product) {
 
         return ProductDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .categoryId(product.getCategory().getId())
                 .shopId(product.getShop().getId())
                 .quantity(product.getQuantity())
                 .price(product.getPrice())
+                .media(product.getMedia().stream().map(ProductMediaDTO::toDTO).toList())
+                .category(CategoryDTO.toEntity(product.getCategory()))
+
 //                .discountId(product.getDiscount().getId())
 //                .discountAmount(product.getDiscount().getAmount())
                 .status(product.getStatus())

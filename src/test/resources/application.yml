@@ -19,9 +19,6 @@ spring:
     hibernate:
       ddl-auto: none  # Prevent Hibernate from managing schema
 
-  jackson:
-    property-naming-strategy: SNAKE_CASE
-
   sql:
     init:
       mode: never  # Disable spring.sql.init to avoid conflicts with Liquibase

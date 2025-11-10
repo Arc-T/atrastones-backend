@@ -4,35 +4,30 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "product_media")
-public class ProductMedia {
+@Table(name = "media_types")
+public class MediaType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    private String name;
 
-    private Integer displayOrder;
-
-    private String extension;
+    private String description;
 
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    /* **************************** FOREIGN-KEY RELATIONS **********************************/
-
-    @ManyToOne
-    private Product product;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private MediaType mediaType;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
 }

@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManager;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ProductMediaRepositoryImp implements ProductMediaRepository {
 
@@ -21,20 +23,23 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
     // ------------------------------------ CREATE ------------------------------------
 
     @Override
-    public Long create(ProductMediaDTO productMedia) {
+    public List<Long> createBatch(List<ProductMediaDTO> productMedias) {
 
         String INSERT_PRODUCT_MEDIA_SQL = """
-                INSERT INTO product_media ("product_id", "media_type_id", "url", "display_order", "extension")
+                INSERT INTO product_media (product_id, media_type_id, url, display_order, extension)
                        VALUES (:product_id, :media_type_id, :url, :display_order, :extension)
                 """;
 
-        return JdbcUtils.insert(
-                jdbcClient.sql(INSERT_PRODUCT_MEDIA_SQL)
-                        .param("product_id", productMedia.getProductId())
-                        .param("media_type_id", productMedia.getMediaTypeId())
-                        .param("url", productMedia.getUrl())
-                        .param("display_order", productMedia.getDisplayOrder())
-                        .param("extension", productMedia.getExtension())
+        return JdbcUtils.insertBatch(
+                productMedias.stream()
+                        .map(media -> jdbcClient.sql(INSERT_PRODUCT_MEDIA_SQL)
+                                .param("product_id", media.getProductId())
+                                .param("media_type_id", 1)
+                                .param("url", media.getUrl())
+                                .param("display_order", media.getDisplayOrder())
+                                .param("extension", media.getExtension())
+                        )
+                        .toList()
         );
     }
 
@@ -52,7 +57,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_PRODUCT_MEDIA_SQL)
                         .param("product_id", productMedia.getProductId())
-                        .param("media_type_id", productMedia.getMediaTypeId())
+                        .param("media_type_id", 1)
                         .param("url", productMedia.getUrl())
                         .param("display_order", productMedia.getDisplayOrder())
                         .param("extension", productMedia.getExtension())
