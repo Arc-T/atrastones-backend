@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.api.filter.CategoryFilter;
+import com.atrastones.shop.api.search.CategorySearch;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.entity.Category;
 import jakarta.persistence.EntityNotFoundException;
@@ -60,19 +60,19 @@ public interface CategoryRepository {
     /**
      * Retrieves all categories, including fetched associations.
      *
-     * @param filter key-value params for filtering categories
+     * @param search key-value params for filtering categories
      * @return a List of categories
      */
-    List<Category> getAll(CategoryFilter filter);
+    List<Category> getAll(CategorySearch search);
 
     /**
      * Retrieves all categories paginated, including fetched associations.
      *
-     * @param filter key-value params for filtering categories
+     * @param search key-value params for filtering categories
      * @param pageable   the pagination information
      * @return a Page of categories
      */
-    Page<Category> getAllPaginated(Pageable pageable, CategoryFilter filter);
+    Page<Category> getAllPaginated(Pageable pageable, CategorySearch search);
 
     // -------------------------------------- OPERATIONS --------------------------------------
 

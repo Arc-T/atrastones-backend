@@ -1,6 +1,6 @@
 package com.atrastones.shop.api;
 
-import com.atrastones.shop.api.filter.CategoryFilter;
+import com.atrastones.shop.api.search.CategorySearch;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.service.contract.CategoryService;
 import jakarta.validation.Valid;
@@ -29,12 +29,12 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> readAll(CategoryFilter filter) {
+    public ResponseEntity<List<CategoryDTO>> readAll(CategorySearch filter) {
         return ResponseEntity.ok(categoryService.getAll(filter));
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<CategoryDTO>> readAllPageable(Pageable pageable, CategoryFilter filter) {
+    public ResponseEntity<Page<CategoryDTO>> readAllPageable(Pageable pageable, CategorySearch filter) {
         return ResponseEntity.ok(categoryService.getAllPageable(pageable, filter));
     }
 

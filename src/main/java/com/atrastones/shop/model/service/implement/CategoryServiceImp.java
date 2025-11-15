@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.implement;
 
-import com.atrastones.shop.api.filter.CategoryFilter;
+import com.atrastones.shop.api.search.CategorySearch;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
 import com.atrastones.shop.model.service.contract.CategoryService;
@@ -29,7 +29,7 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public List<CategoryDTO> getAll(CategoryFilter filter) {
+    public List<CategoryDTO> getAll(CategorySearch filter) {
         return categoryRepository.getAll(filter)
                 .stream()
                 .map(CategoryDTO::toEntity)
@@ -37,7 +37,7 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public Page<CategoryDTO> getAllPageable(Pageable pageable, CategoryFilter filter) {
+    public Page<CategoryDTO> getAllPageable(Pageable pageable, CategorySearch filter) {
         return categoryRepository.getAllPaginated(pageable, filter)
                 .map(CategoryDTO::toFullDTO);
     }

@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.contract;
 
-import com.atrastones.shop.api.filter.CategoryFilter;
+import com.atrastones.shop.api.search.CategorySearch;
 import com.atrastones.shop.dto.CategoryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,9 +14,9 @@ public interface CategoryService {
 
     Optional<CategoryDTO> get(Long id);
 
-    List<CategoryDTO> getAll(CategoryFilter filter);
+    List<CategoryDTO> getAll(CategorySearch filter);
 
-    Page<CategoryDTO> getAllPageable(Pageable pageable, CategoryFilter filter);
+    Page<CategoryDTO> getAllPageable(Pageable pageable, CategorySearch filter);
 
     CategoryDTO getAttributesAndValues(Long id);
 

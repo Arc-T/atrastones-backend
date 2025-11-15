@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.service.contract;
 
 import com.atrastones.shop.api.create.ProductCreate;
-import com.atrastones.shop.api.filter.ProductFilter;
+import com.atrastones.shop.api.search.ProductSearch;
 import com.atrastones.shop.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +21,9 @@ public interface ProductService {
 
     Optional<ProductDTO> get(Long id);
 
-    List<ProductDTO> getAll(ProductFilter filter);
+    List<ProductDTO> getAll(ProductSearch filter);
 
-    Page<ProductDTO> getAllPaginated(Pageable pageable, ProductFilter filter);
+    Page<ProductDTO> getAllPaginated(Pageable pageable, ProductSearch filter);
 
     List<ProductDTO> getProductsInfoByIds(List<Long> ids); //TODO:list input
 

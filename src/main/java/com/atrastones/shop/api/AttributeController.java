@@ -19,7 +19,7 @@ public class AttributeController {
         this.attributeService = attributeService;
     }
 
-    @GetMapping
+    @GetMapping("/page")
     public ResponseEntity<Page<AttributeDTO>> readAllPageable(Pageable pageable) {
         return ResponseEntity.ok(attributeService.getAllPaginated(pageable));
     }

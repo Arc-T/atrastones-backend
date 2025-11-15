@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.api.create.ProductCreate;
-import com.atrastones.shop.api.filter.ProductFilter;
+import com.atrastones.shop.api.search.ProductSearch;
 import com.atrastones.shop.dto.*;
 import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
@@ -56,12 +56,12 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getAll(ProductFilter filter) {
+    public List<ProductDTO> getAll(ProductSearch filter) {
         return List.of();
     }
 
     @Override
-    public Page<ProductDTO> getAllPaginated(Pageable pageable, ProductFilter filter) {
+    public Page<ProductDTO> getAllPaginated(Pageable pageable, ProductSearch filter) {
         return productRepository.getAllPaginated(pageable, filter).map(ProductDTO::toDTO);
     }
 

@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.repository.implement;
 
 import com.atrastones.shop.api.create.ProductCreate;
-import com.atrastones.shop.api.filter.ProductFilter;
+import com.atrastones.shop.api.search.ProductSearch;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
@@ -137,7 +137,7 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public Page<Product> getAllPaginated(Pageable pageable, ProductFilter filter) {
+    public Page<Product> getAllPaginated(Pageable pageable, ProductSearch filter) {
 
         String SELECT_PRODUCT_IDS = """
                 SELECT p.id FROM Product p

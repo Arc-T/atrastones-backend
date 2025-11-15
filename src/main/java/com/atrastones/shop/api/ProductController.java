@@ -1,7 +1,7 @@
 package com.atrastones.shop.api;
 
 import com.atrastones.shop.api.create.ProductCreate;
-import com.atrastones.shop.api.filter.ProductFilter;
+import com.atrastones.shop.api.search.ProductSearch;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.service.contract.ProductService;
 import jakarta.validation.Valid;
@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<ProductDTO>> readAllPaginated(Pageable pageable, ProductFilter filter) {
+    public ResponseEntity<Page<ProductDTO>> readAllPaginated(Pageable pageable, ProductSearch filter) {
         return ResponseEntity.ok(productService.getAllPaginated(pageable, filter));
     }
 

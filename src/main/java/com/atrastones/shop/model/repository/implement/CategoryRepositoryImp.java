@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.api.filter.CategoryFilter;
+import com.atrastones.shop.api.search.CategorySearch;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.entity.Category;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
@@ -115,14 +115,14 @@ public class CategoryRepositoryImp implements CategoryRepository {
     }
 
     @Override
-    public List<Category> getAll(CategoryFilter filter) {
-        return buildCategoryQueryWithFilters(filter).getResultList();
+    public List<Category> getAll(CategorySearch search) {
+        return buildCategoryQueryWithFilters(search).getResultList();
     }
 
     @Override
-    public Page<Category> getAllPaginated(Pageable pageable, CategoryFilter filter) {
+    public Page<Category> getAllPaginated(Pageable pageable, CategorySearch search) {
 
-        List<Category> categories = buildCategoryQueryWithFilters(filter)
+        List<Category> categories = buildCategoryQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
@@ -161,7 +161,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
     /**
      * Builds a {@link TypedQuery} for fetching {@link Category} entities
-     * based on the optional filters provided in {@link CategoryFilter}.
+     * based on the optional filters provided in {@link CategorySearch}.
      * <p>
      * The resulting query supports the following filters:
      * <ul>
@@ -173,7 +173,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
      * @param filter contains optional filter fields used to refine the query
      * @return a {@link TypedQuery} ready for execution (parameters already set)
      */
-    private TypedQuery<Category> buildCategoryQueryWithFilters(CategoryFilter filter) {
+    private TypedQuery<Category> buildCategoryQueryWithFilters(CategorySearch filter) {
 
         StringBuilder hql = new StringBuilder("SELECT c FROM Category c WHERE 1=1");
 

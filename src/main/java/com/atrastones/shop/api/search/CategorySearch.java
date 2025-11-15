@@ -1,9 +1,9 @@
-package com.atrastones.shop.api.filter;
+package com.atrastones.shop.api.search;
 
 import lombok.Value;
 
 @Value
-public class CategoryFilter {
+public class CategorySearch {
 
     String name;
     Boolean onlyParents;
