@@ -26,7 +26,7 @@ public class AttributeServiceImp implements AttributeService {
 
     @Override
     @Transactional
-    public void remove(Long id) {
+    public void delete(Long id) {
         attributeRepository.delete(id);
     }
 
@@ -38,7 +38,7 @@ public class AttributeServiceImp implements AttributeService {
 
     @Override
     @Transactional
-    public void edit(Long id, AttributeDTO attribute) {
+    public void update(Long id, AttributeDTO attribute) {
         attributeRepository.update(id, attribute);
     }
 

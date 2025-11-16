@@ -44,13 +44,13 @@ public class AttributeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        attributeService.remove(id);
+        attributeService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody AttributeDTO attributeDTO) {
-        attributeService.edit(id, attributeDTO);
+        attributeService.update(id, attributeDTO);
         return ResponseEntity.ok().build();
     }
 

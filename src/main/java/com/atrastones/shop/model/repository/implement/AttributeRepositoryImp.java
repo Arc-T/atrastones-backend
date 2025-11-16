@@ -73,7 +73,7 @@ public class AttributeRepositoryImp implements AttributeRepository {
                         .param("id", id)
                         .param("name", attribute.getName())
                         .param("category_id", attribute.getCategoryId())
-                        .param("type", attribute.getType())
+                        .param("type", "TEXT") //TODO: this should be dynamic
                         .param("is_filterable", attribute.getIsFilterable()),
                 "ATTRIBUTE.ID.INVALID"
         );

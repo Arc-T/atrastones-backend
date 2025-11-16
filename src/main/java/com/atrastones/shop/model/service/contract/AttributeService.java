@@ -6,17 +6,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AttributeService {
 
     /* ******************************** CRUD ******************************** */
 
-    void remove(Long id);
+    void delete(Long id);
 
     Long save(AttributeDTO attribute);
 
-    void edit(Long id, AttributeDTO attribute);
+    void update(Long id, AttributeDTO attribute);
 
     AttributeDTO get(Long id);
 
