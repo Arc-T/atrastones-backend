@@ -1,16 +1,22 @@
 package com.atrastones.shop.model.repository.implement;
 
+import com.atrastones.shop.api.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
 import com.atrastones.shop.model.entity.Attribute;
+import com.atrastones.shop.model.entity.Category;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,14 +103,39 @@ public class AttributeRepositoryImp implements AttributeRepository {
         String SELECT_ATTRIBUTE_HQL = """
                 SELECT a FROM Attribute a
                          JOIN FETCH a.category
-                         JOIN FETCH a.attributeValuesMap
+                         LEFT JOIN FETCH a.attributeValuesPivot
                          WHERE a.id = :id
                 """;
 
-        return Optional.ofNullable(
-                entityManager.createQuery(SELECT_ATTRIBUTE_HQL, Attribute.class)
-                        .setParameter("id", id)
-                        .getSingleResult());
+        return entityManager.createQuery(SELECT_ATTRIBUTE_HQL, Attribute.class)
+                .setParameter("id", id)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
+
+    @Override
+    public List<Attribute> getAll(AttributeSearch search) {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Attribute> criteriaQuery = criteriaBuilder.createQuery(Attribute.class);
+
+        Root<Attribute> root = criteriaQuery.from(Attribute.class);
+        root.fetch("category", JoinType.INNER);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (StringUtils.hasText(search.name())) {
+            String pattern = "%" + search.name().trim().toLowerCase() + "%";
+            Predicate namePredicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), pattern);
+            predicates.add(namePredicate);
+        }
+
+        if (!predicates.isEmpty())
+            criteriaQuery.where(predicates.toArray(new Predicate[0]));
+
+        TypedQuery<Attribute> query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
     }
 
     @Override
@@ -180,6 +211,38 @@ public class AttributeRepositoryImp implements AttributeRepository {
                 .param("id", id)
                 .query(Boolean.class)
                 .single();
+    }
+
+    /**
+     * Builds a {@link TypedQuery} for fetching {@link Attribute} entities
+     * based on the optional filters provided in {@link AttributeSearch}.
+     * <p>
+     * The resulting query supports the following filters:
+     * <ul>
+     *     <li><b>name</b> → performs a case-insensitive partial match on the attribute name</li>
+     * </ul>
+     *
+     * @param filter contains optional filter fields used to refine the query
+     * @return a {@link TypedQuery} ready for execution (parameters already set)
+     */
+    private TypedQuery<Attribute> buildQueryWithFilters(AttributeSearch filter) {
+
+        StringBuilder hql = new StringBuilder("SELECT a FROM Attribute a");
+
+        if (filter.name() != null) {
+
+            hql.append(" WHERE 1=1");
+
+            if (StringUtils.hasText(filter.name()))
+                hql.append(" AND LOWER(a.name) LIKE LOWER(:name)");
+        }
+
+        TypedQuery<Attribute> query = entityManager.createQuery(hql.toString(), Attribute.class);
+
+        if (StringUtils.hasText(filter.name()))
+            query.setParameter("name", "%" + filter.name().trim() + "%");
+
+        return query;
     }
 
 }

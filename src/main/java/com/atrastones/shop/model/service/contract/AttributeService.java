@@ -1,5 +1,6 @@
 package com.atrastones.shop.model.service.contract;
 
+import com.atrastones.shop.api.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +18,9 @@ public interface AttributeService {
 
     void edit(Long id, AttributeDTO attribute);
 
-    Optional<AttributeDTO> get(Long id);
+    AttributeDTO get(Long id);
 
-    List<AttributeDTO> getAll();
+    List<AttributeDTO> getAll(AttributeSearch search);
 
     Page<AttributeDTO> getAllPaginated(Pageable pageable);
 

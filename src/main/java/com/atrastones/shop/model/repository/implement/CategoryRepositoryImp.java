@@ -9,8 +9,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -116,18 +116,18 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
     @Override
     public List<Category> getAll(CategorySearch search) {
-        return buildCategoryQueryWithFilters(search).getResultList();
+        return buildQueryWithFilters(search).getResultList();
     }
 
     @Override
     public Page<Category> getAllPaginated(Pageable pageable, CategorySearch search) {
 
-        List<Category> categories = buildCategoryQueryWithFilters(search)
+        List<Category> categories = buildQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
 
-        return PageableExecutionUtils.getPage(categories, pageable, categories::size);
+        return new PageImpl<>(categories, pageable, categories.size());
     }
 
     // -------------------------------------- OPERATION --------------------------------------
@@ -173,23 +173,28 @@ public class CategoryRepositoryImp implements CategoryRepository {
      * @param filter contains optional filter fields used to refine the query
      * @return a {@link TypedQuery} ready for execution (parameters already set)
      */
-    private TypedQuery<Category> buildCategoryQueryWithFilters(CategorySearch filter) {
+    private TypedQuery<Category> buildQueryWithFilters(CategorySearch filter) {
 
-        StringBuilder hql = new StringBuilder("SELECT c FROM Category c WHERE 1=1");
+        StringBuilder hql = new StringBuilder("SELECT c FROM Category c");
 
-        if (Boolean.TRUE.equals(filter.getOnlyChildren()))
-            hql.append(" AND c.parentId IS NOT NULL");
+        if (filter.onlyChildren() != null && filter.onlyParents() != null && filter.name() != null) {
 
-        else if (Boolean.TRUE.equals(filter.getOnlyParents()))
-            hql.append(" AND c.parentId IS NULL");
+            hql.append(" WHERE 1=1");
 
-        if (StringUtils.hasText(filter.getName()))
-            hql.append(" AND LOWER(c.name) LIKE LOWER(:name)");
+            if (filter.onlyChildren())
+                hql.append(" AND c.parentId IS NOT NULL");
+
+            else if (filter.onlyParents())
+                hql.append(" AND c.parentId IS NULL");
+
+            if (StringUtils.hasText(filter.name()))
+                hql.append(" AND LOWER(c.name) LIKE LOWER(:name)");
+        }
 
         TypedQuery<Category> query = entityManager.createQuery(hql.toString(), Category.class);
 
-        if (StringUtils.hasText(filter.getName()))
-            query.setParameter("name", "%" + filter.getName().trim() + "%");
+        if (StringUtils.hasText(filter.name()))
+            query.setParameter("name", "%" + filter.name().trim() + "%");
 
         return query;
     }

@@ -1,5 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
+import com.atrastones.shop.api.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
 import com.atrastones.shop.model.entity.Attribute;
 import jakarta.persistence.EntityNotFoundException;
@@ -55,6 +56,14 @@ public interface AttributeRepository {
      * @return an Optional containing the attribute if found
      */
     Optional<Attribute> get(Long id);
+
+    /**
+     * Retrieves all attributes, including fetched associations.
+     *
+     * @param search key-value params for filtering attributes
+     * @return a List of attributes
+     */
+    List<Attribute> getAll(AttributeSearch search);
 
     /**
      * Retrieves all attributes paginated, including fetched associations.

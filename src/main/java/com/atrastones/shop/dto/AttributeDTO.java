@@ -22,7 +22,6 @@ public class AttributeDTO {
     private String name;
 
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long categoryId;
 
     private String type;

@@ -1,16 +1,19 @@
 package com.atrastones.shop.model.service.implement;
 
+import com.atrastones.shop.api.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.model.service.contract.AttributeService;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class AttributeServiceImp implements AttributeService {
@@ -40,13 +43,14 @@ public class AttributeServiceImp implements AttributeService {
     }
 
     @Override
-    public Optional<AttributeDTO> get(Long id) {
-        return Optional.empty();
+    public AttributeDTO get(Long id) {
+        return attributeRepository.get(id).map(AttributeDTO::toDTO)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public List<AttributeDTO> getAll() {
-        return List.of();
+    public List<AttributeDTO> getAll(AttributeSearch search) {
+        return attributeRepository.getAll(search).stream().map(AttributeDTO::toDTO).toList();
     }
 
     @Override
