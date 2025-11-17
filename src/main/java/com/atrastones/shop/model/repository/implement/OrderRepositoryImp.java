@@ -11,12 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Implementation of {@link OrderRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for orders. Uses {@link JdbcClient} for simple operations (create, update)
- * for performance, and {@link EntityManager} for select queries with joins to leverage ORM benefits.
- */
 @Repository
 public class OrderRepositoryImp implements OrderRepository {
 

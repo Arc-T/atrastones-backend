@@ -61,7 +61,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_group_id")
-    private ServiceGroup serviceGroup;
+    private OfferGroup offeringGroup;
 
     /* **************************** TABLE RELATIONS **********************************/
 

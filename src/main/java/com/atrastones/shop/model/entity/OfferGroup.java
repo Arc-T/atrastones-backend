@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "service_groups")
-public class ServiceGroup {
+public class OfferGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "services")
-public class Service {
+public class Offer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +38,6 @@ public class Service {
     /* **************************** FOREIGN-KEY RELATIONS **********************************/
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ServiceGroup serviceGroup;
+    private OfferGroup offeringGroup;
 
 }

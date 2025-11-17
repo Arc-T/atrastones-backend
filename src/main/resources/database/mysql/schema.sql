@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `tags`
 ) ENGINE = InnoDB COMMENT = 'Stores product tags';
 
 -- Service groups
-CREATE TABLE IF NOT EXISTS `service_groups`
+CREATE TABLE IF NOT EXISTS offer_groups
 (
     `id`          INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `name`        VARCHAR(100) NOT NULL COMMENT 'Supports Persian names',
@@ -256,21 +256,21 @@ CREATE TABLE IF NOT EXISTS `service_groups`
     UNIQUE (`name`)
 ) ENGINE = InnoDB COMMENT = 'Stores service group definitions';
 
--- Services offered
-CREATE TABLE IF NOT EXISTS `services`
+-- Offers service
+CREATE TABLE IF NOT EXISTS `offers`
 (
-    `id`               INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `name`             VARCHAR(100) NOT NULL,
-    `cost`             INT UNSIGNED NOT NULL COMMENT 'Cost in Toman',
-    `service_group_id` INT          NOT NULL,
-    `description`      VARCHAR(500)          DEFAULT NULL,
-    `created_at`       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`       TIMESTAMP             DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    `deleted_at`       TIMESTAMP             DEFAULT NULL,
-    INDEX `idx_services_group` (`service_group_id`),
-    INDEX `idx_services_deleted_at` (`deleted_at`),
-    CONSTRAINT `fk_services_group` FOREIGN KEY (`service_group_id`) REFERENCES `service_groups` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB COMMENT = 'Stores services with costs in Toman';
+    `id`             INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name`           VARCHAR(100) NOT NULL,
+    `cost`           INT UNSIGNED NOT NULL COMMENT 'Cost in Toman',
+    `offer_group_id` INT          NOT NULL,
+    `description`    VARCHAR(500)          DEFAULT NULL,
+    `created_at`     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at`     TIMESTAMP             DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    `deleted_at`     TIMESTAMP             DEFAULT NULL,
+    INDEX `idx_offers_group` (`offer_group_id`),
+    INDEX `idx_offers_deleted_at` (`deleted_at`),
+    CONSTRAINT `fk_offers_group` FOREIGN KEY (`offer_group_id`) REFERENCES offer_groups (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB COMMENT = 'Stores offers with costs in Toman';
 
 -- Discount types
 CREATE TABLE IF NOT EXISTS `discount_types`
@@ -329,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `products`
     INDEX `idx_products_deleted_at` (`deleted_at`),
     CONSTRAINT `fk_products_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `fk_products_shop` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT `fk_products_service_group` FOREIGN KEY (`service_group_id`) REFERENCES `service_groups` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT `fk_products_service_group` FOREIGN KEY (`service_group_id`) REFERENCES offer_groups (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `fk_products_discount` FOREIGN KEY (`discount_id`) REFERENCES `discounts` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT
 ) ENGINE = InnoDB COMMENT = 'Stores product details with prices in Toman';
 
