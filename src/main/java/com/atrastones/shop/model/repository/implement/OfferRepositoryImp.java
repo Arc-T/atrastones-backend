@@ -1,11 +1,20 @@
 package com.atrastones.shop.model.repository.implement;
 
+import com.atrastones.shop.api.search.OfferSearch;
 import com.atrastones.shop.dto.OfferDTO;
+import com.atrastones.shop.model.entity.Offer;
 import com.atrastones.shop.model.repository.contract.OfferRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class OfferRepositoryImp implements OfferRepository {
@@ -30,10 +39,10 @@ public class OfferRepositoryImp implements OfferRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_ORDER_SQL)
-                        .param("name", offer.get)
-                        .param("cost", order.getAddressId())
-                        .param("offer_group_id", order.getTotalPrice())
-                        .param("description", order.getStatus())
+                        .param("name", offer.getName())
+                        .param("cost", offer.getCost())
+                        .param("offer_group_id", offer.getOfferGroupId())
+                        .param("description", offer.getDescription())
         );
     }
 
@@ -42,6 +51,29 @@ public class OfferRepositoryImp implements OfferRepository {
     @Override
     public void update(long id, OfferDTO offer) {
 
+    }
+
+    // -------------------------------------- SELECT --------------------------------------
+
+    @Override
+    public Optional<Offer> get(Long id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Offer> getAll(OfferSearch search) {
+        return List.of();
+    }
+
+    @Override
+    public Page<Offer> getAllPaginated(Pageable pageable, OfferSearch search) {
+
+        List<Offer> categories = buildQueryWithFilters(search)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+
+        return new PageImpl<>(categories, pageable, categories.size());
     }
 
     // -------------------------------------- OPERATIONS --------------------------------------
@@ -54,6 +86,17 @@ public class OfferRepositoryImp implements OfferRepository {
     @Override
     public boolean exists(Long id) {
         return false;
+    }
+
+    // -------------------------------------- HELPERS --------------------------------------
+
+    private TypedQuery<Offer> buildQueryWithFilters(OfferSearch search) {
+
+        StringBuilder hql = new StringBuilder("SELECT c FROM Category c");
+
+        TypedQuery<Offer> query = entityManager.createQuery(hql.toString(), Offer.class);
+
+        return query;
     }
 
 }

@@ -1,52 +1,39 @@
 package com.atrastones.shop.model.repository.contract;
 
+import com.atrastones.shop.api.search.OfferSearch;
 import com.atrastones.shop.dto.OfferDTO;
+import com.atrastones.shop.model.entity.Category;
+import com.atrastones.shop.model.entity.Offer;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface OfferRepository {
 
     // ----------------------------- CREATE --------------------------------------
 
-    /**
-     * Creates a new offer and returns its generated ID.
-     *
-     * @param offer the offer data to create
-     * @return the generated ID of the new offer
-     * @throws RuntimeException if the insert fails
-     */
     long create(OfferDTO offer);
 
     // ----------------------------- UPDATE --------------------------------------
 
-    /**
-     * Updates an existing offer by ID.
-     *
-     * @param id    the ID of the offer to update
-     * @param offer the updated offer data
-     * @throws EntityNotFoundException if no offer with the given ID exists
-     * @throws DataAccessException        if the update fails
-     */
     void update(long id, OfferDTO offer);
 
     // ----------------------------- SELECT --------------------------------------
 
+    Optional<Offer> get(Long id);
+
+    List<Offer> getAll(OfferSearch search);
+
+    Page<Offer> getAllPaginated(Pageable pageable, OfferSearch search);
 
     // ----------------------------- OPERATIONS --------------------------------------
 
-    /**
-     * Counts the total number of offers.
-     *
-     * @return the total count
-     */
     Long count();
 
-    /**
-     * Checks if an offer exists by ID.
-     *
-     * @param id the ID to check
-     * @return true if exists, false otherwise
-     */
     boolean exists(Long id);
 
 }

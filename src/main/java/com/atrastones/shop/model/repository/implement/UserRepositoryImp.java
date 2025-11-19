@@ -14,12 +14,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Implementation of {@link UserRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for users. Uses {@link JdbcClient} for simple operations (create, update, delete, exists)
- * for performance, and {@link EntityManager} for complex queries with joins to leverage ORM benefits.
- */
 @Repository
 public class UserRepositoryImp implements UserRepository {
 
@@ -48,7 +42,7 @@ public class UserRepositoryImp implements UserRepository {
                         .param("email", user.getEmail())
                         .param("phone", user.getPhone())
                         .param("password", user.getPassword())
-                        .param("user_group_id", user.getGroupId())
+                        .param("user_group_id", user.getUserGroupId())
                         .param("gender", user.getGender())
                         .param("description", user.getDescription())
         );
@@ -74,7 +68,7 @@ public class UserRepositoryImp implements UserRepository {
                         .param("email", user.getEmail())
                         .param("phone", user.getPhone())
                         .param("password", user.getPassword())
-                        .param("user_group_id", user.getGroupId())
+                        .param("user_group_id", user.getUserGroupId())
                         .param("gender", user.getGender())
                         .param("description", user.getDescription())
                 , "USER.ID.INVALID"

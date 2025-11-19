@@ -159,20 +159,6 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
     // -------------------------------------- HELPERS --------------------------------------
 
-    /**
-     * Builds a {@link TypedQuery} for fetching {@link Category} entities
-     * based on the optional filters provided in {@link CategorySearch}.
-     * <p>
-     * The resulting query supports the following filters:
-     * <ul>
-     *     <li><b>name</b> → performs a case-insensitive partial match on the category name</li>
-     *     <li><b>onlyParents</b> → selects categories without a parent (null parentId)</li>
-     *     <li><b>onlyChildren</b> → selects categories that have a parent (non-null parentId)</li>
-     * </ul>
-     *
-     * @param filter contains optional filter fields used to refine the query
-     * @return a {@link TypedQuery} ready for execution (parameters already set)
-     */
     private TypedQuery<Category> buildQueryWithFilters(CategorySearch filter) {
 
         StringBuilder hql = new StringBuilder("SELECT c FROM Category c");

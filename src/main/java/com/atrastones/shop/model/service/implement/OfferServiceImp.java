@@ -26,13 +26,13 @@ public class OfferServiceImp implements OfferService {
     }
 
     @Override
-    public List<OfferDTO> getAll(OfferSearch filter) {
+    public List<OfferDTO> getAll(OfferSearch search) {
         return List.of();
     }
 
     @Override
-    public Page<OfferDTO> getAllPageable(Pageable pageable, OfferSearch filter) {
-        return null;
+    public Page<OfferDTO> getAllPageable(Pageable pageable, OfferSearch search) {
+        return offerRepository.getAllPaginated(pageable, search).map(OfferDTO::toDTO);
     }
 
     @Override

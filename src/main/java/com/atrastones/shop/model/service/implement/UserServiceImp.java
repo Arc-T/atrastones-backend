@@ -64,7 +64,7 @@ public class UserServiceImp implements UserService {
                 .email(user.getPhone())
                 .description(user.getDescription())
                 .gender(user.getGender())
-                .groupId(user.getUserGroup().getId())
+                .userGroupId(user.getUserGroup().getId())
                 .build();
     }
 

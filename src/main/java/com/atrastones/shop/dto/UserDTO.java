@@ -28,7 +28,7 @@ public class UserDTO {
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private String password;
 
-    private Long groupId;
+    private Long userGroupId;
 
     private Gender gender;
 

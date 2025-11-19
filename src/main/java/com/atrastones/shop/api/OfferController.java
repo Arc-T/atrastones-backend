@@ -5,6 +5,8 @@ import com.atrastones.shop.dto.OfferDTO;
 import com.atrastones.shop.dto.TagDTO;
 import com.atrastones.shop.model.service.contract.OfferService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,11 @@ public class OfferController {
     @GetMapping
     public ResponseEntity<List<OfferDTO>> readAll(OfferSearch search) {
         return ResponseEntity.ok(offerService.getAll(search));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<OfferDTO>> readAll(Pageable pageable, OfferSearch search) {
+        return ResponseEntity.ok(offerService.getAllPageable(pageable, search));
     }
 
     @PostMapping
