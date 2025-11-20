@@ -51,6 +51,21 @@ public class OfferRepositoryImp implements OfferRepository {
     @Override
     public void update(long id, OfferDTO offer) {
 
+        String UPDATE_OFFER_SQL = """
+                UPDATE offers
+                       SET name = :name, cost = :cost, offer_group_id = :offer_group_id, description = :description
+                       WHERE id = :id
+                """;
+
+        JdbcUtils.update(
+                jdbcClient.sql(UPDATE_OFFER_SQL)
+                        .param("id", id)
+                        .param("cost", offer.getCost())
+                        .param("offer_group_id", offer.getOfferGroupId())
+                        .param("description", offer.getDescription())
+                , "CATEGORY.ID.INVALID"
+        );
+
     }
 
     // -------------------------------------- SELECT --------------------------------------
@@ -62,7 +77,7 @@ public class OfferRepositoryImp implements OfferRepository {
 
     @Override
     public List<Offer> getAll(OfferSearch search) {
-        return List.of();
+        return buildQueryWithFilters(search).getResultList();
     }
 
     @Override
@@ -92,7 +107,7 @@ public class OfferRepositoryImp implements OfferRepository {
 
     private TypedQuery<Offer> buildQueryWithFilters(OfferSearch search) {
 
-        StringBuilder hql = new StringBuilder("SELECT c FROM Category c");
+        StringBuilder hql = new StringBuilder("SELECT o FROM Offer o");
 
         TypedQuery<Offer> query = entityManager.createQuery(hql.toString(), Offer.class);
 
