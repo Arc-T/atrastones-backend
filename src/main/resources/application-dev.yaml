@@ -21,6 +21,10 @@ spring:
     locale-resolver: accept_header
     resources:
       static-locations: file:uploads/
+    error:
+      include-stacktrace: ALWAYS
+      whitelabel:
+        enabled: true
 
   messages:
     basename: i18n/messages
@@ -34,6 +38,9 @@ spring:
 
   jackson:
     default-property-inclusion: NON_NULL
+
+  liquibase:
+    enabled: false
 
   datasource:
     url: ${DB.URL}
@@ -57,10 +64,6 @@ spring:
 server:
   address: 0.0.0.0
   port: 8080
-  error:
-    whitelabel:
-      enabled: true
-    include-stacktrace: ALWAYS
 
 logging:
   level:

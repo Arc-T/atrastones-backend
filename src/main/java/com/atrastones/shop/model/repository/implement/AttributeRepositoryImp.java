@@ -3,7 +3,6 @@ package com.atrastones.shop.model.repository.implement;
 import com.atrastones.shop.api.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
 import com.atrastones.shop.model.entity.Attribute;
-import com.atrastones.shop.model.entity.Category;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
@@ -20,13 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Implementation of {@link AttributeRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for attributes. Uses {@link JdbcClient} for simple operations (create, update, delete, count, exists)
- * for performance, and {@link EntityManager} for complex queries with joins to leverage ORM benefits.
- * </p>
- */
 @Repository
 public class AttributeRepositoryImp implements AttributeRepository {
 
@@ -213,18 +205,6 @@ public class AttributeRepositoryImp implements AttributeRepository {
                 .single();
     }
 
-    /**
-     * Builds a {@link TypedQuery} for fetching {@link Attribute} entities
-     * based on the optional filters provided in {@link AttributeSearch}.
-     * <p>
-     * The resulting query supports the following filters:
-     * <ul>
-     *     <li><b>name</b> → performs a case-insensitive partial match on the attribute name</li>
-     * </ul>
-     *
-     * @param filter contains optional filter fields used to refine the query
-     * @return a {@link TypedQuery} ready for execution (parameters already set)
-     */
     private TypedQuery<Attribute> buildQueryWithFilters(AttributeSearch filter) {
 
         StringBuilder hql = new StringBuilder("SELECT a FROM Attribute a");
