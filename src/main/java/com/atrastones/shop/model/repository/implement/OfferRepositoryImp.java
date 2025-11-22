@@ -65,14 +65,39 @@ public class OfferRepositoryImp implements OfferRepository {
                         .param("description", offer.getDescription())
                 , "CATEGORY.ID.INVALID"
         );
+    }
 
+    // -------------------------------------- DELETE --------------------------------------
+
+    @Override
+    public boolean delete(Long id) {
+
+        String DELETE_DELETE_SQL = """
+                DELETE FROM offers WHERE id = :id
+                """;
+
+        return JdbcUtils.delete(
+                jdbcClient.sql(DELETE_DELETE_SQL)
+                        .param("id", id),
+                "DELETE.ID.INVALID"
+        );
     }
 
     // -------------------------------------- SELECT --------------------------------------
 
     @Override
     public Optional<Offer> get(Long id) {
-        return Optional.empty();
+
+        String SELECT_OFFER_HQL = """
+                SELECT o FROM Offer o
+                         WHERE o.id = :id
+                """;
+
+        return entityManager.createQuery(SELECT_OFFER_HQL, Offer.class)
+                .setParameter("id", id)
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override

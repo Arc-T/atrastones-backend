@@ -27,26 +27,27 @@ public class OfferServiceImp implements OfferService {
 
     @Override
     public List<OfferDTO> getAll(OfferSearch search) {
-        return List.of();
+        return offerRepository.getAll(search)
+                .stream().map(OfferDTO::toDTO).toList();
     }
 
     @Override
     public Page<OfferDTO> getAllPageable(Pageable pageable, OfferSearch search) {
-        return offerRepository.getAllPaginated(pageable, search).map(OfferDTO::toDTO);
+        return offerRepository.getAllPaginated(pageable, search)
+                .map(OfferDTO::toDTO);
     }
 
     @Override
     public void remove(Long id) {
-
     }
 
     @Override
     public Long save(OfferDTO category) {
-        return 0L;
+        return offerRepository.create(category);
     }
 
     @Override
     public void edit(Long id, OfferDTO category) {
-
+        offerRepository.update(id, category);
     }
 }

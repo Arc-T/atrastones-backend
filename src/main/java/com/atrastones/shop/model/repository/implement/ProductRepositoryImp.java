@@ -45,13 +45,13 @@ public class ProductRepositoryImp implements ProductRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_PRODUCT_SQL)
-                        .param("name", product.getName())
-                        .param("category_id", product.getCategoryId())
+                        .param("name", product.name())
+                        .param("category_id", product.categoryId())
                         .param("shop_id", 1) //TODO: this should be get dynamically
-                        .param("quantity", product.getQuantity())
-                        .param("price", product.getPrice())
+                        .param("quantity", product.quantity())
+                        .param("price", product.price())
                         .param("service_group_id", 1) //TODO: this should be get dynamically
-                        .param("description", product.getDescription())
+                        .param("description", product.description())
         );
     }
 

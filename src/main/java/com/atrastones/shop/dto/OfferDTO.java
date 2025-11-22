@@ -29,6 +29,8 @@ public class OfferDTO {
 
     LocalDateTime deletedAt;
 
+    // ********************** DTOs **********************
+
     public static OfferDTO toDTO(Offer offer) {
         return OfferDTO.builder()
                 .id(offer.getId())

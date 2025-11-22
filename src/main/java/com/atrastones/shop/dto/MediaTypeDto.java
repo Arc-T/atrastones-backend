@@ -17,6 +17,8 @@ public class MediaTypeDto {
 
     String description;
 
+    // ********************** DTOs **********************
+
     public static MediaTypeDto toDTO(MediaType mediaType) {
         return MediaTypeDto.builder()
                 .id(mediaType.getId())

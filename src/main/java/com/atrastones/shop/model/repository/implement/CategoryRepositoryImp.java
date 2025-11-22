@@ -18,12 +18,6 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Implementation of {@link CategoryRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for categories. Uses {@link JdbcClient} for simple operations (create, update, delete, exists)
- * for performance, and {@link EntityManager} for select queries to leverage ORM benefits.
- */
 @Slf4j
 @Repository
 public class CategoryRepositoryImp implements CategoryRepository {

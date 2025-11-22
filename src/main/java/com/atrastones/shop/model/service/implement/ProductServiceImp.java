@@ -3,10 +3,9 @@ package com.atrastones.shop.model.service.implement;
 import com.atrastones.shop.api.create.ProductCreate;
 import com.atrastones.shop.api.search.ProductSearch;
 import com.atrastones.shop.dto.*;
-import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
+import com.atrastones.shop.model.service.contract.ProductMediaService;
 import com.atrastones.shop.model.service.contract.ProductService;
-import com.atrastones.shop.utils.MediaUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,11 +20,11 @@ import java.util.Optional;
 public class ProductServiceImp implements ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductMediaRepository productMediaRepository;
+    private final ProductMediaService productMediaService;
 
-    public ProductServiceImp(ProductRepository productRepository, ProductMediaRepository productMediaRepository) {
+    public ProductServiceImp(ProductRepository productRepository, ProductMediaService productMediaService) {
         this.productRepository = productRepository;
-        this.productMediaRepository = productMediaRepository;
+        this.productMediaService = productMediaService;
     }
 
     @Override
@@ -42,10 +41,7 @@ public class ProductServiceImp implements ProductService {
     public Long save(ProductCreate product) {
         long createdProductId = productRepository.create(product);
         if (product.getMedia() != null && !product.getMedia().isEmpty()) {
-            List<Long> insertedMedia = productMediaRepository.createBatch(
-                    MediaUtils.uploadProductMedia(createdProductId, product.getMedia()));
-            if (insertedMedia.isEmpty() || insertedMedia.size() != product.getMedia().size())
-                throw new RuntimeException("Media Inserted Problem");//TODO: error name
+            productMediaService.
         }
         return createdProductId;
     }

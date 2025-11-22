@@ -8,8 +8,8 @@ public interface ProductMediaService {
 
     /* ******************************** CRUD ******************************** */
 
-    List<ProductMediaDTO> getAll();
+    void create(List<ProductMediaDTO> createProductMedia);
 
-    Long create(ProductMediaDTO productMediaDTO);
+    List<ProductMediaDTO> getAllDraft();
 
 }

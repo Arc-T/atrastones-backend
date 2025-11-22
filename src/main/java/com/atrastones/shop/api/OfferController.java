@@ -28,14 +28,14 @@ public class OfferController {
         return ResponseEntity.ok(offerService.getAll(search));
     }
 
-    @GetMapping
-    public ResponseEntity<Page<OfferDTO>> readAll(Pageable pageable, OfferSearch search) {
+    @GetMapping("/page")
+    public ResponseEntity<Page<OfferDTO>> readAllPageable(Pageable pageable, OfferSearch search) {
         return ResponseEntity.ok(offerService.getAllPageable(pageable, search));
     }
 
     @PostMapping
     public ResponseEntity<TagDTO> create(@Valid @RequestBody OfferDTO offer) {
-        return ResponseEntity.created(URI.create("/tags/" + offerService.save(offer)))
+        return ResponseEntity.created(URI.create("/offers/" + offerService.save(offer)))
                 .build();
     }
 

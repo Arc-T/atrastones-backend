@@ -1,11 +1,17 @@
 package com.atrastones.shop.model.repository.implement;
 
+import com.atrastones.shop.api.search.OrderSearch;
 import com.atrastones.shop.dto.OrderDTO;
 import com.atrastones.shop.model.entity.Invoice;
+import com.atrastones.shop.model.entity.Order;
 import com.atrastones.shop.model.entity.OrderDetails;
 import com.atrastones.shop.model.repository.contract.OrderRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +31,7 @@ public class OrderRepositoryImp implements OrderRepository {
     // -------------------------------------- CREATE --------------------------------------
 
     @Override
-    public long create(OrderDTO order) {
+    public Long create(OrderDTO order) {
 
         String INSERT_ORDER_SQL = """
                 INSERT INTO orders (user_id, address_id, total_price, status, description)
@@ -45,7 +51,7 @@ public class OrderRepositoryImp implements OrderRepository {
     // -------------------------------------- UPDATE --------------------------------------
 
     @Override
-    public void update(long id, OrderDTO order) {
+    public void update(Long id, OrderDTO order) {
 
         String UPDATE_ORDER_SQL = """
                 UPDATE orders
@@ -67,8 +73,19 @@ public class OrderRepositoryImp implements OrderRepository {
 
     // -------------------------------------- SELECT --------------------------------------
 
+
     @Override
-    public List<OrderDetails> getOrderDetails(long id) {
+    public Page<Order> findAllPageable(Pageable pageable, OrderSearch search) {
+        List<Order> orders = buildQueryWithFilters(search)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+
+        return new PageImpl<>(orders, pageable, orders.size());
+    }
+
+    @Override
+    public List<OrderDetails> findOrderDetails(Long id) {
 
         String SELECT_ORDER_DETAILS_HQL = """
                 SELECT od FROM OrderDetails od
@@ -82,7 +99,7 @@ public class OrderRepositoryImp implements OrderRepository {
     }
 
     @Override
-    public List<Invoice> getOrderInvoice(long id) {
+    public List<Invoice> findOrderInvoice(Long id) {
 
         String SELECT_ORDER_INVOICE_HQL = """
                 SELECT i FROM Invoice i
@@ -121,5 +138,15 @@ public class OrderRepositoryImp implements OrderRepository {
                 .query(Boolean.class)
                 .single();
     }
+
+    private TypedQuery<Order> buildQueryWithFilters(OrderSearch search) {
+
+        StringBuilder hql = new StringBuilder("SELECT o FROM Order o");
+
+        TypedQuery<Order> query = entityManager.createQuery(hql.toString(), Order.class);
+
+        return query;
+    }
+
 
 }

@@ -2,10 +2,7 @@ package com.atrastones.shop.model.repository.contract;
 
 import com.atrastones.shop.api.search.OfferSearch;
 import com.atrastones.shop.dto.OfferDTO;
-import com.atrastones.shop.model.entity.Category;
 import com.atrastones.shop.model.entity.Offer;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,6 +18,10 @@ public interface OfferRepository {
     // ----------------------------- UPDATE --------------------------------------
 
     void update(long id, OfferDTO offer);
+
+    // -------------------------------------- DELETE --------------------------------------
+
+    boolean delete(Long id);
 
     // ----------------------------- SELECT --------------------------------------
 

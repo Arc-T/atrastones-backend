@@ -21,9 +21,9 @@ public interface ProductService {
 
     Optional<ProductDTO> get(Long id);
 
-    List<ProductDTO> getAll(ProductSearch filter);
+    List<ProductDTO> getAll(ProductSearch search);
 
-    Page<ProductDTO> getAllPaginated(Pageable pageable, ProductSearch filter);
+    Page<ProductDTO> getAllPaginated(Pageable pageable, ProductSearch search);
 
     List<ProductDTO> getProductsInfoByIds(List<Long> ids); //TODO:list input
 
