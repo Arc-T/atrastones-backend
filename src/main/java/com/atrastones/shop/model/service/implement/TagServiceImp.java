@@ -1,16 +1,15 @@
 package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.TagDTO;
+import com.atrastones.shop.exception.ServiceLogicException;
 import com.atrastones.shop.model.repository.contract.TagRepository;
 import com.atrastones.shop.model.service.contract.TagService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 public class TagServiceImp implements TagService {
 
     private final TagRepository tagRepository;
@@ -20,8 +19,10 @@ public class TagServiceImp implements TagService {
     }
 
     @Override
-    public Optional<TagDTO> get(Long id) {
-        return Optional.empty();
+    public TagDTO get(Long id) {
+        return tagRepository.get(id)
+                .map(TagDTO::toDTO)
+                .orElseThrow(() -> new ServiceLogicException("TAG.NOT.FOUND"));
     }
 
     @Override

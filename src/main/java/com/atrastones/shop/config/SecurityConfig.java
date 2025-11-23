@@ -40,6 +40,8 @@ public class SecurityConfig {
                                 "/actuator/**",
                                 "/media/**",
                                 "/products/**",
+                                "/offers/**",
+                                "/tags/**",
                                 "/uploads/**"
                         ).permitAll()
                         .anyRequest().authenticated()

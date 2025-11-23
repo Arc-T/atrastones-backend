@@ -40,9 +40,7 @@ public class ProductServiceImp implements ProductService {
     @Transactional
     public Long save(ProductCreate product) {
         long createdProductId = productRepository.create(product);
-        if (product.getMedia() != null && !product.getMedia().isEmpty()) {
-            productMediaService.
-        }
+        productMediaService.save(createdProductId);
         return createdProductId;
     }
 

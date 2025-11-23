@@ -1,6 +1,7 @@
 package com.atrastones.shop.model.repository.implement;
 
 import com.atrastones.shop.dto.TagDTO;
+import com.atrastones.shop.model.entity.ProductMedia;
 import com.atrastones.shop.model.entity.Tag;
 import com.atrastones.shop.model.repository.contract.TagRepository;
 import com.atrastones.shop.utils.JdbcUtils;
@@ -11,12 +12,8 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-/**
- * Implementation of {@link TagRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for tags. Uses {@link JdbcClient} for simple operations (create, update, delete, exists)
- * for performance, and {@link EntityManager} for select queries to leverage ORM benefits.
- */
+import java.util.Optional;
+
 @Repository
 public class TagRepositoryImp implements TagRepository {
 
@@ -80,6 +77,21 @@ public class TagRepositoryImp implements TagRepository {
     }
 
     // ------------------------------------------------- SELECT -------------------------------------------------
+
+    @Override
+    public Optional<Tag> get(Long id) {
+
+        String SELECT_TAG_HQL = """
+                SELECT t FROM Tag t
+                         WHERE t.id = :id
+                """;
+
+        return Optional.ofNullable(
+                entityManager.createQuery(SELECT_TAG_HQL, Tag.class)
+                        .setParameter("id", id)
+                        .getSingleResult()
+        );
+    }
 
     @Override
     public Page<Tag> getAllPaginated(Pageable pageable) {

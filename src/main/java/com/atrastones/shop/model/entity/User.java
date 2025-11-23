@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.entity;
 
-import com.atrastones.shop.type.Gender;
+import com.atrastones.shop.type.GenderType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +37,7 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private GenderType gender;
 
     private String description;
 

@@ -36,7 +36,7 @@ public class OfferDTO {
                 .id(offer.getId())
                 .name(offer.getName())
                 .cost(offer.getCost())
-                .offerGroupId(offer.getOfferingGroup().getId())
+                .offerGroupId(offer.getOfferGroup().getId())
                 .description(offer.getDescription())
                 .createdAt(offer.getCreatedAt())
                 .updatedAt(offer.getUpdatedAt())

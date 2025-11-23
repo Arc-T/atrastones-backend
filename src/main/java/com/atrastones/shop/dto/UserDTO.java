@@ -1,6 +1,6 @@
 package com.atrastones.shop.dto;
 
-import com.atrastones.shop.type.Gender;
+import com.atrastones.shop.type.GenderType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -30,7 +30,7 @@ public class UserDTO {
 
     private Long userGroupId;
 
-    private Gender gender;
+    private GenderType gender;
 
     private Long provinceId;
 

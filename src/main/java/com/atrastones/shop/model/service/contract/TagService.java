@@ -9,7 +9,7 @@ public interface TagService {
 
     // ****************************** CRUD ******************************
 
-    Optional<TagDTO> get(Long id);
+     TagDTO get(Long id);
 
     List<TagDTO> getAll();
 

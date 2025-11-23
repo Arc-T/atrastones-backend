@@ -39,6 +39,6 @@ public class Offer {
     /* **************************** FOREIGN-KEY RELATIONS **********************************/
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private OfferGroup offeringGroup;
+    private OfferGroup offerGroup;
 
 }

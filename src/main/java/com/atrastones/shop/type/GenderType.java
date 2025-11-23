@@ -1,5 +1,5 @@
 package com.atrastones.shop.type;
 
-public enum Gender {
+public enum GenderType {
     MALE, FEMALE
 }

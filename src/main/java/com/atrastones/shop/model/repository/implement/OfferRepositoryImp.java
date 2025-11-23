@@ -132,7 +132,18 @@ public class OfferRepositoryImp implements OfferRepository {
 
     private TypedQuery<Offer> buildQueryWithFilters(OfferSearch search) {
 
-        StringBuilder hql = new StringBuilder("SELECT o FROM Offer o");
+        StringBuilder hql = new StringBuilder();
+
+        if (search.getGroupOnly() != null) {
+            hql.append(" SELECT og FROM OfferGroup og");
+            if (search.getGroupOnly())
+                hql.append(" AND o.offer_group_id IS NOT NULL");
+
+            return entityManager.createQuery(hql.toString(), Offer.class);
+
+        }
+
+        hql.append(" WHERE o.offer_group_id IS NOT NULL");
 
         TypedQuery<Offer> query = entityManager.createQuery(hql.toString(), Offer.class);
 

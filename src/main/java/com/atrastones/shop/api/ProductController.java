@@ -33,7 +33,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllPaginated(pageable, filter));
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping
     public ResponseEntity<ProductDTO> create(ProductCreate product) {
         return ResponseEntity.created(URI.create("/products/" + productService.save(product)))
                 .build();

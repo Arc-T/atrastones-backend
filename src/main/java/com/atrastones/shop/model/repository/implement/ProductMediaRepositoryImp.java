@@ -1,6 +1,7 @@
 package com.atrastones.shop.model.repository.implement;
 
 import com.atrastones.shop.dto.ProductMediaDTO;
+import com.atrastones.shop.model.entity.ProductMedia;
 import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductMediaRepositoryImp implements ProductMediaRepository {
@@ -20,7 +22,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
         this.entityManager = entityManager;
     }
 
-    // ------------------------------------ CREATE ------------------------------------
+    // ================================================ CREATE ================================================
 
     @Override
     public List<Long> createBatch(List<ProductMediaDTO> productMedias) {
@@ -43,7 +45,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
         );
     }
 
-    // ------------------------------------ UPDATE ------------------------------------
+    // ================================================ UPDATE ================================================
 
     @Override
     public void update(Long id, ProductMediaDTO productMedia) {
@@ -66,7 +68,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
         );
     }
 
-    // ------------------------------------ DELETE ------------------------------------
+    // ================================================ DELETE ================================================
 
     @Override
     public boolean delete(Long id) {
@@ -82,6 +84,21 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
         );
     }
 
-    // ------------------------------------ SELECT ------------------------------------
+    // ================================================ SELECT ================================================
+
+    @Override
+    public Optional<ProductMedia> get(Long id) {
+
+        String SELECT_PRODUCT_MEDIA_HQL = """
+                SELECT pm FROM ProductMedia pm
+                         WHERE pm.id = :id
+                """;
+
+        return Optional.ofNullable(
+                entityManager.createQuery(SELECT_PRODUCT_MEDIA_HQL, ProductMedia.class)
+                        .setParameter("id", id)
+                        .getSingleResult()
+        );
+    }
 
 }
