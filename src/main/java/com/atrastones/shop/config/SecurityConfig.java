@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 "/products/**",
                                 "/offers/**",
                                 "/tags/**",
+                                "/product-media/**",
                                 "/uploads/**"
                         ).permitAll()
                         .anyRequest().authenticated()

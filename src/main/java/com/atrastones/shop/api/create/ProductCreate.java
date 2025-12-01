@@ -8,5 +8,4 @@ public record ProductCreate(String name,
                             Long categoryId,
                             String description,
                             Long serviceGroupId) {
-
 }

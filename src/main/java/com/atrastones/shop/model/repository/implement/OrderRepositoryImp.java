@@ -40,11 +40,11 @@ public class OrderRepositoryImp implements OrderRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_ORDER_SQL)
-                        .param("user_id", order.getUserId())
-                        .param("address_id", order.getAddressId())
-                        .param("total_price", order.getTotalPrice())
-                        .param("status", order.getStatus())
-                        .param("description", order.getDescription())
+                        .param("user_id", order.userId())
+                        .param("address_id", order.addressId())
+                        .param("total_price", order.totalPrice())
+                        .param("status", order.status())
+                        .param("description", order.description())
         );
     }
 
@@ -62,11 +62,11 @@ public class OrderRepositoryImp implements OrderRepository {
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_ORDER_SQL)
                         .param("id", id)
-                        .param("user_id", order.getUserId())
-                        .param("address_id", order.getAddressId())
-                        .param("total_price", order.getTotalPrice())
-                        .param("status", order.getStatus())
-                        .param("description", order.getDescription())
+                        .param("user_id", order.userId())
+                        .param("address_id", order.addressId())
+                        .param("total_price", order.totalPrice())
+                        .param("status", order.status())
+                        .param("description", order.description())
                 , "ORDER.ID.INVALID"
         );
     }

@@ -8,6 +8,7 @@ import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.model.service.contract.ProductMediaService;
 import com.atrastones.shop.utils.MediaUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class ProductMediaServiceImp implements ProductMediaService {
     }
 
     @Override
+    @Transactional
     public List<Long> save(Long productId) {
         return productMediaRepository.createBatch(MediaUtils.moveAllDraftsToProduct(productId));
     }

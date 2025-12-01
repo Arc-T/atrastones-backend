@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/product-Media")
+@RequestMapping(path = "/product-media")
 public class ProductMediaController {
 
     private final ProductMediaService productMediaService;

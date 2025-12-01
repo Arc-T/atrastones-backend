@@ -39,10 +39,10 @@ public class OfferRepositoryImp implements OfferRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_ORDER_SQL)
-                        .param("name", offer.getName())
-                        .param("cost", offer.getCost())
-                        .param("offer_group_id", offer.getOfferGroupId())
-                        .param("description", offer.getDescription())
+                        .param("name", offer.name())
+                        .param("cost", offer.cost())
+                        .param("offer_group_id", offer.offerGroupId())
+                        .param("description", offer.description())
         );
     }
 
@@ -60,9 +60,9 @@ public class OfferRepositoryImp implements OfferRepository {
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_OFFER_SQL)
                         .param("id", id)
-                        .param("cost", offer.getCost())
-                        .param("offer_group_id", offer.getOfferGroupId())
-                        .param("description", offer.getDescription())
+                        .param("cost", offer.cost())
+                        .param("offer_group_id", offer.offerGroupId())
+                        .param("description", offer.description())
                 , "CATEGORY.ID.INVALID"
         );
     }

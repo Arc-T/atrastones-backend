@@ -37,7 +37,7 @@ public class TagRepositoryImp implements TagRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_TAG_SQL)
-                        .param("name", tag.getName())
+                        .param("name", tag.name())
         );
     }
 
@@ -54,7 +54,7 @@ public class TagRepositoryImp implements TagRepository {
 
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_TAG_SQL)
-                        .param("name", tag.getName())
+                        .param("name", tag.name())
                         .param("id", id)
                 , "TAG.ID.INVALID"
         );

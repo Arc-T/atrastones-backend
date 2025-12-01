@@ -2,40 +2,24 @@ package com.atrastones.shop.dto;
 
 import com.atrastones.shop.model.entity.Attribute;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Data;
-import lombok.extern.jackson.Jacksonized;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Data
-@Builder
-@Jacksonized
-public class AttributeDTO {
-
-    private Long id;
-
-    @NotNull
-    private String name;
-
-    @NotNull
-    private Long categoryId;
-
-    private String type;
-
-    private Boolean isFilterable;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
+public record AttributeDTO(
+        Long id,
+        String name,
+        Long categoryId,
+        String type,
+        Boolean isFilterable,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+) {
     // ********************** Relation **********************
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private CategoryDTO category;
+    private ;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Set<AttributeValueDTO> attributeValues;
