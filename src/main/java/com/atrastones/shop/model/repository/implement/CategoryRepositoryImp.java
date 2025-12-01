@@ -42,12 +42,12 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_CATEGORY_SQL)
-                        .param("name", category.getName())
-                        .param("url", category.getUrl())
-                        .param("icon", category.getIcon())
-                        .param("parent_id", category.getParentId())
-                        .param("display_order", category.getDisplayOrder())
-                        .param("description", category.getDescription())
+                        .param("name", category.name())
+                        .param("url", category.url())
+                        .param("icon", category.icon())
+                        .param("parent_id", category.parentId())
+                        .param("display_order", category.displayOrder())
+                        .param("description", category.description())
         );
     }
 
@@ -65,12 +65,12 @@ public class CategoryRepositoryImp implements CategoryRepository {
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_CATEGORY_SQL)
                         .param("id", id)
-                        .param("name", category.getName())
-                        .param("url", category.getUrl())
-                        .param("icon", category.getIcon())
-                        .param("parent_id", category.getParentId())
-                        .param("display_order", category.getDisplayOrder())
-                        .param("description", category.getDescription())
+                        .param("name", category.name())
+                        .param("url", category.url())
+                        .param("icon", category.icon())
+                        .param("parent_id", category.parentId())
+                        .param("display_order", category.displayOrder())
+                        .param("description", category.description())
                 , "CATEGORY.ID.INVALID"
         );
     }

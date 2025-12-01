@@ -42,10 +42,10 @@ public class AttributeRepositoryImp implements AttributeRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_ATTRIBUTE_SQL)
-                        .param("name", attribute.getName())
-                        .param("category_id", attribute.getCategoryId())
+                        .param("name", attribute.name())
+                        .param("category_id", attribute.categoryId())
                         .param("type", "TEXT")
-                        .param("is_filterable", attribute.getIsFilterable())
+                        .param("is_filterable", attribute.isFilterable())
         );
     }
 
@@ -63,10 +63,10 @@ public class AttributeRepositoryImp implements AttributeRepository {
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_ATTRIBUTE_SQL)
                         .param("id", id)
-                        .param("name", attribute.getName())
-                        .param("category_id", attribute.getCategoryId())
+                        .param("name", attribute.name())
+                        .param("category_id", attribute.categoryId())
                         .param("type", "TEXT") //TODO: this should be dynamic
-                        .param("is_filterable", attribute.getIsFilterable()),
+                        .param("is_filterable", attribute.isFilterable()),
                 "ATTRIBUTE.ID.INVALID"
         );
     }

@@ -11,12 +11,6 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-/**
- * Implementation of {@link SmsRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for sms. Uses {@link JdbcClient} for simple operations (create, update, delete, exists)
- * for performance, and {@link EntityManager} for select queries to leverage ORM benefits.
- */
 @Repository
 public class SmsRepositoryImp implements SmsRepository {
 
@@ -40,12 +34,12 @@ public class SmsRepositoryImp implements SmsRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_SMS_SQL)
-                        .param("phone", sms.getPhone())
-                        .param("status_id", sms.getStatusId())
-                        .param("template_id", sms.getTemplateId())
-                        .param("text", sms.getText())
-                        .param("response", sms.getResponse())
-                        .param("description", sms.getDescription())
+                        .param("phone", sms.phone())
+                        .param("status_id", sms.statusId())
+                        .param("template_id", sms.templateId())
+                        .param("text", sms.text())
+                        .param("response", sms.response())
+                        .param("description", sms.description())
         );
     }
 
@@ -63,12 +57,13 @@ public class SmsRepositoryImp implements SmsRepository {
 
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_SMS_SQL)
-                        .param("phone", sms.getPhone())
-                        .param("status_id", sms.getStatusId())
-                        .param("template_id", sms.getTemplateId())
-                        .param("text", sms.getText())
-                        .param("response", sms.getResponse())
-                        .param("description", sms.getDescription())
+                        .param("phone", sms.phone())
+                        .param("status_id", sms.statusId())
+                        .param("template_id", sms.templateId())
+                        .param("text", sms.text())
+                        .param("response", sms.response())
+                        .param("description", sms.description())
+                        .param("id", id)
                 , "SMS.ID.INVALID"
         );
     }

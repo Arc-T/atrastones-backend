@@ -32,19 +32,20 @@ public class UserRepositoryImp implements UserRepository {
 
         String INSERT_USER_SQL = """
                 INSERT INTO users (first_name, last_name, email, phone, password, user_group_id, gender, description)
-                       VALUES (:first_name, :last_name, :email, :phone, :password, :user_group_id, :gender, :description)
+                       VALUES (:first_name, :last_name, :email, :phone, :password, :user_group_id, :gender,
+                               :description)
                 """;
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_USER_SQL)
-                        .param("first_name", user.getFirstName())
-                        .param("last_name", user.getLastName())
-                        .param("email", user.getEmail())
-                        .param("phone", user.getPhone())
-                        .param("password", user.getPassword())
-                        .param("user_group_id", user.getUserGroupId())
-                        .param("gender", user.getGender())
-                        .param("description", user.getDescription())
+                        .param("first_name", user.firstName())
+                        .param("last_name", user.lastName())
+                        .param("email", user.email())
+                        .param("phone", user.phone())
+                        .param("password", user.password())
+                        .param("user_group_id", user.userGroupId())
+                        .param("gender", user.gender())
+                        .param("description", user.description())
         );
     }
 
@@ -56,21 +57,22 @@ public class UserRepositoryImp implements UserRepository {
         String UPDATE_USER_SQL = """
                 UPDATE users
                        SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone,
-                           password = :password, user_group_id = :user_group_id, gender = :gender, description = :description
+                           password = :password, user_group_id = :user_group_id, gender = :gender,
+                           description = :description
                        WHERE id = :id
                 """;
 
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_USER_SQL)
+                        .param("first_name", user.firstName())
+                        .param("last_name", user.lastName())
+                        .param("email", user.email())
+                        .param("phone", user.phone())
+                        .param("password", user.password())
+                        .param("user_group_id", user.userGroupId())
+                        .param("gender", user.gender())
+                        .param("description", user.description())
                         .param("id", id)
-                        .param("first_name", user.getFirstName())
-                        .param("last_name", user.getLastName())
-                        .param("email", user.getEmail())
-                        .param("phone", user.getPhone())
-                        .param("password", user.getPassword())
-                        .param("user_group_id", user.getUserGroupId())
-                        .param("gender", user.getGender())
-                        .param("description", user.getDescription())
                 , "USER.ID.INVALID"
         );
     }

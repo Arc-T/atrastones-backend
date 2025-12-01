@@ -59,7 +59,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     @Override
     public AuthenticationDTO attemptWithOtp(String phone, Integer otpCode) {
         Optional<SmsDTO> sms = smsService.getPhoneLatestSmsMessage(phone);
-        boolean checkOtp = sms.isPresent() && Integer.parseInt(sms.get().getDescription()) == otpCode;
+        boolean checkOtp = sms.isPresent() && Integer.parseInt(sms.get().description()) == otpCode;
         if (checkOtp && userService.existsByPhone(phone)) {
             return AuthenticationDTO.builder()
                     .hasAccount(true)

@@ -35,11 +35,11 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
         return JdbcUtils.insertBatch(
                 productMedias.stream()
                         .map(media -> jdbcClient.sql(INSERT_PRODUCT_MEDIA_SQL)
-                                .param("product_id", media.getProductId())
+                                .param("product_id", media.productId())
                                 .param("media_type_id", 1)
-                                .param("url", media.getUrl())
-                                .param("display_order", media.getDisplayOrder())
-                                .param("extension", media.getExtension())
+                                .param("url", media.url())
+                                .param("display_order", media.displayOrder())
+                                .param("extension", media.extension())
                         )
                         .toList()
         );
@@ -58,11 +58,11 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
 
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_PRODUCT_MEDIA_SQL)
-                        .param("product_id", productMedia.getProductId())
+                        .param("product_id", productMedia.productId())
                         .param("media_type_id", 1)
-                        .param("url", productMedia.getUrl())
-                        .param("display_order", productMedia.getDisplayOrder())
-                        .param("extension", productMedia.getExtension())
+                        .param("url", productMedia.url())
+                        .param("display_order", productMedia.displayOrder())
+                        .param("extension", productMedia.extension())
                         .param("id", id)
                 , "PRODUCT_MEDIA.ID.INVALID"
         );

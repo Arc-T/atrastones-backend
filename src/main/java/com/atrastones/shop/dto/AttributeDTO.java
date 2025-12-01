@@ -15,24 +15,22 @@ public record AttributeDTO(
         Boolean isFilterable,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY) CategoryDTO category,
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY) Set<AttributeValueDTO> attributeValues
 ) {
-    // ********************** Relation **********************
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private ;
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Set<AttributeValueDTO> attributeValues;
-
     // ********************** DTOs **********************
-
     public static AttributeDTO toDTO(Attribute attribute) {
-        return AttributeDTO.builder()
-                .id(attribute.getId())
-                .name(attribute.getName())
-                .isFilterable(attribute.isFilterable())
-                .categoryId(attribute.getCategory().getId())
-                .build();
+        return new AttributeDTO(
+                attribute.getId(),
+                attribute.getName(),
+                attribute.getCategory().getId(),
+                "TEXT", //TODO: remove this hardcoded line
+                attribute.isFilterable(),
+                attribute.getCreatedAt(),
+                attribute.getUpdatedAt(),
+                null,
+                null
+        );
     }
 
     public static AttributeDTO toFullDTO(Attribute attribute) {
@@ -41,15 +39,17 @@ public record AttributeDTO(
                 .map(value -> AttributeValueDTO.toDTO(value.getAttributeValue()))
                 .collect(Collectors.toSet());
 
-        return AttributeDTO.builder()
-                .id(attribute.getId())
-                .name(attribute.getName())
-                .isFilterable(attribute.isFilterable())
-                .createdAt(attribute.getCreatedAt())
-                .updatedAt(attribute.getUpdatedAt())
-                .category(CategoryDTO.toEntity(attribute.getCategory()))
-                .attributeValues(attributeValues)
-                .build();
+        return new AttributeDTO(
+                attribute.getId(),
+                attribute.getName(),
+                attribute.getCategory().getId(),
+                "TEXT", //TODO: remove this hardcoded line
+                attribute.isFilterable(),
+                attribute.getCreatedAt(),
+                attribute.getUpdatedAt(),
+                CategoryDTO.toFullDTO(attribute.getCategory()),
+                attributeValues
+        );
     }
 
 }

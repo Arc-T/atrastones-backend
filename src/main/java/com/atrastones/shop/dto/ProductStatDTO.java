@@ -1,4 +1,4 @@
 package com.atrastones.shop.dto;
 
-public class ProductStatDTO {
+public record ProductStatDTO() {
 }

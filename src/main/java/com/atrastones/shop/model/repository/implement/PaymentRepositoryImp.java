@@ -10,12 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Implementation of {@link PaymentRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for payments. Uses {@link JdbcClient} for create and update
- * operations for performance, and {@link EntityManager} for select queries to leverage ORM benefits.
- */
 @Repository
 public class PaymentRepositoryImp implements PaymentRepository {
 
@@ -39,16 +33,16 @@ public class PaymentRepositoryImp implements PaymentRepository {
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_PAYMENT_SQL)
-                        .param("user_id", payment.getUserId())
-                        .param("order_id", payment.getOrderId())
-                        .param("payment_method", payment.getPaymentMethod())
-                        .param("amount", payment.getAmount())
-                        .param("status", payment.getStatus())
-                        .param("authority", payment.getAuthority())
-                        .param("reference_id", payment.getReferenceId())
-                        .param("fee_type", payment.getFeeType())
-                        .param("fee", payment.getFee())
-                        .param("description", payment.getDescription())
+                        .param("user_id", payment.userId())
+                        .param("order_id", payment.orderId())
+                        .param("payment_method", payment.paymentMethod())
+                        .param("amount", payment.amount())
+                        .param("status", payment.status())
+                        .param("authority", payment.authority())
+                        .param("reference_id", payment.referenceId())
+                        .param("fee_type", payment.feeType())
+                        .param("fee", payment.fee())
+                        .param("description", payment.description())
         );
     }
 
@@ -60,22 +54,23 @@ public class PaymentRepositoryImp implements PaymentRepository {
         String UPDATE_PAYMENT_SQL = """
                 UPDATE payments
                        SET user_id = :user_id, order_id = :order_id, payment_method = :payment_method,
-                           amount = :amount, status = :status, authority = :authority, reference_id = :reference_id, fee_type = :fee_type, fee = :fee, description = :description
+                           amount = :amount, status = :status, authority = :authority, reference_id = :reference_id,
+                           fee_type = :fee_type, fee = :fee, description = :description
                        WHERE id = :id
                 """;
 
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_PAYMENT_SQL)
-                        .param("user_id", payment.getUserId())
-                        .param("order_id", payment.getOrderId())
-                        .param("payment_method", payment.getPaymentMethod())
-                        .param("amount", payment.getAmount())
-                        .param("status", payment.getStatus())
-                        .param("authority", payment.getAuthority())
-                        .param("reference_id", payment.getReferenceId())
-                        .param("fee_type", payment.getFeeType())
-                        .param("fee", payment.getFee())
-                        .param("description", payment.getDescription())
+                        .param("user_id", payment.userId())
+                        .param("order_id", payment.orderId())
+                        .param("payment_method", payment.paymentMethod())
+                        .param("amount", payment.amount())
+                        .param("status", payment.status())
+                        .param("authority", payment.authority())
+                        .param("reference_id", payment.referenceId())
+                        .param("fee_type", payment.feeType())
+                        .param("fee", payment.fee())
+                        .param("description", payment.description())
                 , "PAYMENT.ID.INVALID"
         );
     }

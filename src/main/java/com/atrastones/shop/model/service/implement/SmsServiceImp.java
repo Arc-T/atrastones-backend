@@ -46,7 +46,7 @@ public class SmsServiceImp implements SmsService {
     @Override
     public int getOrCreateTtl(String phone) {
         return getPhoneLatestSmsMessage(phone)
-                .map(SmsDTO::getCreatedAt)
+                .map(SmsDTO::createdAt)
                 .map(this::calculateRemainingTtl)
                 .filter(remaining -> remaining > 0)
                 .orElseGet(() -> sendNewOtp(phone));
@@ -58,13 +58,13 @@ public class SmsServiceImp implements SmsService {
 
     private int sendNewOtp(String phone) {
         String otpCode = createNewOtpCode();
-        SmsDTO sms = SmsDTO.builder()
-                .description(otpCode)
-                .phone(phone)
-                .text(MessageFormat.format(
-                        getMessageTemplateByType(SmsType.OTP), otpCode))
-                .build();
-        sendSms(phone, sms.getText());
+//        SmsDTO sms = SmsDTO.builder()
+//                .description(otpCode)
+//                .phone(phone)
+//                .text(MessageFormat.format(
+//                        getMessageTemplateByType(SmsType.OTP), otpCode))
+//                .build();
+//        sendSms(phone, sms.getText());
         return 120;
     }
 

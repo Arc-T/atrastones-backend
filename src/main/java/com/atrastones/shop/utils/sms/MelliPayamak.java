@@ -58,14 +58,14 @@ public class MelliPayamak extends Sms {
                     .retrieve()
                     .body(MelliPayamakResponse.class);
 
-            SmsDTO.builder()
-                    .phone(phone)
-                    .statusId(Long.getLong(response.RetStatus))
-                    .text(message)
-                    .response(response.StrRetStatus())
-                    .description("Something for test")
-                    .createdAt(LocalDateTime.now())
-                    .build();
+//            SmsDTO.builder()
+//                    .phone(phone)
+//                    .statusId(Long.getLong(response.RetStatus))
+//                    .text(message)
+//                    .response(response.StrRetStatus())
+//                    .description("Something for test")
+//                    .createdAt(LocalDateTime.now())
+//                    .build();
 
         } catch (Exception ex) {
             log.error("Failed to send SMS to phone={}: error={}", phone, ex.getMessage(), ex);

@@ -54,18 +54,4 @@ public class UserServiceImp implements UserService {
         return userRepository.existByPhone(phone);
     }
 
-    private UserDTO toDTO(User user) {
-        return UserDTO.builder()
-                .id(user.getId())
-                .firstName(user.getFirsName())
-                .lastName(user.getLastName())
-                .password(user.getPassword())
-                .phone(user.getPhone())
-                .email(user.getPhone())
-                .description(user.getDescription())
-                .gender(user.getGender())
-                .userGroupId(user.getUserGroup().getId())
-                .build();
-    }
-
 }

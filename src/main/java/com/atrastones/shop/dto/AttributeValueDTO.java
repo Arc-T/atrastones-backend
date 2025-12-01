@@ -1,36 +1,29 @@
 package com.atrastones.shop.dto;
 
 import com.atrastones.shop.model.entity.AttributeValue;
-import lombok.Builder;
-import lombok.Data;
-import lombok.extern.jackson.Jacksonized;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
-@Jacksonized
-public class AttributeValueDTO {
-
-    Long id;
-
-    String value;
-
-    LocalDateTime createdAt;
-
+public record AttributeValueDTO(
+        Long id,
+        String value,
+        LocalDateTime createdAt
+) {
+    // ********************** DTOs **********************
     public static AttributeValueDTO toDTO(AttributeValue attributeValue) {
-        return AttributeValueDTO.builder()
-                .id(attributeValue.getId())
-                .value(attributeValue.getValue())
-                .build();
+        return new AttributeValueDTO(
+                attributeValue.getId(),
+                attributeValue.getValue(),
+                null
+        );
     }
 
     public static AttributeValueDTO toFullDTO(AttributeValue attributeValue) {
-        return AttributeValueDTO.builder()
-                .id(attributeValue.getId())
-                .value(attributeValue.getValue())
-                .createdAt(attributeValue.getCreatedAt())
-                .build();
+        return new AttributeValueDTO(
+                attributeValue.getId(),
+                attributeValue.getValue(),
+                attributeValue.getCreatedAt()
+        );
     }
 
 }

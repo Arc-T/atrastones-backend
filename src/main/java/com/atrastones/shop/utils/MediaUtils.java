@@ -47,12 +47,12 @@ public final class MediaUtils {
                         String fileName = filePath.getFileName().toString();
                         String extension = getExtension(fileName);
                         mediaList.add(
-                                ProductMediaDTO.builder()
-                                        .productId(productId)
-                                        .url(fileName)
-                                        .extension(extension)
-                                        .displayOrder(displayOrder[0]++)
-                                        .build()
+                                new ProductMediaDTO(
+                                        productId,
+                                        fileName,
+                                        extension,
+                                        displayOrder[0]++
+                                )
                         );
                     });
         } catch (IOException e) {

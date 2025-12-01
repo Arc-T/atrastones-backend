@@ -6,25 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
-@Data
-@Builder
-@Jacksonized
-public class MediaTypeDto {
-
-    Long id;
-
-    String name;
-
-    String description;
-
+public record MediaTypeDto(
+        Long id,
+        String name,
+        String description
+) {
     // ********************** DTOs **********************
-
     public static MediaTypeDto toDTO(MediaType mediaType) {
-        return MediaTypeDto.builder()
-                .id(mediaType.getId())
-                .name(mediaType.getName())
-                .description(mediaType.getDescription())
-                .build();
+        return new MediaTypeDto(
+                mediaType.getId(),
+                mediaType.getName(),
+                mediaType.getDescription()
+        );
     }
 
 }

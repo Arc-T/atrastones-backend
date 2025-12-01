@@ -16,12 +16,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Implementation of {@link ProductRepository} using a mix of JDBC and JPA.
- * <p>
- * Handles CRUD operations for products. Uses {@link JdbcClient} for simple operations (create, update, delete, count, exists)
- * for performance, and {@link EntityManager} for select queries with joins to leverage ORM benefits.
- */
 @Repository
 public class ProductRepositoryImp implements ProductRepository {
 
@@ -63,23 +57,23 @@ public class ProductRepositoryImp implements ProductRepository {
         String UPDATE_PRODUCT_SQL = """
                 UPDATE products
                        SET name = :name, category_id = :category_id, shop_id = :shop_id, quantity = :quantity,
-                           price = :price, service_group_id = :service_group_id, discount_id = :discount_id,
-                           discount_amount = :discount_amount, description = :description
+                           price = :price, service_group_id = :service_group_id, description = :description
                        WHERE id = :id
                 """;
 
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_PRODUCT_SQL)
-                        .param("id", product.getId())
-                        .param("name", product.getName())
+                        .param("name", product.name())
                         .param("category_id", 1)
-                        .param("shop_id", product.getShopId())
-                        .param("quantity", product.getQuantity())
-                        .param("price", product.getPrice())
-                        .param("service_group_id", product.getServiceGroupId())
-                        .param("discount_id", product.getDiscountId())
-                        .param("discount_amount", product.getDiscountAmount())
-                        .param("description", product.getDescription())
+                        .param("shop_id", product.shopId())
+                        .param("quantity", product.quantity())
+                        .param("price", product.price())
+                        .param("service_group_id", product.serviceGroupId())
+//                        .param("discount_id", product.getDiscountId())
+//                        .param("discount_amount", product.getDiscountAmount())
+                        .param("description", product.description())
+                        .param("id", product.id())
+
                 , "PRODUCT.ID.INVALID"
         );
     }
@@ -124,7 +118,7 @@ public class ProductRepositoryImp implements ProductRepository {
                 SELECT p FROM Product p
                          JOIN FETCH p.shop
                          JOIN FETCH p.category
-                         LEFT JOIN FETCH p.serviceGroup
+                         LEFT JOIN FETCH p.offeringGroup
                          LEFT JOIN FETCH p.discount
                          WHERE p.id = :id
                 """;
