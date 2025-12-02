@@ -9,10 +9,11 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 public class SecurityUtils {
 
-    public SecurityUtils() {}
+    private SecurityUtils() {}
 
     public static Long getCurrentUserId() {
         return getCurrentUser().getId();
@@ -31,7 +32,7 @@ public class SecurityUtils {
     }
 
     public static CustomUserDetails getCurrentUser() {
-        return (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (CustomUserDetails) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     public static Authentication getAuthentication() {
@@ -39,12 +40,12 @@ public class SecurityUtils {
     }
 
     public static Collection<GrantedAuthority> getAuthorities() {
-        CustomUserDetails principal = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUserDetails principal = (CustomUserDetails) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
         return principal.getAuthorities();
     }
 
     public static boolean isAnonymous() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
         return principal instanceof String && principal.equals("anonymousUser");
     }
 
@@ -83,4 +84,5 @@ public class SecurityUtils {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth == null || !auth.isAuthenticated() || isAnonymous();
     }
+
 }

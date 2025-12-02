@@ -24,7 +24,7 @@ public class AuthenticationController {
 
         AuthenticationDTO authResult = authenticationService.authenticateUser(authentication, panel);
 
-        Cookie refreshCookie = new Cookie("token", authResult.getToken());
+        Cookie refreshCookie = new Cookie("token", authResult.token());
         refreshCookie.setHttpOnly(true);// Prevents XSS access
         refreshCookie.setSecure(true);// HTTPS only (enforce in prod)
         refreshCookie.setPath("/");// App-wide access

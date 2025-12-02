@@ -1,7 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
 import com.atrastones.shop.dto.TagDTO;
-import com.atrastones.shop.model.entity.ProductMedia;
 import com.atrastones.shop.model.entity.Tag;
 import com.atrastones.shop.model.repository.contract.TagRepository;
 import com.atrastones.shop.utils.JdbcUtils;

@@ -6,14 +6,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
-@Configuration
 @SpringBootApplication
 @EnableConfigurationProperties
 @EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 public class AccessoryApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(AccessoryApplication.class, args);
     }
-
 }

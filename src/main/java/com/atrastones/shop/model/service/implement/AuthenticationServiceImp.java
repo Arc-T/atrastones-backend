@@ -36,22 +36,22 @@ public class AuthenticationServiceImp implements AuthenticationService {
     public AuthenticationDTO authenticateUser(AuthenticationDTO authentication, String panel) {
         return switch (panel) {
             case "customer" -> {
-                if (authentication.getLoginType().equals(LoginType.SMS)) {
-                    yield AuthenticationDTO.builder()
-                            .smsTtl(smsService.getOrCreateTtl(authentication.getUsername()))
-                            .hasAccount(userService.existsByPhone(authentication.getUsername()))
-                            .username(authentication.getUsername())
-                            .build();
-                } else if (authentication.getLoginType().equals(LoginType.PASSWORD)) {
+                if (authentication.loginType().equals(LoginType.SMS)) {
+                    yield new AuthenticationDTO(
+                            smsService.getOrCreateTtl(authentication.username()),
+                            userService.existsByPhone(authentication.username()),
+                            authentication.username()
+                    );
+                } else if (authentication.loginType().equals(LoginType.PASSWORD)) {
                     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                            authentication.getUsername(), authentication.getPassword()));
-                } else if (authentication.getLoginType().equals(LoginType.EMAIL)) {
+                            authentication.username(), authentication.password()));
+                } else if (authentication.loginType().equals(LoginType.EMAIL)) {
                     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                            authentication.getUsername(), authentication.getPassword()));
+                            authentication.username(), authentication.password()));
                 }
                 throw new IllegalStateException("Invalid login type");
             }
-            case "admin" -> attemptWithPassword(authentication.getUsername(), authentication.getPassword());
+            case "admin" -> attemptWithPassword(authentication.username(), authentication.password());
             default -> throw new IllegalStateException("Unexpected value: " + panel);
         };
     }
@@ -61,15 +61,12 @@ public class AuthenticationServiceImp implements AuthenticationService {
         Optional<SmsDTO> sms = smsService.getPhoneLatestSmsMessage(phone);
         boolean checkOtp = sms.isPresent() && Integer.parseInt(sms.get().description()) == otpCode;
         if (checkOtp && userService.existsByPhone(phone)) {
-            return AuthenticationDTO.builder()
-                    .hasAccount(true)
-                    .token(JwtUtils.generateToken(userDetailsService.loadUserByUsername(phone)))
-                    .build();
-        }
-        else if (checkOtp) {
-            return AuthenticationDTO.builder()
-                    .hasAccount(false)
-                    .build();
+            return new AuthenticationDTO(
+                    true,
+                    JwtUtils.generateToken(userDetailsService.loadUserByUsername(phone))
+            );
+        } else if (checkOtp) {
+            return new AuthenticationDTO(false);
         } else throw new UsernameNotFoundException("Invalid phone number");
     }
 
@@ -84,10 +81,10 @@ public class AuthenticationServiceImp implements AuthenticationService {
                         username, password
                 )
         );
-        return AuthenticationDTO.builder()
-                .username(username)
-                .token(JwtUtils.generateToken(userDetailsService.loadUserByUsername(username)))
-                .build();
+        return new AuthenticationDTO(
+                username,
+                JwtUtils.generateToken(userDetailsService.loadUserByUsername(username))
+        );
     }
 
 }
