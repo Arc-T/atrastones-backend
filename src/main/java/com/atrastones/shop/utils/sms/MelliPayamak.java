@@ -1,6 +1,5 @@
 package com.atrastones.shop.utils.sms;
 
-import com.atrastones.shop.dto.SmsDTO;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,21 +7,19 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @Setter
 @Component
 @ConfigurationProperties(prefix = "sms.mellipayamak")
 public class MelliPayamak extends Sms {
 
-    private String username;
-
-    private String password;
+    private String url;
 
     private String from;
 
-    private String url;
+    private String password;
+
+    private String username;
 
     private final RestClient restClient;
 

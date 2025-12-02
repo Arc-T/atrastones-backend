@@ -13,12 +13,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>atrastones</name>
     <description>Demo project for Spring Boot</description>
-    <url/>
+    <url>https://atrastones.com</url>
     <licenses>
         <license/>
     </licenses>
     <developers>
-        <developer/>
+        <developer>Mr.Arc-T</developer>
     </developers>
     <scm>
         <connection/>
@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <jwt.version>4.5.0</jwt.version>
     </properties>
     <dependencies>

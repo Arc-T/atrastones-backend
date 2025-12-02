@@ -5,7 +5,7 @@ import com.atrastones.shop.model.entity.*;
 import com.atrastones.shop.model.repository.contract.UserRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;

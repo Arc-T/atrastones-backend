@@ -21,8 +21,8 @@ import java.util.Optional;
 public class AuthenticationServiceImp implements AuthenticationService {
 
     private final SmsService smsService;
-    private final UserDetailsService userDetailsService;
     private final UserService userService;
+    private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationServiceImp(UserService userService, AuthenticationManager authenticationManager, SmsService smsService, UserDetailsService userDetailsService) {
