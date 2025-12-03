@@ -7,6 +7,7 @@ import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -20,11 +21,12 @@ import java.util.Optional;
 public class ProductRepositoryImp implements ProductRepository {
 
     private final JdbcClient jdbcClient;
-    private final EntityManager entityManager;
 
-    public ProductRepositoryImp(JdbcClient jdbcClient, EntityManager entityManager) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public ProductRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-        this.entityManager = entityManager;
     }
 
     // ---------------------------- CREATE ----------------------------

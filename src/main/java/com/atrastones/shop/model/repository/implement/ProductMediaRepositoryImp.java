@@ -5,6 +5,7 @@ import com.atrastones.shop.model.entity.ProductMedia;
 import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -15,11 +16,12 @@ import java.util.Optional;
 public class ProductMediaRepositoryImp implements ProductMediaRepository {
 
     private final JdbcClient jdbcClient;
-    private final EntityManager entityManager;
 
-    public ProductMediaRepositoryImp(JdbcClient jdbcClient, EntityManager entityManager) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public ProductMediaRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-        this.entityManager = entityManager;
     }
 
     // ================================================ CREATE ================================================
@@ -32,17 +34,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
                        VALUES (:product_id, :media_type_id, :url, :display_order, :extension)
                 """;
 
-        return JdbcUtils.insertBatch(
-                productMedias.stream()
-                        .map(media -> jdbcClient.sql(INSERT_PRODUCT_MEDIA_SQL)
-                                .param("product_id", media.productId())
-                                .param("media_type_id", 1)
-                                .param("url", media.url())
-                                .param("display_order", media.displayOrder())
-                                .param("extension", media.extension())
-                        )
-                        .toList()
-        );
+        return JdbcUtils.insertBatch(productMedias.stream().map(media -> jdbcClient.sql(INSERT_PRODUCT_MEDIA_SQL).param("product_id", media.productId()).param("media_type_id", 1).param("url", media.url()).param("display_order", media.displayOrder()).param("extension", media.extension())).toList());
     }
 
     // ================================================ UPDATE ================================================
@@ -56,16 +48,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
                        WHERE id = :id
                 """;
 
-        JdbcUtils.update(
-                jdbcClient.sql(UPDATE_PRODUCT_MEDIA_SQL)
-                        .param("product_id", productMedia.productId())
-                        .param("media_type_id", 1)
-                        .param("url", productMedia.url())
-                        .param("display_order", productMedia.displayOrder())
-                        .param("extension", productMedia.extension())
-                        .param("id", id)
-                , "PRODUCT_MEDIA.ID.INVALID"
-        );
+        JdbcUtils.update(jdbcClient.sql(UPDATE_PRODUCT_MEDIA_SQL).param("product_id", productMedia.productId()).param("media_type_id", 1).param("url", productMedia.url()).param("display_order", productMedia.displayOrder()).param("extension", productMedia.extension()).param("id", id), "PRODUCT_MEDIA.ID.INVALID");
     }
 
     // ================================================ DELETE ================================================
@@ -77,11 +60,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
                 DELETE FROM product_media WHERE id = :id
                 """;
 
-        return JdbcUtils.delete(
-                jdbcClient.sql(DELETE_PRODUCT_MEDIA_SQL)
-                        .param("id", id)
-                , "PRODUCT_MEDIA.ID.INVALID"
-        );
+        return JdbcUtils.delete(jdbcClient.sql(DELETE_PRODUCT_MEDIA_SQL).param("id", id), "PRODUCT_MEDIA.ID.INVALID");
     }
 
     // ================================================ SELECT ================================================
@@ -94,11 +73,7 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
                          WHERE pm.id = :id
                 """;
 
-        return Optional.ofNullable(
-                entityManager.createQuery(SELECT_PRODUCT_MEDIA_HQL, ProductMedia.class)
-                        .setParameter("id", id)
-                        .getSingleResult()
-        );
+        return Optional.ofNullable(entityManager.createQuery(SELECT_PRODUCT_MEDIA_HQL, ProductMedia.class).setParameter("id", id).getSingleResult());
     }
 
 }

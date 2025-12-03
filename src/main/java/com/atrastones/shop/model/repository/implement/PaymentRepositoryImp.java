@@ -5,6 +5,7 @@ import com.atrastones.shop.model.entity.Payment;
 import com.atrastones.shop.model.repository.contract.PaymentRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -14,11 +15,12 @@ import java.util.Optional;
 public class PaymentRepositoryImp implements PaymentRepository {
 
     private final JdbcClient jdbcClient;
-    private final EntityManager entityManager;
 
-    public PaymentRepositoryImp(JdbcClient jdbcClient, EntityManager entityManager) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public PaymentRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-        this.entityManager = entityManager;
     }
 
     // ----------------------------- CREATE -----------------------------

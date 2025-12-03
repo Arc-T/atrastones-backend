@@ -5,7 +5,7 @@ import com.atrastones.shop.model.entity.*;
 import com.atrastones.shop.model.repository.contract.UserRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
-import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -19,11 +19,12 @@ import java.util.Optional;
 public class UserRepositoryImp implements UserRepository {
 
     private final JdbcClient jdbcClient;
-    private final EntityManager entityManager;
 
-    public UserRepositoryImp(JdbcClient jdbcClient, EntityManager entityManager) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public UserRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-        this.entityManager = entityManager;
     }
 
     // ---------------------------------------- CREATE ----------------------------------------

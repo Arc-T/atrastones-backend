@@ -5,6 +5,7 @@ import com.atrastones.shop.model.entity.Sms;
 import com.atrastones.shop.model.repository.contract.SmsRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -15,11 +16,12 @@ import org.springframework.stereotype.Repository;
 public class SmsRepositoryImp implements SmsRepository {
 
     private final JdbcClient jdbcClient;
-    private final EntityManager entityManager;
 
-    public SmsRepositoryImp(JdbcClient jdbcClient, EntityManager entityManager) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public SmsRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-        this.entityManager = entityManager;
     }
 
     // --------------------------------------- CREATE ---------------------------------------

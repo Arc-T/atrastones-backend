@@ -6,6 +6,7 @@ import com.atrastones.shop.model.entity.Attribute;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import org.springframework.data.domain.Page;
@@ -23,11 +24,12 @@ import java.util.Optional;
 public class AttributeRepositoryImp implements AttributeRepository {
 
     private final JdbcClient jdbcClient;
-    private final EntityManager entityManager;
 
-    public AttributeRepositoryImp(JdbcClient jdbcClient, EntityManager entityManager) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public AttributeRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-        this.entityManager = entityManager;
     }
 
     //  --------------------------------------  CREATE  --------------------------------------

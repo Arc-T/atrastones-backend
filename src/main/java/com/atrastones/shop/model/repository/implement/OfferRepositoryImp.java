@@ -6,6 +6,7 @@ import com.atrastones.shop.model.entity.Offer;
 import com.atrastones.shop.model.repository.contract.OfferRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,11 +21,12 @@ import java.util.Optional;
 public class OfferRepositoryImp implements OfferRepository {
 
     private final JdbcClient jdbcClient;
-    private final EntityManager entityManager;
 
-    public OfferRepositoryImp(JdbcClient jdbcClient, EntityManager entityManager) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public OfferRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
-        this.entityManager = entityManager;
     }
 
     // -------------------------------------- CREATE --------------------------------------
