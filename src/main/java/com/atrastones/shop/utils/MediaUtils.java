@@ -1,6 +1,7 @@
 package com.atrastones.shop.utils;
 
 import com.atrastones.shop.dto.ProductMediaDTO;
+import com.atrastones.shop.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -106,19 +107,33 @@ public final class MediaUtils {
         return saveFiles(files, productDir, productId);
     }
 
-    public static boolean deleteFile(long productId, String fileName) {
+    public static void deleteFile(long productId, String fileName) {
         Path filePath = productDir(productId).resolve(fileName);
         if (!Files.exists(filePath)) {
             log.warn("File '{}' not found for product {}", fileName, productId);
-            return false;
+            return;
         }
         try {
             Files.delete(filePath);
             log.info("Deleted file '{}' for product {}", fileName, productId);
-            return true;
         } catch (IOException e) {
             log.error("Failed to delete file '{}' for product {}: {}", fileName, productId, e.getMessage(), e);
             throw new RuntimeException("Unable to delete file: " + fileName, e);
+        }
+    }
+
+    public static void deleteDraftFile(String fileName) {
+        Path filePath = DRAFT_DIR.resolve(fileName);
+        if (!Files.exists(filePath)) {
+            log.warn("File '{}' not found in draft", fileName);
+            throw new UtilsException("FILE.DOES.NOT.EXIST");
+        }
+        try {
+            Files.delete(filePath);
+            log.info("Deleted file '{}' in draft", fileName);
+        } catch (IOException e) {
+            log.error("Failed to delete file '{}' in draft: {}", fileName, e.getMessage(), e);
+            throw new UtilsException("ERROR.DELETING.DRAFT.MEDIA");
         }
     }
 

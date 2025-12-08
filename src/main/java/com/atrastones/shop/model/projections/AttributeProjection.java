@@ -18,23 +18,4 @@ public interface AttributeProjection {
 
     LocalDateTime getUpdatedAt();
 
-    CategoryInfo getCategory();
-
-    AttributeInfo getAttributeValue();
-
-    interface CategoryInfo {
-
-        Long getId();
-
-        String getName();
-
-    }
-
-    interface AttributeInfo {
-
-        Long getId();
-
-        String getValue();
-    }
-
 }

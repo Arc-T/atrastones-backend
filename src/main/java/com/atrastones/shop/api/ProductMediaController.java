@@ -30,15 +30,15 @@ public class ProductMediaController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        productMediaService.delete(id);
+    @DeleteMapping("/draft/{name}")
+    public ResponseEntity<Void> deleteDraft(@PathVariable String name) {
+        productMediaService.deleteDraft(name);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id) {
-        productMediaService.delete(id);
+//        productMediaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

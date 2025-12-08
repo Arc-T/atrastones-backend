@@ -3,7 +3,6 @@ package com.atrastones.shop.model.service.implement;
 import com.atrastones.shop.api.create.ProductMediaCreate;
 import com.atrastones.shop.dto.ProductMediaDTO;
 import com.atrastones.shop.exception.ServiceLogicException;
-import com.atrastones.shop.model.entity.ProductMedia;
 import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.model.service.contract.ProductMediaService;
 import com.atrastones.shop.utils.MediaUtils;
@@ -28,12 +27,8 @@ public class ProductMediaServiceImp implements ProductMediaService {
     }
 
     @Override
-    public void delete(Long productId) {
-        MediaUtils.deleteFile(productId,
-                productMediaRepository.get(productId)
-                        .map(ProductMedia::getUrl)
-                        .orElseThrow(() -> new ServiceLogicException("PRODUCT_MEDIA.NOT.FOUND")) //TODO: message
-                );
+    public void deleteDraft(String fileName) {
+        MediaUtils.deleteDraftFile(fileName);
     }
 
     @Override
