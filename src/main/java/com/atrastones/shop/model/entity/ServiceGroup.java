@@ -5,23 +5,20 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "offers")
-public class Offer {
+@Table(name = "service_groups")
+public class ServiceGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
-    private BigDecimal cost;
 
     private String description;
 
@@ -33,12 +30,9 @@ public class Offer {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
+    /* **************************** TABLE RELATIONS **********************************/
 
-    /* **************************** FOREIGN-KEY RELATIONS **********************************/
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private OfferGroup offerGroup;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Product> products;
 
 }

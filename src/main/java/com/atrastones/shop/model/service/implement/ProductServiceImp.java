@@ -45,8 +45,9 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    @Transactional
     public void edit(Long id, ProductDTO product) {
-
+        productRepository.update(product);
     }
 
     @Override

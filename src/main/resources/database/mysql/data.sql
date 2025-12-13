@@ -64,10 +64,10 @@ VALUES (1,
         'ACTIVE',
         'A family-owned bakery specializing in artisan breads and pastries since 1995. We use only the finest organic ingredients.');
 
-INSERT INTO `offer_groups` (`name`, `description`)
+INSERT INTO `service_groups` (`name`, `description`)
 VALUES ('حمل و نقل', 'انواع روش‌های ارسال کالا (پست، حضوری، اسنپ)');
 
-INSERT INTO `offers` (`name`, `cost`, `offer_group_id`, `description`)
+INSERT INTO `services` (`name`, `cost`, `service_group_id`, `description`)
 VALUES ('پست', 50000.00, 1, 'ارسال از طریق شرکت پست جمهوری اسلامی ایران'),
        ('حضوری', 0.00, 1, 'تحویل حضوری توسط مشتری'),
        ('اسنپ', 70000.00, 1, 'ارسال از طریق پیک اسنپ');

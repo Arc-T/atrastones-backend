@@ -42,7 +42,7 @@ public class SecurityConfig {
                                 "/actuator/**",
                                 "/media/**",
                                 "/products/**",
-                                "/offers/**",
+                                "/services/**",
                                 "/tags/**",
                                 "/product-media/**",
                                 "/uploads/**"

@@ -25,9 +25,9 @@ public class AuthenticationController {
         AuthenticationDTO authResult = authenticationService.authenticateUser(authentication, panel);
 
         Cookie refreshCookie = new Cookie("token", authResult.token());
-        refreshCookie.setHttpOnly(true);// Prevents XSS access
-        refreshCookie.setSecure(true);// HTTPS only (enforce in prod)
-        refreshCookie.setPath("/");// App-wide access
+        refreshCookie.setHttpOnly(true); // Prevents XSS access
+        refreshCookie.setSecure(true); // HTTPS only (enforce in prod)
+        refreshCookie.setPath("/"); // App-wide access
         refreshCookie.setMaxAge(7 * 24 * 60 * 600); // 7 days in seconds
         refreshCookie.setAttribute("SameSite", "Strict");  // Mitigates CSRF
         response.addCookie(refreshCookie);

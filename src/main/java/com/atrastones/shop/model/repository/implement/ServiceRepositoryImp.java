@@ -1,9 +1,9 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.api.search.OfferSearch;
-import com.atrastones.shop.dto.OfferDTO;
-import com.atrastones.shop.model.entity.Offer;
-import com.atrastones.shop.model.repository.contract.OfferRepository;
+import com.atrastones.shop.api.search.ServiceSearch;
+import com.atrastones.shop.dto.ServiceDTO;
+import com.atrastones.shop.model.entity.Service;
+import com.atrastones.shop.model.repository.contract.ServiceRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -18,53 +18,53 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class OfferRepositoryImp implements OfferRepository {
+public class ServiceRepositoryImp implements ServiceRepository {
 
     private final JdbcClient jdbcClient;
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public OfferRepositoryImp(JdbcClient jdbcClient) {
+    public ServiceRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
     // -------------------------------------- CREATE --------------------------------------
 
     @Override
-    public long create(OfferDTO offer) {
+    public long create(ServiceDTO service) {
 
         String INSERT_ORDER_SQL = """
-                INSERT INTO offers ("name", "cost", "offer_group_id", "description")
-                       VALUES (:name, :cost, :offer_group_id, :description)
+                INSERT INTO services (name, cost, service_group_id, description)
+                       VALUES (:name, :cost, :service_group_id, :description)
                 """;
 
         return JdbcUtils.insert(
                 jdbcClient.sql(INSERT_ORDER_SQL)
-                        .param("name", offer.name())
-                        .param("cost", offer.cost())
-                        .param("offer_group_id", offer.offerGroupId())
-                        .param("description", offer.description())
+                        .param("name", service.name())
+                        .param("cost", service.cost())
+                        .param("service_group_id", service.serviceGroupId())
+                        .param("description", service.description())
         );
     }
 
     // -------------------------------------- UPDATE --------------------------------------
 
     @Override
-    public void update(long id, OfferDTO offer) {
+    public void update(long id, ServiceDTO service) {
 
         String UPDATE_OFFER_SQL = """
-                UPDATE offers
-                       SET name = :name, cost = :cost, offer_group_id = :offer_group_id, description = :description
+                UPDATE services
+                       SET name = :name, cost = :cost, service_group_id = :service_group_id, description = :description
                        WHERE id = :id
                 """;
 
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_OFFER_SQL)
                         .param("id", id)
-                        .param("cost", offer.cost())
-                        .param("offer_group_id", offer.offerGroupId())
-                        .param("description", offer.description())
+                        .param("cost", service.cost())
+                        .param("service_group_id", service.serviceGroupId())
+                        .param("description", service.description())
                 , "CATEGORY.ID.INVALID"
         );
     }
@@ -75,7 +75,7 @@ public class OfferRepositoryImp implements OfferRepository {
     public boolean delete(Long id) {
 
         String DELETE_DELETE_SQL = """
-                DELETE FROM offers WHERE id = :id
+                DELETE FROM services WHERE id = :id
                 """;
 
         return JdbcUtils.delete(
@@ -88,14 +88,14 @@ public class OfferRepositoryImp implements OfferRepository {
     // -------------------------------------- SELECT --------------------------------------
 
     @Override
-    public Optional<Offer> get(Long id) {
+    public Optional<Service> get(Long id) {
 
         String SELECT_OFFER_HQL = """
-                SELECT o FROM Offer o
+                SELECT o FROM Service o
                          WHERE o.id = :id
                 """;
 
-        return entityManager.createQuery(SELECT_OFFER_HQL, Offer.class)
+        return entityManager.createQuery(SELECT_OFFER_HQL, Service.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -103,14 +103,14 @@ public class OfferRepositoryImp implements OfferRepository {
     }
 
     @Override
-    public List<Offer> getAll(OfferSearch search) {
+    public List<Service> getAll(ServiceSearch search) {
         return buildQueryWithFilters(search).getResultList();
     }
 
     @Override
-    public Page<Offer> getAllPaginated(Pageable pageable, OfferSearch search) {
+    public Page<Service> getAllPaginated(Pageable pageable, ServiceSearch search) {
 
-        List<Offer> categories = buildQueryWithFilters(search)
+        List<Service> categories = buildQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
@@ -132,12 +132,12 @@ public class OfferRepositoryImp implements OfferRepository {
 
     // -------------------------------------- HELPERS --------------------------------------
 
-    private TypedQuery<Offer> buildQueryWithFilters(OfferSearch search) {
+    private TypedQuery<Service> buildQueryWithFilters(ServiceSearch search) {
 
         StringBuilder hql = new StringBuilder();
-        hql.append("SELECT o FROM Offers o");
+        hql.append("SELECT s FROM Service s");
 
-        TypedQuery<Offer> query = entityManager.createQuery(hql.toString(), Offer.class);
+        TypedQuery<Service> query = entityManager.createQuery(hql.toString(), Service.class);
 
         return query;
     }

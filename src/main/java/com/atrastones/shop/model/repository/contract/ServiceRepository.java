@@ -1,23 +1,23 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.api.search.OfferSearch;
-import com.atrastones.shop.dto.OfferDTO;
-import com.atrastones.shop.model.entity.Offer;
+import com.atrastones.shop.api.search.ServiceSearch;
+import com.atrastones.shop.dto.ServiceDTO;
+import com.atrastones.shop.model.entity.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface OfferRepository {
+public interface ServiceRepository {
 
     // ----------------------------- CREATE --------------------------------------
 
-    long create(OfferDTO offer);
+    long create(ServiceDTO service);
 
     // ----------------------------- UPDATE --------------------------------------
 
-    void update(long id, OfferDTO offer);
+    void update(long id, ServiceDTO service);
 
     // -------------------------------------- DELETE --------------------------------------
 
@@ -25,11 +25,11 @@ public interface OfferRepository {
 
     // ----------------------------- SELECT --------------------------------------
 
-    Optional<Offer> get(Long id);
+    Optional<Service> get(Long id);
 
-    List<Offer> getAll(OfferSearch search);
+    List<Service> getAll(ServiceSearch search);
 
-    Page<Offer> getAllPaginated(Pageable pageable, OfferSearch search);
+    Page<Service> getAllPaginated(Pageable pageable, ServiceSearch search);
 
     // ----------------------------- OPERATIONS --------------------------------------
 
