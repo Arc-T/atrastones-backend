@@ -7,6 +7,7 @@ import com.atrastones.shop.model.service.contract.ServiceService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,14 +40,17 @@ public class ServiceServiceImp implements ServiceService {
 
     @Override
     public void remove(Long id) {
+        serviceRepository.delete(id);
     }
 
     @Override
+    @Transactional
     public Long save(ServiceDTO service) {
         return serviceRepository.create(service);
     }
 
     @Override
+    @Transactional
     public void edit(Long id, ServiceDTO service) {
         serviceRepository.update(id, service);
     }

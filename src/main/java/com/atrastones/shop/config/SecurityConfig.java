@@ -43,6 +43,7 @@ public class SecurityConfig {
                                 "/media/**",
                                 "/products/**",
                                 "/services/**",
+                                "/service-groups/**",
                                 "/tags/**",
                                 "/product-media/**",
                                 "/uploads/**"
