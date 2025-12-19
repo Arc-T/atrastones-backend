@@ -32,7 +32,7 @@ public class AttributeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AttributeDTO> readAllPageable(@PathVariable Long id) {
+    public ResponseEntity<AttributeDTO> read(@PathVariable Long id) {
         return ResponseEntity.ok(attributeService.get(id));
     }
 
