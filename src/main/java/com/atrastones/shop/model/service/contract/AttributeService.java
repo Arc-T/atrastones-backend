@@ -21,7 +21,7 @@ public interface AttributeService {
 
     List<AttributeDTO> getAll(AttributeSearch search);
 
-    Page<AttributeDTO> getAllPaginated(Pageable pageable);
+    Page<AttributeDTO> getAllPaginated(AttributeSearch search, Pageable pageable);
 
     List<AttributeDTO> getAllByCategoryId(Long categoryId);
 

@@ -29,7 +29,7 @@ public interface AttributeRepository {
 
     List<Attribute> getAll(AttributeSearch search);
 
-    Page<Attribute> getAllPaginated(Pageable pageable);
+    Page<Attribute> getAllPaginated(AttributeSearch search, Pageable pageable);
 
     List<Attribute> getAllByCategoryId(Long categoryId);
 

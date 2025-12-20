@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 public class AttributeRepositoryImp implements AttributeRepository {
 
@@ -133,13 +135,15 @@ public class AttributeRepositoryImp implements AttributeRepository {
     }
 
     @Override
-    public Page<Attribute> getAllPaginated(Pageable pageable) {
+    public Page<Attribute> getAllPaginated(AttributeSearch search, Pageable pageable) {
 
         String SELECT_ATTRIBUTE_IDS_HQL = """
                 SELECT a.id FROM Attribute a
+                WHERE (:name IS NULL OR a.name LIKE :name)
                 """;
 
         List<Long> attributeIds = entityManager.createQuery(SELECT_ATTRIBUTE_IDS_HQL, Long.class)
+                .setParameter("name", search.name() != null ? "%" + search.name() + "%" : null)
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
@@ -149,10 +153,10 @@ public class AttributeRepositoryImp implements AttributeRepository {
 
         String SELECT_ATTRIBUTE_VALUES = """
                 SELECT a FROM Attribute a
-                         JOIN FETCH a.category
-                         LEFT JOIN FETCH a.attributeValuesPivot avp
-                         LEFT JOIN FETCH avp.attributeValue
-                         WHERE a.id IN :attributeIds
+                     JOIN FETCH a.category
+                     LEFT JOIN FETCH a.attributeValuesPivot avp
+                     LEFT JOIN FETCH avp.attributeValue
+                     WHERE a.id IN :attributeIds
                 """;
 
         List<Attribute> withValues = entityManager.createQuery(SELECT_ATTRIBUTE_VALUES, Attribute.class)
@@ -162,9 +166,10 @@ public class AttributeRepositoryImp implements AttributeRepository {
         return PageableExecutionUtils.getPage(
                 withValues,
                 pageable,
-                this::count
+                this::count // pass search to count method if you want correct total
         );
     }
+
 
     @Override
     public List<Attribute> getAllByCategoryId(Long categoryId) {

@@ -54,8 +54,8 @@ public class AttributeServiceImp implements AttributeService {
     }
 
     @Override
-    public Page<AttributeDTO> getAllPaginated(Pageable pageable) {
-        return attributeRepository.getAllPaginated(pageable).map(AttributeDTO::toFullDTO);
+    public Page<AttributeDTO> getAllPaginated(AttributeSearch search, Pageable pageable) {
+        return attributeRepository.getAllPaginated(search, pageable).map(AttributeDTO::toFullDTO);
     }
 
     @Override

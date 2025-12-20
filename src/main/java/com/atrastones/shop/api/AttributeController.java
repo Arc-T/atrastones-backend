@@ -27,8 +27,8 @@ public class AttributeController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<AttributeDTO>> readAllPageable(Pageable pageable) {
-        return ResponseEntity.ok(attributeService.getAllPaginated(pageable));
+    public ResponseEntity<Page<AttributeDTO>> readAllPageable(AttributeSearch search, Pageable pageable) {
+        return ResponseEntity.ok(attributeService.getAllPaginated(search, pageable));
     }
 
     @GetMapping("/{id}")
