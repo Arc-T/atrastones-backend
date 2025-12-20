@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/products")
@@ -24,7 +25,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> read(@PathVariable Long id) {
+    public ResponseEntity<Optional<ProductDTO>> read(@PathVariable Long id) {
         return ResponseEntity.ok().body(productService.get(id));
     }
 

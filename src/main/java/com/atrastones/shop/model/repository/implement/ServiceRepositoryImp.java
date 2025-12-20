@@ -62,6 +62,7 @@ public class ServiceRepositoryImp implements ServiceRepository {
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_SERVICE_SQL)
                         .param("id", id)
+                        .param("name", service.name())
                         .param("cost", service.cost())
                         .param("service_group_id", service.serviceGroupId())
                         .param("description", service.description())

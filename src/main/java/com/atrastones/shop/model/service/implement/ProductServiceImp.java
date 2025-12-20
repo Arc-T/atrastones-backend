@@ -4,7 +4,6 @@ import com.atrastones.shop.api.create.ProductCreate;
 import com.atrastones.shop.api.search.ProductSearch;
 import com.atrastones.shop.dto.*;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
-import com.atrastones.shop.model.service.contract.ProductMediaService;
 import com.atrastones.shop.model.service.contract.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,16 +19,14 @@ import java.util.Optional;
 public class ProductServiceImp implements ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductMediaService productMediaService;
 
-    public ProductServiceImp(ProductRepository productRepository, ProductMediaService productMediaService) {
+    public ProductServiceImp(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.productMediaService = productMediaService;
     }
 
     @Override
-    public Optional<ProductDTO> get(Long productId) {
-        return Optional.empty();
+    public Optional<ProductDTO> get(Long id) {
+        return productRepository.get(id).map(ProductDTO::toDTO);
     }
 
     @Override
@@ -39,9 +36,7 @@ public class ProductServiceImp implements ProductService {
     @Override
     @Transactional
     public Long save(ProductCreate product) {
-        long createdProductId = productRepository.create(product);
-        productMediaService.save(createdProductId);
-        return createdProductId;
+        return productRepository.create(product);
     }
 
     @Override
