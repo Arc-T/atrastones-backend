@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.contract;
 
-import com.atrastones.shop.api.search.ServiceSearch;
+import com.atrastones.shop.dto.search.ServiceSearch;
 import com.atrastones.shop.dto.ServiceDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

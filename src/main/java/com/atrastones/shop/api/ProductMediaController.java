@@ -1,7 +1,7 @@
 package com.atrastones.shop.api;
 
-import com.atrastones.shop.api.create.ProductMediaCreate;
-import com.atrastones.shop.dto.ProductMediaDTO;
+import com.atrastones.shop.dto.MediaDTO;
+import com.atrastones.shop.dto.create.ProductMediaCreate;
 import com.atrastones.shop.model.service.contract.ProductMediaService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +20,19 @@ public class ProductMediaController {
     }
 
     @GetMapping("/draft")
-    public ResponseEntity<List<ProductMediaDTO>> readAllDraft() {
+    public ResponseEntity<List<MediaDTO>> readAllDraft() {
         return ResponseEntity.ok().body(productMediaService.getAllDraft());
     }
 
     @PostMapping(path = "/draft", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> createDraft(ProductMediaCreate ProductMediaCreate) {
         productMediaService.createDraft(ProductMediaCreate);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/products/{productId}/{name}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId, @PathVariable String name) {
+        productMediaService.deleteProductMedia(productId, name);
         return ResponseEntity.noContent().build();
     }
 

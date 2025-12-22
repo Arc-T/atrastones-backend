@@ -1,6 +1,6 @@
 package com.atrastones.shop.api;
 
-import com.atrastones.shop.api.search.ServiceGroupSearch;
+import com.atrastones.shop.dto.search.ServiceGroupSearch;
 import com.atrastones.shop.dto.ServiceGroupDTO;
 import com.atrastones.shop.dto.TagDTO;
 import com.atrastones.shop.model.service.contract.ServiceGroupService;

@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.api.search.ServiceGroupSearch;
+import com.atrastones.shop.dto.search.ServiceGroupSearch;
 import com.atrastones.shop.dto.ServiceGroupDTO;
 import com.atrastones.shop.model.entity.ServiceGroup;
 import org.springframework.data.domain.Page;

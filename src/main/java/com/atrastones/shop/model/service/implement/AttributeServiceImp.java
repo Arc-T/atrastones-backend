@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.implement;
 
-import com.atrastones.shop.api.search.AttributeSearch;
+import com.atrastones.shop.dto.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.model.service.contract.AttributeService;

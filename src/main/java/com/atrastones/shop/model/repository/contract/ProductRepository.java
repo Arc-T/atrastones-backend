@@ -1,10 +1,9 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.api.create.ProductCreate;
-import com.atrastones.shop.api.search.ProductSearch;
+import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.search.ProductSearch;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.entity.*;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

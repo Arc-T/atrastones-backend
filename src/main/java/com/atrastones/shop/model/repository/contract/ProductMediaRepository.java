@@ -1,6 +1,5 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.dto.ProductMediaDTO;
 import com.atrastones.shop.model.entity.ProductMedia;
 
 import java.util.List;
@@ -10,15 +9,15 @@ public interface ProductMediaRepository {
 
     // ======================================= CREATE =======================================
 
-    List<Long> createBatch(List<ProductMediaDTO> productMedia);
+    List<Long> createBatch(List<com.atrastones.shop.dto.ProductMediaDTO> productMediaDTO);
 
     // ======================================= UPDATE =======================================
 
-    void update(Long id, ProductMediaDTO productMedia);
+    void update(Long id, com.atrastones.shop.dto.ProductMediaDTO productMediaDTO);
 
     // ======================================= DELETE =======================================
 
-    boolean delete(Long id);
+    boolean deleteByProductIdAndUrl(Long productId, String fileName);
 
     // ======================================= SELECT =======================================
 

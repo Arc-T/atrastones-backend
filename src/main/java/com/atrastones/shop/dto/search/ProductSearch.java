@@ -1,4 +1,4 @@
-package com.atrastones.shop.api.search;
+package com.atrastones.shop.dto.search;
 
 import java.util.List;
 

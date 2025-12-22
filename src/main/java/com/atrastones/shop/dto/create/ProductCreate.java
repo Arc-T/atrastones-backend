@@ -1,4 +1,4 @@
-package com.atrastones.shop.api.create;
+package com.atrastones.shop.dto.create;
 
 import java.math.BigDecimal;
 

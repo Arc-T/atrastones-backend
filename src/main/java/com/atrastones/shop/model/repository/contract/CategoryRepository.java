@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.api.search.CategorySearch;
+import com.atrastones.shop.dto.search.CategorySearch;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.entity.Category;
 import jakarta.persistence.EntityNotFoundException;

@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.api.create.ProductCreate;
-import com.atrastones.shop.api.search.ProductSearch;
+import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.search.ProductSearch;
 import com.atrastones.shop.dto.ProductDTO;
 import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.model.repository.contract.ProductRepository;

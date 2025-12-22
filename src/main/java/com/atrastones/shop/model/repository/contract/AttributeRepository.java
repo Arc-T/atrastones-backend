@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.api.search.AttributeSearch;
+import com.atrastones.shop.dto.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
 import com.atrastones.shop.model.entity.Attribute;
 import org.springframework.data.domain.Page;

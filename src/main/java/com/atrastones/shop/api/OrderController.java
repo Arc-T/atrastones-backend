@@ -1,6 +1,6 @@
 package com.atrastones.shop.api;
 
-import com.atrastones.shop.api.search.OrderSearch;
+import com.atrastones.shop.dto.search.OrderSearch;
 import com.atrastones.shop.dto.OrderDTO;
 import com.atrastones.shop.model.service.contract.OrderService;
 import org.springframework.data.domain.Page;

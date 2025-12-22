@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.api.search.OrderSearch;
+import com.atrastones.shop.dto.search.OrderSearch;
 import com.atrastones.shop.dto.OrderDTO;
 import com.atrastones.shop.model.entity.Invoice;
 import com.atrastones.shop.model.entity.Order;

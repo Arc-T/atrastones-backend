@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.api.search.ServiceGroupSearch;
+import com.atrastones.shop.dto.search.ServiceGroupSearch;
 import com.atrastones.shop.dto.ServiceGroupDTO;
 import com.atrastones.shop.model.entity.ServiceGroup;
 import com.atrastones.shop.model.repository.contract.ServiceGroupRepository;

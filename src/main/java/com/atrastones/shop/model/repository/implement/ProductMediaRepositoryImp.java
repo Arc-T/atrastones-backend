@@ -27,20 +27,28 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
     // ================================================ CREATE ================================================
 
     @Override
-    public List<Long> createBatch(List<ProductMediaDTO> productMedias) {
+    public List<Long> createBatch(List<ProductMediaDTO> productMedia) {
 
         String INSERT_PRODUCT_MEDIA_SQL = """
                 INSERT INTO product_media (product_id, media_type_id, url, display_order, extension)
                        VALUES (:product_id, :media_type_id, :url, :display_order, :extension)
                 """;
 
-        return JdbcUtils.insertBatch(productMedias.stream().map(media -> jdbcClient.sql(INSERT_PRODUCT_MEDIA_SQL).param("product_id", media.productId()).param("media_type_id", 1).param("url", media.url()).param("display_order", media.displayOrder()).param("extension", media.extension())).toList());
+        return JdbcUtils.insertBatch(productMedia.stream().map(
+                        media ->
+                                jdbcClient.sql(INSERT_PRODUCT_MEDIA_SQL)
+                                        .param("product_id", media.productId())
+                                        .param("media_type_id", 1)
+                                        .param("url", media.url())
+                                        .param("display_order", media.displayOrder())
+                                        .param("extension", media.extension()))
+                .toList());
     }
 
     // ================================================ UPDATE ================================================
 
     @Override
-    public void update(Long id, ProductMediaDTO productMedia) {
+    public void update(Long id, ProductMediaDTO productMediaDTO) {
 
         String UPDATE_PRODUCT_MEDIA_SQL = """
                 UPDATE product_media
@@ -48,19 +56,25 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
                        WHERE id = :id
                 """;
 
-        JdbcUtils.update(jdbcClient.sql(UPDATE_PRODUCT_MEDIA_SQL).param("product_id", productMedia.productId()).param("media_type_id", 1).param("url", productMedia.url()).param("display_order", productMedia.displayOrder()).param("extension", productMedia.extension()).param("id", id), "PRODUCT_MEDIA.ID.INVALID");
+        JdbcUtils.update(jdbcClient.sql(UPDATE_PRODUCT_MEDIA_SQL).param("product_id", productMediaDTO.productId()).param("media_type_id", 1).param("url", productMediaDTO.url()).param("display_order", productMediaDTO.displayOrder()).param("extension", productMediaDTO.extension()).param("id", id), "PRODUCT_MEDIA.ID.INVALID");
     }
 
     // ================================================ DELETE ================================================
 
     @Override
-    public boolean delete(Long id) {
+    public boolean deleteByProductIdAndUrl(Long productId, String url) {
 
         String DELETE_PRODUCT_MEDIA_SQL = """
-                DELETE FROM product_media WHERE id = :id
+                DELETE FROM product_media
+                       WHERE product_id = :product_id
+                       AND url = :url
                 """;
 
-        return JdbcUtils.delete(jdbcClient.sql(DELETE_PRODUCT_MEDIA_SQL).param("id", id), "PRODUCT_MEDIA.ID.INVALID");
+        return JdbcUtils.delete(
+                jdbcClient.sql(DELETE_PRODUCT_MEDIA_SQL)
+                        .param("product_id", productId)
+                        .param("url", url),
+                "PRODUCT_MEDIA.ID.INVALID");
     }
 
     // ================================================ SELECT ================================================
