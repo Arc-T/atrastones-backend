@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,14 +26,8 @@ public class ServiceServiceImp implements ServiceService {
     }
 
     @Override
-    public List<ServiceDTO> getAll(ServiceSearch search) {
-        return serviceRepository.getAll(search)
-                .stream().map(ServiceDTO::toDTO).toList();
-    }
-
-    @Override
-    public Page<ServiceDTO> getAllPageable(Pageable pageable, ServiceSearch search) {
-        return serviceRepository.getAllPaginated(pageable, search)
+    public Page<ServiceDTO> getAll(Pageable pageable, ServiceSearch search) {
+        return serviceRepository.getAll(pageable, search)
                 .map(ServiceDTO::toDTO);
     }
 

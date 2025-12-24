@@ -133,7 +133,7 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public Page<Product> getAllPaginated(Pageable pageable, ProductSearch filter) {
+    public Page<Product> getAll(Pageable pageable, ProductSearch filter) {
 
         String SELECT_PRODUCT_IDS = """
                 SELECT p.id FROM Product p

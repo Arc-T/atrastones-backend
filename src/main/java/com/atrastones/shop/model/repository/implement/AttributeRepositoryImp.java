@@ -1,14 +1,13 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.dto.search.AttributeSearch;
 import com.atrastones.shop.dto.AttributeDTO;
+import com.atrastones.shop.dto.search.AttributeSearch;
 import com.atrastones.shop.model.entity.Attribute;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,6 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,35 +109,11 @@ public class AttributeRepositoryImp implements AttributeRepository {
     }
 
     @Override
-    public List<Attribute> getAll(AttributeSearch search) {
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Attribute> criteriaQuery = criteriaBuilder.createQuery(Attribute.class);
-
-        Root<Attribute> root = criteriaQuery.from(Attribute.class);
-        root.fetch("category", JoinType.INNER);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (StringUtils.hasText(search.name())) {
-            String pattern = "%" + search.name().trim().toLowerCase() + "%";
-            Predicate namePredicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), pattern);
-            predicates.add(namePredicate);
-        }
-
-        if (!predicates.isEmpty())
-            criteriaQuery.where(predicates.toArray(new Predicate[0]));
-
-        TypedQuery<Attribute> query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();
-    }
-
-    @Override
-    public Page<Attribute> getAllPaginated(AttributeSearch search, Pageable pageable) {
+    public Page<Attribute> getAll(AttributeSearch search, Pageable pageable) {
 
         String SELECT_ATTRIBUTE_IDS_HQL = """
                 SELECT a.id FROM Attribute a
-                WHERE (:name IS NULL OR a.name LIKE :name)
+                            WHERE (:name IS NULL OR a.name LIKE :name)
                 """;
 
         List<Long> attributeIds = entityManager.createQuery(SELECT_ATTRIBUTE_IDS_HQL, Long.class)
@@ -153,10 +127,10 @@ public class AttributeRepositoryImp implements AttributeRepository {
 
         String SELECT_ATTRIBUTE_VALUES = """
                 SELECT a FROM Attribute a
-                     JOIN FETCH a.category
-                     LEFT JOIN FETCH a.attributeValuesPivot avp
-                     LEFT JOIN FETCH avp.attributeValue
-                     WHERE a.id IN :attributeIds
+                         JOIN FETCH a.category
+                         LEFT JOIN FETCH a.attributeValuesPivot avp
+                         LEFT JOIN FETCH avp.attributeValue
+                         WHERE a.id IN :attributeIds
                 """;
 
         List<Attribute> withValues = entityManager.createQuery(SELECT_ATTRIBUTE_VALUES, Attribute.class)
@@ -166,7 +140,7 @@ public class AttributeRepositoryImp implements AttributeRepository {
         return PageableExecutionUtils.getPage(
                 withValues,
                 pageable,
-                this::count // pass search to count method if you want correct total
+                this::count
         );
     }
 
@@ -210,26 +184,6 @@ public class AttributeRepositoryImp implements AttributeRepository {
                 .param("id", id)
                 .query(Boolean.class)
                 .single();
-    }
-
-    private TypedQuery<Attribute> buildQueryWithFilters(AttributeSearch filter) {
-
-        StringBuilder hql = new StringBuilder("SELECT a FROM Attribute a");
-
-        if (filter.name() != null) {
-
-            hql.append(" WHERE 1=1");
-
-            if (StringUtils.hasText(filter.name()))
-                hql.append(" AND LOWER(a.name) LIKE LOWER(:name)");
-        }
-
-        TypedQuery<Attribute> query = entityManager.createQuery(hql.toString(), Attribute.class);
-
-        if (StringUtils.hasText(filter.name()))
-            query.setParameter("name", "%" + filter.name().trim() + "%");
-
-        return query;
     }
 
 }

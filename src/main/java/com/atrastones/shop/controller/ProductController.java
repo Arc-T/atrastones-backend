@@ -29,9 +29,9 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.get(id));
     }
 
-    @GetMapping("/page")
-    public ResponseEntity<Page<ProductDTO>> readAllPaginated(Pageable pageable, ProductSearch filter) {
-        return ResponseEntity.ok(productService.getAllPaginated(pageable, filter));
+    @GetMapping
+    public ResponseEntity<Page<ProductDTO>> readAll(Pageable pageable, ProductSearch search) {
+        return ResponseEntity.ok(productService.getAll(pageable, search));
     }
 
     @PostMapping

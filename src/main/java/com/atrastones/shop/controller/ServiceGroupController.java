@@ -1,8 +1,8 @@
 package com.atrastones.shop.controller;
 
-import com.atrastones.shop.dto.search.ServiceGroupSearch;
 import com.atrastones.shop.dto.ServiceGroupDTO;
 import com.atrastones.shop.dto.TagDTO;
+import com.atrastones.shop.dto.search.ServiceGroupSearch;
 import com.atrastones.shop.model.service.contract.ServiceGroupService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/service-groups")
@@ -24,13 +23,8 @@ public class ServiceGroupController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ServiceGroupDTO>> readAll(ServiceGroupSearch search) {
-        return ResponseEntity.ok(serviceGroupService.getAll(search));
-    }
-
-    @GetMapping("/page")
-    public ResponseEntity<Page<ServiceGroupDTO>> readAllPageable(Pageable pageable, ServiceGroupSearch search) {
-        return ResponseEntity.ok(serviceGroupService.getAllPageable(pageable, search));
+    public ResponseEntity<Page<ServiceGroupDTO>> readAll(Pageable pageable, ServiceGroupSearch search) {
+        return ResponseEntity.ok(serviceGroupService.getAll(pageable, search));
     }
 
     @PostMapping

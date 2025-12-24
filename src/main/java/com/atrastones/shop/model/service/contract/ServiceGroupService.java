@@ -12,9 +12,7 @@ public interface ServiceGroupService {
 
     Optional<ServiceGroupDTO> get(Long id);
 
-    List<ServiceGroupDTO> getAll(ServiceGroupSearch filter);
-
-    Page<ServiceGroupDTO> getAllPageable(Pageable pageable, ServiceGroupSearch filter);
+    Page<ServiceGroupDTO> getAll(Pageable pageable, ServiceGroupSearch filter);
 
     void remove(Long id);
 

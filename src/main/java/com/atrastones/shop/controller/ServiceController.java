@@ -1,8 +1,8 @@
 package com.atrastones.shop.controller;
 
-import com.atrastones.shop.dto.search.ServiceSearch;
 import com.atrastones.shop.dto.ServiceDTO;
 import com.atrastones.shop.dto.TagDTO;
+import com.atrastones.shop.dto.search.ServiceSearch;
 import com.atrastones.shop.model.service.contract.ServiceService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/services")
@@ -24,13 +23,8 @@ public class ServiceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ServiceDTO>> readAll(ServiceSearch search) {
-        return ResponseEntity.ok(serviceService.getAll(search));
-    }
-
-    @GetMapping("/page")
-    public ResponseEntity<Page<ServiceDTO>> readAllPageable(Pageable pageable, ServiceSearch search) {
-        return ResponseEntity.ok(serviceService.getAllPageable(pageable, search));
+    public ResponseEntity<Page<ServiceDTO>> readAll(Pageable pageable, ServiceSearch search) {
+        return ResponseEntity.ok(serviceService.getAll(pageable, search));
     }
 
     @PostMapping

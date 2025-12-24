@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,13 +28,8 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> readAll(CategorySearch filter) {
-        return ResponseEntity.ok(categoryService.getAll(filter));
-    }
-
-    @GetMapping("/page")
-    public ResponseEntity<Page<CategoryDTO>> readAllPageable(Pageable pageable, CategorySearch filter) {
-        return ResponseEntity.ok(categoryService.getAllPageable(pageable, filter));
+    public ResponseEntity<Page<CategoryDTO>> readAll(Pageable pageable, CategorySearch search) {
+        return ResponseEntity.ok(categoryService.getAll(pageable, search));
     }
 
     @PostMapping

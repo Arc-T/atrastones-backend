@@ -20,9 +20,9 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/page")
-    public ResponseEntity<Page<OrderDTO>> readAllPageable(Pageable pageable, OrderSearch search) {
-        return ResponseEntity.ok(orderService.getAllPaginated(pageable, search));
+    @GetMapping
+    public ResponseEntity<Page<OrderDTO>> readAll(Pageable pageable, OrderSearch search) {
+        return ResponseEntity.ok(orderService.getAll(pageable, search));
     }
 
 }

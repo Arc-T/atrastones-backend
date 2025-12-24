@@ -111,12 +111,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
     }
 
     @Override
-    public List<Category> getAll(CategorySearch search) {
-        return buildQueryWithFilters(search).getResultList();
-    }
-
-    @Override
-    public Page<Category> getAllPaginated(Pageable pageable, CategorySearch search) {
+    public Page<Category> getAll(Pageable pageable, CategorySearch search) {
 
         List<Category> categories = buildQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())
@@ -129,7 +124,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
     // -------------------------------------- OPERATION --------------------------------------
 
     @Override
-    public Long count() {
+    public long count() {
 
         String COUNT_CATEGORY_SQL = """
                 SELECT COUNT(*) FROM categories

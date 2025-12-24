@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,13 +25,8 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getAll(OrderSearch search) {
-        return List.of();
-    }
-
-    @Override
-    public Page<OrderDTO> getAllPaginated(Pageable pageable, OrderSearch search) {
-        return orderRepository.findAllPageable(pageable, search).map(OrderDTO::toDTO);
+    public Page<OrderDTO> getAll(Pageable pageable, OrderSearch search) {
+        return orderRepository.findAll(pageable, search).map(OrderDTO::toDTO);
     }
 
     @Override

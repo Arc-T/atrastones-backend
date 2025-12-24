@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,13 +25,8 @@ public class ServiceGroupServiceImp implements ServiceGroupService {
     }
 
     @Override
-    public List<ServiceGroupDTO> getAll(ServiceGroupSearch search) {
-        return serviceGroupRepository.getAll(search).stream().map(ServiceGroupDTO::toDTO).toList();
-    }
-
-    @Override
-    public Page<ServiceGroupDTO> getAllPageable(Pageable pageable, ServiceGroupSearch search) {
-        return serviceGroupRepository.getAllPaginated(pageable, search).map(ServiceGroupDTO::toDTO);
+    public Page<ServiceGroupDTO> getAll(Pageable pageable, ServiceGroupSearch search) {
+        return serviceGroupRepository.getAll(pageable, search).map(ServiceGroupDTO::toDTO);
     }
 
     @Override

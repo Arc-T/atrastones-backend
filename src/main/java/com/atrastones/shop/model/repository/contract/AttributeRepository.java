@@ -27,9 +27,7 @@ public interface AttributeRepository {
 
     Optional<Attribute> get(Long id);
 
-    List<Attribute> getAll(AttributeSearch search);
-
-    Page<Attribute> getAllPaginated(AttributeSearch search, Pageable pageable);
+    Page<Attribute> getAll(AttributeSearch search, Pageable pageable);
 
     List<Attribute> getAllByCategoryId(Long categoryId);
 

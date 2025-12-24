@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.dto.search.OrderSearch;
 import com.atrastones.shop.dto.OrderDTO;
+import com.atrastones.shop.dto.search.OrderSearch;
 import com.atrastones.shop.model.entity.Invoice;
 import com.atrastones.shop.model.entity.Order;
 import com.atrastones.shop.model.entity.OrderDetails;
@@ -9,9 +9,7 @@ import com.atrastones.shop.model.repository.contract.OrderRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
@@ -77,13 +75,8 @@ public class OrderRepositoryImp implements OrderRepository {
 
 
     @Override
-    public Page<Order> findAllPageable(Pageable pageable, OrderSearch search) {
-        List<Order> orders = buildQueryWithFilters(search)
-                .setFirstResult((int) pageable.getOffset())
-                .setMaxResults(pageable.getPageSize())
-                .getResultList();
-
-        return new PageImpl<>(orders, pageable, orders.size());
+    public Page<Order> findAll(Pageable pageable, OrderSearch search) {
+        return null;
     }
 
     @Override
@@ -140,15 +133,5 @@ public class OrderRepositoryImp implements OrderRepository {
                 .query(Boolean.class)
                 .single();
     }
-
-    private TypedQuery<Order> buildQueryWithFilters(OrderSearch search) {
-
-        StringBuilder hql = new StringBuilder("SELECT o FROM Order o");
-
-        TypedQuery<Order> query = entityManager.createQuery(hql.toString(), Order.class);
-
-        return query;
-    }
-
 
 }

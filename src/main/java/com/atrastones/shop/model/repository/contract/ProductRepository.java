@@ -30,7 +30,7 @@ public interface ProductRepository {
 
     Optional<Product> getDetails(long id);
 
-    Page<Product> getAllPaginated(Pageable pageable, ProductSearch filter);
+    Page<Product> getAll(Pageable pageable, ProductSearch filter);
 
     List<Product> getAllByCategoryId(long categoryId);
 

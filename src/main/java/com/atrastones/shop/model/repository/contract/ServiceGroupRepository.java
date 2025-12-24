@@ -27,9 +27,7 @@ public interface ServiceGroupRepository {
 
     Optional<ServiceGroup> get(Long id);
 
-    List<ServiceGroup> getAll(ServiceGroupSearch search);
-
-    Page<ServiceGroup> getAllPaginated(Pageable pageable, ServiceGroupSearch search);
+    Page<ServiceGroup> getAll(Pageable pageable, ServiceGroupSearch search);
 
     // ----------------------------- OPERATIONS --------------------------------------
 

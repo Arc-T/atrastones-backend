@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/attributes")
@@ -22,13 +21,8 @@ public class AttributeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AttributeDTO>> readAll(AttributeSearch search) {
-        return ResponseEntity.ok(attributeService.getAll(search));
-    }
-
-    @GetMapping("/page")
-    public ResponseEntity<Page<AttributeDTO>> readAllPageable(AttributeSearch search, Pageable pageable) {
-        return ResponseEntity.ok(attributeService.getAllPaginated(search, pageable));
+    public ResponseEntity<Page<AttributeDTO>> readAll(AttributeSearch search, Pageable pageable) {
+        return ResponseEntity.ok(attributeService.getAll(search, pageable));
     }
 
     @GetMapping("/{id}")

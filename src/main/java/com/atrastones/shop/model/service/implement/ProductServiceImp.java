@@ -46,13 +46,8 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getAll(ProductSearch filter) {
-        return List.of();
-    }
-
-    @Override
-    public Page<ProductDTO> getAllPaginated(Pageable pageable, ProductSearch filter) {
-        return productRepository.getAllPaginated(pageable, filter).map(ProductDTO::toDTO);
+    public Page<ProductDTO> getAll(Pageable pageable, ProductSearch filter) {
+        return productRepository.getAll(pageable, filter).map(ProductDTO::toDTO);
     }
 
     @Override

@@ -100,12 +100,7 @@ public class ServiceGroupRepositoryImp implements ServiceGroupRepository {
     }
 
     @Override
-    public List<ServiceGroup> getAll(ServiceGroupSearch search) {
-        return buildQueryWithFilters(search).getResultList();
-    }
-
-    @Override
-    public Page<ServiceGroup> getAllPaginated(Pageable pageable, ServiceGroupSearch search) {
+    public Page<ServiceGroup> getAll(Pageable pageable, ServiceGroupSearch search) {
 
         List<ServiceGroup> serviceGroups = buildQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())

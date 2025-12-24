@@ -22,7 +22,7 @@ public interface OrderRepository {
 
     // ----------------------------- SELECT --------------------------------------
 
-    Page<Order> findAllPageable(Pageable pageable, OrderSearch search);
+    Page<Order> findAll(Pageable pageable, OrderSearch search);
 
     List<OrderDetails> findOrderDetails(Long id);
 

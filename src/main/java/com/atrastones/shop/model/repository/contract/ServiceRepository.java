@@ -27,9 +27,7 @@ public interface ServiceRepository {
 
     Optional<Service> get(Long id);
 
-    List<Service> getAll(ServiceSearch search);
-
-    Page<Service> getAllPaginated(Pageable pageable, ServiceSearch search);
+    Page<Service> getAll(Pageable pageable, ServiceSearch search);
 
     // ----------------------------- OPERATIONS --------------------------------------
 

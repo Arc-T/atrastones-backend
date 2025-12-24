@@ -14,13 +14,7 @@ public interface CategoryService {
 
     Optional<CategoryDTO> get(Long id);
 
-    List<CategoryDTO> getAll(CategorySearch filter);
-
-    Page<CategoryDTO> getAllPageable(Pageable pageable, CategorySearch filter);
-
-    CategoryDTO getAttributesAndValues(Long id);
-
-    List<CategoryDTO> getAllParentsWithChildren();
+    Page<CategoryDTO> getAll(Pageable pageable, CategorySearch search);
 
     void remove(Long id);
 

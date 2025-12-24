@@ -5,7 +5,6 @@ import com.atrastones.shop.dto.ServiceDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ServiceService {
@@ -14,9 +13,7 @@ public interface ServiceService {
 
     Optional<ServiceDTO> get(Long id);
 
-    List<ServiceDTO> getAll(ServiceSearch filter);
-
-    Page<ServiceDTO> getAllPageable(Pageable pageable, ServiceSearch filter);
+    Page<ServiceDTO> getAll(Pageable pageable, ServiceSearch filter);
 
     void remove(Long id);
 

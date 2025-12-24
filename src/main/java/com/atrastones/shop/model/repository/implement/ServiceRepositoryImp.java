@@ -104,12 +104,7 @@ public class ServiceRepositoryImp implements ServiceRepository {
     }
 
     @Override
-    public List<Service> getAll(ServiceSearch search) {
-        return buildQueryWithFilters(search).getResultList();
-    }
-
-    @Override
-    public Page<Service> getAllPaginated(Pageable pageable, ServiceSearch search) {
+    public Page<Service> getAll(Pageable pageable, ServiceSearch search) {
 
         List<Service> services = buildQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())

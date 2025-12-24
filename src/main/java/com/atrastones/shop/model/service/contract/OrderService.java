@@ -5,7 +5,6 @@ import com.atrastones.shop.dto.OrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
@@ -14,9 +13,7 @@ public interface OrderService {
 
     Optional<OrderDTO> get(Long id);
 
-    List<OrderDTO> getAll(OrderSearch search);
-
-    Page<OrderDTO> getAllPaginated(Pageable pageable, OrderSearch search);
+    Page<OrderDTO> getAll(Pageable pageable, OrderSearch search);
 
     Long create(OrderDTO order);
 

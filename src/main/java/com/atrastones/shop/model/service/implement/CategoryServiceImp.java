@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.service.implement;
 
-import com.atrastones.shop.dto.search.CategorySearch;
 import com.atrastones.shop.dto.CategoryDTO;
+import com.atrastones.shop.dto.search.CategorySearch;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
 import com.atrastones.shop.model.service.contract.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -29,27 +28,9 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public List<CategoryDTO> getAll(CategorySearch filter) {
-        return categoryRepository.getAll(filter)
-                .stream()
-                .map(CategoryDTO::toEntity)
-                .toList();
-    }
-
-    @Override
-    public Page<CategoryDTO> getAllPageable(Pageable pageable, CategorySearch filter) {
-        return categoryRepository.getAllPaginated(pageable, filter)
+    public Page<CategoryDTO> getAll(Pageable pageable, CategorySearch filter) {
+        return categoryRepository.getAll(pageable, filter)
                 .map(CategoryDTO::toFullDTO);
-    }
-
-    @Override
-    public CategoryDTO getAttributesAndValues(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<CategoryDTO> getAllParentsWithChildren() {
-        return List.of();
     }
 
     @Override
