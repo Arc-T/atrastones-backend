@@ -2,9 +2,6 @@ package com.atrastones.shop.dto;
 
 
 import com.atrastones.shop.model.entity.MediaType;
-import lombok.Builder;
-import lombok.Data;
-import lombok.extern.jackson.Jacksonized;
 
 public record MediaTypeDto(
         Long id,

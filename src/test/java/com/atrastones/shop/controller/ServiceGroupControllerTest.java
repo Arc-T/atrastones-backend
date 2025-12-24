@@ -1,4 +1,4 @@
-package com.atrastones.shop.api;
+package com.atrastones.shop.controller;
 
 public class ServiceGroupControllerTest {
 }

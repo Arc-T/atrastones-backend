@@ -1,9 +1,8 @@
 package com.atrastones.shop.model.service.contract;
 
-import com.atrastones.shop.dto.TagDTO;
-
 import java.util.List;
-import java.util.Optional;
+
+import com.atrastones.shop.dto.TagDTO;
 
 public interface TagService {
 

@@ -1,22 +1,20 @@
 package com.atrastones.shop.repository;
 
-import com.atrastones.shop.dto.UserDTO;
-import com.atrastones.shop.model.entity.User;
-import com.atrastones.shop.model.repository.contract.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.atrastones.shop.dto.UserDTO;
+import com.atrastones.shop.model.entity.User;
+import com.atrastones.shop.model.repository.contract.UserRepository;
+
 @SpringBootTest
-@AutoConfigureMockMvc
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class UserRepositoryTest {
@@ -32,13 +30,6 @@ class UserRepositoryTest {
 
     private UserDTO userDTO;
     private KeyHolder keyHolder;
-
-    @BeforeEach
-    void setUp() {
-        UserDTO user = UserDTO.builder()
-                .phone("361629708")
-                .build();
-    }
 
     @Test
     void testFindAdminByPhone() {

@@ -14,6 +14,10 @@ spring:
       static-locations: file:uploads/
     locale: fa_IR
     locale-resolver: ACCEPT_HEADER
+    error:
+      include-stacktrace: never
+      whitelabel:
+        enabled: false
 
   messages:
     basename: i18n/messages
@@ -44,8 +48,6 @@ spring:
       transaction-isolation: TRANSACTION_READ_COMMITTED
 
   data:
-    jdbc:
-      dialect: mysql
     jpa:
       repositories:
         enabled: false
@@ -62,10 +64,6 @@ spring:
 
 server:
   port: 8080
-  error:
-    whitelabel:
-      enabled: false
-    include-stacktrace: never
   tomcat:
     threads:
       max: 200
@@ -76,9 +74,6 @@ server:
     accesslog:
       enabled: true
       pattern: "%a %{yyyy-MM-dd HH:mm:ssXXX}t %r %s (%D microseconds)"
-
-jwt:
-  secret: ${JWT_SECRET}
 
 logging:
   level:
@@ -97,3 +92,6 @@ sms:
     username: your-username
     password: your-password
     from: your-from-number
+
+jwt:
+  secret: ${JWT_SECRET}

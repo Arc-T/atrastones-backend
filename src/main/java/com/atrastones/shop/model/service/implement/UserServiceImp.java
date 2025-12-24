@@ -1,13 +1,14 @@
 package com.atrastones.shop.model.service.implement;
 
-import com.atrastones.shop.dto.UserDTO;
-import com.atrastones.shop.model.entity.User;
-import com.atrastones.shop.model.repository.contract.UserRepository;
-import com.atrastones.shop.model.service.contract.UserService;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.atrastones.shop.dto.UserDTO;
+import com.atrastones.shop.model.repository.contract.UserRepository;
+import com.atrastones.shop.model.service.contract.UserService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service

@@ -43,15 +43,6 @@ spring:
     driver-class-name: ${DB.DRIVER}
     username: ${DB.USERNAME}
     password: ${DB.PASSWORD}
-    hikari:
-      minimum-idle: 3
-      maximum-pool-size: 8
-      idle-timeout: 30000
-      max-lifetime: 1800000
-      connection-timeout: 30000
-      pool-name: Mysql-Pooling
-      auto-commit: false
-      transaction-isolation: TRANSACTION_READ_COMMITTED
 
   jpa:
     open-in-view: false

@@ -1,10 +1,9 @@
 package com.atrastones.shop.model.repository.contract;
 
+import java.util.Optional;
+
 import com.atrastones.shop.dto.PaymentDTO;
 import com.atrastones.shop.model.entity.Payment;
-import jakarta.persistence.EntityNotFoundException;
-
-import java.util.Optional;
 
 public interface PaymentRepository {
 

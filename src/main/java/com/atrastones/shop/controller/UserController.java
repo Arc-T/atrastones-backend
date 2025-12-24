@@ -1,4 +1,4 @@
-package com.atrastones.shop.api;
+package com.atrastones.shop.controller;
 
 import com.atrastones.shop.model.service.contract.UserService;
 import org.springframework.http.ResponseEntity;

@@ -1,13 +1,9 @@
 package com.atrastones.shop.dto;
 
+import java.time.LocalDateTime;
+
 import com.atrastones.shop.model.entity.Category;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nullable;
-import lombok.Builder;
-import lombok.Data;
-import lombok.extern.jackson.Jacksonized;
-
-import java.time.LocalDateTime;
 
 public record CategoryDTO(
         Long id,
