@@ -30,9 +30,15 @@ public class ProductMediaController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/products/{productId}/{name}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId, @PathVariable String name) {
-        productMediaService.deleteProductMedia(productId, name);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id) {
+//        productMediaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(path = "/products/{productId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateProduct(@PathVariable Long productId, ProductMediaCreate ProductMediaCreate) {
+        productMediaService.createDraft(ProductMediaCreate);
         return ResponseEntity.noContent().build();
     }
 
@@ -42,9 +48,9 @@ public class ProductMediaController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id) {
-//        productMediaService.delete(id);
+    @DeleteMapping("/products/{productId}/{name}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId, @PathVariable String name) {
+        productMediaService.deleteProductMedia(productId, name);
         return ResponseEntity.noContent().build();
     }
 
