@@ -50,4 +50,9 @@ public class ProductMediaServiceImp implements ProductMediaService {
         return MediaUtils.listDrafts();
     }
 
+    @Override
+    public List<MediaDTO> getProductMedia(Long productId) {
+        return MediaUtils.list(productId);
+    }
+
 }

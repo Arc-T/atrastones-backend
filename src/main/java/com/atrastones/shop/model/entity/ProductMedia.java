@@ -32,7 +32,7 @@ public class ProductMedia {
     @ManyToOne
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private MediaType mediaType;
 
 }
