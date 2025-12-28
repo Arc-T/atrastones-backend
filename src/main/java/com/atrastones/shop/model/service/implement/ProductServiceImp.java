@@ -97,7 +97,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public boolean exists(Long id) {
-        return false;
+        return productRepository.exists(id);
     }
 
 }

@@ -11,14 +11,16 @@ public interface ProductMediaService {
 
     List<Long> save(Long productId);
 
+    void saveDraft(ProductMediaCreate productMediaCreate);
+
+    void saveDraft(Long productId, ProductMediaCreate productMediaCreate);
+
     void deleteDraft(String fileName);
 
     void deleteProductMedia(Long productId, String fileName);
 
     List<MediaDTO> getAllDraft();
 
-    List<MediaDTO> getProductMedia(Long productId);
-
-    void createDraft(ProductMediaCreate productMediaCreate);
+    List<MediaDTO> getProductDraft(Long productId);
 
 }

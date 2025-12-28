@@ -7,191 +7,180 @@ import com.atrastones.shop.type.MediaType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Slf4j
 public final class MediaUtils {
 
-    private static final Path UPLOAD_ROOT = Paths.get("uploads");
-    private static final Path DRAFT_DIR = UPLOAD_ROOT.resolve("draft");
-    private static final Path PRODUCTS_ROOT = UPLOAD_ROOT.resolve("products");
+    private static final Path ROOT = Paths.get("uploads");
+    private static final Path DRAFT = ROOT.resolve("draft");
+    private static final Path PRODUCTS = ROOT.resolve("products");
 
-    private MediaUtils() {
+    private MediaUtils() {}
+
+    /* ============================== LIST ============================== */
+
+    public static List<MediaDTO> listDraft() {
+        return list(DRAFT);
     }
 
-    // ======================================= PUBLIC API =======================================
-
-    public static List<MediaDTO> list(long productId) {
-        return listFromDirectory(productDir(productId), productId);
+    public static List<MediaDTO> listProductDraft(long productId) {
+        return list(productDraftDir(productId));
     }
 
-    public static List<MediaDTO> listDrafts() {
-        return listFromDirectory(DRAFT_DIR, null);
+    private static List<MediaDTO> list(Path dir) {
+        ensureDir(dir);
+        try (Stream<Path> s = Files.list(dir)) {
+            return s.filter(Files::isRegularFile)
+                    .sorted()
+                    .map(p -> new MediaDTO(p.getFileName().toString()))
+                    .toList();
+        } catch (IOException e) {
+            throw fail("LIST_MEDIA_FAILED", dir, e);
+        }
     }
+
+    /* ============================== SAVE ============================== */
 
     public static List<MediaDTO> draft(MultipartFile[] files) {
-        ensureDirectoryExists(DRAFT_DIR);
-        return saveFiles(files);
+        return save(files, DRAFT);
     }
 
-    public static void deleteProductMedia(long productId, String fileName) {
-        deleteFileInternal(productDir(productId).resolve(fileName), "product " + productId);
+    public static List<MediaDTO> draft(long productId, MultipartFile[] files) {
+        return save(files, productDraftDir(productId));
     }
 
-    public static void deleteDraftFile(String fileName) {
-        deleteFileInternal(DRAFT_DIR.resolve(fileName), "draft");
+    private static List<MediaDTO> save(MultipartFile[] files, Path dir) {
+        ensureDir(dir);
+        return Stream.of(files)
+                .map(f -> saveOne(f, dir))
+                .toList();
     }
 
-    public static void deleteProductFolder(long productId) {
-        deleteDirectoryRecursively(productDir(productId), "product " + productId);
+    private static MediaDTO saveOne(MultipartFile file, Path dir) {
+        String ext = ext(file.getOriginalFilename());
+        String name = UUID.randomUUID() + (ext.isEmpty() ? "" : "." + ext);
+        Path target = dir.resolve(name);
+
+        try {
+            Files.copy(file.getInputStream(), target, StandardCopyOption.REPLACE_EXISTING);
+            return new MediaDTO(name);
+        } catch (IOException e) {
+            throw fail("SAVE_MEDIA_FAILED", target, e);
+        }
     }
 
-    public static void deleteFolder(Path folder) {
-        deleteDirectoryRecursively(folder, folder.toString());
-    }
+    /* ============================== MOVE ============================== */
 
     public static List<ProductMediaDTO> moveAllDraftsToProduct(long productId) {
         Path targetDir = productDir(productId);
-        ensureDirectoryExists(targetDir);
+        ensureDir(targetDir);
 
-        List<ProductMediaDTO> result = new ArrayList<>();
+        try (Stream<Path> s = Files.list(DRAFT)) {
+            List<Path> files = s.filter(Files::isRegularFile).sorted().toList();
 
-        try (Stream<Path> stream = Files.list(DRAFT_DIR)) {
-            List<Path> drafts = stream.filter(Files::isRegularFile).sorted().toList();
-
-            for (int index = 0; drafts.size() > index; index++) {
-                Path target = targetDir.resolve(drafts.get(index).getFileName());
-                String filename = target.getFileName().toString();
-                Files.move(drafts.get(index), target, StandardCopyOption.REPLACE_EXISTING);
-                result.add(
-                        new ProductMediaDTO(
-                                productId,
-                                filename,
-                                MediaType.IMAGE.name(),
-                                index,
-                                getExtension(filename),
-                                LocalDateTime.now())
-                );
-            }
-
-            return result;
-        } catch (IOException e) {
-            log.error("Failed moving drafts to product {}: {}", productId, e.getMessage(), e);
-            throw new RuntimeException("FAILED_TO_MOVE_DRAFTS");
-        }
-    }
-
-    // ======================================= CORE HELPERS =======================================
-
-    private static List<MediaDTO> listFromDirectory(Path dir, Long productId) {
-        ensureDirectoryExists(dir);
-
-        try (Stream<Path> stream = Files.list(dir)) {
-            List<Path> files = stream
-                    .filter(Files::isRegularFile)
-                    .sorted()
+            return IntStream.range(0, files.size())
+                    .mapToObj(i -> moveDraft(files.get(i), targetDir, productId, i))
                     .toList();
 
-            List<MediaDTO> result = new ArrayList<>(files.size());
-
-            for (Path file : files) {
-                result.add(new MediaDTO(file.getFileName().toString()));
-            }
-
-            return result;
         } catch (IOException e) {
-            log.error("Failed listing media in '{}': {}", dir, e.getMessage(), e);
-            throw new RuntimeException("UNABLE_TO_LIST_MEDIA");
+            throw fail("MOVE_DRAFT_FAILED", targetDir, e);
         }
     }
 
-    private static List<MediaDTO> saveFiles(MultipartFile[] files) {
-        List<MediaDTO> result = new ArrayList<>(files.length);
-
-        for (MultipartFile file : files) {
-            String originalName = file.getOriginalFilename();
-            String extension = getExtension(originalName);
-            String uniqueName = UUID.randomUUID() + (extension.isEmpty() ? "" : "." + extension);
-            Path target = MediaUtils.DRAFT_DIR.resolve(uniqueName);
-
-            try (BufferedOutputStream out =
-                         new BufferedOutputStream(Files.newOutputStream(target))) {
-
-                out.write(file.getBytes());
-                result.add(new MediaDTO(target.getFileName().toString()));
-
-            } catch (IOException e) {
-                log.error("Failed saving '{}' to '{}': {}", originalName, MediaUtils.DRAFT_DIR, e.getMessage(), e);
-                throw new RuntimeException("FAILED_TO_SAVE_MEDIA");
-            }
+    private static ProductMediaDTO moveDraft(Path src, Path targetDir, long productId, int order) {
+        Path target = targetDir.resolve(src.getFileName());
+        try {
+            Files.move(src, target, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw fail("MOVE_MEDIA_FAILED", target, e);
         }
 
-        return result;
+        String name = target.getFileName().toString();
+        return new ProductMediaDTO(
+                productId,
+                name,
+                MediaType.IMAGE.name(),
+                order,
+                ext(name),
+                LocalDateTime.now()
+        );
     }
 
-    private static void deleteFileInternal(Path file, String context) {
-        if (Files.notExists(file)) {
-            log.warn("File '{}' not found ({})", file.getFileName(), context);
-            throw new UtilsException("FILE.DOES.NOT.EXIST");
-        }
+    /* ============================== DELETE ============================== */
 
+    public static void deleteDraft(String filename) {
+        delete(DRAFT.resolve(filename));
+    }
+
+    public static void deleteProductMedia(long productId, String filename) {
+        delete(productDir(productId).resolve(filename));
+    }
+
+    public static void deleteProductFolder(long productId) {
+        deleteDir(productDir(productId));
+    }
+
+    private static void delete(Path file) {
+        if (Files.notExists(file)) throw new UtilsException("FILE.NOT.FOUND");
         try {
             Files.delete(file);
-            log.info("Deleted '{}' ({})", file.getFileName(), context);
         } catch (IOException e) {
-            log.error("Failed deleting '{}' ({}): {}", file, context, e.getMessage(), e);
-            throw new UtilsException("ERROR.DELETING.MEDIA");
+            throw fail("DELETE_MEDIA_FAILED", file, e);
         }
     }
 
-    private static void deleteDirectoryRecursively(Path dir, String context) {
+    private static void deleteDir(Path dir) {
         if (Files.notExists(dir)) return;
-
-        try (Stream<Path> walk = Files.walk(dir)) {
-            walk.sorted(Comparator.reverseOrder()).forEach(path -> {
-                try {
-                    Files.delete(path);
-                } catch (IOException e) {
-                    log.error("Failed deleting '{}' ({})", path, context, e);
-                    throw new RuntimeException("FAILED_TO_DELETE_DIRECTORY");
-                }
-            });
+        try (Stream<Path> s = Files.walk(dir)) {
+            s.sorted(Comparator.reverseOrder()).forEach(MediaUtils::silentDelete);
         } catch (IOException e) {
-            log.error("Failed traversing '{}' ({})", dir, context, e);
-            throw new RuntimeException("FAILED_TO_DELETE_DIRECTORY");
+            throw fail("DELETE_DIR_FAILED", dir, e);
         }
     }
 
-    private static void ensureDirectoryExists(Path dir) {
+    private static void silentDelete(Path p) {
+        try {
+            Files.delete(p);
+        } catch (IOException e) {
+            throw fail("DELETE_FAILED", p, e);
+        }
+    }
+
+    /* ============================== HELPERS ============================== */
+
+    private static void ensureDir(Path dir) {
         try {
             Files.createDirectories(dir);
         } catch (IOException e) {
-            log.error("Failed creating directory '{}'", dir, e);
-            throw new RuntimeException("FAILED_TO_CREATE_DIRECTORY");
+            throw fail("CREATE_DIR_FAILED", dir, e);
         }
     }
 
     private static Path productDir(long productId) {
-        return PRODUCTS_ROOT.resolve(String.valueOf(productId));
+        return PRODUCTS.resolve(String.valueOf(productId));
     }
 
-    private static String getExtension(String filename) {
-        if (filename == null) return "";
-        int idx = filename.lastIndexOf('.');
-        return (idx > 0 && idx < filename.length() - 1)
-                ? filename.substring(idx + 1)
-                : "";
+    private static Path productDraftDir(long productId) {
+        return DRAFT.resolve("products").resolve(String.valueOf(productId));
+    }
+
+    private static String ext(String name) {
+        if (name == null) return "";
+        int i = name.lastIndexOf('.');
+        return (i > 0 && i < name.length() - 1) ? name.substring(i + 1) : "";
+    }
+
+    private static RuntimeException fail(String code, Path path, Exception e) {
+        log.error("{}: {}", code, path, e);
+        return new RuntimeException(code);
     }
 
 }

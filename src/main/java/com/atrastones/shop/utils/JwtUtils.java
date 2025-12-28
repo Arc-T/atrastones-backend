@@ -15,15 +15,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 
-/**
- * Utility class for JWT token generation, validation, and extraction.
- * Handles access tokens (short-lived, with roles) and refresh tokens (long-lived, minimal claims).
- * Uses HMAC256 algorithm with a fixed secret—consider externalizing for prod.
- * All times are in UTC via system clock for consistency.
- *
- * @author YourName
- */
-public class JwtUtils {
+public final class JwtUtils {
 
     /**
      * Shared secret for HMAC signing. In production, load from env/config to avoid hardcoding.

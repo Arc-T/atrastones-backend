@@ -4,6 +4,7 @@ import com.atrastones.shop.dto.MediaDTO;
 import com.atrastones.shop.dto.create.ProductMediaCreate;
 import com.atrastones.shop.exception.ServiceLogicException;
 import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
+import com.atrastones.shop.model.repository.contract.ProductRepository;
 import com.atrastones.shop.model.service.contract.ProductMediaService;
 import com.atrastones.shop.utils.MediaUtils;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ import java.util.List;
 @Service
 public class ProductMediaServiceImp implements ProductMediaService {
 
+    private final ProductRepository productRepository;
     private final ProductMediaRepository productMediaRepository;
 
-    public ProductMediaServiceImp(ProductMediaRepository productMediaRepository) {
+    public ProductMediaServiceImp(ProductRepository productRepository, ProductMediaRepository productMediaRepository) {
+        this.productRepository = productRepository;
         this.productMediaRepository = productMediaRepository;
     }
 
@@ -28,7 +31,7 @@ public class ProductMediaServiceImp implements ProductMediaService {
 
     @Override
     public void deleteDraft(String fileName) {
-        MediaUtils.deleteDraftFile(fileName);
+        MediaUtils.deleteDraft(fileName);
     }
 
     @Override
@@ -39,20 +42,30 @@ public class ProductMediaServiceImp implements ProductMediaService {
     }
 
     @Override
-    public void createDraft(ProductMediaCreate create) {
-        List<MediaDTO> draftMedia = MediaUtils.draft(create.media());
-        if (draftMedia.isEmpty() || draftMedia.size() != create.media().length)
+    public void saveDraft(ProductMediaCreate productMedia) {
+        List<MediaDTO> draftMedia = MediaUtils.draft(productMedia.media());
+        if (draftMedia.isEmpty() || draftMedia.size() != productMedia.media().length)
             throw new ServiceLogicException("ALL.MEDIA.DID.NOT.SAVED"); //TODO: message
     }
 
     @Override
-    public List<MediaDTO> getAllDraft() {
-        return MediaUtils.listDrafts();
+    public void saveDraft(Long productId, ProductMediaCreate request) {
+        if (productRepository.exists(productId)) {
+            List<MediaDTO> draftMedia = MediaUtils.draft(productId, request.media());
+            if (draftMedia.isEmpty() || draftMedia.size() != request.media().length)
+                throw new ServiceLogicException("ALL.MEDIA.DID.NOT.SAVED"); //TODO: message
+        } else
+            throw new ServiceLogicException("PRODUCT.NOT.FOUND");
     }
 
     @Override
-    public List<MediaDTO> getProductMedia(Long productId) {
-        return MediaUtils.list(productId);
+    public List<MediaDTO> getAllDraft() {
+        return MediaUtils.listDraft();
+    }
+
+    @Override
+    public List<MediaDTO> getProductDraft(Long productId) {
+        return MediaUtils.listProductDraft(productId);
     }
 
 }

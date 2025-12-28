@@ -9,13 +9,26 @@ active address id is needed in users table ❌
 order_display in addresses ✅
 Comments are important
 Messages in project should be implemented
+validations are not set
 *******************************************
 full calendar, react day picker, PReact, Shadcn Appwrite, DND kit, Pasthup in React
 https://www.dynx.pro/
 
+❌❌❌❌❌❌❌❌❌ There are two places that violates access to repositories.
+product media and user details ❌❌❌❌❌❌❌❌❌❌❌❌❌❌
 ---------------------- Oracle DB ----------------------
 discount logic should wait
 order_remaining_balances is for multi payment methods.
+
+No static resource draft/5c50ab0a-963c-4646-9c96-f1c5901de4ad.webp for request '/media/draft/5c50ab0a-963c-4646-9c96-f1c5901de4ad.webp'.
+at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:527) ~[spring-webmvc-7.0.2.jar:7.0.2]
+at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:50) ~[spring-webmvc-7.0.2.jar:7.0.2]
+at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.2.jar:7.0.2]
+at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.2.jar:7.0.2]
+at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003) ~[spring-webmvc-7.0.2.jar:7.0.2]
+at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892) ~[spring-webmvc-7.0.2.jar:7.0.2]
+at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-11.0.15.jar:6.1]
+at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.2.jar:7.0.2]
 
 AtiveJ
 
@@ -29,17 +42,6 @@ SMS.ID.INVALID
 Attribute type should be dynamic but due to fast deployment, its hardcoded in Attribute Repository
 
 v0 - bold AI
-
-org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /categories/.
-at org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:
-1305) ~[spring-webmvc-6.2.11.jar:6.2.11]
-at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:
-1067) ~[spring-webmvc-6.2.11.jar:6.2.11]
-at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:
-979) ~[spring-webmvc-6.2.11.jar:6.2.11]
-at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:
-1014) ~[spring-webmvc-6.2.11.jar:6.2.11]
-at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.11.jar:6.2.11]
 
 | Purpose                 | Best Choice            |
 |-------------------------|------------------------|

@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-public class SecurityUtils {
+public final class SecurityUtils {
 
     private SecurityUtils() {}
 

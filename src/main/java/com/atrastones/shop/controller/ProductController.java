@@ -46,7 +46,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(path = "/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody ProductDTO product) {
         productService.edit(id, product);
         return ResponseEntity.ok().build();
