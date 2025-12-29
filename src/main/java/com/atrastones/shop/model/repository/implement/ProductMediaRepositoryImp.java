@@ -62,19 +62,16 @@ public class ProductMediaRepositoryImp implements ProductMediaRepository {
     // ================================================ DELETE ================================================
 
     @Override
-    public boolean deleteByProductIdAndUrl(Long productId, String url) {
+    public boolean delete(Long id) {
 
         String DELETE_PRODUCT_MEDIA_SQL = """
-                DELETE FROM product_media
-                       WHERE product_id = :product_id
-                       AND url = :url
+                DELETE FROM product_media WHERE id = :id
                 """;
 
         return JdbcUtils.delete(
                 jdbcClient.sql(DELETE_PRODUCT_MEDIA_SQL)
-                        .param("product_id", productId)
-                        .param("url", url),
-                "PRODUCT_MEDIA.ID.INVALID");
+                        .param("id", id),
+                "PRODUCT.ID.INVALID");
     }
 
     // ================================================ SELECT ================================================

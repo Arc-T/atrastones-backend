@@ -19,6 +19,8 @@ public class ProductMediaController {
         this.productMediaService = productMediaService;
     }
 
+    // ================================ GET ================================
+
     @GetMapping("/draft")
     public ResponseEntity<List<MediaDTO>> readAllDraft() {
         return ResponseEntity.ok().body(productMediaService.getAllDraft());
@@ -28,6 +30,8 @@ public class ProductMediaController {
     public ResponseEntity<List<MediaDTO>> readAllDraft(@PathVariable Long productId) {
         return ResponseEntity.ok().body(productMediaService.getProductDraft(productId));
     }
+
+    // ================================ POST ================================
 
     @PostMapping(path = "/draft", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createDraft(ProductMediaCreate ProductMediaCreate) {
@@ -41,9 +45,11 @@ public class ProductMediaController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/products/{productId}/{name}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long productId, @PathVariable String name) {
-        productMediaService.deleteProductMedia(productId, name);
+    // ================================ DELETE ================================
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        productMediaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -52,6 +58,14 @@ public class ProductMediaController {
         productMediaService.deleteDraft(name);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/draft/{productId}/{name}")
+    public ResponseEntity<?> deleteDraft(@PathVariable Long productId, @PathVariable String name) {
+        productMediaService.deleteDraft(productId, name);
+        return ResponseEntity.noContent().build();
+    }
+
+    // ================================ PUT ================================
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id) {

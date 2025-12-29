@@ -15,9 +15,11 @@ public interface ProductMediaService {
 
     void saveDraft(Long productId, ProductMediaCreate productMediaCreate);
 
+    void delete(Long id);
+
     void deleteDraft(String fileName);
 
-    void deleteProductMedia(Long productId, String fileName);
+    void deleteDraft(Long productId, String fileName);
 
     List<MediaDTO> getAllDraft();
 

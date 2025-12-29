@@ -27,14 +27,6 @@ public final class MediaUtils {
 
     /* ============================== LIST ============================== */
 
-    public static List<MediaDTO> listDraft() {
-        return list(DRAFT);
-    }
-
-    public static List<MediaDTO> listProductDraft(long productId) {
-        return list(productDraftDir(productId));
-    }
-
     private static List<MediaDTO> list(Path dir) {
         ensureDir(dir);
         try (Stream<Path> s = Files.list(dir)) {
@@ -45,6 +37,14 @@ public final class MediaUtils {
         } catch (IOException e) {
             throw fail("LIST_MEDIA_FAILED", dir, e);
         }
+    }
+
+    public static List<MediaDTO> listDraft() {
+        return list(DRAFT);
+    }
+
+    public static List<MediaDTO> listProductDraft(long productId) {
+        return list(productDraftDir(productId));
     }
 
     /* ============================== SAVE ============================== */
@@ -122,6 +122,10 @@ public final class MediaUtils {
 
     public static void deleteProductMedia(long productId, String filename) {
         delete(productDir(productId).resolve(filename));
+    }
+
+    public static void deleteDraftProductMedia(long productId, String filename) {
+        delete(productDraftDir(productId).resolve(filename));
     }
 
     public static void deleteProductFolder(long productId) {

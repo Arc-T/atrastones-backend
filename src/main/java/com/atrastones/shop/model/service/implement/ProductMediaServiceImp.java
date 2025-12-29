@@ -1,6 +1,7 @@
 package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.MediaDTO;
+import com.atrastones.shop.dto.ProductMediaDTO;
 import com.atrastones.shop.dto.create.ProductMediaCreate;
 import com.atrastones.shop.exception.ServiceLogicException;
 import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
@@ -30,15 +31,26 @@ public class ProductMediaServiceImp implements ProductMediaService {
     }
 
     @Override
+    @Transactional
+    public void delete(Long id) {
+        ProductMediaDTO productMedia = productMediaRepository.get(id)
+                .map(ProductMediaDTO::toDTO)
+                .orElseThrow(() -> new ServiceLogicException("INVALID.PRODUCT_MEDIA.ID"));
+
+        if (productMediaRepository.delete(productMedia.id()))
+            MediaUtils.deleteProductMedia(productMedia.productId(), productMedia.url());
+        else
+            throw new ServiceLogicException("SYSTEM_ERROR.PRODUCT_MEDIA.DELETE");
+    }
+
+    @Override
     public void deleteDraft(String fileName) {
         MediaUtils.deleteDraft(fileName);
     }
 
     @Override
-    public void deleteProductMedia(Long productId, String url) {
-        if (productMediaRepository.deleteByProductIdAndUrl(productId, url))
-            MediaUtils.deleteProductMedia(productId, url);
-        throw new ServiceLogicException("INVALID.PRODUCT.AND.URL"); //TODO: message
+    public void deleteDraft(Long productId, String filename) {
+        MediaUtils.deleteDraftProductMedia(productId, filename);
     }
 
     @Override

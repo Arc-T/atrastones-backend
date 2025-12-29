@@ -17,7 +17,7 @@ public interface ProductMediaRepository {
 
     // ======================================= DELETE =======================================
 
-    boolean deleteByProductIdAndUrl(Long productId, String fileName);
+    boolean delete(Long id);
 
     // ======================================= SELECT =======================================
 
