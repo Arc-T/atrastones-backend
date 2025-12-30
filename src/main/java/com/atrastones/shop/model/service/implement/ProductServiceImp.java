@@ -2,7 +2,9 @@ package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.*;
 import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.projection.ProductProjection;
 import com.atrastones.shop.dto.search.ProductSearch;
+import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
 import com.atrastones.shop.model.service.contract.ProductMediaService;
 import com.atrastones.shop.model.service.contract.ProductService;
@@ -44,13 +46,14 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     @Transactional
-    public void edit(Long id, ProductDTO product) {
-        productRepository.update(product);
+    public void edit(Long id, ProductUpdateDTO product) {
+        productRepository.update(id, product);
+        productMediaService.update(id);
     }
 
     @Override
-    public Page<ProductDTO> getAll(Pageable pageable, ProductSearch filter) {
-        return productRepository.getAll(pageable, filter).map(ProductDTO::toDTO);
+    public Page<ProductProjection> getAll(Pageable pageable, ProductSearch filter) {
+        return productRepository.getAll(pageable, filter);
     }
 
     @Override

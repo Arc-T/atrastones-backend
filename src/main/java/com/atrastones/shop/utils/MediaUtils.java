@@ -8,7 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +26,8 @@ public final class MediaUtils {
     private static final Path DRAFT = ROOT.resolve("draft");
     private static final Path PRODUCTS = ROOT.resolve("products");
 
-    private MediaUtils() {}
+    private MediaUtils() {
+    }
 
     /* ============================== LIST ============================== */
 
@@ -79,11 +83,11 @@ public final class MediaUtils {
 
     /* ============================== MOVE ============================== */
 
-    public static List<ProductMediaDTO> moveAllDraftsToProduct(long productId) {
+    public static List<ProductMediaDTO> moveAllDraftsToProduct(long productId, boolean isUpdate) {
         Path targetDir = productDir(productId);
         ensureDir(targetDir);
 
-        try (Stream<Path> s = Files.list(DRAFT)) {
+        try (Stream<Path> s = Files.list(isUpdate ? productDraftDir(productId) : DRAFT)) {
             List<Path> files = s.filter(Files::isRegularFile).sorted().toList();
 
             return IntStream.range(0, files.size())

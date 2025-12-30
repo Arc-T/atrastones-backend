@@ -1,9 +1,9 @@
 package com.atrastones.shop.dto;
 
-import java.time.LocalDateTime;
-
 import com.atrastones.shop.model.entity.Category;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDateTime;
 
 public record CategoryDTO(
         Long id,
@@ -17,8 +17,9 @@ public record CategoryDTO(
         @JsonProperty(access = JsonProperty.Access.READ_ONLY) LocalDateTime updatedAt
 
 ) {
-    // ********************** DTOs **********************
-    public static CategoryDTO toEntity(Category category) {
+    // ********************** DTOs
+    // **********************
+    public static CategoryDTO toDTO(Category category) {
         return new CategoryDTO(
                 category.getId(),
                 category.getName(),
@@ -29,7 +30,7 @@ public record CategoryDTO(
                 category.getDescription(),
                 null,
                 null
-                );
+        );
     }
 
     public static CategoryDTO toFullDTO(Category category) {

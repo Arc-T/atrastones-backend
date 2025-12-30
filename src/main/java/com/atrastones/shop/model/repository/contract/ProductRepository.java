@@ -1,9 +1,10 @@
 package com.atrastones.shop.model.repository.contract;
 
 import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.projection.ProductProjection;
 import com.atrastones.shop.dto.search.ProductSearch;
-import com.atrastones.shop.dto.ProductDTO;
-import com.atrastones.shop.model.entity.*;
+import com.atrastones.shop.dto.update.ProductUpdateDTO;
+import com.atrastones.shop.model.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,7 +19,7 @@ public interface ProductRepository {
 
     // ---------------------------- UPDATE ----------------------------
 
-    void update(ProductDTO product);
+    void update(Long id, ProductUpdateDTO product);
 
     // ---------------------------- DELETE ----------------------------
 
@@ -30,7 +31,7 @@ public interface ProductRepository {
 
     Optional<Product> getDetails(long id);
 
-    Page<Product> getAll(Pageable pageable, ProductSearch filter);
+    Page<ProductProjection> getAll(Pageable pageable, ProductSearch filter);
 
     List<Product> getAllByCategoryId(long categoryId);
 

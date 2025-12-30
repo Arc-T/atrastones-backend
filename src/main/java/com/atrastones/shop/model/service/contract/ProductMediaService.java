@@ -11,6 +11,8 @@ public interface ProductMediaService {
 
     List<Long> save(Long productId);
 
+    void update(Long productId);
+
     void saveDraft(ProductMediaCreate productMediaCreate);
 
     void saveDraft(Long productId, ProductMediaCreate productMediaCreate);

@@ -24,7 +24,7 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public Optional<CategoryDTO> get(Long id) {
-        return categoryRepository.get(id).map(CategoryDTO::toEntity);
+        return categoryRepository.get(id).map(CategoryDTO::toDTO);
     }
 
     @Override

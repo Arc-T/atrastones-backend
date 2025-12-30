@@ -1,13 +1,14 @@
 package com.atrastones.shop.controller;
 
-import com.atrastones.shop.dto.create.ProductCreate;
-import com.atrastones.shop.dto.search.ProductSearch;
 import com.atrastones.shop.dto.ProductDTO;
+import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.projection.ProductProjection;
+import com.atrastones.shop.dto.search.ProductSearch;
+import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import com.atrastones.shop.model.service.contract.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> readAll(Pageable pageable, ProductSearch search) {
+    public ResponseEntity<Page<ProductProjection>> readAll(Pageable pageable, ProductSearch search) {
         return ResponseEntity.ok(productService.getAll(pageable, search));
     }
 
@@ -41,15 +42,15 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         productService.remove(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody ProductDTO product) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody ProductUpdateDTO product) {
         productService.edit(id, product);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

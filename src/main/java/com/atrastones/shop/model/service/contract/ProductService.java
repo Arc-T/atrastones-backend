@@ -3,6 +3,8 @@ package com.atrastones.shop.model.service.contract;
 import com.atrastones.shop.dto.create.ProductCreate;
 import com.atrastones.shop.dto.search.ProductSearch;
 import com.atrastones.shop.dto.*;
+import com.atrastones.shop.dto.projection.ProductProjection;
+import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,11 +19,11 @@ public interface ProductService {
 
     Long save(ProductCreate product);
 
-    void edit(Long id, ProductDTO product);
+    void edit(Long id, ProductUpdateDTO product);
 
     Optional<ProductDTO> get(Long id);
 
-    Page<ProductDTO> getAll(Pageable pageable, ProductSearch search);
+    Page<ProductProjection> getAll(Pageable pageable, ProductSearch search);
 
     List<ProductDTO> getProductsInfoByIds(List<Long> ids); //TODO:list input
 

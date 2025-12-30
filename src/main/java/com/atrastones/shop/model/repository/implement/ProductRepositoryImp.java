@@ -1,8 +1,9 @@
 package com.atrastones.shop.model.repository.implement;
 
 import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.projection.ProductProjection;
 import com.atrastones.shop.dto.search.ProductSearch;
-import com.atrastones.shop.dto.ProductDTO;
+import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
 import com.atrastones.shop.utils.JdbcUtils;
@@ -54,7 +55,7 @@ public class ProductRepositoryImp implements ProductRepository {
     // ---------------------------- UPDATE ----------------------------
 
     @Override
-    public void update(ProductDTO product) {
+    public void update(Long id, ProductUpdateDTO product) {
 
         String UPDATE_PRODUCT_SQL = """
                 UPDATE products
@@ -66,15 +67,15 @@ public class ProductRepositoryImp implements ProductRepository {
         JdbcUtils.update(
                 jdbcClient.sql(UPDATE_PRODUCT_SQL)
                         .param("name", product.name())
-                        .param("category_id", 1)
-                        .param("shop_id", product.shopId())
+                        .param("category_id", product.categoryId())
+                        .param("shop_id", 1L) //TODO: hardcoded
                         .param("quantity", product.quantity())
                         .param("price", product.price())
                         .param("service_group_id", product.serviceGroupId())
 //                        .param("discount_id", product.getDiscountId())
 //                        .param("discount_amount", product.getDiscountAmount())
                         .param("description", product.description())
-                        .param("id", product.id())
+                        .param("id", id)
 
                 , "PRODUCT.ID.INVALID"
         );
@@ -103,6 +104,10 @@ public class ProductRepositoryImp implements ProductRepository {
 
         String SELECT_PRODUCT_HQL = """
                 SELECT p FROM Product p
+                         JOIN FETCH p.shop
+                         JOIN FETCH p.category
+                         JOIN FETCH p.serviceGroup
+                         LEFT JOIN FETCH p.media
                          WHERE p.id = :id
                 """;
 
@@ -120,7 +125,6 @@ public class ProductRepositoryImp implements ProductRepository {
                 SELECT p FROM Product p
                          JOIN FETCH p.shop
                          JOIN FETCH p.category
-                         LEFT JOIN FETCH p.offeringGroup
                          LEFT JOIN FETCH p.discount
                          WHERE p.id = :id
                 """;
@@ -133,27 +137,31 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public Page<Product> getAll(Pageable pageable, ProductSearch filter) {
+    public Page<ProductProjection> getAll(Pageable pageable, ProductSearch filter) {
 
         String SELECT_PRODUCT_IDS = """
-                SELECT p.id FROM Product p
+                    SELECT new com.atrastones.shop.dto.projection.ProductProjection(
+                        p.id,
+                        p.name,
+                        p.categoryId,
+                        p.shopId,
+                        p.quantity,
+                        p.price,
+                        p.serviceGroupId,
+                        p.description,
+                        p.discountAmount,
+                        p.status,
+                        p.createdAt,
+                        p.updatedAt,
+                        p.deletedAt
+                    )
+                    FROM Product p
+                    ORDER BY p.createdAt DESC
                 """;
 
-        List<Long> productIds = entityManager.createQuery(SELECT_PRODUCT_IDS, Long.class)
+        List<ProductProjection> products = entityManager.createQuery(SELECT_PRODUCT_IDS, ProductProjection.class)
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
-                .getResultList();
-
-        String SELECT_PRODUCT_RELATIONS = """
-                SELECT p FROM Product p
-                         JOIN FETCH p.shop
-                         JOIN FETCH p.category
-                         LEFT JOIN FETCH p.media
-                         WHERE p.id IN :ids
-                """;
-
-        List<Product> products = entityManager.createQuery(SELECT_PRODUCT_RELATIONS, Product.class)
-                .setParameter("ids", productIds)
                 .getResultList();
 
         return PageableExecutionUtils.getPage(products, pageable, products::size);

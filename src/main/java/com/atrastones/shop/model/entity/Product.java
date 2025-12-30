@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -22,9 +23,18 @@ public class Product {
 
     private String name;
 
+    @Column(name = "category_id", insertable = false, updatable = false)
+    private Long categoryId;
+
+    @Column(name = "shop_id", insertable = false, updatable = false)
+    private Long shopId;
+
     private Integer quantity;
 
-    private Integer price;
+    private BigDecimal price;
+
+    @Column(name = "service_group_id", insertable = false, updatable = false)
+    private Long serviceGroupId;
 
     private String description;
 
@@ -61,7 +71,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_group_id")
-    private ServiceGroup offeringGroup;
+    private ServiceGroup serviceGroup;
 
     /* **************************** TABLE RELATIONS **********************************/
 
@@ -85,7 +95,7 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<ProductReview> reviews;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<OrderDetails> orderDetails;
 
 }

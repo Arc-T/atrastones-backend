@@ -27,7 +27,17 @@ public class ProductMediaServiceImp implements ProductMediaService {
     @Override
     @Transactional
     public List<Long> save(Long productId) {
-        return productMediaRepository.createBatch(MediaUtils.moveAllDraftsToProduct(productId));
+        return productMediaRepository.createBatch(
+                MediaUtils.moveAllDraftsToProduct(productId, false)
+        );
+    }
+
+    @Override
+    @Transactional
+    public void update(Long productId) {
+        productMediaRepository.createBatch(
+                MediaUtils.moveAllDraftsToProduct(productId, true)
+        );
     }
 
     @Override
