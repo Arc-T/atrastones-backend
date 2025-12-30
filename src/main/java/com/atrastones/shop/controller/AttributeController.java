@@ -1,6 +1,6 @@
 package com.atrastones.shop.controller;
 
-import com.atrastones.shop.dto.search.AttributeSearch;
+import com.atrastones.shop.dto.search.AttributeSearchDTO;
 import com.atrastones.shop.dto.AttributeDTO;
 import com.atrastones.shop.model.service.contract.AttributeService;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public class AttributeController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<AttributeDTO>> readAll(AttributeSearch search, Pageable pageable) {
+    public ResponseEntity<Page<AttributeDTO>> readAll(AttributeSearchDTO search, Pageable pageable) {
         return ResponseEntity.ok(attributeService.getAll(search, pageable));
     }
 

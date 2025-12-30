@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.implement;
 
-import com.atrastones.shop.dto.search.ServiceSearch;
+import com.atrastones.shop.dto.search.ServiceSearchDTO;
 import com.atrastones.shop.dto.ServiceDTO;
 import com.atrastones.shop.model.repository.contract.ServiceRepository;
 import com.atrastones.shop.model.service.contract.ServiceService;
@@ -26,7 +26,7 @@ public class ServiceServiceImp implements ServiceService {
     }
 
     @Override
-    public Page<ServiceDTO> getAll(Pageable pageable, ServiceSearch search) {
+    public Page<ServiceDTO> getAll(Pageable pageable, ServiceSearchDTO search) {
         return serviceRepository.getAll(pageable, search)
                 .map(ServiceDTO::toDTO);
     }

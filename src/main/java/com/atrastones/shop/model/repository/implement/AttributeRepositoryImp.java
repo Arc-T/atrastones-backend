@@ -1,20 +1,18 @@
 package com.atrastones.shop.model.repository.implement;
 
 import com.atrastones.shop.dto.AttributeDTO;
-import com.atrastones.shop.dto.search.AttributeSearch;
+import com.atrastones.shop.dto.search.AttributeSearchDTO;
 import com.atrastones.shop.model.entity.Attribute;
 import com.atrastones.shop.model.repository.contract.AttributeRepository;
 import com.atrastones.shop.utils.JdbcUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -109,7 +107,7 @@ public class AttributeRepositoryImp implements AttributeRepository {
     }
 
     @Override
-    public Page<Attribute> getAll(AttributeSearch search, Pageable pageable) {
+    public Page<Attribute> getAll(AttributeSearchDTO search, Pageable pageable) {
 
         String SELECT_ATTRIBUTE_IDS_HQL = """
                 SELECT a.id FROM Attribute a

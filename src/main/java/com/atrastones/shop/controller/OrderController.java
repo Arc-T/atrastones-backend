@@ -1,6 +1,6 @@
 package com.atrastones.shop.controller;
 
-import com.atrastones.shop.dto.search.OrderSearch;
+import com.atrastones.shop.dto.search.OrderSearchDTO;
 import com.atrastones.shop.dto.OrderDTO;
 import com.atrastones.shop.model.service.contract.OrderService;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<OrderDTO>> readAll(Pageable pageable, OrderSearch search) {
+    public ResponseEntity<Page<OrderDTO>> readAll(Pageable pageable, OrderSearchDTO search) {
         return ResponseEntity.ok(orderService.getAll(pageable, search));
     }
 

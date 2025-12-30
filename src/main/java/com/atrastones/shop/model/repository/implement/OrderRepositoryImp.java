@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.repository.implement;
 
 import com.atrastones.shop.dto.OrderDTO;
-import com.atrastones.shop.dto.search.OrderSearch;
+import com.atrastones.shop.dto.search.OrderSearchDTO;
 import com.atrastones.shop.model.entity.Invoice;
 import com.atrastones.shop.model.entity.Order;
 import com.atrastones.shop.model.entity.OrderDetails;
@@ -75,7 +75,7 @@ public class OrderRepositoryImp implements OrderRepository {
 
 
     @Override
-    public Page<Order> findAll(Pageable pageable, OrderSearch search) {
+    public Page<Order> findAll(Pageable pageable, OrderSearchDTO search) {
         return null;
     }
 

@@ -1,8 +1,8 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.create.ProductCreateDTO;
 import com.atrastones.shop.dto.projection.ProductProjection;
-import com.atrastones.shop.dto.search.ProductSearch;
+import com.atrastones.shop.dto.search.ProductSearchDTO;
 import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import com.atrastones.shop.model.entity.Product;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,7 @@ public interface ProductRepository {
 
     // ---------------------------- CREATE ----------------------------
 
-    Long create(ProductCreate product);
+    Long create(ProductCreateDTO product);
 
     // ---------------------------- UPDATE ----------------------------
 
@@ -31,7 +31,7 @@ public interface ProductRepository {
 
     Optional<Product> getDetails(long id);
 
-    Page<ProductProjection> getAll(Pageable pageable, ProductSearch filter);
+    Page<ProductProjection> getAll(Pageable pageable, ProductSearchDTO filter);
 
     List<Product> getAllByCategoryId(long categoryId);
 

@@ -1,9 +1,9 @@
 package com.atrastones.shop.controller;
 
 import com.atrastones.shop.dto.ProductDTO;
-import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.create.ProductCreateDTO;
 import com.atrastones.shop.dto.projection.ProductProjection;
-import com.atrastones.shop.dto.search.ProductSearch;
+import com.atrastones.shop.dto.search.ProductSearchDTO;
 import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import com.atrastones.shop.model.service.contract.ProductService;
 import jakarta.validation.Valid;
@@ -31,12 +31,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductProjection>> readAll(Pageable pageable, ProductSearch search) {
+    public ResponseEntity<Page<ProductProjection>> readAll(Pageable pageable, ProductSearchDTO search) {
         return ResponseEntity.ok(productService.getAll(pageable, search));
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> create(ProductCreate product) {
+    public ResponseEntity<ProductDTO> create(ProductCreateDTO product) {
         return ResponseEntity.created(URI.create("/products/" + productService.save(product)))
                 .build();
     }

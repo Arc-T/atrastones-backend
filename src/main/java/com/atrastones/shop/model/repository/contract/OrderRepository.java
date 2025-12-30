@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.dto.search.OrderSearch;
+import com.atrastones.shop.dto.search.OrderSearchDTO;
 import com.atrastones.shop.dto.OrderDTO;
 import com.atrastones.shop.model.entity.Invoice;
 import com.atrastones.shop.model.entity.Order;
@@ -22,7 +22,7 @@ public interface OrderRepository {
 
     // ----------------------------- SELECT --------------------------------------
 
-    Page<Order> findAll(Pageable pageable, OrderSearch search);
+    Page<Order> findAll(Pageable pageable, OrderSearchDTO search);
 
     List<OrderDetails> findOrderDetails(Long id);
 

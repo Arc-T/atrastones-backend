@@ -1,7 +1,7 @@
 package com.atrastones.shop.controller;
 
 import com.atrastones.shop.dto.MediaDTO;
-import com.atrastones.shop.dto.create.ProductMediaCreate;
+import com.atrastones.shop.dto.create.ProductMediaCreateDTO;
 import com.atrastones.shop.model.service.contract.ProductMediaService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +34,14 @@ public class ProductMediaController {
     // ================================ POST ================================
 
     @PostMapping(path = "/draft", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> createDraft(ProductMediaCreate ProductMediaCreate) {
-        productMediaService.saveDraft(ProductMediaCreate);
+    public ResponseEntity<?> createDraft(ProductMediaCreateDTO ProductMediaCreateDTO) {
+        productMediaService.saveDraft(ProductMediaCreateDTO);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping(path = "/draft/{productId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> createDraft(@PathVariable Long productId, ProductMediaCreate ProductMediaCreate) {
-        productMediaService.saveDraft(productId, ProductMediaCreate);
+    public ResponseEntity<?> createDraft(@PathVariable Long productId, ProductMediaCreateDTO ProductMediaCreateDTO) {
+        productMediaService.saveDraft(productId, ProductMediaCreateDTO);
         return ResponseEntity.noContent().build();
     }
 

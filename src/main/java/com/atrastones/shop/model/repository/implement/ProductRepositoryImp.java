@@ -1,8 +1,8 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.create.ProductCreateDTO;
 import com.atrastones.shop.dto.projection.ProductProjection;
-import com.atrastones.shop.dto.search.ProductSearch;
+import com.atrastones.shop.dto.search.ProductSearchDTO;
 import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import com.atrastones.shop.model.entity.Product;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
@@ -33,7 +33,7 @@ public class ProductRepositoryImp implements ProductRepository {
     // ---------------------------- CREATE ----------------------------
 
     @Override
-    public Long create(ProductCreate product) {
+    public Long create(ProductCreateDTO product) {
 
         String INSERT_PRODUCT_SQL = """
                 INSERT INTO products (name, category_id, shop_id, quantity, price, service_group_id, description)
@@ -137,7 +137,7 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public Page<ProductProjection> getAll(Pageable pageable, ProductSearch filter) {
+    public Page<ProductProjection> getAll(Pageable pageable, ProductSearchDTO filter) {
 
         String SELECT_PRODUCT_IDS = """
                     SELECT new com.atrastones.shop.dto.projection.ProductProjection(

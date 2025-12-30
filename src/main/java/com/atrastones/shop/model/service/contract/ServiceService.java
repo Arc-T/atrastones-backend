@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.contract;
 
-import com.atrastones.shop.dto.search.ServiceSearch;
+import com.atrastones.shop.dto.search.ServiceSearchDTO;
 import com.atrastones.shop.dto.ServiceDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +13,7 @@ public interface ServiceService {
 
     Optional<ServiceDTO> get(Long id);
 
-    Page<ServiceDTO> getAll(Pageable pageable, ServiceSearch filter);
+    Page<ServiceDTO> getAll(Pageable pageable, ServiceSearchDTO filter);
 
     void remove(Long id);
 

@@ -1,9 +1,9 @@
 package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.*;
-import com.atrastones.shop.dto.create.ProductCreate;
+import com.atrastones.shop.dto.create.ProductCreateDTO;
 import com.atrastones.shop.dto.projection.ProductProjection;
-import com.atrastones.shop.dto.search.ProductSearch;
+import com.atrastones.shop.dto.search.ProductSearchDTO;
 import com.atrastones.shop.dto.update.ProductUpdateDTO;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
 import com.atrastones.shop.model.service.contract.ProductMediaService;
@@ -38,7 +38,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     @Transactional
-    public Long save(ProductCreate product) {
+    public Long save(ProductCreateDTO product) {
         long productId = productRepository.create(product);
         productMediaService.save(productId);
         return productId;
@@ -52,7 +52,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Page<ProductProjection> getAll(Pageable pageable, ProductSearch filter) {
+    public Page<ProductProjection> getAll(Pageable pageable, ProductSearchDTO filter) {
         return productRepository.getAll(pageable, filter);
     }
 

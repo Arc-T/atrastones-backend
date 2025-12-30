@@ -2,7 +2,7 @@ package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.MediaDTO;
 import com.atrastones.shop.dto.ProductMediaDTO;
-import com.atrastones.shop.dto.create.ProductMediaCreate;
+import com.atrastones.shop.dto.create.ProductMediaCreateDTO;
 import com.atrastones.shop.exception.ServiceLogicException;
 import com.atrastones.shop.model.repository.contract.ProductMediaRepository;
 import com.atrastones.shop.model.repository.contract.ProductRepository;
@@ -64,14 +64,14 @@ public class ProductMediaServiceImp implements ProductMediaService {
     }
 
     @Override
-    public void saveDraft(ProductMediaCreate productMedia) {
+    public void saveDraft(ProductMediaCreateDTO productMedia) {
         List<MediaDTO> draftMedia = MediaUtils.draft(productMedia.media());
         if (draftMedia.isEmpty() || draftMedia.size() != productMedia.media().length)
             throw new ServiceLogicException("ALL.MEDIA.DID.NOT.SAVED"); //TODO: message
     }
 
     @Override
-    public void saveDraft(Long productId, ProductMediaCreate request) {
+    public void saveDraft(Long productId, ProductMediaCreateDTO request) {
         if (productRepository.exists(productId)) {
             List<MediaDTO> draftMedia = MediaUtils.draft(productId, request.media());
             if (draftMedia.isEmpty() || draftMedia.size() != request.media().length)

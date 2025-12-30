@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.service.contract;
 
-import com.atrastones.shop.dto.create.ProductCreate;
-import com.atrastones.shop.dto.search.ProductSearch;
+import com.atrastones.shop.dto.create.ProductCreateDTO;
+import com.atrastones.shop.dto.search.ProductSearchDTO;
 import com.atrastones.shop.dto.*;
 import com.atrastones.shop.dto.projection.ProductProjection;
 import com.atrastones.shop.dto.update.ProductUpdateDTO;
@@ -17,13 +17,13 @@ public interface ProductService {
 
     void remove(Long id);
 
-    Long save(ProductCreate product);
+    Long save(ProductCreateDTO product);
 
     void edit(Long id, ProductUpdateDTO product);
 
     Optional<ProductDTO> get(Long id);
 
-    Page<ProductProjection> getAll(Pageable pageable, ProductSearch search);
+    Page<ProductProjection> getAll(Pageable pageable, ProductSearchDTO search);
 
     List<ProductDTO> getProductsInfoByIds(List<Long> ids); //TODO:list input
 

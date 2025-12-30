@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.service.contract;
 
 import com.atrastones.shop.dto.MediaDTO;
-import com.atrastones.shop.dto.create.ProductMediaCreate;
+import com.atrastones.shop.dto.create.ProductMediaCreateDTO;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ public interface ProductMediaService {
 
     void update(Long productId);
 
-    void saveDraft(ProductMediaCreate productMediaCreate);
+    void saveDraft(ProductMediaCreateDTO productMediaCreateDTO);
 
-    void saveDraft(Long productId, ProductMediaCreate productMediaCreate);
+    void saveDraft(Long productId, ProductMediaCreateDTO productMediaCreateDTO);
 
     void delete(Long id);
 

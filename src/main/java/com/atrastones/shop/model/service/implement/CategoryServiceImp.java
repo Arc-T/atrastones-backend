@@ -1,7 +1,7 @@
 package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.CategoryDTO;
-import com.atrastones.shop.dto.search.CategorySearch;
+import com.atrastones.shop.dto.search.CategorySearchDTO;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
 import com.atrastones.shop.model.service.contract.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public Page<CategoryDTO> getAll(Pageable pageable, CategorySearch filter) {
+    public Page<CategoryDTO> getAll(Pageable pageable, CategorySearchDTO filter) {
         return categoryRepository.getAll(pageable, filter)
                 .map(CategoryDTO::toFullDTO);
     }

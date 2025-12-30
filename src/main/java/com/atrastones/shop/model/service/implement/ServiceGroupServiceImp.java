@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.service.implement;
 
-import com.atrastones.shop.dto.search.ServiceGroupSearch;
+import com.atrastones.shop.dto.search.ServiceGroupSearchDTO;
 import com.atrastones.shop.dto.ServiceGroupDTO;
 import com.atrastones.shop.model.repository.contract.ServiceGroupRepository;
 import com.atrastones.shop.model.service.contract.ServiceGroupService;
@@ -25,7 +25,7 @@ public class ServiceGroupServiceImp implements ServiceGroupService {
     }
 
     @Override
-    public Page<ServiceGroupDTO> getAll(Pageable pageable, ServiceGroupSearch search) {
+    public Page<ServiceGroupDTO> getAll(Pageable pageable, ServiceGroupSearchDTO search) {
         return serviceGroupRepository.getAll(pageable, search).map(ServiceGroupDTO::toDTO);
     }
 

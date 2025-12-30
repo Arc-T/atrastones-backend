@@ -2,7 +2,7 @@ package com.atrastones.shop.controller;
 
 import com.atrastones.shop.dto.ServiceGroupDTO;
 import com.atrastones.shop.dto.TagDTO;
-import com.atrastones.shop.dto.search.ServiceGroupSearch;
+import com.atrastones.shop.dto.search.ServiceGroupSearchDTO;
 import com.atrastones.shop.model.service.contract.ServiceGroupService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -23,7 +23,7 @@ public class ServiceGroupController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ServiceGroupDTO>> readAll(Pageable pageable, ServiceGroupSearch search) {
+    public ResponseEntity<Page<ServiceGroupDTO>> readAll(Pageable pageable, ServiceGroupSearchDTO search) {
         return ResponseEntity.ok(serviceGroupService.getAll(pageable, search));
     }
 

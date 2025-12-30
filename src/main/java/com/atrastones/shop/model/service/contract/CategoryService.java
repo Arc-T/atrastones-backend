@@ -1,11 +1,10 @@
 package com.atrastones.shop.model.service.contract;
 
-import com.atrastones.shop.dto.search.CategorySearch;
+import com.atrastones.shop.dto.search.CategorySearchDTO;
 import com.atrastones.shop.dto.CategoryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface CategoryService {
@@ -14,7 +13,7 @@ public interface CategoryService {
 
     Optional<CategoryDTO> get(Long id);
 
-    Page<CategoryDTO> getAll(Pageable pageable, CategorySearch search);
+    Page<CategoryDTO> getAll(Pageable pageable, CategorySearchDTO search);
 
     void remove(Long id);
 

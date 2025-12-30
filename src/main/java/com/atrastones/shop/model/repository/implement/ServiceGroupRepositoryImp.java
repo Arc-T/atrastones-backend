@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.dto.search.ServiceGroupSearch;
+import com.atrastones.shop.dto.search.ServiceGroupSearchDTO;
 import com.atrastones.shop.dto.ServiceGroupDTO;
 import com.atrastones.shop.model.entity.ServiceGroup;
 import com.atrastones.shop.model.repository.contract.ServiceGroupRepository;
@@ -100,7 +100,7 @@ public class ServiceGroupRepositoryImp implements ServiceGroupRepository {
     }
 
     @Override
-    public Page<ServiceGroup> getAll(Pageable pageable, ServiceGroupSearch search) {
+    public Page<ServiceGroup> getAll(Pageable pageable, ServiceGroupSearchDTO search) {
 
         List<ServiceGroup> serviceGroups = buildQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())
@@ -124,7 +124,7 @@ public class ServiceGroupRepositoryImp implements ServiceGroupRepository {
 
     // -------------------------------------- HELPERS --------------------------------------
 
-    private TypedQuery<ServiceGroup> buildQueryWithFilters(ServiceGroupSearch search) {
+    private TypedQuery<ServiceGroup> buildQueryWithFilters(ServiceGroupSearchDTO search) {
 
         StringBuilder hql = new StringBuilder();
         hql.append("SELECT sg FROM ServiceGroup sg");

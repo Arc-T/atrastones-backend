@@ -1,4 +1,4 @@
 package com.atrastones.shop.dto.search;
 
-public record OrderSearch() {
+public record OrderSearchDTO() {
 }

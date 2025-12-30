@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.dto.search.CategorySearch;
+import com.atrastones.shop.dto.search.CategorySearchDTO;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.entity.Category;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ public interface CategoryRepository {
     Optional<Category> get(Long id);
 
 
-    Page<Category> getAll(Pageable pageable, CategorySearch search);
+    Page<Category> getAll(Pageable pageable, CategorySearchDTO search);
 
     // -------------------------------------- OPERATIONS --------------------------------------
 

@@ -1,6 +1,6 @@
 package com.atrastones.shop.controller;
 
-import com.atrastones.shop.dto.search.CategorySearch;
+import com.atrastones.shop.dto.search.CategorySearchDTO;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.service.contract.CategoryService;
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<CategoryDTO>> readAll(Pageable pageable, CategorySearch search) {
+    public ResponseEntity<Page<CategoryDTO>> readAll(Pageable pageable, CategorySearchDTO search) {
         return ResponseEntity.ok(categoryService.getAll(pageable, search));
     }
 

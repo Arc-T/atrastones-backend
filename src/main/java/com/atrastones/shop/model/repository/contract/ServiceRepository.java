@@ -1,12 +1,11 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.dto.search.ServiceSearch;
+import com.atrastones.shop.dto.search.ServiceSearchDTO;
 import com.atrastones.shop.dto.ServiceDTO;
 import com.atrastones.shop.model.entity.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ServiceRepository {
@@ -27,7 +26,7 @@ public interface ServiceRepository {
 
     Optional<Service> get(Long id);
 
-    Page<Service> getAll(Pageable pageable, ServiceSearch search);
+    Page<Service> getAll(Pageable pageable, ServiceSearchDTO search);
 
     // ----------------------------- OPERATIONS --------------------------------------
 

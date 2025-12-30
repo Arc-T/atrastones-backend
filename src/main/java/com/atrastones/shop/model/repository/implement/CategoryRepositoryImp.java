@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.implement;
 
-import com.atrastones.shop.dto.search.CategorySearch;
+import com.atrastones.shop.dto.search.CategorySearchDTO;
 import com.atrastones.shop.dto.CategoryDTO;
 import com.atrastones.shop.model.entity.Category;
 import com.atrastones.shop.model.repository.contract.CategoryRepository;
@@ -111,7 +111,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
     }
 
     @Override
-    public Page<Category> getAll(Pageable pageable, CategorySearch search) {
+    public Page<Category> getAll(Pageable pageable, CategorySearchDTO search) {
 
         List<Category> categories = buildQueryWithFilters(search)
                 .setFirstResult((int) pageable.getOffset())
@@ -150,7 +150,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
     // -------------------------------------- HELPERS --------------------------------------
 
-    private TypedQuery<Category> buildQueryWithFilters(CategorySearch filter) {
+    private TypedQuery<Category> buildQueryWithFilters(CategorySearchDTO filter) {
 
         StringBuilder hql = new StringBuilder("SELECT c FROM Category c");
 
