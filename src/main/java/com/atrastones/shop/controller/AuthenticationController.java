@@ -32,11 +32,12 @@ public class AuthenticationController {
         refreshCookie.setAttribute("SameSite", "Strict");  // Mitigates CSRF
         response.addCookie(refreshCookie);
 
-        return ResponseEntity.ok(authResult);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> checkAuth(@CookieValue(value = "token", required = false) String token, HttpServletResponse response) {
+    public ResponseEntity<?> checkAuth(@CookieValue(value = "token") String token,
+                                       HttpServletResponse response) {
         boolean valid = token != null && authenticationService.checkTokenValidity(token);
         if (!valid) {
             Cookie cookie = new Cookie("token", null);
@@ -47,6 +48,7 @@ public class AuthenticationController {
         }
         return ResponseEntity.ok(valid);
     }
+
 //    @PostMapping("/otp")
 //    public ResponseEntity<Boolean> login(@RequestBody AuthenticationDTO authentication) {
 //        return ResponseEntity.ok(authenticationServiceContract.authenticateUser(authentication));

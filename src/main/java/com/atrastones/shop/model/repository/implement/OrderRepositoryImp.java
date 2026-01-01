@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -73,10 +74,19 @@ public class OrderRepositoryImp implements OrderRepository {
 
     // -------------------------------------- SELECT --------------------------------------
 
-
     @Override
     public Page<Order> findAll(Pageable pageable, OrderSearchDTO search) {
-        return null;
+
+        String SELECT_ORDER_HQL = """
+                SELECT o FROM Order o
+                """;
+
+        return PageableExecutionUtils.getPage(
+                entityManager.createQuery(SELECT_ORDER_HQL, Order.class)
+                        .getResultList(),
+                pageable,
+                this::count
+        );
     }
 
     @Override

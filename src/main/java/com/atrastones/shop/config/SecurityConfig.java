@@ -3,6 +3,8 @@ package com.atrastones.shop.config;
 import com.atrastones.shop.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -28,6 +30,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config){
+        return config.getAuthenticationManager();
+    }
+
+    @Bean
     public SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -45,6 +52,7 @@ public class SecurityConfig {
                                 "/services/**",
                                 "/service-groups/**",
                                 "/tags/**",
+                                "/orders/**",
                                 "/product-media/**",
                                 "/uploads/**"
                         ).permitAll()

@@ -19,7 +19,7 @@ public interface TagRepository {
 
     Optional<Tag> get(Long id);
 
-    Page<Tag> getAllPaginated(Pageable pageable);
+    Page<Tag> getAll(Pageable pageable);
 
     // ============================ RELATIONS ============================
 

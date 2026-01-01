@@ -95,7 +95,7 @@ public class TagRepositoryImp implements TagRepository {
     }
 
     @Override
-    public Page<Tag> getAllPaginated(Pageable pageable) {
+    public Page<Tag> getAll(Pageable pageable) {
 
         String SELECT_ALL_TAG_HQL = """
                 SELECT t FROM Tag t

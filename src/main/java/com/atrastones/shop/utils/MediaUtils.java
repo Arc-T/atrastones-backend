@@ -86,7 +86,8 @@ public final class MediaUtils {
     public static List<ProductMediaDTO> moveAllDraftsToProduct(long productId, boolean isUpdate) {
         Path targetDir = productDir(productId);
         ensureDir(targetDir);
-
+        if (listProductDraft(productId).isEmpty())
+            return List.of();
         try (Stream<Path> s = Files.list(isUpdate ? productDraftDir(productId) : DRAFT)) {
             List<Path> files = s.filter(Files::isRegularFile).sorted().toList();
 
