@@ -17,6 +17,7 @@ public class CustomUserDetailsServiceImp implements CustomUserDetailsService {
     }
 
     @Override
+    @NonNull
     public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
         return userRepository.getByPhone(username);
     }

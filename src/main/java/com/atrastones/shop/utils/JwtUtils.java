@@ -1,5 +1,6 @@
 package com.atrastones.shop.utils;
 
+import com.atrastones.shop.dto.UserDTO;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -174,7 +175,7 @@ public final class JwtUtils {
 
     /**
      * Builds a reusable JWT verifier with leeway for clock skew.
-     * Leeway allows minor NTP de-syncs without false expiries.
+     * Leeway allows minor NTP de-syncs without false expires.
      * Tune based on your infra (e.g., 60s for distributed systems).
      *
      * @return configured verifier

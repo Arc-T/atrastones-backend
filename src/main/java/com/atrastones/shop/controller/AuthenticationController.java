@@ -4,27 +4,24 @@ import com.atrastones.shop.dto.AuthenticationDTO;
 import com.atrastones.shop.model.service.contract.AuthenticationService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(path = "/authentication")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    public AuthenticationController(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
-    }
-
     @PostMapping
     public ResponseEntity<AuthenticationDTO> authenticateUser(@RequestBody AuthenticationDTO authentication,
-                                                              @RequestParam(required = false, defaultValue = "admin") String panel,
-                                                              HttpServletResponse response) {
+                                                    HttpServletResponse response) {
 
-        AuthenticationDTO authResult = authenticationService.authenticateUser(authentication, panel);
+        AuthenticationDTO authUser = authenticationService.authenticateAdmin(authentication);
 
-        Cookie refreshCookie = new Cookie("token", authResult.token());
+        Cookie refreshCookie = new Cookie("token", authUser.token());
         refreshCookie.setHttpOnly(true); // Prevents XSS access
         refreshCookie.setSecure(true); // HTTPS only (enforce in prod)
         refreshCookie.setPath("/"); // App-wide access
@@ -32,10 +29,10 @@ public class AuthenticationController {
         refreshCookie.setAttribute("SameSite", "Strict");  // Mitigates CSRF
         response.addCookie(refreshCookie);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(authUser);
     }
 
-    @GetMapping("/validate")
+    @PostMapping("/validate")
     public ResponseEntity<?> checkAuth(@CookieValue(value = "token") String token,
                                        HttpServletResponse response) {
         boolean valid = token != null && authenticationService.checkTokenValidity(token);

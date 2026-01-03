@@ -40,7 +40,8 @@ public final class SecurityUtils {
     }
 
     public static Collection<GrantedAuthority> getAuthorities() {
-        CustomUserDetails principal = (CustomUserDetails) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
+        CustomUserDetails principal =
+                (CustomUserDetails) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
         return principal.getAuthorities();
     }
 
@@ -69,15 +70,15 @@ public final class SecurityUtils {
     }
 
     private static Authentication createAuthentication(Collection<? extends GrantedAuthority> authorities, CustomUserDetails userDetails) {
-        return new UsernamePasswordAuthenticationToken(userDetails, (Object)null, authorities);
-    }
-
-    private static CustomUserDetails createUser(String username, Collection<? extends GrantedAuthority> authorities) {
-        return new CustomUserDetails(User.withUsername(username).password("").authorities(authorities).build(), null, "", "", "", "");
+        return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
     }
 
     public static void setUser(String username) {
         setUser(username, Collections.emptyList());
+    }
+
+    private static CustomUserDetails createUser(String username, Collection<? extends GrantedAuthority> authorities) {
+        return new CustomUserDetails(User.withUsername(username).password("").authorities(authorities).build(), null, "", "", "", "");
     }
 
     private static boolean isSecurityContextEmpty() {

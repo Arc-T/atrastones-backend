@@ -10,6 +10,8 @@ public interface UserService {
 
     Optional<UserDTO> get(Long id);
 
+    UserDTO loadByPhone(String phone);
+
     Optional<UserDTO> getByPhone(String phone);
 
     void delete(Long id);

@@ -107,6 +107,7 @@ public class UserRepositoryImp implements UserRepository {
                          JOIN FETCH u.userGroup ug
                          JOIN FETCH ug.roles r
                          JOIN FETCH r.permissions
+                         JOIN FETCH u.shops
                          WHERE u.phone = :phone
                 """;
 

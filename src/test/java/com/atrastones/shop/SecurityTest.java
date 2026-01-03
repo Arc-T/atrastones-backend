@@ -35,7 +35,6 @@ public class SecurityTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-
     @Test
     void testAdminLogin_returnsOk_whenAuthIsValid() throws Exception {
 

@@ -65,12 +65,4 @@ public class ProductMediaController {
         return ResponseEntity.noContent().build();
     }
 
-    // ================================ PUT ================================
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id) {
-//        productMediaService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
 }

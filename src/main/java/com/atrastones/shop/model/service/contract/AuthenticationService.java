@@ -6,7 +6,9 @@ public interface AuthenticationService {
 
     /* ******************************** OPERATIONS ******************************** */
 
-    AuthenticationDTO authenticateUser(AuthenticationDTO authentication, String panel);
+    AuthenticationDTO authenticateAdmin(AuthenticationDTO authentication);
+
+    AuthenticationDTO authenticateCustomer(AuthenticationDTO authentication);
 
     AuthenticationDTO attemptWithOtp(String phone, Integer otpCode);
 

@@ -2,58 +2,46 @@ package com.atrastones.shop.model.service.implement;
 
 import com.atrastones.shop.dto.AuthenticationDTO;
 import com.atrastones.shop.dto.SmsDTO;
+import com.atrastones.shop.dto.UserDTO;
 import com.atrastones.shop.model.service.contract.AuthenticationService;
+import com.atrastones.shop.model.service.contract.CustomUserDetailsService;
 import com.atrastones.shop.model.service.contract.SmsService;
 import com.atrastones.shop.model.service.contract.UserService;
-import com.atrastones.shop.type.LoginType;
 import com.atrastones.shop.utils.JwtUtils;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.atrastones.shop.utils.SecurityUtils;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Slf4j
 @Service
+@AllArgsConstructor
 public class AuthenticationServiceImp implements AuthenticationService {
 
     private final SmsService smsService;
     private final UserService userService;
-    private final UserDetailsService userDetailsService;
-    private final AuthenticationManager authenticationManager;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    public AuthenticationServiceImp(UserService userService, AuthenticationManager authenticationManager, SmsService smsService, UserDetailsService userDetailsService) {
-        this.smsService = smsService;
-        this.userDetailsService = userDetailsService;
-        this.userService = userService;
-        this.authenticationManager = authenticationManager;
+    @Override
+    public AuthenticationDTO authenticateAdmin(AuthenticationDTO authentication) {
+        UserDetails user = customUserDetailsService.loadUserByUsername(authentication.username());
+        SecurityUtils.setUser(authentication.username(), user.getAuthorities());
+        UserDTO user = userService.loadByPhone(authentication.username());
+        return new AuthenticationDTO(
+                authentication.username(),
+                JwtUtils.generateToken(user)
+        );
     }
 
     @Override
-    public AuthenticationDTO authenticateUser(AuthenticationDTO authentication, String panel) {
-        return switch (panel) {
-            case "customer" -> {
-                if (authentication.loginType().equals(LoginType.SMS)) {
-                    yield new AuthenticationDTO(
-                            smsService.getOrCreateTtl(authentication.username()),
-                            userService.existsByPhone(authentication.username()),
-                            authentication.username()
-                    );
-                } else if (authentication.loginType().equals(LoginType.PASSWORD)) {
-                    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                            authentication.username(), authentication.password()));
-                } else if (authentication.loginType().equals(LoginType.EMAIL)) {
-                    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                            authentication.username(), authentication.password()));
-                }
-                throw new IllegalStateException("Invalid login type");
-            }
-            case "admin" -> attemptWithPassword(authentication.username(), authentication.password());
-            default -> throw new IllegalStateException("Unexpected value: " + panel);
-        };
+    public AuthenticationDTO authenticateCustomer(AuthenticationDTO authentication) {
+        return new AuthenticationDTO(
+                smsService.getOrCreateTtl(authentication.username()),
+                userService.existsByPhone(authentication.username()),
+                authentication.username()
+        );
     }
 
     @Override
@@ -73,18 +61,6 @@ public class AuthenticationServiceImp implements AuthenticationService {
     @Override
     public boolean checkTokenValidity(String token) {
         return JwtUtils.isTokenValid(token, userDetailsService.loadUserByUsername(JwtUtils.extractUsername(token)));
-    }
-
-    private AuthenticationDTO attemptWithPassword(String username, String password) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        username, password
-                )
-        );
-        return new AuthenticationDTO(
-                username,
-                JwtUtils.generateToken(userDetailsService.loadUserByUsername(username))
-        );
     }
 
 }

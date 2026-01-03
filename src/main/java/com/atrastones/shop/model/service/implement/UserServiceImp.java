@@ -1,28 +1,27 @@
 package com.atrastones.shop.model.service.implement;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.atrastones.shop.dto.UserDTO;
 import com.atrastones.shop.model.repository.contract.UserRepository;
 import com.atrastones.shop.model.service.contract.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
 
-@Slf4j
 @Service
+@AllArgsConstructor
 public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImp(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
     public Optional<UserDTO> get(Long id) {
         return Optional.empty();
+    }
+
+    @Override
+    public UserDTO loadByPhone(String phone) {
+        return UserDTO.toDTO(userRepository.getByPhone(phone));
     }
 
     @Override

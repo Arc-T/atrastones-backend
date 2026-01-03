@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,10 +25,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
     private String firsName;
 
-    @Column(name = "last_name")
     private String lastName;
 
     private String email;
@@ -42,14 +41,11 @@ public class User implements UserDetails {
     private String description;
 
     @CreationTimestamp
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     // ************************************** FOREIGN-KEY RELATIONS *******************************************
@@ -60,8 +56,8 @@ public class User implements UserDetails {
 
     // ******************************************** TABLE RELATIONS *******************************************
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<Shop> shops;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Shop shops;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;
@@ -97,12 +93,12 @@ public class User implements UserDetails {
     // ************************************** AUTHENTICATION **************************************
 
     @Override
+    @NonNull
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return userGroup.getRoles()
                 .stream()
                 .flatMap(role -> role.getPermissions().stream())
                 .map(permission -> new SimpleGrantedAuthority(permission.getName()))
-                .distinct() // Remove duplicates if same permission exists in multiple roles
                 .toList();
     }
 
@@ -112,6 +108,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @NonNull
     public String getUsername() {
         return phone;
     }
