@@ -1,6 +1,5 @@
 package com.atrastones.shop;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,6 @@ public class SecurityTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Test
     @WithMockUser(roles = "ADMIN")
     void testAdminEndpoint() throws Exception {
@@ -38,7 +34,7 @@ public class SecurityTest {
     @Test
     void testAdminLogin_returnsOk_whenAuthIsValid() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/authentication?panel=admin")
+        mockMvc.perform(MockMvcRequestBuilders.post("/authentication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {

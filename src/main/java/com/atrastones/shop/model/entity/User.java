@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firsName;
+    private String firstName;
 
     private String lastName;
 
@@ -56,8 +56,8 @@ public class User implements UserDetails {
 
     // ******************************************** TABLE RELATIONS *******************************************
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Shop shops;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Shop> shops;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;

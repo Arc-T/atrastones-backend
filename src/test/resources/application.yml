@@ -23,14 +23,12 @@ spring:
     init:
       mode: never  # Disable spring.sql.init to avoid conflicts with Liquibase
 
+  jackson:
+    default-property-inclusion: NON_NULL
+
   liquibase:
     enabled: true
     change-log: classpath:database/changelog/master.yml  # Path to Liquibase changelog
-
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
 
 logging:
   level:

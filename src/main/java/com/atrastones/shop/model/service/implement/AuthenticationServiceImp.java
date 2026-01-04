@@ -28,10 +28,12 @@ public class AuthenticationServiceImp implements AuthenticationService {
     public AuthenticationDTO authenticateAdmin(AuthenticationDTO authentication) {
         UserDetails user = customUserDetailsService.loadUserByUsername(authentication.username());
         SecurityUtils.setUser(authentication.username(), user.getAuthorities());
-        UserDTO user = userService.loadByPhone(authentication.username());
+        UserDTO userInfo = userService.loadByPhone(authentication.username());
+
         return new AuthenticationDTO(
                 authentication.username(),
-                JwtUtils.generateToken(user)
+                JwtUtils.generateToken(user),
+                userInfo
         );
     }
 
@@ -51,7 +53,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
         if (checkOtp && userService.existsByPhone(phone)) {
             return new AuthenticationDTO(
                     true,
-                    JwtUtils.generateToken(userDetailsService.loadUserByUsername(phone))
+                    JwtUtils.generateToken(customUserDetailsService.loadUserByUsername(phone))
             );
         } else if (checkOtp) {
             return new AuthenticationDTO(false);
@@ -60,7 +62,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
     @Override
     public boolean checkTokenValidity(String token) {
-        return JwtUtils.isTokenValid(token, userDetailsService.loadUserByUsername(JwtUtils.extractUsername(token)));
+        return JwtUtils.isTokenValid(token, customUserDetailsService.loadUserByUsername(JwtUtils.extractUsername(token)));
     }
 
 }

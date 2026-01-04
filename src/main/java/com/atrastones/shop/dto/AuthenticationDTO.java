@@ -4,14 +4,14 @@ import com.atrastones.shop.type.LoginType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record AuthenticationDTO(
-        String username,
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY) Boolean hasAccount,
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY) Boolean hasPassword,
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY) LoginType loginType,
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) String token,
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) Integer smsTtl,
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY) String password,
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) UserDTO user
+        @JsonProperty(access = JsonProperty.Access.READ_WRITE) String username,
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) Boolean hasAccount,
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) Boolean hasPassword,
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) LoginType loginType,
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) String password,
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY) String token,
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY) Integer smsTtl,
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY) UserDTO user
 ) {
 
     public AuthenticationDTO(Boolean hasAccount) {
@@ -60,8 +60,8 @@ public record AuthenticationDTO(
                 null,
                 null,
                 null,
-                smsTtl,
                 null,
+                smsTtl,
                 null
         );
     }

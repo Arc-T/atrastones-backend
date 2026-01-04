@@ -43,6 +43,7 @@ public class Shop {
     /* **************************** FOREIGN-KEY RELATIONS **********************************/
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
