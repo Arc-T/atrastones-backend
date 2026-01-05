@@ -56,8 +56,9 @@ public class User implements UserDetails {
 
     // ******************************************** TABLE RELATIONS *******************************************
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Shop> shops;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;
