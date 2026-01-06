@@ -15,15 +15,6 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: user_id
-                  type: ${integer_value.type}
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_shops_user
-                    references: users(id)
-                    deleteRestrict: true
-                    updateRestrict: true
-              - column:
                   name: name
                   type: VARCHAR(100)
                   constraints:
@@ -70,12 +61,6 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
-            indexes:
-              - index:
-                  name: idx_shops_user
-                  columns:
-                    - column:
-                        name: user_id
               - index:
                   name: idx_shops_phone
                   columns:

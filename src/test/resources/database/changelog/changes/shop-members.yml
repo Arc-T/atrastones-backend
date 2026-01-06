@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767678813083-1
+      author: taha
+      changes:
+        - createTable:
+            tableName: shop_members
+            comment: Shop staff members with their status
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: shop_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_shop_members_shop
+                    references: shops(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: user_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_shop_members_user
+                    references: users(id)
+                    deleteCascade: true
+                    updateRestrict: true
+              - column:
+                  name: description
+                  type: ${text.type}
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+            indexes:
+              - index:
+                  name: idx_shop_members_shop
+                  columns:
+                    - column:
+                        name: shop_id
+              - index:
+                  name: idx_shop_members_user
+                  columns:
+                    - column:
+                        name: user_id
+              - index:
+                  name: unique_user_shop_membership
+                  columns:
+                    - column:
+                        name: user_id
+                  unique: true

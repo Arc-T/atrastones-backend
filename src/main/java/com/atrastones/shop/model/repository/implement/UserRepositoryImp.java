@@ -33,9 +33,8 @@ public class UserRepositoryImp implements UserRepository {
     public Long create(UserDTO user) {
 
         String INSERT_USER_SQL = """
-                INSERT INTO users (first_name, last_name, email, phone, password, user_group_id, gender, description)
-                       VALUES (:first_name, :last_name, :email, :phone, :password, :user_group_id, :gender,
-                               :description)
+                INSERT INTO users (first_name, last_name, email, phone, user_group_id, gender, description)
+                       VALUES (:first_name, :last_name, :email, :phone, :user_group_id, :gender, :description)
                 """;
 
         return JdbcUtils.insert(
@@ -44,7 +43,6 @@ public class UserRepositoryImp implements UserRepository {
                         .param("last_name", user.lastName())
                         .param("email", user.email())
                         .param("phone", user.phone())
-                        .param("password", user.password())
                         .param("user_group_id", user.userGroupId())
                         .param("gender", user.gender())
                         .param("description", user.description())
@@ -59,8 +57,7 @@ public class UserRepositoryImp implements UserRepository {
         String UPDATE_USER_SQL = """
                 UPDATE users
                        SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone,
-                           password = :password, user_group_id = :user_group_id, gender = :gender,
-                           description = :description
+                           user_group_id = :user_group_id, gender = :gender, description = :description
                        WHERE id = :id
                 """;
 
@@ -70,7 +67,6 @@ public class UserRepositoryImp implements UserRepository {
                         .param("last_name", user.lastName())
                         .param("email", user.email())
                         .param("phone", user.phone())
-                        .param("password", user.password())
                         .param("user_group_id", user.userGroupId())
                         .param("gender", user.gender())
                         .param("description", user.description())
@@ -107,7 +103,7 @@ public class UserRepositoryImp implements UserRepository {
                          JOIN FETCH u.userGroup ug
                          JOIN FETCH ug.roles r
                          JOIN FETCH r.permissions
-                         LEFT JOIN FETCH u.shops
+                         LEFT JOIN FETCH u.shopMembers shm
                          WHERE u.phone = :phone
                 """;
 

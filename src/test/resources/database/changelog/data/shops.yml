@@ -7,9 +7,6 @@ databaseChangeLog:
             tableName: shops
             columns:
               - column:
-                  name: user_id
-                  value: 1
-              - column:
                   name: name
                   value: دستسازه های سنگی آترا
               - column:

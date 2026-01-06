@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767679022156-1
+      author: taha
+      changes:
+        - insert:
+            tableName: shop_members
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: shop_id
+                  value: 1
+              - column:
+                  name: description
+                  value: nothing special

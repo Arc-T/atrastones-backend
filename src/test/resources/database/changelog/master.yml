@@ -2,91 +2,95 @@ databaseChangeLog:
   ######################################## TYPE ########################################
   - include:
       file: database/changelog/h2-type.yml
+
   ######################################## SCHEMA ########################################
   - include:
-      file: database/changelog/changes/001-roles.yaml
+      file: database/changelog/changes/roles.yaml
   - include:
-      file: database/changelog/changes/002-permissions.yaml
+      file: database/changelog/changes/permissions.yaml
   - include:
-      file: database/changelog/changes/003-role-permissions.yaml
+      file: database/changelog/changes/role-permissions.yaml
   - include:
-      file: database/changelog/changes/004-user-groups.yaml
+      file: database/changelog/changes/user-groups.yaml
   - include:
-      file: database/changelog/changes/005-users.yaml
+      file: database/changelog/changes/users.yaml
   - include:
-      file: database/changelog/changes/006-user-group-roles.yaml
+      file: database/changelog/changes/user-group-roles.yaml
   - include:
-      file: database/changelog/changes/007-vip-groups.yaml
+      file: database/changelog/changes/vip-groups.yaml
   - include:
-      file: database/changelog/changes/008-vip-memberships.yaml
+      file: database/changelog/changes/vip-memberships.yaml
   - include:
-      file: database/changelog/changes/009-provinces.yaml
+      file: database/changelog/changes/provinces.yaml
   - include:
-      file: database/changelog/changes/010-addresses.yaml
+      file: database/changelog/changes/addresses.yaml
   - include:
-      file: database/changelog/changes/011-user-logs.yaml
+      file: database/changelog/changes/user-logs.yaml
   - include:
-      file: database/changelog/changes/012-shops.yaml
+      file: database/changelog/changes/shops.yaml
   - include:
-      file: database/changelog/changes/013-categories.yaml
+      file: database/changelog/changes/shop-members.yml
   - include:
-      file: database/changelog/changes/014-attributes.yaml
+      file: database/changelog/changes/categories.yaml
   - include:
-      file: database/changelog/changes/015-attribute-values.yaml
+      file: database/changelog/changes/attributes.yaml
   - include:
-      file: database/changelog/changes/016-attribute-values-map.yaml
+      file: database/changelog/changes/attribute-values.yaml
   - include:
-      file: database/changelog/changes/017-tags.yaml
+      file: database/changelog/changes/attribute-values-map.yaml
   - include:
-      file: database/changelog/changes/018-service-groups.yaml
+      file: database/changelog/changes/tags.yaml
   - include:
-      file: database/changelog/changes/019-services.yaml
+      file: database/changelog/changes/service-groups.yaml
   - include:
-      file: database/changelog/changes/020-discount-types.yaml
+      file: database/changelog/changes/services.yaml
   - include:
-      file: database/changelog/changes/021-discounts.yaml
+      file: database/changelog/changes/discount-types.yaml
   - include:
-      file: database/changelog/changes/022-products.yaml
+      file: database/changelog/changes/discounts.yaml
   - include:
-      file: database/changelog/changes/023-product-stats.yaml
+      file: database/changelog/changes/products.yaml
   - include:
-      file: database/changelog/changes/024-orders.yaml
+      file: database/changelog/changes/product-stats.yaml
   - include:
-      file: database/changelog/changes/025-order-details.yaml
+      file: database/changelog/changes/orders.yaml
   - include:
-      file: database/changelog/changes/026-product-reviews.yaml
+      file: database/changelog/changes/order-details.yaml
   - include:
-      file: database/changelog/changes/027-product-tags.yaml
+      file: database/changelog/changes/product-reviews.yaml
   - include:
-      file: database/changelog/changes/028-product-attribute-values.yaml
+      file: database/changelog/changes/product-tags.yaml
   - include:
-      file: database/changelog/changes/029-media-types.yaml
+      file: database/changelog/changes/product-attribute-values.yaml
   - include:
-      file: database/changelog/changes/030-product-media.yaml
+      file: database/changelog/changes/media-types.yaml
   - include:
-      file: database/changelog/changes/031-wishlist.yaml
+      file: database/changelog/changes/product-media.yaml
   - include:
-      file: database/changelog/changes/032-order-statuses.yaml
+      file: database/changelog/changes/wishlist.yaml
   - include:
-      file: database/changelog/changes/033-order-transactions.yaml
+      file: database/changelog/changes/order-statuses.yaml
   - include:
-      file: database/changelog/changes/034-invoice-types.yaml
+      file: database/changelog/changes/order-transactions.yaml
   - include:
-      file: database/changelog/changes/035-invoices.yaml
+      file: database/changelog/changes/invoice-types.yaml
   - include:
-      file: database/changelog/changes/036-payments.yaml
+      file: database/changelog/changes/invoices.yaml
   - include:
-      file: database/changelog/changes/037-order-remaining-balances.yaml
+      file: database/changelog/changes/payments.yaml
   - include:
-      file: database/changelog/changes/038-sms-templates.yaml
+      file: database/changelog/changes/order-remaining-balances.yaml
   - include:
-      file: database/changelog/changes/039-sms-statuses.yaml
+      file: database/changelog/changes/sms-templates.yaml
   - include:
-      file: database/changelog/changes/040-sms-messages.yaml
+      file: database/changelog/changes/sms-statuses.yaml
   - include:
-      file: database/changelog/changes/041-carts.yaml
+      file: database/changelog/changes/sms-messages.yaml
   - include:
-      file: database/changelog/changes/042-cart-items.yaml
+      file: database/changelog/changes/carts.yaml
+  - include:
+      file: database/changelog/changes/cart-items.yaml
+
   ######################################## DATA ########################################
   - include:
       file: database/changelog/data/roles.yml
@@ -102,6 +106,8 @@ databaseChangeLog:
       file: database/changelog/data/addresses.yml
   - include:
       file: database/changelog/data/shops.yml
+  - include:
+      file: database/changelog/data/shop-members.yml
   - include:
       file: database/changelog/data/services-groups.yml
   - include:

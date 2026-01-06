@@ -56,13 +56,15 @@ VALUES (1,
         1,
         '234234');
 
-INSERT INTO `shops` (`user_id`, `name`, `phone`, `address_id`, `status`, `description`)
-VALUES (1,
-        'دستسازه های سنگی آترا',
+INSERT INTO `shops` (`name`, `phone`, `address_id`, `status`, `description`)
+VALUES ('دستسازه های سنگی آترا',
         '123-4567',
         1,
         'ACTIVE',
         'A family-owned bakery specializing in artisan breads and pastries since 1995. We use only the finest organic ingredients.');
+
+INSERT INTO `shop_members` (`user_id`, `shop_id`, `description`)
+VALUES (1, 1, 'owner of the shop');
 
 INSERT INTO `service_groups` (`name`, `description`)
 VALUES ('حمل و نقل', 'انواع روش‌های ارسال کالا (پست، حضوری، اسنپ)');

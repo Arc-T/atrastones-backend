@@ -12,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "shop_members")
 public class ShopMember {
 
     @Id
@@ -28,11 +29,11 @@ public class ShopMember {
 
     // ************************************** FOREIGN-KEY RELATIONS *******************************************
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<User> users;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
 }

@@ -158,25 +158,6 @@ CREATE TABLE IF NOT EXISTS `user_logs`
 ) ENGINE = InnoDB COMMENT = 'Logs user activities';
 
 -- Shops owned by users
-CREATE TABLE IF NOT EXISTS `shops`
-(
-    `id`          INT                                    NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `name`        VARCHAR(100)                           NOT NULL,
-    `phone`       VARCHAR(15)                            NOT NULL COMMENT 'Shop contact number',
-    `address_id`  INT                                    NOT NULL,
-    `postal_code` VARCHAR(10)                                     DEFAULT NULL COMMENT 'postal code',
-    `status`      ENUM ('ACTIVE', 'INACTIVE', 'PENDING') NOT NULL DEFAULT 'PENDING',
-    `description` VARCHAR(500)                           NOT NULL,
-    `created_at`  TIMESTAMP                              NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`  TIMESTAMP                                       DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    `deleted_at`  TIMESTAMP                                       DEFAULT NULL,
-    INDEX `idx_shops_phone` (`phone`),
-    INDEX `idx_shops_address` (`address_id`),
-    INDEX `idx_shops_status` (`status`),
-    INDEX `idx_shops_deleted_at` (`deleted_at`),
-    CONSTRAINT `fk_shops_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB COMMENT = 'Stores shop details';
-
 CREATE TABLE IF NOT EXISTS `shop_members`
 (
     `id`          INT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -191,6 +172,24 @@ CREATE TABLE IF NOT EXISTS `shop_members`
     CONSTRAINT `fk_shop_members_shop` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT `fk_shop_members_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB COMMENT = 'Shop staff members with their status';
+
+CREATE TABLE IF NOT EXISTS `shops`
+(
+    `id`          INT                                    NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name`        VARCHAR(100)                           NOT NULL,
+    `phone`       VARCHAR(15)                            NOT NULL COMMENT 'Shop contact number',
+    `address_id`  INT                                    NOT NULL,
+    `status`      ENUM ('ACTIVE', 'INACTIVE', 'PENDING') NOT NULL DEFAULT 'PENDING',
+    `description` VARCHAR(500)                           NOT NULL,
+    `created_at`  TIMESTAMP                              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at`  TIMESTAMP                                       DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    `deleted_at`  TIMESTAMP                                       DEFAULT NULL,
+    INDEX `idx_shops_phone` (`phone`),
+    INDEX `idx_shops_address` (`address_id`),
+    INDEX `idx_shops_status` (`status`),
+    INDEX `idx_shops_deleted_at` (`deleted_at`),
+    CONSTRAINT `fk_shops_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB COMMENT = 'Stores shop details';
 
 -- Product categories (hierarchical)
 CREATE TABLE IF NOT EXISTS `categories`

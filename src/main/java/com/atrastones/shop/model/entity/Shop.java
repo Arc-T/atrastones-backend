@@ -39,9 +39,6 @@ public class Shop {
 
     /* **************************** FOREIGN-KEY RELATIONS **********************************/
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-
     @OneToOne(fetch = FetchType.LAZY)
     private Address address;
 
@@ -52,5 +49,8 @@ public class Shop {
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Product> products;
+
+    @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
+    private Set<ShopMember> members;
 
 }

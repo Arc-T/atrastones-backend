@@ -89,7 +89,7 @@ databaseChangeLog:
       dbms: h2
   - property:
       name: text.type
-      value: CLOB
+      value: VARCHAR(5000)
       dbms: h2
   - property:
       name: payment_type.type

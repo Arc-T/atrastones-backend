@@ -21,10 +21,8 @@ public class Address {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "address_type")
     private AddressType addressType;
 
-    @Column(name = "postal_code")
     private String postalCode;
 
     private Double latitude;
@@ -32,11 +30,9 @@ public class Address {
     private Double longitude;
 
     @CreationTimestamp
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     /* **************************** FOREIGN-KEY RELATIONS **********************************/
