@@ -29,7 +29,6 @@ public class AuthenticationServiceImp implements AuthenticationService {
         UserDetails user = customUserDetailsService.loadUserByUsername(authentication.username());
         SecurityUtils.setUser(authentication.username(), user.getAuthorities());
         UserDTO userInfo = userService.loadByPhone(authentication.username());
-
         return new AuthenticationDTO(
                 authentication.username(),
                 JwtUtils.generateToken(user),

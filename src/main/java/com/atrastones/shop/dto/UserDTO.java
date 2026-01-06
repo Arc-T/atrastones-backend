@@ -16,7 +16,7 @@ public record UserDTO(
         String lastName,
         String email,
         String phone,
-        Long userGroupId,
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY) Long userGroupId,
         @JsonProperty(access = JsonProperty.Access.READ_ONLY) List<ShopDTO> shopsInfo,
         String gender,
         String description,
@@ -39,9 +39,8 @@ public record UserDTO(
     }
 
     private static List<ShopDTO> mapShops(Collection<ShopMember> shopMembers) {
-        if (shopMembers == null || shopMembers.isEmpty()) {
+        if (shopMembers == null || shopMembers.isEmpty())
             return Collections.emptyList();
-        }
 
         return shopMembers.stream()
                 .map(ShopMember::getShop)
