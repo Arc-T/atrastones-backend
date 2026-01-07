@@ -157,22 +157,6 @@ CREATE TABLE IF NOT EXISTS `user_logs`
     CONSTRAINT `fk_logs_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB COMMENT = 'Logs user activities';
 
--- Shops owned by users
-CREATE TABLE IF NOT EXISTS `shop_members`
-(
-    `id`          INT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `shop_id`     INT       NOT NULL,
-    `user_id`     INT       NOT NULL,
-    `description` TEXT               DEFAULT NULL,
-    `created_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`  TIMESTAMP          DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    UNIQUE KEY `unique_user_shop_membership` (`user_id`),
-    INDEX `idx_shop_members_shop` (`shop_id`),
-    INDEX `idx_shop_members_user` (`user_id`),
-    CONSTRAINT `fk_shop_members_shop` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-    CONSTRAINT `fk_shop_members_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB COMMENT = 'Shop staff members with their status';
-
 CREATE TABLE IF NOT EXISTS `shops`
 (
     `id`          INT                                    NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -190,6 +174,22 @@ CREATE TABLE IF NOT EXISTS `shops`
     INDEX `idx_shops_deleted_at` (`deleted_at`),
     CONSTRAINT `fk_shops_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB COMMENT = 'Stores shop details';
+
+-- Shops owned by users
+CREATE TABLE IF NOT EXISTS `shop_members`
+(
+    `id`          INT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `shop_id`     INT       NOT NULL,
+    `user_id`     INT       NOT NULL,
+    `description` TEXT               DEFAULT NULL,
+    `created_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at`  TIMESTAMP          DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY `unique_user_shop_membership` (`user_id`),
+    INDEX `idx_shop_members_shop` (`shop_id`),
+    INDEX `idx_shop_members_user` (`user_id`),
+    CONSTRAINT `fk_shop_members_shop` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT `fk_shop_members_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB COMMENT = 'Shop staff members with their status';
 
 -- Product categories (hierarchical)
 CREATE TABLE IF NOT EXISTS `categories`

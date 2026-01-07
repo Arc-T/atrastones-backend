@@ -61,7 +61,9 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
     @Override
     public boolean checkTokenValidity(String token) {
-        return JwtUtils.isTokenValid(token, customUserDetailsService.loadUserByUsername(JwtUtils.extractUsername(token)));
+        return JwtUtils.isTokenValid(token,
+                customUserDetailsService.loadUserByUsername(JwtUtils.extractUsername(token))
+        );
     }
 
 }

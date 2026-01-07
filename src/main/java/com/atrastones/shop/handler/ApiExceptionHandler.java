@@ -1,5 +1,7 @@
 package com.atrastones.shop.handler;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
@@ -36,6 +38,14 @@ public class ApiExceptionHandler {
         return buildErrorResponse("INTERNAL.SERVER.ERROR", HttpStatus.INTERNAL_SERVER_ERROR, null);
     }
 
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<ApiErrorResponse> handleTokenExceptions(JWTVerificationException ex) {
+        log.error("Token error", ex);
+        return buildErrorResponse(
+                (ex instanceof TokenExpiredException) ? "TOKEN.IS.EXPIRED" : "INVALID.TOKEN"
+                , HttpStatus.UNAUTHORIZED, null);
+    }
+
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<ApiErrorResponse> handleDatabase(DataAccessException ex) {
         log.error("Database access error", ex);
@@ -56,7 +66,7 @@ public class ApiExceptionHandler {
                         FieldError::getField,
                         fe -> Optional.ofNullable(fe.getDefaultMessage())
                                 .orElse(resolveMessage("VALIDATION.DEFAULT")),
-                        (existing, replacement) -> existing
+                        (existing, _) -> existing
                 ));
 
         List<String> globalErrors = ex.getBindingResult().getGlobalErrors().stream()
