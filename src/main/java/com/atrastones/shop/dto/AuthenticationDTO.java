@@ -46,8 +46,8 @@ public record AuthenticationDTO(
                 null,
                 null,
                 null,
-                token,
                 null,
+                token,
                 null,
                 user
         );

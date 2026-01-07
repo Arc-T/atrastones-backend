@@ -17,10 +17,9 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<AuthenticationDTO> authenticateUser(@RequestBody AuthenticationDTO authentication,
-                                                    HttpServletResponse response) {
+                                                              HttpServletResponse response) {
 
         AuthenticationDTO authUser = authenticationService.authenticateAdmin(authentication);
-
         Cookie refreshCookie = new Cookie("token", authUser.token());
         refreshCookie.setHttpOnly(true); // Prevents XSS access
         refreshCookie.setSecure(true); // HTTPS only (enforce in prod)
