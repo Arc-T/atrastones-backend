@@ -1,6 +1,6 @@
 package com.atrastones.shop.model.repository.contract;
 
-import com.atrastones.shop.dto.*;
+import com.atrastones.shop.dto.UserDTO;
 import com.atrastones.shop.model.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +20,7 @@ public interface UserRepository {
 
     // -------------------------------- SELECT --------------------------------
 
-    User getByPhone(String phone);
+    Optional<User> getByPhone(String phone);
 
     Page<User> getAll(Pageable pageable);
 

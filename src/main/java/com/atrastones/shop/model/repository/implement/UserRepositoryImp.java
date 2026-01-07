@@ -96,7 +96,7 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     @Override
-    public User getByPhone(String phone) {
+    public Optional<User> getByPhone(String phone) {
 
         String SELECT_USER_BY_PHONE_HQL = """
                 SELECT u FROM User u
@@ -107,9 +107,10 @@ public class UserRepositoryImp implements UserRepository {
                          WHERE u.phone = :phone
                 """;
 
-        return entityManager.createQuery(SELECT_USER_BY_PHONE_HQL, User.class)
-                .setParameter("phone", phone)
-                .getSingleResult();
+        return Optional.ofNullable(
+                entityManager.createQuery(SELECT_USER_BY_PHONE_HQL, User.class)
+                        .setParameter("phone", phone)
+                        .getSingleResultOrNull());
     }
 
     @Override
@@ -124,7 +125,7 @@ public class UserRepositoryImp implements UserRepository {
         return Optional.ofNullable(
                 entityManager.createQuery(SELECT_USER_GROUP_HQL, UserGroup.class)
                         .setParameter("userId", userId)
-                        .getSingleResult()
+                        .getSingleResultOrNull()
         );
     }
 

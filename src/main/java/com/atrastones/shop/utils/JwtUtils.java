@@ -1,10 +1,8 @@
 package com.atrastones.shop.utils;
 
-import com.atrastones.shop.dto.UserDTO;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -134,9 +132,7 @@ public final class JwtUtils {
             boolean notIssuedInFuture = decoded.getIssuedAt().before(Date.from(now));
             return notExpired && usernameMatches && notIssuedInFuture;
         } catch (JWTVerificationException e) {
-            if (e instanceof TokenExpiredException) {
-                // Optional: Log expiry for metrics (e.g., via SLF4J)
-            }
+            // Optional: Log expiry for metrics (e.g., via SLF4J)
             return false; // Swallow and return false—callers handle rejection
         }
     }

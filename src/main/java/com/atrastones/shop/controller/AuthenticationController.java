@@ -6,6 +6,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,8 +17,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping
-    public ResponseEntity<AuthenticationDTO> authenticateUser(@RequestBody AuthenticationDTO authentication,
-                                                              HttpServletResponse response) {
+    public ResponseEntity<AuthenticationDTO> authenticateUser(@RequestBody AuthenticationDTO authentication, HttpServletResponse response) {
 
         AuthenticationDTO authUser = authenticationService.authenticateAdmin(authentication);
         Cookie refreshCookie = new Cookie("token", authUser.token());
@@ -32,17 +32,16 @@ public class AuthenticationController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<?> checkAuth(@CookieValue(value = "token") String token,
-                                       HttpServletResponse response) {
-        boolean valid = token != null && authenticationService.checkTokenValidity(token);
-        if (!valid) {
+    public ResponseEntity<?> checkAuth(@CookieValue(value = "token", required = false) String token, HttpServletResponse response) {
+        boolean isTokenValid = StringUtils.hasText(token) && authenticationService.checkTokenValidity(token);
+        if (isTokenValid) {
             Cookie cookie = new Cookie("token", null);
             cookie.setPath("/");
             cookie.setHttpOnly(true);
             cookie.setMaxAge(0);
             response.addCookie(cookie);
-        }
-        return ResponseEntity.ok(valid);
+            return ResponseEntity.ok(true);
+        } else return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(false);
     }
 
 //    @PostMapping("/otp")

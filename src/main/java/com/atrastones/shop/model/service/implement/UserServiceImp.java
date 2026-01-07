@@ -4,6 +4,7 @@ import com.atrastones.shop.dto.UserDTO;
 import com.atrastones.shop.model.repository.contract.UserRepository;
 import com.atrastones.shop.model.service.contract.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,7 +22,11 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDTO loadByPhone(String phone) {
-        return UserDTO.toDTO(userRepository.getByPhone(phone));
+        return UserDTO.toDTO(
+                userRepository.getByPhone(phone)
+                        .orElseThrow(() -> new UsernameNotFoundException(phone)
+                        )
+        );
     }
 
     @Override
