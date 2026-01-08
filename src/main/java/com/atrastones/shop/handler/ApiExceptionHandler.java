@@ -2,14 +2,12 @@ package com.atrastones.shop.handler;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -17,8 +15,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.Instant;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -52,13 +53,6 @@ public class ApiExceptionHandler {
         return buildErrorResponse("DATABASE.ERROR", HttpStatus.INTERNAL_SERVER_ERROR, null);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> handleNotFound(EntityNotFoundException ex) {
-        log.warn("Entity not found: {}", ex.getMessage());
-        String detailedMessage = resolveMessage("ENTITY.NOT.FOUND") + ": " + ex.getMessage();
-        return buildErrorResponse(HttpStatus.NOT_FOUND, detailedMessage, null);
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
@@ -90,12 +84,6 @@ public class ApiExceptionHandler {
         return buildErrorResponse("FORBIDDEN.AUTHENTICATION", HttpStatus.FORBIDDEN, null);
     }
 
-    @ExceptionHandler(AuthorizationDeniedException.class)
-    public ResponseEntity<ApiErrorResponse> handleAuthorization(AuthorizationDeniedException ex) {
-        log.debug("Authorization denied: {}", ex.getMessage());
-        return buildErrorResponse("FORBIDDEN.AUTHORIZATION", HttpStatus.FORBIDDEN, null);
-    }
-
     // -------------------------------------- Helper methods --------------------------------------
 
     private ResponseEntity<ApiErrorResponse> buildErrorResponse(String messageKey, HttpStatus status, Map<String, Object> details) {
@@ -105,11 +93,9 @@ public class ApiExceptionHandler {
     private ResponseEntity<ApiErrorResponse> buildErrorResponse(HttpStatus status, String message, Map<String, Object> details) {
         return ResponseEntity.status(status)
                 .body(new ApiErrorResponse(
-                        status.value(),
                         message,
                         details,
-                        Instant.now(),
-                        UUID.randomUUID().toString() // correlationId for tracing
+                        LocalDateTime.now()
                 ));
     }
 
@@ -126,11 +112,9 @@ public class ApiExceptionHandler {
     // -------------------------------------- Error Response DTO --------------------------------------
 
     public record ApiErrorResponse(
-            int status,
             String message,
             Map<String, Object> details,
-            Instant timestamp,
-            String correlationId
+            LocalDateTime timestamp
     ) {
     }
 }

@@ -1,13 +1,17 @@
 package com.atrastones.shop.controller;
 
 import com.atrastones.shop.dto.AuthenticationDTO;
+import com.atrastones.shop.handler.ApiExceptionHandler;
 import com.atrastones.shop.model.service.contract.AuthenticationService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @AllArgsConstructor
@@ -32,17 +36,23 @@ public class AuthenticationController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<?> checkAuth(@CookieValue(value = "token", required = false) String token, HttpServletResponse response) {
-        boolean isTokenValid = StringUtils.hasText(token) && authenticationService.checkTokenValidity(token);
-        if (isTokenValid) {
-            Cookie cookie = new Cookie("token", null);
-            cookie.setPath("/");
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
+    public ResponseEntity<?> checkAuth(@CookieValue(value = "token", required = false) String token) {
+        if (StringUtils.hasText(token)) {
+            if (!authenticationService.checkTokenValidity(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(new ApiExceptionHandler.ApiErrorResponse("INVALID.TOKEN", null, LocalDateTime.now()));
+            }
             return ResponseEntity.ok(true);
-        } else return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(false);
+        } else
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(new ApiExceptionHandler.ApiErrorResponse("FORBIDDEN.ACCESS", null, LocalDateTime.now()));
     }
+
+//            Cookie cookie = new Cookie("token", null);
+//            cookie.setPath("/");
+//            cookie.setHttpOnly(true);
+//            cookie.setMaxAge(0);
+//            response.addCookie(cookie);
 
 //    @PostMapping("/otp")
 //    public ResponseEntity<Boolean> login(@RequestBody AuthenticationDTO authentication) {
