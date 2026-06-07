@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965186263-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            tableName: product_stats
+            remarks: Tracks product views and likes
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: product_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_stats_product
+                    references: products(id)
+
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_stats_user
+                    references: users(id)
+
+              - column:
+                  name: views
+                  type: ${integer_value.type}
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: likes
+                  type: ${integer_value.type}
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: shares
+                  type: ${integer_value.type}
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: comments
+                  type: ${integer_value.type}
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ratings
+                  type: ${integer_value.type}
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            tableName: product_stats
+            indexName: idx_product_stats_product
+            columns:
+              - column:
+                  name: product_id
+
+        - createIndex:
+            tableName: product_stats
+            indexName: idx_product_stats_user
+            columns:
+              - column:
+                  name: user_id

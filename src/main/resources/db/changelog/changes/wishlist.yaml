@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965234471-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            tableName: wishlist
+            remarks: Stores user wishlist
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_wishlist_user
+                    references: users(id)
+
+              - column:
+                  name: product_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_wishlist_product
+                    references: products(id)
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            tableName: wishlist
+            indexName: idx_wishlist_user
+            columns:
+              - column:
+                  name: user_id
+
+        - createIndex:
+            tableName: wishlist
+            indexName: idx_wishlist_product
+            columns:
+              - column:
+                  name: product_id
+
+        - createIndex:
+            unique: true
+            tableName: wishlist
+            indexName: idx_wishlist_unique
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: product_id

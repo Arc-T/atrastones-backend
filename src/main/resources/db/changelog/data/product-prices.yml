@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1771173167700-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            tableName: product_prices
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '1'
+              - column:
+                  name: is_active
+                  valueBoolean: 'TRUE'
+              - column:
+                  name: base_price
+                  valueNumeric: '800000'
+
+        - insert:
+            tableName: product_prices
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '2'
+              - column:
+                  name: is_active
+                  valueBoolean: 'TRUE'
+              - column:
+                  name: base_price
+                  valueNumeric: '932000'
+
+        - insert:
+            tableName: product_prices
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '3'
+              - column:
+                  name: is_active
+                  valueBoolean: 'TRUE'
+              - column:
+                  name: base_price
+                  valueNumeric: '670000'
+
+        - insert:
+            tableName: product_prices
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '4'
+              - column:
+                  name: is_active
+                  valueBoolean: 'TRUE'
+              - column:
+                  name: base_price
+                  valueNumeric: '120000'
+
+        - insert:
+            tableName: product_prices
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '5'
+              - column:
+                  name: is_active
+                  valueBoolean: 'TRUE'
+              - column:
+                  name: base_price
+                  valueNumeric: '213000'

@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464154527-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'جنس سنگ'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: '0'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'جنس بند'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: '0'

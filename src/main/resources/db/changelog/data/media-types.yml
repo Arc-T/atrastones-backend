@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464168774-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            tableName: media_types
+            columns:
+              - column:
+                  name: name
+                  value: "Image"
+
+        - insert:
+            tableName: media_types
+            columns:
+              - column:
+                  name: name
+                  value: "Video"

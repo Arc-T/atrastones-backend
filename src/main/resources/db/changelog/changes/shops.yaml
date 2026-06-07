@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965111937-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            tableName: shops
+            remarks: Stores shop details
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: phone
+                  type: ${phone.type}
+                  constraints:
+                    nullable: false
+                  remarks: Shop contact number
+
+              - column:
+                  name: address_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_shops_address_id
+                    references: addresses(id)
+
+              - column:
+                  name: status
+                  #                  type: ${status.type}
+                  type: VARCHAR(500)
+                  defaultValue: PENDING
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: description
+                  type: ${long_text.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: deleted_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+        - createIndex:
+            tableName: shops
+            indexName: idx_shops_phone
+            columns:
+              - column:
+                  name: phone
+
+        - createIndex:
+            tableName: shops
+            indexName: idx_shops_address
+            columns:
+              - column:
+                  name: address_id
+
+        - createIndex:
+            tableName: shops
+            indexName: idx_shops_status
+            columns:
+              - column:
+                  name: status

@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1771144523742-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            tableName: discount_scopes
+            remarks: Defines where discounts can be applied
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: code
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                  remarks: ORDER, PRODUCT, CATEGORY, SHIPPING, CUSTOMER_SEGMENT
+
+              - column:
+                  name: name
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: description
+                  type: ${name.type}
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            constraintName: uk_discount_scopes_code
+            tableName: discount_scopes
+            columnNames: code

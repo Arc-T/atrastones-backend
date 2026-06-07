@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464175184-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: 'PENDING'
+
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: 'DELIVERED'
+
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: 'RETURNED'
+
+        - insert:
+            tableName: order_statuses
+            columns:
+              - column:
+                  name: name
+                  value: 'CANCELLED'

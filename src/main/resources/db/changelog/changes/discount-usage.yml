@@ -1,0 +1,96 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965092344-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            tableName: discount_usage
+            remarks: Discount application tracking - all amounts in Iranian Tomans
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: discountable_type
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: discountable_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: order_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: order_amount_before
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+                  remarks: Amount before discount (Tomans)
+
+              - column:
+                  name: discount_amount
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+                  remarks: Discount amount applied (Tomans)
+
+              - column:
+                  name: order_amount_after
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+                  remarks: Final order amount (Tomans)
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            indexName: idx_discount_usage_discount_customer
+            tableName: discount_usage
+            columns:
+              - column:
+                  name: user_id
+
+        - createIndex:
+            indexName: idx_discount_usage_order
+            tableName: discount_usage
+            columns:
+              - column:
+                  name: order_id
+
+        - createIndex:
+            indexName: idx_discount_usage_created_at
+            tableName: discount_usage
+            columns:
+              - column:
+                  name: created_at
+
+        - createIndex:
+            indexName: idx_discount_usage_amount
+            tableName: discount_usage
+            columns:
+              - column:
+                  name: discount_amount

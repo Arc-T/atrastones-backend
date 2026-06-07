@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1771151010200-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            tableName: discount_scopes
+            columns:
+              - column:
+                  name: code
+                  value: 'PRODUCT'
+              - column:
+                  name: name
+                  value: 'product'
+
+        - insert:
+            tableName: discount_scopes
+            columns:
+              - column:
+                  name: code
+                  value: 'CATEGORY'
+              - column:
+                  name: name
+                  value: 'category'

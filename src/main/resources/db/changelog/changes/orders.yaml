@@ -1,0 +1,96 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965190733-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            tableName: orders
+            remarks: Stores customer orders
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_orders_user
+                    references: users(id)
+
+              - column:
+                  name: address_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_orders_address
+                    references: addresses(id)
+                  remarks: Delivery address
+
+              - column:
+                  name: total_price
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                  remarks: Total in Toman
+
+              - column:
+                  name: status
+                  #                  type: ENUM('PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED')
+                  type: VARCHAR(500)
+                  defaultValue: PENDING
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: description
+                  type: ${long_text.type}
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: deleted_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+        - createIndex:
+            tableName: orders
+            indexName: idx_orders_user
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: status
+
+        - createIndex:
+            tableName: orders
+            indexName: idx_orders_address
+            columns:
+              - column:
+                  name: address_id
+
+        - createIndex:
+            tableName: orders
+            indexName: idx_orders_created_at
+            columns:
+              - column:
+                  name: created_at

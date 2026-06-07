@@ -1,0 +1,8 @@
+databaseChangeLog:
+  ######################################## TYPE ########################################
+  - include:
+      file: db/changelog/h2-type.yml
+
+  ######################################## SCHEMA ########################################
+  - include:
+      file: db/changelog/master.yml

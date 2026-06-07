@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464161964-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: 'زیور آلات'
+              - column:
+                  name: url
+                  value: 'accessory'
+              - column:
+                  name: display_order
+                  valueNumeric: '0'
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: 'دستبند'
+              - column:
+                  name: url
+                  value: 'bracelet'
+              - column:
+                  name: parent_id
+                  valueNumeric: '1'
+              - column:
+                  name: display_order
+                  valueNumeric: '0'
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: 'گردنبند'
+              - column:
+                  name: url
+                  value: 'necklace'
+              - column:
+                  name: parent_id
+                  valueNumeric: '1'
+              - column:
+                  name: display_order
+                  valueNumeric: '0'

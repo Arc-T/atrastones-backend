@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464279357-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            tableName: tags
+            columns:
+              - column:
+                  name: name
+                  value: "زنانه"
+
+        - insert:
+            tableName: tags
+            columns:
+              - column:
+                  name: name
+                  value: "مردانه"
+
+        - insert:
+            tableName: tags
+            columns:
+              - column:
+                  name: name
+                  value: "بچه گانه"
+
+        - insert:
+            tableName: tags
+            columns:
+              - column:
+                  name: name
+                  value: "هدیه"
+
+        - insert:
+            tableName: tags
+            columns:
+              - column:
+                  name: name
+                  value: "پرفروش"
+
+        - insert:
+            tableName: tags
+            columns:
+              - column:
+                  name: name
+                  value: "لوکس"

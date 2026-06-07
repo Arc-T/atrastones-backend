@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1771144491901-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            tableName: discount_conditions
+            remarks: Discount eligibility conditions with flexible logic
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: discount_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_discount_conditions_discount
+                    references: discounts(id)
+
+              - column:
+                  name: condition_group
+                  type: ${id.type}
+                  defaultValue: 1
+                  constraints:
+                    nullable: false
+                  remarks: Group number for AND/OR logic
+
+              - column:
+                  name: type
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                  remarks: MIN_ORDER_AMOUNT, CUSTOMER_SEGMENT, PRODUCT_CATEGORY, etc.
+
+              - column:
+                  name: operator
+                  #                  type: ENUM('EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE', 'IN', 'NOT_IN', 'BETWEEN', 'CONTAINS')
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: first_value
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
+                  remarks: Depends on condition_type
+
+              - column:
+                  name: second_value
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
+                  remarks: For BETWEEN operations
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            indexName: idx_discount_conditions_discount_group
+            tableName: discount_conditions
+            columns:
+              - column:
+                  name: discount_id
+              - column:
+                  name: condition_group
+
+        - createIndex:
+            indexName: idx_discount_conditions_type
+            tableName: discount_conditions
+            columns:
+              - column:
+                  name: type
