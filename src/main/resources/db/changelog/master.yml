@@ -36,8 +36,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/attribute-values.yaml
   - include:
-      file: db/changelog/changes/attribute-values-map.yaml
-  - include:
       file: db/changelog/changes/tags.yaml
   - include:
       file: db/changelog/changes/service-groups.yaml
@@ -165,5 +163,3 @@ databaseChangeLog:
       file: db/changelog/data/media-types.yml
   - include:
       file: db/changelog/data/product-media.yml
-  - include:
-      file: db/changelog/data/attribute-values-map.yml

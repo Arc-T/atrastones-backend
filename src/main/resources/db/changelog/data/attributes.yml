@@ -17,7 +17,7 @@ databaseChangeLog:
                   value: 'TEXT'
               - column:
                   name: is_filterable
-                  valueBoolean: '0'
+                  valueBoolean: 'false'
 
         - insert:
             tableName: attributes
@@ -33,4 +33,116 @@ databaseChangeLog:
                   value: 'TEXT'
               - column:
                   name: is_filterable
-                  valueBoolean: '0'
+                  valueBoolean: 'false'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'رنگ'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: 'true'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'اندازه'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: 'true'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'وزن'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'DECIMAL'
+              - column:
+                  name: is_filterable
+                  valueBoolean: 'true'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'برند'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: 'true'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'مواد اولیه'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: 'false'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'کشور سازنده'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: 'true'
+
+        - insert:
+            tableName: attributes
+            columns:
+              - column:
+                  name: name
+                  value: 'گارانتی'
+              - column:
+                  name: category_id
+                  valueNumeric: '2'
+              - column:
+                  name: type
+                  value: 'TEXT'
+              - column:
+                  name: is_filterable
+                  valueBoolean: 'false'

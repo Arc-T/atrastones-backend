@@ -33,7 +33,7 @@ databaseChangeLog:
 
               - column:
                   name: type
-                  type: VARCHAR(500)
+                  type: ${short_text.type}
                   #                  type: ENUM('TEXT', 'NUMBER', 'SELECT', 'MULTISELECT')
                   defaultValue: TEXT
                   constraints:
@@ -45,6 +45,12 @@ databaseChangeLog:
                   defaultValue: 'false'
                   constraints:
                     nullable: false
+
+              - column:
+                  name: description
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
 
               - column:
                   name: created_at

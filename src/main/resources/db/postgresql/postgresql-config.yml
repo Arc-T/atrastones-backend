@@ -1,7 +1,7 @@
 DB:
   NAME: PostgreSQL
   URL:
-    jdbc:postgresql://localhost:5432/atrastones
+    jdbc:postgresql://localhost:5432/sashia
   USERNAME:
     postgres
   PASSWORD:

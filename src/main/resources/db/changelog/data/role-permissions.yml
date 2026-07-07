@@ -422,3 +422,13 @@ databaseChangeLog:
               - column:
                   name: permission_id
                   valueNumeric: '42'
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  valueNumeric: '1'
+              - column:
+                  name: permission_id
+                  valueNumeric: '43'

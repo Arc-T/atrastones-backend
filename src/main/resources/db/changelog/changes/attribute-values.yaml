@@ -16,7 +16,16 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: value
+                  name: attribute_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_attribute_values_attribute
+                    references: attributes(id)
+                    deleteCascade: true
+
+              - column:
+                  name: attribute_value
                   type: ${name.type}
                   constraints:
                     nullable: false
@@ -29,3 +38,27 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - createIndex:
+            tableName: attribute_values
+            indexName: idx_attribute_values_attribute
+            columns:
+              - column:
+                  name: attribute_id
+
+        - createIndex:
+            tableName: attribute_values
+            indexName: idx_attribute_values_value
+            columns:
+              - column:
+                  name: attribute_value
+
+        - createIndex:
+            unique: true
+            tableName: attribute_values
+            indexName: idx_attribute_values_unique
+            columns:
+              - column:
+                  name: attribute_id
+              - column:
+                  name: attribute_value

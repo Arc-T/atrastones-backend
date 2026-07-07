@@ -422,3 +422,13 @@ databaseChangeLog:
               - column:
                   name: description
                   value: 'this role indicates user access to shop panel'
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: 'READ_ALL_ATTRIBUTE_TYPES'
+              - column:
+                  name: description
+                  value: 'Allows viewing all attribute types'

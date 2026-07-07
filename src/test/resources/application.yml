@@ -4,6 +4,7 @@ spring:
 
   datasource:
     url: jdbc:h2:mem:test_db;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    type: org.springframework.jdbc.datasource.DriverManagerDataSource
     username: root
     password: 1234321
 
@@ -18,10 +19,16 @@ spring:
   jpa:
     open-in-view: false
     show-sql: true
+    generate-ddl: false
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none  # Prevent Hibernate from managing schema
     defer-datasource-initialization: false
+    properties:
+      hibernate:
+        generate_statistics: true
+        jdbc:
+          fetch_size: 50
 
   sql:
     init:
@@ -38,9 +45,9 @@ spring:
 
 logging:
   level:
-    com.atrastones: debug
-    com.zaxxer.hikari.HikariConfig: debug
+    org.hibernate: DEBUG
+    org.springframework.security: TRACE
+    com.zaxxer.hikari.HikariConfig: DEBUG
+
   charset:
     console: UTF-8
-
-debug: true
