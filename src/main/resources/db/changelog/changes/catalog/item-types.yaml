@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1783792615175-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: catalog
+            tableName: item_types
+            remarks: Stores catalog item type definitions.
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: title
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: code
+                  type: ${name.type}
+                  remarks: Internal enum identifier.
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+        - addPrimaryKey:
+            schemaName: catalog
+            tableName: item_types
+            columnNames: id
+            constraintName: pk_item_types
+
+        - addUniqueConstraint:
+            schemaName: catalog
+            tableName: item_types
+            columnNames: title
+            constraintName: uk_item_types_title
+
+        - addUniqueConstraint:
+            schemaName: catalog
+            tableName: item_types
+            columnNames: code
+            constraintName: uk_item_types_code

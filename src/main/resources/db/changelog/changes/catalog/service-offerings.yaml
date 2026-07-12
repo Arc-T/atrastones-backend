@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965159792-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: catalog
+            tableName: service_offerings
+            remarks: Stores service-specific information for catalog items.
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: service_group_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            schemaName: catalog
+            tableName: service_offerings
+            columnNames: id
+            constraintName: pk_service_offerings
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: catalog
+            baseTableName: service_offerings
+            baseColumnNames: id
+            referencedTableSchemaName: catalog
+            referencedTableName: items
+            referencedColumnNames: id
+            constraintName: fk_service_offerings_item
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: catalog
+            baseTableName: service_offerings
+            baseColumnNames: service_group_id
+            referencedTableSchemaName: catalog
+            referencedTableName: service_groups
+            referencedColumnNames: id
+            constraintName: fk_service_offerings_group
+
+        - createIndex:
+            schemaName: catalog
+            tableName: service_offerings
+            indexName: idx_service_offerings_group
+            columns:
+              - column:
+                  name: service_group_id
