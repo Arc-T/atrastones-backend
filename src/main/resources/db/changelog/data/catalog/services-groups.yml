@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464248723-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: catalog
+            tableName: service_groups
+            columns:
+              - column:
+                  name: name
+                  value: 'حمل و نقل'
+              - column:
+                  name: description
+                  value: 'انواع روش‌های ارسال کالا (پست، حضوری، اسنپ)'

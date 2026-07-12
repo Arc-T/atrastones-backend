@@ -1,10 +1,10 @@
 package com.sashia.ecommerce.domain.discount;
 
+import com.sashia.ecommerce.domain.catalog.item.product.ProductPriceDTO;
+import com.sashia.ecommerce.domain.catalog.item.product.common.ProductDTO;
 import com.sashia.ecommerce.domain.discount.common.DiscountCreateDTO;
 import com.sashia.ecommerce.domain.discount.common.DiscountDTO;
 import com.sashia.ecommerce.domain.discount.common.DiscountEditDTO;
-import com.sashia.ecommerce.domain.product.ProductPriceDTO;
-import com.sashia.ecommerce.domain.product.common.ProductDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

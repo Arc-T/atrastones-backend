@@ -1,0 +1,106 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1771144509389-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: promotion
+            tableName: discount_coupons
+            remarks: Customer-facing discount coupons
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: discount_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_discount_coupons_discount
+                    references: discounts(id)
+
+              - column:
+                  name: code
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                  remarks: Customer-facing coupon code
+
+              - column:
+                  name: used_count
+                  type: ${id.type}
+                  defaultValue: 0
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: valid_from
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: valid_until
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+        - addUniqueConstraint:
+            constraintName: uk_discount_coupons_code
+            schemaName: promotion
+            tableName: discount_coupons
+            columnNames: code
+
+        - createIndex:
+            schemaName: promotion
+            indexName: idx_discount_coupons_discount
+            tableName: discount_coupons
+            columns:
+              - column:
+                  name: discount_id
+
+        - createIndex:
+            schemaName: promotion
+            indexName: idx_discount_coupons_validity
+            tableName: discount_coupons
+            columns:
+              - column:
+                  name: is_active
+              - column:
+                  name: valid_from
+              - column:
+                  name: valid_until
+
+        - createIndex:
+            schemaName: promotion
+            indexName: idx_discount_coupons_usage
+            tableName: discount_coupons
+            columns:
+              - column:
+                  name: used_count

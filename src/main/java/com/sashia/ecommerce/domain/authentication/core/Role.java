@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", schema = "identity")
 public class Role {
 
     @Id

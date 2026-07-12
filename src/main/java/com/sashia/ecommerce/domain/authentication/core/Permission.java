@@ -7,7 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "permissions")
+@Table(name = "permissions", schema = "identity")
 public class Permission {
 
     @Id

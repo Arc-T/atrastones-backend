@@ -52,4 +52,4 @@ I need an ecomerce admin dashboard with support of multi lang (Persian, English)
 it should have dark/light theme and be responsive as well.
 modern UI/UX and beautiful design. font should be vazirmatn.
 
-i need these pages: login, categories,tags,attributes, services and service groups, products, orders, discount and settings.
+i need these pages: login, categories,tags,attributes, serviceOfferings and serviceOffering groups, products, orders, discount and settings.

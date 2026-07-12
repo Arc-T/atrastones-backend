@@ -7,7 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "sms_statuses")
+@Table(name = "sms_statuses", schema = "notification")
 public class SMSStatus {
 
 

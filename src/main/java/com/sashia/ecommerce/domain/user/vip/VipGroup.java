@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "vip_groups")
+@Table(name = "vip_groups", schema = "identity")
 public class VipGroup {
 
     @Id

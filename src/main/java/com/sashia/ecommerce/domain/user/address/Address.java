@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "addresses")
+@Table(name = "addresses", schema = "identity")
 public class Address {
 
     @Id

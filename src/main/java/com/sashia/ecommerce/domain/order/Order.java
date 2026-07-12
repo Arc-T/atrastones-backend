@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "orders", schema = "order")
 public class Order {
 
     @Id

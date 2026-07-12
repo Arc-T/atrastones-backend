@@ -1,0 +1,119 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464202274-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: catalog
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '1'
+              - column:
+                  name: media_type_id
+                  valueNumeric: '1'
+              - column:
+                  name: url
+                  value: '/media/products/1/diamond-ring-front.jpg'
+              - column:
+                  name: name
+                  value: 'test'
+              - column:
+                  name: display_order
+                  valueNumeric: '1'
+              - column:
+                  name: extension
+                  value: 'jpg'
+
+        - insert:
+            schemaName: catalog
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '2'
+              - column:
+                  name: media_type_id
+                  valueNumeric: '1'
+              - column:
+                  name: url
+                  value: '/media/products/1/diamond-ring-front.jpg'
+              - column:
+                  name: name
+                  value: 'test'
+              - column:
+                  name: display_order
+                  valueNumeric: '1'
+              - column:
+                  name: extension
+                  value: 'jpg'
+
+        - insert:
+            schemaName: catalog
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '3'
+              - column:
+                  name: media_type_id
+                  valueNumeric: '2'
+              - column:
+                  name: url
+                  value: '/media/products/1/diamond-ring-side.jpg'
+              - column:
+                  name: name
+                  value: 'fun'
+              - column:
+                  name: display_order
+                  valueNumeric: '1'
+              - column:
+                  name: extension
+                  value: 'jpg'
+
+        - insert:
+            schemaName: catalog
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '4'
+              - column:
+                  name: media_type_id
+                  valueNumeric: '1'
+              - column:
+                  name: url
+                  value: 'media/products/1/diamond-ring-showcase.mp4'
+              - column:
+                  name: name
+                  value: 'adfadf'
+              - column:
+                  name: display_order
+                  valueNumeric: '1'
+              - column:
+                  name: extension
+                  value: 'mp4'
+
+        - insert:
+            schemaName: catalog
+            tableName: product_media
+            columns:
+              - column:
+                  name: product_id
+                  valueNumeric: '5'
+              - column:
+                  name: media_type_id
+                  valueNumeric: '2'
+              - column:
+                  name: url
+                  value: '/media/products/2/ruby-necklace-front.jpg'
+              - column:
+                  name: name
+                  value: 'front'
+              - column:
+                  name: display_order
+                  valueNumeric: '1'
+              - column:
+                  name: extension
+                  value: 'jpg'

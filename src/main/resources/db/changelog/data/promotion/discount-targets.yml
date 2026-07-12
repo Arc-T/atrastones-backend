@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1771158507885-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: promotion
+            tableName: discount_types
+            columns:
+              - column:
+                  name: discount_id
+                  valueNumeric: '2'
+              - column:
+                  name: target_type
+                  value: 'PRODUCT'
+
+              - column:
+                  name: target_id
+                  value: 'PRODUCT'

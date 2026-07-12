@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965254794-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: billing
+            tableName: invoices
+            remarks: Stores invoices for orders
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: order_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: invoice_type_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: total_price
+                  type: ${integer_value.type}
+                  remarks: Total in Toman
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: description
+                  type: ${long_text.type}
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            schemaName: billing
+            tableName: invoices
+            columnNames: id
+            constraintName: pk_invoices
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: billing
+            baseTableName: invoices
+            baseColumnNames: order_id
+            referencedTableName: orders
+            referencedColumnNames: id
+            constraintName: fk_invoices_order
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: billing
+            baseTableName: invoices
+            baseColumnNames: invoice_type_id
+            referencedTableSchemaName: billing
+            referencedTableName: invoice_types
+            referencedColumnNames: id
+            constraintName: fk_invoices_type
+
+        - createIndex:
+            schemaName: billing
+            tableName: invoices
+            indexName: idx_invoices_order
+            columns:
+              - column:
+                  name: order_id
+
+        - createIndex:
+            schemaName: billing
+            tableName: invoices
+            indexName: idx_invoices_type
+            columns:
+              - column:
+                  name: invoice_type_id

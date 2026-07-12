@@ -7,7 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "discount_coupons")
+@Table(name = "discount_coupons", schema = "promotion")
 public class DiscountCoupon {
 
     @Id

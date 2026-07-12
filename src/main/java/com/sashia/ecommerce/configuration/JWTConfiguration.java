@@ -11,31 +11,29 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import static com.sashia.ecommerce.common.util.SecurityUtils.AUTHORITIES_CLAIM;
 import static com.sashia.ecommerce.common.util.SecurityUtils.JWT_ALGORITHM;
 
 @Configuration
 public class JWTConfiguration {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JWTConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(JWTConfiguration.class);
 
     private static final String JWT_KEY = "ZjJlOGM0ZDliN2E1ZjNlNmMyZDhiNGE5ZjdlNWMzZDZiOGEyZjllN2M0ZDFiNmE4ZjNlNWM5ZDdiMmE0ZjhlNmMzZDliNWE3ZjJlNGM4ZDZiM2E5ZjVlN2MyZDRiOGE2ZjNlOWM1ZDdiMWE0ZjhlNmMyZDliN2E1ZjNlOGM0ZDZiMmE5ZjdlNWMzZDhiNmE0ZjJlOWM3ZDViM2E4ZjZlNGMyZDliN2E1ZjNlOGM2ZDQ=";
 
     @Bean
-    public JwtDecoder jwtDecoder(SecurityMetersService metersService) {
+    JwtDecoder jwtDecoder(SecurityMetersService metersService) {
         NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(getSecretKey()).macAlgorithm(JWT_ALGORITHM).build();
         return token -> {
             try {
+                log.error("_________________ valid signature ______________________");
                 return jwtDecoder.decode(token);
             } catch (Exception e) {
                 if (e.getMessage().contains("Invalid signature")) {
-                    metersService.trackTokenInvalidSignature();
+                    log.error("_________________ Invalid signature ______________________");
                 } else if (e.getMessage().contains("Jwt expired at")) {
                     metersService.trackTokenExpired();
                 } else if (
@@ -44,26 +42,26 @@ public class JWTConfiguration {
                                 e.getMessage().contains("Invalid unsecured/JWS/JWE")
                 ) {
                     metersService.trackTokenMalformed();
+                    log.error("_________________ Invalid JWT serialization ______________________");
                 } else {
-                    LOG.error("Unknown JWT error {}", e.getMessage());
+                    log.error("Unknown JWT error {}", e.getMessage());
                 }
                 throw e;
             }
         };
     }
 
-    @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        grantedAuthoritiesConverter.setAuthorityPrefix("");
-        grantedAuthoritiesConverter.setAuthoritiesClaimName(AUTHORITIES_CLAIM);
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
-        return jwtAuthenticationConverter;
-    }
+//    @Bean
+//    JwtAuthenticationConverter jwtAuthenticationConverter() {
+//        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+//        grantedAuthoritiesConverter.setAuthorityPrefix("");
+//        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+//        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+//        return jwtAuthenticationConverter;
+//    }
 
     @Bean
-    public JwtEncoder jwtEncoder() {
+    JwtEncoder jwtEncoder() {
         return new NimbusJwtEncoder(new ImmutableSecret<>(getSecretKey()));
     }
 

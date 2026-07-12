@@ -1,7 +1,6 @@
 package com.sashia.ecommerce.common.exception;
 
 import com.sashia.ecommerce.common.web.ApiResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -45,11 +44,6 @@ class GlobalExceptionHandler {
         return buildErrorResponse("DATABASE.ERROR", HttpStatus.INTERNAL_SERVER_ERROR, null);
     }
 
-    @ExceptionHandler(InvalidResourceException.class)
-    ResponseEntity<ApiResponse> handleServiceLogic(InvalidResourceException ex) {
-        return buildErrorResponse(ex.messageKey(), HttpStatus.UNPROCESSABLE_CONTENT, null);
-    }
-
     @ExceptionHandler(AuthenticationException.class)
     ResponseEntity<ApiResponse> handleAuthentication(AuthenticationException ex) {
         return buildErrorResponse("authentication.invalid", HttpStatus.UNAUTHORIZED, null);
@@ -86,10 +80,15 @@ class GlobalExceptionHandler {
         return buildErrorResponse(ex.messageKey(), HttpStatus.NOT_FOUND, null);
     }
 
+    @ExceptionHandler(BusinessRuleException.class)
+    ResponseEntity<ApiResponse> handleBusinessException(BusinessRuleException ex) {
+        return buildErrorResponse(ex.messageKey(), HttpStatus.UNPROCESSABLE_CONTENT, null);
+    }
+
     @ExceptionHandler(AuthorizationDeniedException.class)
-    ResponseEntity<ApiResponse> handleAuthorization(AuthorizationDeniedException ex, HttpServletRequest request) {
+    ResponseEntity<ApiResponse> handleAuthorization(AuthorizationDeniedException ex) {
         log.debug("Authorization failed: {}", ex.getMessage());
-        return buildErrorResponse((request.getAttribute("isExpired") != null) ? "token.is.expired" : "authorization.invalid", HttpStatus.FORBIDDEN, null);
+        return buildErrorResponse("authorization.invalid", HttpStatus.FORBIDDEN, null);
     }
 
     // ======================================== HELPERS ========================================

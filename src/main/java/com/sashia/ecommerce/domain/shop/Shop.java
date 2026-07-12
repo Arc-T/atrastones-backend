@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.domain.shop;
 
+import com.sashia.ecommerce.domain.catalog.item.product.Product;
 import com.sashia.ecommerce.domain.order.Order;
-import com.sashia.ecommerce.domain.product.Product;
 import com.sashia.ecommerce.domain.user.address.Address;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "shops")
+@Table(name = "shops", schema = "shop")
 public class Shop {
 
     @Id

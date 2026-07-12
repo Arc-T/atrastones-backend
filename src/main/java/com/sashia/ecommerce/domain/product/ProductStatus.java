@@ -1,5 +1,0 @@
-package com.sashia.ecommerce.domain.product;
-
-public enum ProductStatus {
-    ACTIVE, INACTIVE, OUT_OF_STOCK
-}

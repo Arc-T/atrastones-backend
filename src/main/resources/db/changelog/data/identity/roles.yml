@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464230978-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: identity
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: 'SHOP_OWNER'
+              - column:
+                  name: description
+                  value: 'Shop panel role'
+
+        - insert:
+            schemaName: identity
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: 'SUPER_ADMIN'
+              - column:
+                  name: description
+                  value: 'this role has all the permissions available in every part of the software'

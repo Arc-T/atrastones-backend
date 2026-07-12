@@ -26,7 +26,7 @@ spring:
     defer-datasource-initialization: false
     properties:
       hibernate:
-        generate_statistics: true
+        generate_statistics: TRUE
         jdbc:
           fetch_size: 50
 
@@ -34,8 +34,9 @@ spring:
     init:
       mode: never  # Disable spring.sql.init to avoid conflicts with Liquibase
 
+
   jackson:
-    default-property-inclusion: NON_NULL
+    default-property-inclusion: non_null
 
   liquibase:
     enabled: true
@@ -43,11 +44,18 @@ spring:
     ui-service: console
     change-log: classpath:db/changelog/test-master.yml
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          authority-prefix: ''
+
 logging:
   level:
-    org.hibernate: DEBUG
-    org.springframework.security: TRACE
-    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.sashia: debug
+    org.hibernate: debug
+    org.springframework.security: trace
+    com.zaxxer.hikari.HikariConfig: debug
 
   charset:
     console: UTF-8

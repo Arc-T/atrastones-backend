@@ -1,11 +1,11 @@
 package com.sashia.ecommerce;
 
-import com.sashia.ecommerce.domain.attribute.AttributeService;
-import com.sashia.ecommerce.domain.attribute.AttributeType;
-import com.sashia.ecommerce.domain.attribute.dto.AttributeCreateRequest;
-import com.sashia.ecommerce.domain.attribute.dto.AttributeResponse;
-import com.sashia.ecommerce.domain.attribute.dto.AttributeUpdateRequest;
-import com.sashia.ecommerce.domain.attribute.value.AttributeValueRequest;
+import com.sashia.ecommerce.domain.catalog.attribute.AttributeService;
+import com.sashia.ecommerce.domain.catalog.attribute.AttributeType;
+import com.sashia.ecommerce.domain.catalog.attribute.dto.AttributeCreateRequest;
+import com.sashia.ecommerce.domain.catalog.attribute.dto.AttributeResponse;
+import com.sashia.ecommerce.domain.catalog.attribute.dto.AttributeUpdateRequest;
+import com.sashia.ecommerce.domain.catalog.attribute.AttributeValueRequest;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;
@@ -35,8 +35,15 @@ class AttributeControllerTest extends BaseControllerTest {
     private static final long EXISTING_ATTRIBUTE_ID = 1L;
     private static final long NON_EXISTENT_ATTRIBUTE_ID = 0L;
     private static final long INVALID_CATEGORY_ID = 0L;
-    private static final long VALID_CATEGORY_ID = 1L;
     private static final long NEW_ATTRIBUTE_ID = 10L;
+
+    private static final String ATTRIBUTE_NAME = "size";
+    private static final long ATTRIBUTE_CATEGORY_ID = 1L;
+    private static final AttributeType ATTRIBUTE_TYPE = AttributeType.SELECT;
+    private static final boolean ATTRIBUTE_IS_FILTERABLE = true;
+    private static final String ATTRIBUTE_DESCRIPTION = "lorem ipsum";
+    private static final List<AttributeValueRequest> ATTRIBUTE_VALUES =
+            List.of(new AttributeValueRequest("2X"), new AttributeValueRequest("3X"));
 
     @Autowired
     private AttributeService attributeService;
@@ -145,10 +152,17 @@ class AttributeControllerTest extends BaseControllerTest {
 
         @Test
         @WithMockUser(authorities = "CREATE_ATTRIBUTE")
-        @DirtiesContext
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @DisplayName("Should create attribute and return 201 with location header")
         void shouldCreateAttribute() throws Exception {
-            AttributeCreateRequest request = validCreateRequest();
+            var request = new AttributeCreateRequest(
+                    ATTRIBUTE_NAME,
+                    ATTRIBUTE_CATEGORY_ID,
+                    ATTRIBUTE_TYPE,
+                    ATTRIBUTE_IS_FILTERABLE,
+                    ATTRIBUTE_DESCRIPTION,
+                    ATTRIBUTE_VALUES
+            );
 
             mockMvc().perform(post(BASE_URL)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -172,10 +186,19 @@ class AttributeControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "CREATE_ATTRIBUTE")
         @DisplayName("Should return 400 when request validation fails")
         void shouldReturnBadRequest_whenValidationFails(Language language) throws Exception {
+            var request = new AttributeCreateRequest(
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
             mockMvc().perform(post(BASE_URL)
                             .locale(language.getLocale())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper().writeValueAsString(invalidCreateRequest())))
+                            .content(objectMapper().writeValueAsString((request))))
                     .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.message")
                             .value(message("invalid.method.params", language.getLocale())))
@@ -191,13 +214,22 @@ class AttributeControllerTest extends BaseControllerTest {
 
         @TestWithLocale
         @WithMockUser(authorities = "CREATE_ATTRIBUTE")
-        @DisplayName("Should return 422 when category does not exist")
-        void shouldReturnUnprocessableEntity_whenCategoryDoesNotExist(Language language) throws Exception {
+        @DisplayName("Should return 404 when category does not exist")
+        void shouldReturnNotFound_whenCategoryDoesNotExist(Language language) throws Exception {
+            var request = new AttributeCreateRequest(
+                    ATTRIBUTE_NAME,
+                    INVALID_CATEGORY_ID,
+                    ATTRIBUTE_TYPE,
+                    ATTRIBUTE_IS_FILTERABLE,
+                    ATTRIBUTE_DESCRIPTION,
+                    ATTRIBUTE_VALUES
+            );
+
             mockMvc().perform(post(BASE_URL)
                             .locale(language.getLocale())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper().writeValueAsString(createRequest(INVALID_CATEGORY_ID))))
-                    .andExpect(status().isUnprocessableContent())
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isNotFound())
                     .andExpect(jsonPath("$.message")
                             .value(message("category.not.found", language.getLocale())));
         }
@@ -206,43 +238,21 @@ class AttributeControllerTest extends BaseControllerTest {
         @WithMockUser
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
+            var request = new AttributeCreateRequest(
+                    ATTRIBUTE_NAME,
+                    ATTRIBUTE_CATEGORY_ID,
+                    ATTRIBUTE_TYPE,
+                    ATTRIBUTE_IS_FILTERABLE,
+                    ATTRIBUTE_DESCRIPTION,
+                    ATTRIBUTE_VALUES
+            );
+
             mockMvc().perform(post(BASE_URL)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper().writeValueAsString(validCreateRequest())))
+                            .content(objectMapper().writeValueAsString(request)))
                     .andExpect(status().isForbidden());
         }
 
-        private AttributeCreateRequest validCreateRequest() {
-            return createRequest(VALID_CATEGORY_ID);
-        }
-
-        private AttributeCreateRequest createRequest(Long categoryId) {
-            return new AttributeCreateRequest(
-                    "size",
-                    categoryId,
-                    AttributeType.SELECT,
-                    true,
-                    null,
-                    List.of(
-                            new AttributeValueRequest("2X"),
-                            new AttributeValueRequest("3X"),
-                            new AttributeValueRequest("LG"),
-                            new AttributeValueRequest("MD"),
-                            new AttributeValueRequest("SM")
-                    )
-            );
-        }
-
-        private AttributeCreateRequest invalidCreateRequest() {
-            return new AttributeCreateRequest(
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-            );
-        }
     }
 
     @Nested
@@ -251,17 +261,23 @@ class AttributeControllerTest extends BaseControllerTest {
 
         @Test
         @WithMockUser(authorities = "UPDATE_ATTRIBUTE")
-        @DirtiesContext
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @DisplayName("Should update attribute and return 204")
         void shouldUpdateAttribute() throws Exception {
-            AttributeUpdateRequest request = createRequest(EXISTING_ATTRIBUTE_ID);
+            var request = new AttributeUpdateRequest(
+                    ATTRIBUTE_NAME,
+                    ATTRIBUTE_CATEGORY_ID,
+                    ATTRIBUTE_TYPE,
+                    ATTRIBUTE_IS_FILTERABLE,
+                    ATTRIBUTE_DESCRIPTION,
+                    ATTRIBUTE_VALUES
+            );
 
             mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_ATTRIBUTE_ID)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper().writeValueAsString(request)))
                     .andExpect(status().isNoContent());
 
-            // Verify in database
             AttributeResponse updatedAttribute = assertDoesNotThrow(() -> attributeService.read(EXISTING_ATTRIBUTE_ID)
                     .orElseThrow());
 
@@ -276,23 +292,28 @@ class AttributeControllerTest extends BaseControllerTest {
 
         @Test
         @WithMockUser(authorities = "UPDATE_ATTRIBUTE")
-        @DisplayName("Should return 422 when attribute ID doesn't exist")
-        void shouldReturnUnprocessableContent_whenAttributeNotFound() throws Exception {
-            AttributeUpdateRequest request = new AttributeUpdateRequest(
-                    "size", 1L, AttributeType.TEXT, true, null, null
+        @DisplayName("Should return 404 when attribute ID doesn't exist")
+        void shouldReturnNotFound_whenAttributeNotFound() throws Exception {
+            var request = new AttributeUpdateRequest(
+                    ATTRIBUTE_NAME,
+                    ATTRIBUTE_CATEGORY_ID,
+                    ATTRIBUTE_TYPE,
+                    ATTRIBUTE_IS_FILTERABLE,
+                    ATTRIBUTE_DESCRIPTION,
+                    ATTRIBUTE_VALUES
             );
 
             mockMvc().perform(put(BASE_URL + "/{id}", NON_EXISTENT_ATTRIBUTE_ID)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper().writeValueAsString(request)))
-                    .andExpect(status().isUnprocessableContent());
+                    .andExpect(status().isNotFound());
         }
 
         @TestWithLocale
         @WithMockUser(authorities = "UPDATE_ATTRIBUTE")
         @DisplayName("Should return 400 when request validation fails")
         void shouldReturnBadRequest_whenValidationFails(Language language) throws Exception {
-            AttributeUpdateRequest request = new AttributeUpdateRequest(null, null, null, null,
+            var request = new AttributeUpdateRequest(null, null, null, null,
                     null, null);
 
             mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_ATTRIBUTE_ID)
@@ -305,35 +326,23 @@ class AttributeControllerTest extends BaseControllerTest {
 
         @TestWithLocale
         @WithMockUser(authorities = "UPDATE_ATTRIBUTE")
-        @DisplayName("Should return 422 when category ID doesn't exist")
-        void shouldReturnUnprocessableContent_whenCategoryNotFound(Language language) throws Exception {
-            AttributeUpdateRequest request = new AttributeUpdateRequest(
-                    "test", INVALID_CATEGORY_ID, AttributeType.TEXT, false, null, null
+        @DisplayName("Should return 404 when category ID doesn't exist")
+        void shouldReturnNotFound_whenCategoryNotFound(Language language) throws Exception {
+            var request = new AttributeUpdateRequest(
+                    ATTRIBUTE_NAME,
+                    INVALID_CATEGORY_ID,
+                    ATTRIBUTE_TYPE,
+                    ATTRIBUTE_IS_FILTERABLE,
+                    ATTRIBUTE_DESCRIPTION,
+                    ATTRIBUTE_VALUES
             );
 
             mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_ATTRIBUTE_ID)
                             .locale(language.getLocale())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper().writeValueAsString(request)))
-                    .andExpect(status().isUnprocessableContent())
+                    .andExpect(status().isNotFound())
                     .andExpect(jsonPath("$.message").value(message("category.not.found", language.getLocale())));
-        }
-
-        private AttributeUpdateRequest createRequest(Long categoryId) {
-            return new AttributeUpdateRequest(
-                    "size",
-                    categoryId,
-                    AttributeType.SELECT,
-                    true,
-                    null,
-                    List.of(
-                            new AttributeValueRequest("2X"),
-                            new AttributeValueRequest("3X"),
-                            new AttributeValueRequest("LG"),
-                            new AttributeValueRequest("MD"),
-                            new AttributeValueRequest("SM")
-                    )
-            );
         }
 
     }

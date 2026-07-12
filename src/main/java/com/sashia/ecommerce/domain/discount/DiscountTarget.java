@@ -6,7 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "discount_targets")
+@Table(name = "discount_targets", schema = "promotion")
 public class DiscountTarget {
 
     @Id

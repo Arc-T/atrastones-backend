@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "identity")
 public class User implements UserDetails {
 
     @Id
@@ -78,6 +78,10 @@ public class User implements UserDetails {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();
@@ -93,12 +97,12 @@ public class User implements UserDetails {
         return UserDetails.super.isCredentialsNonExpired();
     }
 
+    /* **************************** GETTER & SETTERS **********************************/
+
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
-
-    /* **************************** GETTER & SETTERS **********************************/
 
     public Long getId() {
         return id;
@@ -146,10 +150,6 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getDescription() {

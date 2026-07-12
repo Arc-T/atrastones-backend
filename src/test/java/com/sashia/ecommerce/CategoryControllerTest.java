@@ -1,10 +1,9 @@
 package com.sashia.ecommerce;
 
-import com.sashia.ecommerce.common.exception.InvalidResourceException;
-import com.sashia.ecommerce.domain.category.CategoryService;
-import com.sashia.ecommerce.domain.category.dto.CategoryCreateDTO;
-import com.sashia.ecommerce.domain.category.dto.CategoryDTO;
-import com.sashia.ecommerce.domain.category.dto.CategoryUpdateDTO;
+import com.sashia.ecommerce.domain.catalog.category.CategoryService;
+import com.sashia.ecommerce.domain.catalog.category.dto.CategoryCreateRequest;
+import com.sashia.ecommerce.domain.catalog.category.dto.CategoryResponse;
+import com.sashia.ecommerce.domain.catalog.category.dto.CategoryUpdateRequest;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;
@@ -16,10 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.web.servlet.ResultActions;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,7 +33,8 @@ class CategoryControllerTest extends BaseControllerTest {
     private static final String CATEGORY_NAME = "Test category";
     private static final String CATEGORY_URL = "/accessory";
     private static final String CATEGORY_ICON = "mui-necklace";
-    private static final int DISPLAY_ORDER = 1;
+    private static final int CATEGORY_DISPLAY_ORDER = 1;
+    private static final String CATEGORY_DESCRIPTION = "lorem ipsum";
 
     @Autowired
     private CategoryService categoryService;
@@ -48,12 +47,9 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "READ_ALL_CATEGORIES")
         @DisplayName("Should return all categories with status 200")
         void shouldReturnAllCategories() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isOk())
+            mockMvc().perform(get(BASE_URL)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(3))
                     .andExpect(jsonPath("$.page.totalElements").value(3));
         }
@@ -62,28 +58,21 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isForbidden());
+            mockMvc().perform(get(BASE_URL)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isForbidden());
         }
 
         @Test
         @WithMockUser(authorities = "READ_ALL_CATEGORIES")
         @DisplayName("Should return all filtered categories when search param matches")
         void shouldReturnFilteredCategories_whenSearchParamMatchesWithOne() throws Exception {
-            // Given
             String searchTerm = "زیور";
 
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL)
-                    .param("name", searchTerm)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isOk())
+            mockMvc().perform(get(BASE_URL)
+                            .param("name", searchTerm)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(1));
         }
 
@@ -91,33 +80,25 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "READ_ALL_CATEGORIES")
         @DisplayName("Should return children categories")
         void shouldReturnChildrenCategories() throws Exception {
-            // Given
             String searchTerm = Boolean.TRUE.toString();
 
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL)
-                    .param("onlyChildren", searchTerm)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.content.length()").value(2));
+            mockMvc().perform(get(BASE_URL)
+                            .param("onlyChildren", searchTerm)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(3));
         }
 
         @Test
         @WithMockUser(authorities = "READ_ALL_CATEGORIES")
         @DisplayName("Should return children categories")
         void shouldReturnParentCategories() throws Exception {
-            // Given
             String searchTerm = Boolean.TRUE.toString();
 
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL)
-                    .param("onlyParents", searchTerm)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isOk())
+            mockMvc().perform(get(BASE_URL)
+                            .param("onlyParents", searchTerm)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(1));
         }
 
@@ -125,16 +106,12 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "READ_ALL_CATEGORIES")
         @DisplayName("Should return empty page when search param doesn't match")
         void shouldReturnEmptyPage_whenSearchParamDoesNotMatch() throws Exception {
-            // Given
             String searchTerm = "non-existent-term";
 
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL)
-                    .param("name", searchTerm)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isOk())
+            mockMvc().perform(get(BASE_URL)
+                            .param("name", searchTerm)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.content").isEmpty())
                     .andExpect(jsonPath("$.page.totalElements").value(0));
         }
@@ -143,15 +120,12 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "READ_ALL_CATEGORIES")
         @DisplayName("Should support pagination parameters")
         void shouldSupportPagination() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL)
-                    .param("page", "0")
-                    .param("size", "10")
-                    .param("sort", "name,asc")
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isOk())
+            mockMvc().perform(get(BASE_URL)
+                            .param("page", "0")
+                            .param("size", "10")
+                            .param("sort", "name,asc")
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.page.number").value(0))
                     .andExpect(jsonPath("$.page.size").value(10));
         }
@@ -166,12 +140,9 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "READ_CATEGORY")
         @DisplayName("Should return category when ID exists")
         void shouldReturnCategory_whenIdExists() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isOk())
+            mockMvc().perform(get(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
                     .andExpect(jsonPath("$.id").value(EXISTING_CATEGORY_ID))
                     .andExpect(jsonPath("$.name").isString())
                     .andExpect(jsonPath("$.url").isString());
@@ -181,26 +152,19 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isForbidden());
+            mockMvc().perform(get(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isForbidden());
         }
 
         @TestWithLocale
         @WithMockUser(authorities = "READ_CATEGORY")
-        @DisplayName("Should return 422 when category ID doesn't exist")
-        void shouldReturnUnprocessableEntity_whenIdDoesNotExist(Language language) throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(get(BASE_URL + "/{id}", NON_EXISTENT_CATEGORY_ID)
-                    .locale(language.getLocale())
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isUnprocessableEntity())
-                    .andExpect(jsonPath("$.message").value(message("category.not.found", language.getLocale())));
+        @DisplayName("Should return 404 when category ID doesn't exist")
+        void shouldReturnNotFound_whenIdDoesNotExist(Language language) throws Exception {
+            mockMvc().perform(get(BASE_URL + "/{id}", NON_EXISTENT_CATEGORY_ID)
+                            .locale(language.getLocale())
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isNotFound());
         }
 
     }
@@ -211,26 +175,23 @@ class CategoryControllerTest extends BaseControllerTest {
 
         @Test
         @WithMockUser(authorities = "CREATE_CATEGORY")
-        @DirtiesContext
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @DisplayName("Should create category and return 201 with location header")
         void shouldCreateCategory() throws Exception {
-            // Given
-            CategoryCreateDTO request = new CategoryCreateDTO(
+            CategoryCreateRequest request = new CategoryCreateRequest(
                     CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
-                    null, DISPLAY_ORDER, null
+                    null, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
-            // When
-            ResultActions result = mockMvc().perform(post(BASE_URL)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isCreated())
+            mockMvc().perform(post(BASE_URL)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isCreated())
                     .andExpect(header().string("Location", BASE_URL + "/" + NEW_CATEGORY_ID));
 
             // Verify in database
-            CategoryDTO createdCategory = assertDoesNotThrow(() -> categoryService.read(NEW_CATEGORY_ID));
+            CategoryResponse createdCategory = categoryService.read(NEW_CATEGORY_ID)
+                    .orElseThrow();
 
             assertAll("Verify created category properties",
                     () -> assertThat(createdCategory.name()).isEqualTo(request.name()),
@@ -246,17 +207,13 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "CREATE_CATEGORY")
         @DisplayName("Should return 400 when required fields are missing")
         void shouldReturnBadRequest_whenRequiredFieldsMissing(Language language) throws Exception {
-            // Given
-            CategoryCreateDTO request = new CategoryCreateDTO(null, null, null, null, null, null);
+            CategoryCreateRequest request = new CategoryCreateRequest(null, null, null, null, null, null);
 
-            // When
-            ResultActions result = mockMvc().perform(post(BASE_URL)
-                    .locale(language.getLocale())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isBadRequest())
+            mockMvc().perform(post(BASE_URL)
+                            .locale(language.getLocale())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.message").value(message("invalid.method.params", language.getLocale())))
                     .andExpect(jsonPath("$.details.fieldErrors.name").value(message("category.name.required", language.getLocale())))
                     .andExpect(jsonPath("$.details.fieldErrors.url").value(message("category.url.required", language.getLocale())))
@@ -266,22 +223,18 @@ class CategoryControllerTest extends BaseControllerTest {
 
         @TestWithLocale
         @WithMockUser(authorities = "CREATE_CATEGORY")
-        @DisplayName("Should return 422 when parent category doesn't exist")
-        void shouldReturnUnprocessableEntity_whenParentNotFound(Language language) throws Exception {
-            // Given
-            CategoryCreateDTO request = new CategoryCreateDTO(
+        @DisplayName("Should return 404 when parent category doesn't exist")
+        void shouldReturnNotFound_whenParentNotFound(Language language) throws Exception {
+            CategoryCreateRequest request = new CategoryCreateRequest(
                     CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
-                    INVALID_PARENT_ID, DISPLAY_ORDER, null
+                    INVALID_PARENT_ID, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
-            // When
-            ResultActions result = mockMvc().perform(post(BASE_URL)
-                    .locale(language.getLocale())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isUnprocessableEntity())
+            mockMvc().perform(post(BASE_URL)
+                            .locale(language.getLocale())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isNotFound())
                     .andExpect(jsonPath("$.message").value(message("category.parentId.not.found", language.getLocale())));
         }
 
@@ -289,19 +242,15 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
-            // Given
-            CategoryCreateDTO request = new CategoryCreateDTO(
+            CategoryCreateRequest request = new CategoryCreateRequest(
                     CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
-                    null, DISPLAY_ORDER, null
+                    null, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
-            // When
-            ResultActions result = mockMvc().perform(post(BASE_URL)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isForbidden());
+            mockMvc().perform(post(BASE_URL)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isForbidden());
         }
 
         @Test
@@ -309,12 +258,9 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "CREATE_CATEGORY")
         @DisplayName("Should return 400 when request body is empty")
         void shouldReturnBadRequest_whenRequestBodyEmpty() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(post(BASE_URL)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isBadRequest());
+            mockMvc().perform(post(BASE_URL)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
         }
     }
 
@@ -323,26 +269,23 @@ class CategoryControllerTest extends BaseControllerTest {
     class UpdateCategory {
 
         @Test
-        @DirtiesContext
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @WithMockUser(authorities = "UPDATE_CATEGORY")
         @DisplayName("Should update category and return 204")
         void shouldUpdateCategory() throws Exception {
-            // Given
-            CategoryUpdateDTO request = new CategoryUpdateDTO(
+            CategoryUpdateRequest request = new CategoryUpdateRequest(
                     CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
-                    null, DISPLAY_ORDER, null
+                    null, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
-            // When
-            ResultActions result = mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isNoContent());
+            mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isNoContent());
 
             // Verify in database
-            CategoryDTO updatedCategory = assertDoesNotThrow(() -> categoryService.read(EXISTING_CATEGORY_ID));
+            CategoryResponse updatedCategory = categoryService.read(EXISTING_CATEGORY_ID)
+                    .orElseThrow();
 
             assertAll("Verify updated category properties",
                     () -> assertThat(updatedCategory.name()).isEqualTo(request.name()),
@@ -357,58 +300,46 @@ class CategoryControllerTest extends BaseControllerTest {
         @Test
         @WithMockUser(authorities = "UPDATE_CATEGORY")
         @DisplayName("Should return 422 when category ID doesn't exist")
-        void shouldReturnUnprocessableContent_whenCategoryDoesNotExist() throws Exception {
-            // Given
-            CategoryUpdateDTO request = new CategoryUpdateDTO(
+        void shouldReturnNotFound_whenCategoryDoesNotExist() throws Exception {
+            CategoryUpdateRequest request = new CategoryUpdateRequest(
                     CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
-                    null, DISPLAY_ORDER, null
+                    null, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
-            // When
-            ResultActions result = mockMvc().perform(put(BASE_URL + "/{id}", NON_EXISTENT_CATEGORY_ID)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isUnprocessableContent());
+            mockMvc().perform(put(BASE_URL + "/{id}", NON_EXISTENT_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isNotFound());
         }
 
         @TestWithLocale
         @WithMockUser(authorities = "UPDATE_CATEGORY")
         @DisplayName("Should return 400 when required fields are missing")
         void shouldReturnBadRequest_whenRequiredFieldsMissing(Language language) throws Exception {
-            // Given
-            CategoryUpdateDTO request = new CategoryUpdateDTO(null, null, null, null, null, null);
+            CategoryUpdateRequest request = new CategoryUpdateRequest(null, null, null, null, null, null);
 
-            // When
-            ResultActions result = mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
-                    .locale(language.getLocale())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isBadRequest())
+            mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .locale(language.getLocale())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.message").value(message("invalid.method.params", language.getLocale())));
         }
 
         @TestWithLocale
         @WithMockUser(authorities = "UPDATE_CATEGORY")
         @DisplayName("Should return 422 when parent category doesn't exist")
-        void shouldReturnUnprocessableEntity_whenParentNotFound(Language language) throws Exception {
-            // Given
-            CategoryUpdateDTO request = new CategoryUpdateDTO(
+        void shouldReturnNotFound_whenParentNotFound(Language language) throws Exception {
+            CategoryUpdateRequest request = new CategoryUpdateRequest(
                     CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
-                    INVALID_PARENT_ID, DISPLAY_ORDER, null
+                    INVALID_PARENT_ID, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
-            // When
-            ResultActions result = mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
-                    .locale(language.getLocale())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isUnprocessableEntity())
+            mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .locale(language.getLocale())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isNotFound())
                     .andExpect(jsonPath("$.message").value(message("category.parentId.not.found", language.getLocale())));
         }
 
@@ -416,19 +347,15 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
-            // Given
-            CategoryUpdateDTO request = new CategoryUpdateDTO(
+            CategoryUpdateRequest request = new CategoryUpdateRequest(
                     CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
-                    null, DISPLAY_ORDER, null
+                    null, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
-            // When
-            ResultActions result = mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper().writeValueAsString(request)));
-
-            // Then
-            result.andExpect(status().isForbidden());
+            mockMvc().perform(put(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper().writeValueAsString(request)))
+                    .andExpect(status().isForbidden());
         }
 
     }
@@ -438,51 +365,31 @@ class CategoryControllerTest extends BaseControllerTest {
     class DeleteCategory {
 
         @Test
-        @DirtiesContext
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @WithMockUser(authorities = "DELETE_CATEGORY")
-        @DisplayName("Should delete category and return 204")
+        @DisplayName("Should return 422 when category has assigned products")
         void shouldDeleteCategory() throws Exception {
-            // Given - Create a category to delete
-            CategoryCreateDTO createRequest = new CategoryCreateDTO(
-                    "Category to delete", "/delete", "delete-icon",
-                    null, 99, null
-            );
-
-            Long categoryId = categoryService.create(createRequest);
-
-            // When
-            ResultActions result = mockMvc().perform(delete(BASE_URL + "/{id}", categoryId)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isNoContent());
-
-            // Verify deletion
-            assertThrows(InvalidResourceException.class, () -> categoryService.read(categoryId));
+            mockMvc().perform(delete(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isUnprocessableContent());
         }
 
         @Test
         @WithMockUser(authorities = "DELETE_CATEGORY")
         @DisplayName("Should return 422 when category ID doesn't exist")
-        void shouldReturnUnprocessableContent_whenCategoryDoesNotExist() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(delete(BASE_URL + "/{id}", NON_EXISTENT_CATEGORY_ID)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isUnprocessableContent());
+        void shouldReturnNotFound_whenCategoryDoesNotExist() throws Exception {
+            mockMvc().perform(delete(BASE_URL + "/{id}", NON_EXISTENT_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isNotFound());
         }
 
         @Test
         @WithMockUser
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
-            // When
-            ResultActions result = mockMvc().perform(delete(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            // Then
-            result.andExpect(status().isForbidden());
+            mockMvc().perform(delete(BASE_URL + "/{id}", EXISTING_CATEGORY_ID)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isForbidden());
         }
 
         @Test

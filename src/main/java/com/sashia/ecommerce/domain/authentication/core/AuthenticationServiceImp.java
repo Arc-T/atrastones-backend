@@ -18,13 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.UUID;
 
-import static com.sashia.ecommerce.common.util.SecurityUtils.*;
+import static com.sashia.ecommerce.common.util.SecurityUtils.AUTHORITIES_CLAIM;
+import static com.sashia.ecommerce.common.util.SecurityUtils.JWT_ALGORITHM;
 
 @Service
 class AuthenticationServiceImp implements AuthenticationService {
 
+    private static final String ISSUER = "https://sashia.dev";
     private static final long DEFAULT_EXPIRATION_TIME = 3_600_000L; // 1 hour.
     private static final long REMEMBER_ME_EXPIRATION_TIME = 2_592_000_000L; // 1 month
 
@@ -77,10 +80,10 @@ class AuthenticationServiceImp implements AuthenticationService {
     // =================================== HELPERS ===================================
 
     private String generateToken(Authentication authentication, boolean rememberMe) {
-        String authorities = authentication.getAuthorities()
+        List<String> authorities = authentication.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(" "));
+                .toList();
 
         Instant now = Instant.now();
         Instant validity;
@@ -91,9 +94,12 @@ class AuthenticationServiceImp implements AuthenticationService {
         }
 
         JwtClaimsSet.Builder builder = JwtClaimsSet.builder()
+                .id(UUID.randomUUID().toString())
+                .subject(authentication.getName())
+                .issuer(ISSUER)
                 .issuedAt(now)
                 .expiresAt(validity)
-                .subject(authentication.getName())
+                .audience(List.of("sashia-ecommerce"))
                 .claim(AUTHORITIES_CLAIM, authorities);
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();

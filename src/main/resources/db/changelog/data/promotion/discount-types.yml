@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1771151838026-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: promotion
+            tableName: discount_types
+            columns:
+              - column:
+                  name: code
+                  value: 'PERCENT'
+              - column:
+                  name: name
+                  value: 'percent'
+
+        - insert:
+            schemaName: promotion
+            tableName: discount_types
+            columns:
+              - column:
+                  name: code
+                  value: 'FIXED'
+              - column:
+                  name: name
+                  value: 'fixed'

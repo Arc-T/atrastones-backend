@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464256371-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: shop
+            tableName: shop_members
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: '1'
+              - column:
+                  name: shop_id
+                  valueNumeric: '1'
+              - column:
+                  name: description
+                  value: 'nothing special'

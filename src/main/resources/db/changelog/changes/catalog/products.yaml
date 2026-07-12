@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767970000002-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: catalog
+            tableName: products
+            remarks: Stores product-specific data for catalog items
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            schemaName: catalog
+            tableName: products
+            columnNames: id
+            constraintName: pk_products
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: catalog
+            baseTableName: products
+            baseColumnNames: id
+            referencedTableSchemaName: catalog
+            referencedTableName: items
+            referencedColumnNames: id
+            constraintName: fk_products_item
