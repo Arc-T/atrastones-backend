@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,4 +20,76 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk
+
+              - column:
+                  name: total_amount
+                  type: ${integer_value.type}
+                  remarks: Total amount owed in Toman
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: paid_amount
+                  type: ${integer_value.type}
+                  defaultValue: '0'
+                  remarks: Amount paid so far in Toman
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: remaining_amount
+                  type: ${integer_value.type}
+                  remarks: Outstanding amount in Toman
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  # type: ENUM('PENDING', 'PARTIALLY_PAID', 'PAID')
+                  type: VARCHAR(500)
+                  defaultValue: PENDING
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: ${timestamp_value.type}
+                  constraints:
+                    nullable: true
+
+        - addPrimaryKey:
+            schemaName: ordering
+            tableName: order_remaining_balances
+            columnNames: id
+            constraintName: pk_order_remaining_balances
+
+        - addUniqueConstraint:
+            schemaName: ordering
+            tableName: order_remaining_balances
+            columnNames: order_id
+            constraintName: uk_order_remaining_balances_order
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: ordering
+            baseTableName: order_remaining_balances
+            baseColumnNames: order_id
+            referencedTableSchemaName: ordering
+            referencedTableName: orders
+            referencedColumnNames: id
+            constraintName: fk_order_remaining_balances_order
+            onDelete: CASCADE
+
+        - createIndex:
+            schemaName: ordering
+            tableName: order_remaining_balances
+            indexName: idx_order_remaining_balances_status
+            columns:
+              - column:
+                  name: status

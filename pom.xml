@@ -31,20 +31,20 @@
     </scm>
     <properties>
         <java.version>25</java.version>
-        <jwt.version>4.5.0</jwt.version>
-        <!--        <spring-modulith.version>2.0.2</spring-modulith.version>-->
+        <spring-modulith.version>2.1.0</spring-modulith.version>
+        <caffeine.verison>3.2.4</caffeine.verison>
     </properties>
-    <!--    <dependencyManagement>-->
-    <!--        <dependencies>-->
-    <!--            <dependency>-->
-    <!--                <groupId>org.springframework.modulith</groupId>-->
-    <!--                <artifactId>spring-modulith-bom</artifactId>-->
-    <!--                <version>${spring-modulith.version}</version>-->
-    <!--                <type>pom</type>-->
-    <!--                <scope>import</scope>-->
-    <!--            </dependency>-->
-    <!--        </dependencies>-->
-    <!--    </dependencyManagement>-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.modulith</groupId>
+                <artifactId>spring-modulith-bom</artifactId>
+                <version>${spring-modulith.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -74,21 +74,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.auth0</groupId>-->
-<!--            <artifactId>java-jwt</artifactId>-->
-<!--            <version>${jwt.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-restdocs</artifactId>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator-test</artifactId>
@@ -124,11 +114,6 @@
             <artifactId>spring-boot-starter-webmvc-test</artifactId>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.restdocs</groupId>-->
-<!--            <artifactId>spring-restdocs-mockmvc</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -143,6 +128,38 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security-oauth2-resource-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.modulith</groupId>
+            <artifactId>spring-modulith-starter-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.modulith</groupId>
+            <artifactId>spring-modulith-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.modulith</groupId>
+            <artifactId>spring-modulith-actuator</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.modulith</groupId>
+            <artifactId>spring-modulith-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.modulith</groupId>
+            <artifactId>spring-modulith-observability</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.verison}</version>
         </dependency>
     </dependencies>
 

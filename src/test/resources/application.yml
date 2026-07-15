@@ -44,6 +44,11 @@ spring:
     ui-service: console
     change-log: classpath:db/changelog/test-master.yml
 
+  modulith:
+    events:
+      jdbc:
+        schema: platform
+
   security:
     oauth2:
       resourceserver:

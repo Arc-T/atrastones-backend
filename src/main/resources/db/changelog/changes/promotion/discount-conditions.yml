@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,27 +20,25 @@ databaseChangeLog:
                   type: ${id.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_discount_conditions_discount
-                    references: discounts(id)
 
               - column:
                   name: condition_group
                   type: ${id.type}
-                  defaultValue: 1
+                  defaultValue: '1'
+                  remarks: Group number for AND/OR logic
                   constraints:
                     nullable: false
-                  remarks: Group number for AND/OR logic
 
               - column:
                   name: type
                   type: ${name.type}
+                  remarks: MIN_ORDER_AMOUNT, CUSTOMER_SEGMENT, PRODUCT_CATEGORY, etc.
                   constraints:
                     nullable: false
-                  remarks: MIN_ORDER_AMOUNT, CUSTOMER_SEGMENT, PRODUCT_CATEGORY, etc.
 
               - column:
                   name: operator
-                  #                  type: ENUM('EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE', 'IN', 'NOT_IN', 'BETWEEN', 'CONTAINS')
+                  # type: ENUM('EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE', 'IN', 'NOT_IN', 'BETWEEN', 'CONTAINS')
                   type: VARCHAR(500)
                   constraints:
                     nullable: false
@@ -49,16 +46,16 @@ databaseChangeLog:
               - column:
                   name: first_value
                   type: ${short_text.type}
+                  remarks: Depends on condition_type
                   constraints:
                     nullable: true
-                  remarks: Depends on condition_type
 
               - column:
                   name: second_value
                   type: ${short_text.type}
+                  remarks: For BETWEEN operations
                   constraints:
                     nullable: true
-                  remarks: For BETWEEN operations
 
               - column:
                   name: created_at
@@ -66,6 +63,21 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: promotion
+            tableName: discount_conditions
+            columnNames: id
+            constraintName: pk_discount_conditions
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: promotion
+            baseTableName: discount_conditions
+            baseColumnNames: discount_id
+            referencedTableSchemaName: promotion
+            referencedTableName: discounts
+            referencedColumnNames: id
+            constraintName: fk_discount_conditions_discount
 
         - createIndex:
             schemaName: promotion

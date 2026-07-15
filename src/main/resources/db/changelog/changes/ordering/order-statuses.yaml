@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,7 +20,6 @@ databaseChangeLog:
                   type: ${name.type}
                   constraints:
                     nullable: false
-                    unique: true
 
               - column:
                   name: description
@@ -41,3 +39,15 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: ordering
+            tableName: order_statuses
+            columnNames: id
+            constraintName: pk_order_statuses
+
+        - addUniqueConstraint:
+            schemaName: ordering
+            tableName: order_statuses
+            columnNames: name
+            constraintName: uk_order_statuses_name

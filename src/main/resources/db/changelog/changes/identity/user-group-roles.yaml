@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,17 +20,12 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_user_group_roles_role
-                    references: roles(id)
-                    deleteCascade: true
 
               - column:
                   name: user_group_id
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_user_group_roles_user_group
-                    references: user_groups(id)
 
               - column:
                   name: created_at
@@ -39,6 +33,31 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: user_group_roles
+            columnNames: id
+            constraintName: pk_user_group_roles
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: user_group_roles
+            baseColumnNames: role_id
+            referencedTableSchemaName: identity
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_user_group_roles_role
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: user_group_roles
+            baseColumnNames: user_group_id
+            referencedTableSchemaName: identity
+            referencedTableName: user_groups
+            referencedColumnNames: id
+            constraintName: fk_user_group_roles_user_group
 
         - createIndex:
             schemaName: identity

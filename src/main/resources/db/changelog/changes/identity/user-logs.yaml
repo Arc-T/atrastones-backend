@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,29 +20,27 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_logs_user
-                    references: users(id)
 
               - column:
                   name: action_type
                   type: ${name.type}
+                  remarks: e.g., LOGIN, PURCHASE
                   constraints:
                     nullable: false
-                  remarks: e.g., LOGIN, PURCHASE
 
               - column:
                   name: action_id
                   type: ${name.type}
+                  remarks: Reference to entity (e.g., order ID)
                   constraints:
                     nullable: false
-                  remarks: Reference to entity (e.g., order ID)
 
               - column:
                   name: ip_address
                   type: ${short_text.type}
+                  remarks: Supports IPv4/IPv6
                   constraints:
                     nullable: false
-                  remarks: Supports IPv4/IPv6
 
               - column:
                   name: user_agent
@@ -63,6 +60,21 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: user_logs
+            columnNames: id
+            constraintName: pk_user_logs
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: user_logs
+            baseColumnNames: user_id
+            referencedTableSchemaName: identity
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_logs_user
 
         - createIndex:
             schemaName: identity

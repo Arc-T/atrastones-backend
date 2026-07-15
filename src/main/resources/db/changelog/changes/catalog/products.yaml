@@ -1,18 +1,24 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767970000002-1
+      id: 1783792605596-5
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: catalog
             tableName: products
-            remarks: Stores product-specific data for catalog items
+            remarks: Stores product-specific information for catalog items
             columns:
               - column:
                   name: id
                   type: ${id.type}
                   constraints:
                     nullable: false
+
+              - column:
+                  name: description
+                  type: ${long_text.type}
+                  constraints:
+                    nullable: true
 
         - addPrimaryKey:
             schemaName: catalog

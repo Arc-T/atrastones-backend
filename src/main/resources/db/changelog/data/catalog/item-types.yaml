@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1768464230978-3
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: catalog
+            tableName: item_types
+            columns:
+              - column:
+                  name: catalog_item_type
+                  value: 'PRODUCT'
+
+        - insert:
+            schemaName: catalog
+            tableName: item_types
+            columns:
+              - column:
+                  name: catalog_item_type
+                  value: 'SERVICE_OFFERING'

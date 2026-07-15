@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 1783792605596-1
+      id: 1784121668290-1
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: catalog
             tableName: items
-            remarks: Stores catalog items including products and services
+            remarks: Stores catalog items which are purchasable including products and services.
             columns:
               - column:
                   name: id
@@ -22,39 +22,32 @@ databaseChangeLog:
                     nullable: false
 
               - column:
+                  name: item_type_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
                   name: title
                   type: ${name.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: description
-                  type: ${long_text.type}
+                  name: cover_image
+                  type: ${name.type}
                   constraints:
                     nullable: true
 
               - column:
-                  name: slug
-                  type: ${slug.type}
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: type
-                  type: ${name.type}
-                  remarks: Item type enum
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: published
+                  name: featured
                   type: ${boolean.type}
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
 
               - column:
-                  name: featured
+                  name: published
                   type: ${boolean.type}
                   defaultValueBoolean: false
                   constraints:
@@ -85,12 +78,6 @@ databaseChangeLog:
             columnNames: id
             constraintName: pk_items
 
-        - addUniqueConstraint:
-            schemaName: catalog
-            tableName: items
-            columnNames: slug
-            constraintName: uk_items_slug
-
         - addForeignKeyConstraint:
             baseTableSchemaName: catalog
             baseTableName: items
@@ -99,6 +86,15 @@ databaseChangeLog:
             referencedTableName: categories
             referencedColumnNames: id
             constraintName: fk_items_category
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: catalog
+            baseTableName: items
+            baseColumnNames: item_type_id
+            referencedTableSchemaName: catalog
+            referencedTableName: item_types
+            referencedColumnNames: id
+            constraintName: fk_items_item_type
 
         - createIndex:
             schemaName: catalog
@@ -111,18 +107,10 @@ databaseChangeLog:
         - createIndex:
             schemaName: catalog
             tableName: items
-            indexName: idx_items_slug
+            indexName: idx_items_item_type
             columns:
               - column:
-                  name: slug
-
-        - createIndex:
-            schemaName: catalog
-            tableName: items
-            indexName: idx_items_type
-            columns:
-              - column:
-                  name: type
+                  name: item_type_id
 
         - createIndex:
             schemaName: catalog

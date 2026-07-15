@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,12 +20,10 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_addresses_user
-                    references: users(id)
 
               - column:
                   name: address_type
-                  #                  type: ENUM('HOME', 'WORK', 'OTHER')
+                  # type: ENUM('HOME', 'WORK', 'OTHER')
                   type: VARCHAR(500)
                   constraints:
                     nullable: false
@@ -36,8 +33,6 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_addresses_province
-                    references: provinces(id)
 
               - column:
                   name: address_line
@@ -48,9 +43,9 @@ databaseChangeLog:
               - column:
                   name: postal_code
                   type: ${short_text.type}
+                  remarks: postal code (10 digits)
                   constraints:
                     nullable: true
-                  remarks: postal code (10 digits)
 
               - column:
                   name: latitude
@@ -82,6 +77,30 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: addresses
+            columnNames: id
+            constraintName: pk_addresses
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: addresses
+            baseColumnNames: user_id
+            referencedTableSchemaName: identity
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_addresses_user
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: addresses
+            baseColumnNames: province_id
+            referencedTableSchemaName: identity
+            referencedTableName: provinces
+            referencedColumnNames: id
+            constraintName: fk_addresses_province
 
         - createIndex:
             schemaName: identity

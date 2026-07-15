@@ -1,10 +1,10 @@
 package com.sashia.ecommerce;
 
-import com.sashia.ecommerce.common.exception.InvalidResourceException;
-import com.sashia.ecommerce.domain.catalog.item.serviceoffering.ServiceOfferingService;
-import com.sashia.ecommerce.domain.catalog.item.serviceoffering.common.ServiceCreateDTO;
-import com.sashia.ecommerce.domain.catalog.item.serviceoffering.common.ServiceDTO;
-import com.sashia.ecommerce.domain.catalog.item.serviceoffering.common.ServiceUpdateDTO;
+import com.sashia.ecommerce.shared.exception.InvalidResourceException;
+import com.sashia.ecommerce.catalog.item.serviceoffering.ServiceOfferingService;
+import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceOfferingCreateRequest;
+import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceOfferingResponse;
+import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceUpdateDTO;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;
@@ -191,7 +191,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should create service and return 201 with location header")
         void shouldCreateService() throws Exception {
             // Given
-            ServiceCreateDTO request = new ServiceCreateDTO(
+            ServiceOfferingCreateRequest request = new ServiceOfferingCreateRequest(
                     SERVICE_NAME, SERVICE_COST, VALID_SERVICE_GROUP_ID, SERVICE_DESCRIPTION
             );
 
@@ -205,7 +205,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
                     .andExpect(header().string("Location", BASE_URL + "/" + NEW_SERVICE_ID));
 
             // Verify in database
-            ServiceDTO createdService = assertDoesNotThrow(() -> serviceOfferingService.get(NEW_SERVICE_ID));
+            ServiceOfferingResponse createdService = assertDoesNotThrow(() -> serviceOfferingService.get(NEW_SERVICE_ID));
 
 //            assertAll("Verify created service properties",
 //                    () -> assertThat(createdService.name()).isEqualTo(request.name()),
@@ -221,7 +221,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should create service with special characters in name")
         void shouldCreateServiceWithSpecialCharacters() throws Exception {
             // Given
-            ServiceCreateDTO request = new ServiceCreateDTO(
+            ServiceOfferingCreateRequest request = new ServiceOfferingCreateRequest(
                     SPECIAL_CHARS_NAME, SERVICE_COST, VALID_SERVICE_GROUP_ID, SERVICE_DESCRIPTION
             );
 
@@ -240,7 +240,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should create service without description")
         void shouldCreateServiceWithoutDescription() throws Exception {
             // Given
-            ServiceCreateDTO request = new ServiceCreateDTO(
+            ServiceOfferingCreateRequest request = new ServiceOfferingCreateRequest(
                     SERVICE_NAME, SERVICE_COST, VALID_SERVICE_GROUP_ID, null
             );
 
@@ -252,7 +252,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
             // Then
             result.andExpect(status().isCreated());
 
-            ServiceDTO createdService = assertDoesNotThrow(() -> serviceOfferingService.get(NEW_SERVICE_ID));
+            ServiceOfferingResponse createdService = assertDoesNotThrow(() -> serviceOfferingService.get(NEW_SERVICE_ID));
 //            assertThat(createdService.description()).isNull();
         }
 
@@ -261,7 +261,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should return 400 when required fields are missing")
         void shouldReturnBadRequest_whenRequiredFieldsMissing(Language language) throws Exception {
             // Given
-            ServiceCreateDTO request = new ServiceCreateDTO(null, null, null, null);
+            ServiceOfferingCreateRequest request = new ServiceOfferingCreateRequest(null, null, null, null);
 
             // When
             ResultActions result = mockMvc().perform(post(BASE_URL)
@@ -282,7 +282,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should return 400 when name is empty")
         void shouldReturnBadRequest_whenNameIsEmpty(Language language) throws Exception {
             // Given
-            ServiceCreateDTO request = new ServiceCreateDTO(
+            ServiceOfferingCreateRequest request = new ServiceOfferingCreateRequest(
                     "", SERVICE_COST, VALID_SERVICE_GROUP_ID, SERVICE_DESCRIPTION
             );
 
@@ -302,7 +302,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should return 422 when service group ID doesn't exist")
         void shouldReturnUnprocessableContent_whenServiceGroupNotFound(Language language) throws Exception {
             // Given
-            ServiceCreateDTO request = new ServiceCreateDTO(
+            ServiceOfferingCreateRequest request = new ServiceOfferingCreateRequest(
                     SERVICE_NAME, SERVICE_COST, INVALID_SERVICE_GROUP_ID, SERVICE_DESCRIPTION
             );
 
@@ -322,7 +322,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
             // Given
-            ServiceCreateDTO request = new ServiceCreateDTO(
+            ServiceOfferingCreateRequest request = new ServiceOfferingCreateRequest(
                     SERVICE_NAME, SERVICE_COST, VALID_SERVICE_GROUP_ID, SERVICE_DESCRIPTION
             );
 
@@ -360,7 +360,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
             result.andExpect(status().isNoContent());
 
             // Verify in database
-            ServiceDTO updatedService = assertDoesNotThrow(() -> serviceOfferingService.get(EXISTING_SERVICE_ID));
+            ServiceOfferingResponse updatedService = assertDoesNotThrow(() -> serviceOfferingService.get(EXISTING_SERVICE_ID));
 
 //            assertAll("Verify updated service properties",
 //                    () -> assertThat(updatedService.name()).isEqualTo(request.name()),
@@ -458,7 +458,7 @@ class ServiceOfferingControllerTest extends BaseControllerTest {
         @DisplayName("Should delete service and return 204")
         void shouldDeleteService() throws Exception {
             // Given - Create a service to delete
-            ServiceCreateDTO createRequest = new ServiceCreateDTO(
+            ServiceOfferingCreateRequest createRequest = new ServiceOfferingCreateRequest(
                     "service-to-delete", SERVICE_COST, VALID_SERVICE_GROUP_ID, SERVICE_DESCRIPTION
             );
             Long serviceId = serviceOfferingService.create(createRequest);

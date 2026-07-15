@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,28 +20,24 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_orders_user
-                    references: users(id)
 
               - column:
                   name: address_id
                   type: ${integer_value.type}
+                  remarks: Delivery address
                   constraints:
                     nullable: true
-                    foreignKeyName: fk_orders_address
-                    references: addresses(id)
-                  remarks: Delivery address
 
               - column:
                   name: total_price
                   type: ${integer_value.type}
+                  remarks: Total in Toman
                   constraints:
                     nullable: false
-                  remarks: Total in Toman
 
               - column:
                   name: status
-                  #                  type: ENUM('PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED')
+                  # type: ENUM('PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED')
                   type: VARCHAR(500)
                   defaultValue: PENDING
                   constraints:
@@ -72,6 +67,30 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: ordering
+            tableName: orders
+            columnNames: id
+            constraintName: pk_orders
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: ordering
+            baseTableName: orders
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedTableSchemaName: identity
+            referencedColumnNames: id
+            constraintName: fk_orders_user
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: ordering
+            baseTableName: orders
+            baseColumnNames: address_id
+            referencedTableName: addresses
+            referencedTableSchemaName: identity
+            referencedColumnNames: id
+            constraintName: fk_orders_address
 
         - createIndex:
             schemaName: ordering

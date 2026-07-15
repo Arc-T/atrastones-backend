@@ -105,6 +105,7 @@ databaseChangeLog:
             baseTableName: payments
             baseColumnNames: user_id
             referencedTableName: users
+            referencedTableSchemaName: identity
             referencedColumnNames: id
             constraintName: fk_payments_user
 
@@ -113,6 +114,7 @@ databaseChangeLog:
             baseTableName: payments
             baseColumnNames: order_id
             referencedTableName: orders
+            referencedTableSchemaName: ordering
             referencedColumnNames: id
             constraintName: fk_payments_order
 

@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,17 +20,12 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_transactions_order
-                    references: orders(id)
-                    deleteCascade: true
 
               - column:
                   name: status_id
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_transactions_status
-                    references: order_statuses(id)
 
               - column:
                   name: description
@@ -45,6 +39,31 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: ordering
+            tableName: order_transactions
+            columnNames: id
+            constraintName: pk_order_transactions
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: ordering
+            baseTableName: order_transactions
+            baseColumnNames: order_id
+            referencedTableSchemaName: ordering
+            referencedTableName: orders
+            referencedColumnNames: id
+            constraintName: fk_transactions_order
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: ordering
+            baseTableName: order_transactions
+            baseColumnNames: status_id
+            referencedTableSchemaName: ordering
+            referencedTableName: order_statuses
+            referencedColumnNames: id
+            constraintName: fk_transactions_status
 
         - createIndex:
             schemaName: ordering

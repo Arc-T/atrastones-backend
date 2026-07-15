@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,12 +20,10 @@ databaseChangeLog:
                   type: ${id.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_discount_targets_discount
-                    references: discounts(id)
 
               - column:
                   name: target_type
-                  #                  type: ENUM('PRODUCT', 'CATEGORY', 'COLLECTION', 'TAG', 'CUSTOMER', 'CUSTOMER_SEGMENT', 'DELIVERY_METHOD')
+                  # type: ENUM('PRODUCT', 'CATEGORY', 'COLLECTION', 'TAG', 'CUSTOMER', 'CUSTOMER_SEGMENT', 'DELIVERY_METHOD')
                   type: VARCHAR(500)
                   constraints:
                     nullable: false
@@ -34,9 +31,9 @@ databaseChangeLog:
               - column:
                   name: target_id
                   type: ${id.type}
+                  remarks: ID in the respective entity table
                   constraints:
                     nullable: false
-                  remarks: ID in the respective entity table
 
               - column:
                   name: created_at
@@ -44,6 +41,21 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: promotion
+            tableName: discount_targets
+            columnNames: id
+            constraintName: pk_discount_targets
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: promotion
+            baseTableName: discount_targets
+            baseColumnNames: discount_id
+            referencedTableSchemaName: promotion
+            referencedTableName: discounts
+            referencedColumnNames: id
+            constraintName: fk_discount_targets_discount
 
         - addUniqueConstraint:
             constraintName: uk_discount_targets

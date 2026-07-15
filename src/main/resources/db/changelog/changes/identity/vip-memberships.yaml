@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,16 +20,12 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_vip_memberships_group
-                    references: vip_groups(id)
 
               - column:
                   name: user_id
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_vip_memberships_user
-                    references: users(id)
 
               - column:
                   name: created_at
@@ -38,6 +33,30 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: vip_memberships
+            columnNames: id
+            constraintName: pk_vip_memberships
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: vip_memberships
+            baseColumnNames: vip_group_id
+            referencedTableSchemaName: identity
+            referencedTableName: vip_groups
+            referencedColumnNames: id
+            constraintName: fk_vip_memberships_group
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: vip_memberships
+            baseColumnNames: user_id
+            referencedTableSchemaName: identity
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_vip_memberships_user
 
         - createIndex:
             schemaName: identity

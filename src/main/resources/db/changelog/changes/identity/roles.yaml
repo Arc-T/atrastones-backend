@@ -13,22 +13,20 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
                   name: name
                   type: ${name.type}
                   constraints:
-                    unique: true
                     nullable: false
 
               - column:
                   name: description
                   type: ${short_text.type}
+                  remarks: Role description for clarity
                   constraints:
                     nullable: true
-                  remarks: Role description for clarity
 
               - column:
                   name: created_at
@@ -42,3 +40,15 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: roles
+            columnNames: id
+            constraintName: pk_roles
+
+        - addUniqueConstraint:
+            schemaName: identity
+            tableName: roles
+            columnNames: name
+            constraintName: uk_roles_name

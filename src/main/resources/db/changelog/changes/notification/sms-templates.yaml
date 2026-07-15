@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,14 +20,13 @@ databaseChangeLog:
                   type: ${short_text.type}
                   constraints:
                     nullable: false
-                    unique: true
 
               - column:
                   name: message
                   type: ${long_text.type}
+                  remarks: Supports Persian messages
                   constraints:
                     nullable: false
-                  remarks: Supports Persian messages
 
               - column:
                   name: created_at
@@ -42,3 +40,15 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: notification
+            tableName: sms_templates
+            columnNames: id
+            constraintName: pk_sms_templates
+
+        - addUniqueConstraint:
+            schemaName: notification
+            tableName: sms_templates
+            columnNames: name
+            constraintName: uk_sms_templates_name

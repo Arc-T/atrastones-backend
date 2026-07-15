@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,18 +20,12 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_role_permission_permission
-                    references: permissions(id)
-                    deleteCascade: true
 
               - column:
                   name: role_id
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_role_permission_role
-                    references: roles(id)
-                    deleteCascade: true
 
               - column:
                   name: created_at
@@ -40,6 +33,32 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: role_permissions
+            columnNames: id
+            constraintName: pk_role_permissions
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: role_permissions
+            baseColumnNames: permission_id
+            referencedTableSchemaName: identity
+            referencedTableName: permissions
+            referencedColumnNames: id
+            constraintName: fk_role_permission_permission
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: role_permissions
+            baseColumnNames: role_id
+            referencedTableSchemaName: identity
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_role_permission_role
+            onDelete: CASCADE
 
         - createIndex:
             schemaName: identity

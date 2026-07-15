@@ -13,8 +13,8 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
+
 
               - column:
                   name: name
@@ -25,21 +25,18 @@ databaseChangeLog:
               - column:
                   name: phone
                   type: ${phone.type}
+                  remarks: Shop contact number
                   constraints:
                     nullable: false
-                  remarks: Shop contact number
 
               - column:
                   name: address_id
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_shops_address_id
-                    references: addresses(id)
 
               - column:
                   name: status
-                  #                  type: ${status.type}
                   type: VARCHAR(500)
                   defaultValue: PENDING
                   constraints:
@@ -61,14 +58,25 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: ${timestamp_value.type}
-                  constraints:
-                    nullable: true
 
               - column:
                   name: deleted_at
                   type: ${timestamp_value.type}
-                  constraints:
-                    nullable: true
+
+        - addPrimaryKey:
+            schemaName: shop
+            tableName: shops
+            columnNames: id
+            constraintName: pk_shops
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: shop
+            baseTableName: shops
+            baseColumnNames: address_id
+            referencedTableSchemaName: identity
+            referencedTableName: addresses
+            referencedColumnNames: id
+            constraintName: fk_shops_address
 
         - createIndex:
             schemaName: shop
@@ -81,7 +89,7 @@ databaseChangeLog:
         - createIndex:
             schemaName: shop
             tableName: shops
-            indexName: idx_shops_address
+            indexName: idx_shops_address_id
             columns:
               - column:
                   name: address_id

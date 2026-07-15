@@ -15,40 +15,20 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: service_group_id
-                  type: ${id.type}
+                  name: name
+                  type: ${name.type}
+                  remarks: Supports Persian names.
                   constraints:
                     nullable: false
+
+              - column:
+                  name: description
+                  type: ${short_text.type}
+                  constraints:
+                    nullable: true
 
         - addPrimaryKey:
             schemaName: catalog
             tableName: service_offerings
             columnNames: id
             constraintName: pk_service_offerings
-
-        - addForeignKeyConstraint:
-            baseTableSchemaName: catalog
-            baseTableName: service_offerings
-            baseColumnNames: id
-            referencedTableSchemaName: catalog
-            referencedTableName: items
-            referencedColumnNames: id
-            constraintName: fk_service_offerings_item
-            onDelete: CASCADE
-
-        - addForeignKeyConstraint:
-            baseTableSchemaName: catalog
-            baseTableName: service_offerings
-            baseColumnNames: service_group_id
-            referencedTableSchemaName: catalog
-            referencedTableName: service_groups
-            referencedColumnNames: id
-            constraintName: fk_service_offerings_group
-
-        - createIndex:
-            schemaName: catalog
-            tableName: service_offerings
-            indexName: idx_service_offerings_group
-            columns:
-              - column:
-                  name: service_group_id

@@ -1,9 +1,10 @@
 package com.sashia.ecommerce;
 
-import com.sashia.ecommerce.domain.catalog.category.CategoryService;
-import com.sashia.ecommerce.domain.catalog.category.dto.CategoryCreateRequest;
-import com.sashia.ecommerce.domain.catalog.category.dto.CategoryResponse;
-import com.sashia.ecommerce.domain.catalog.category.dto.CategoryUpdateRequest;
+import com.sashia.ecommerce.catalog.category.CategoryService;
+import com.sashia.ecommerce.catalog.category.dto.CategoryCreateRequest;
+import com.sashia.ecommerce.catalog.category.dto.CategoryResponse;
+import com.sashia.ecommerce.catalog.category.dto.CategoryUpdateRequest;
+import com.sashia.ecommerce.catalog.item.CatalogItemType;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;
@@ -35,6 +36,7 @@ class CategoryControllerTest extends BaseControllerTest {
     private static final String CATEGORY_ICON = "mui-necklace";
     private static final int CATEGORY_DISPLAY_ORDER = 1;
     private static final String CATEGORY_DESCRIPTION = "lorem ipsum";
+    private static final CatalogItemType CATEGORY_ITEM_TYPE = CatalogItemType.PRODUCT;
 
     @Autowired
     private CategoryService categoryService;
@@ -179,7 +181,7 @@ class CategoryControllerTest extends BaseControllerTest {
         @DisplayName("Should create category and return 201 with location header")
         void shouldCreateCategory() throws Exception {
             CategoryCreateRequest request = new CategoryCreateRequest(
-                    CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
+                    CATEGORY_NAME, CATEGORY_URL, CATEGORY_ITEM_TYPE, CATEGORY_ICON,
                     null, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
@@ -207,7 +209,7 @@ class CategoryControllerTest extends BaseControllerTest {
         @WithMockUser(authorities = "CREATE_CATEGORY")
         @DisplayName("Should return 400 when required fields are missing")
         void shouldReturnBadRequest_whenRequiredFieldsMissing(Language language) throws Exception {
-            CategoryCreateRequest request = new CategoryCreateRequest(null, null, null, null, null, null);
+            CategoryCreateRequest request = new CategoryCreateRequest(null, null, null, null, null, null, null);
 
             mockMvc().perform(post(BASE_URL)
                             .locale(language.getLocale())
@@ -226,7 +228,7 @@ class CategoryControllerTest extends BaseControllerTest {
         @DisplayName("Should return 404 when parent category doesn't exist")
         void shouldReturnNotFound_whenParentNotFound(Language language) throws Exception {
             CategoryCreateRequest request = new CategoryCreateRequest(
-                    CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
+                    CATEGORY_NAME, CATEGORY_URL, CATEGORY_ITEM_TYPE, CATEGORY_ICON,
                     INVALID_PARENT_ID, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 
@@ -243,7 +245,7 @@ class CategoryControllerTest extends BaseControllerTest {
         @DisplayName("Should return 403 when user lacks authority")
         void shouldReturnForbidden_whenUserLacksAuthority() throws Exception {
             CategoryCreateRequest request = new CategoryCreateRequest(
-                    CATEGORY_NAME, CATEGORY_URL, CATEGORY_ICON,
+                    CATEGORY_NAME, CATEGORY_URL, CATEGORY_ITEM_TYPE, CATEGORY_ICON,
                     null, CATEGORY_DISPLAY_ORDER, CATEGORY_DESCRIPTION
             );
 

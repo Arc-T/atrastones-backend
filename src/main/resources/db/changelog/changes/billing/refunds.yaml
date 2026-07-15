@@ -1,114 +1,80 @@
-#databaseChangeLog:
-#  - changeSet:
-#      id: 1767965234259169-1
-#      author: Mr.Arc-T
-#      changes:
-#        - createTable:
-#            tableName: payments
-#            remarks: Stores payment transactions
-#            columns:
-#              - column:
-#                  name: id
-#                  type: ${id.type}
-#                  autoIncrement: true
-#                  constraints:
-#                    primaryKey: true
-#                    nullable: false
-#
-#              - column:
-#                  name: user_id
-#                  type: ${integer_value.type}
-#                  constraints:
-#                    nullable: false
-#                    foreignKeyName: fk_payments_user
-#                    references: users(id)
-#
-#              - column:
-#                  name: order_id
-#                  type: ${integer_value.type}
-#                  constraints:
-#                    nullable: false
-#                    foreignKeyName: fk_payments_order
-#                    references: orders(id)
-#
-#              - column:
-#                  name: payment_method
-#                  #                  type: ENUM('CARD', 'WEB', 'APP', 'CASH', 'GATEWAY')
-#                  type: VARCHAR(500)
-#                  constraints:
-#                    nullable: false
-#
-#              - column:
-#                  name: amount
-#                  type: ${integer_value.type}
-#                  constraints:
-#                    nullable: false
-#                  remarks: Amount in Toman
-#
-#              - column:
-#                  name: status
-#                  #                  type: ENUM('PENDING', 'PAID', 'FAILED', 'REFUNDED')
-#                  type: VARCHAR(500)
-#                  constraints:
-#                    nullable: false
-#
-#              - column:
-#                  name: authority
-#                  type: ${short_text.type}
-#                  constraints:
-#                    nullable: true
-#                  remarks: Payment gateway authority code
-#
-#              - column:
-#                  name: reference_id
-#                  type: ${short_text.type}
-#                  constraints:
-#                    nullable: true
-#                  remarks: Gateway reference ID
-#
-#              - column:
-#                  name: fee_type
-#                  type: ${name.type}
-#                  constraints:
-#                    nullable: true
-#
-#              - column:
-#                  name: fee
-#                  type: ${integer_value.type}
-#                  constraints:
-#                    nullable: true
-#                  remarks: Fee in Toman
-#
-#              - column:
-#                  name: description
-#                  type: ${long_text.type}
-#                  constraints:
-#                    nullable: true
-#
-#              - column:
-#                  name: created_at
-#                  type: ${timestamp_value.type}
-#                  defaultValueComputed: CURRENT_TIMESTAMP
-#                  constraints:
-#                    nullable: false
-#
-#        - createIndex:
-#            tableName: payments
-#            indexName: idx_payments_user
-#            columns:
-#              - column:
-#                  name: user_id
-#
-#        - createIndex:
-#            tableName: payments
-#            indexName: idx_payments_order
-#            columns:
-#              - column:
-#                  name: order_id
-#
-#        - createIndex:
-#            tableName: payments
-#            indexName: idx_payments_reference
-#            columns:
-#              - column:
-#                  name: reference_id
+databaseChangeLog:
+  - changeSet:
+      id: 1767965270000-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: billing
+            tableName: refunds
+            remarks: Stores refund records for payments
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: payment_id
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: amount
+                  type: ${integer_value.type}
+                  remarks: Refund amount in Toman
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: reason
+                  type: ${long_text.type}
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: status
+                  # type: ENUM('PENDING', 'APPROVED', 'REJECTED', 'COMPLETED')
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            schemaName: billing
+            tableName: refunds
+            columnNames: id
+            constraintName: pk_refunds
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: billing
+            baseTableName: refunds
+            baseColumnNames: payment_id
+            referencedTableSchemaName: billing
+            referencedTableName: payments
+            referencedColumnNames: id
+            constraintName: fk_refunds_payment
+
+        - createIndex:
+            schemaName: billing
+            tableName: refunds
+            indexName: idx_refunds_payment
+            columns:
+              - column:
+                  name: payment_id
+
+        - createIndex:
+            schemaName: billing
+            tableName: refunds
+            indexName: idx_refunds_status
+            columns:
+              - column:
+                  name: status

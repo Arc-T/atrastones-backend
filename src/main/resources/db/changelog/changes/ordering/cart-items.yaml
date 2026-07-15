@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,16 +20,10 @@ databaseChangeLog:
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_cart_items_cart
-                    references: carts(id)
-                    deleteCascade: true
 
               - column:
                   name: item_type
                   type: ${short_text.type}
-                  constraints:
-                    nullable: false
-                    checkConstraint: item_type IN ('PRODUCT', 'SERVICE')
 
               - column:
                   name: item_id
@@ -56,6 +49,28 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: ordering
+            tableName: cart_items
+            columnNames: id
+            constraintName: pk_cart_items
+
+#        - addCheckConstraint:
+#            schemaName: ordering
+#            tableName: cart_items
+#            constraintName: ck_cart_items_item_type
+#            constraintBody: item_type IN ('PRODUCT', 'SERVICE')
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: ordering
+            baseTableName: cart_items
+            baseColumnNames: cart_id
+            referencedTableSchemaName: ordering
+            referencedTableName: carts
+            referencedColumnNames: id
+            constraintName: fk_cart_items_cart
+            onDelete: CASCADE
 
         - createIndex:
             schemaName: ordering

@@ -49,7 +49,6 @@ databaseChangeLog:
             referencedTableName: attributes
             referencedColumnNames: id
             constraintName: fk_attribute_values_attribute
-            onDelete: CASCADE
 
         - addUniqueConstraint:
             schemaName: catalog

@@ -13,27 +13,41 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
+
               - column:
                   name: user_id
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_carts_user
-                    references: users(id)
-                    deleteCascade: true
+
               - column:
                   name: created_at
                   type: ${timestamp_value.type}
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
               - column:
                   name: updated_at
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: ordering
+            tableName: carts
+            columnNames: id
+            constraintName: pk_carts
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: ordering
+            baseTableName: carts
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedTableSchemaName: identity
+            referencedColumnNames: id
+            constraintName: fk_carts_user
 
         - createIndex:
             schemaName: ordering

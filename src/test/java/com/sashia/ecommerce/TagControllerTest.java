@@ -1,9 +1,9 @@
 package com.sashia.ecommerce;
 
-import com.sashia.ecommerce.domain.catalog.tag.TagService;
-import com.sashia.ecommerce.domain.catalog.tag.dto.TagCreateRequest;
-import com.sashia.ecommerce.domain.catalog.tag.dto.TagResponse;
-import com.sashia.ecommerce.domain.catalog.tag.dto.TagUpdateRequest;
+import com.sashia.ecommerce.catalog.tag.TagService;
+import com.sashia.ecommerce.catalog.tag.dto.TagCreateRequest;
+import com.sashia.ecommerce.catalog.tag.dto.TagResponse;
+import com.sashia.ecommerce.catalog.tag.dto.TagUpdateRequest;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;

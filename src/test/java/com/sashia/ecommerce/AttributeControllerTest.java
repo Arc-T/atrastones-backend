@@ -1,11 +1,11 @@
 package com.sashia.ecommerce;
 
-import com.sashia.ecommerce.domain.catalog.attribute.AttributeService;
-import com.sashia.ecommerce.domain.catalog.attribute.AttributeType;
-import com.sashia.ecommerce.domain.catalog.attribute.dto.AttributeCreateRequest;
-import com.sashia.ecommerce.domain.catalog.attribute.dto.AttributeResponse;
-import com.sashia.ecommerce.domain.catalog.attribute.dto.AttributeUpdateRequest;
-import com.sashia.ecommerce.domain.catalog.attribute.AttributeValueRequest;
+import com.sashia.ecommerce.catalog.attribute.AttributeService;
+import com.sashia.ecommerce.catalog.attribute.dto.AttributeType;
+import com.sashia.ecommerce.catalog.attribute.dto.AttributeCreateRequest;
+import com.sashia.ecommerce.catalog.attribute.dto.AttributeResponse;
+import com.sashia.ecommerce.catalog.attribute.dto.AttributeUpdateRequest;
+import com.sashia.ecommerce.catalog.attribute.dto.AttributeValueRequest;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;

@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,7 +20,6 @@ databaseChangeLog:
                   type: ${name.type}
                   constraints:
                     nullable: false
-                    unique: true
 
               - column:
                   name: description
@@ -41,3 +39,15 @@ databaseChangeLog:
                   type: ${timestamp_value.type}
                   constraints:
                     nullable: true
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: user_groups
+            columnNames: id
+            constraintName: pk_user_groups
+
+        - addUniqueConstraint:
+            schemaName: identity
+            tableName: user_groups
+            columnNames: name
+            constraintName: uk_user_groups_name

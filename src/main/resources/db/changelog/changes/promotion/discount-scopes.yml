@@ -13,15 +13,14 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
                   name: code
                   type: ${name.type}
+                  remarks: ORDER, PRODUCT, CATEGORY, SHIPPING, CUSTOMER_SEGMENT
                   constraints:
                     nullable: false
-                  remarks: ORDER, PRODUCT, CATEGORY, SHIPPING, CUSTOMER_SEGMENT
 
               - column:
                   name: name
@@ -41,6 +40,12 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: promotion
+            tableName: discount_scopes
+            columnNames: id
+            constraintName: pk_discount_scopes
 
         - addUniqueConstraint:
             constraintName: uk_discount_scopes_code

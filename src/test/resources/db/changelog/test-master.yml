@@ -5,4 +5,4 @@ databaseChangeLog:
 
   ######################################## MASTER ########################################
   - include:
-      file: db/changelog/master.yml
+      file: db/changelog/master.yaml

@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -33,34 +32,30 @@ databaseChangeLog:
                   type: ${short_text.type}
                   constraints:
                     nullable: true
-                    unique: true
 
               - column:
                   name: phone
                   type: ${phone.type}
                   constraints:
                     nullable: false
-                    unique: true
 
               - column:
                   name: password
                   type: ${short_text.type}
+                  remarks: Hashed password (e.g., bcrypt)
                   constraints:
                     nullable: false
-                  remarks: Hashed password (e.g., bcrypt)
 
               - column:
                   name: user_group_id
                   type: ${integer_value.type}
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_users_user_group
-                    references: user_groups(id)
 
               - column:
                   name: gender
+                  # type: ENUM('MALE', 'FEMALE')
                   type: VARCHAR(500)
-                  #                  type: ENUM('MALE', 'FEMALE')
                   constraints:
                     nullable: false
 
@@ -89,6 +84,33 @@ databaseChangeLog:
                   constraints:
                     nullable: true
 
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: users
+            columnNames: id
+            constraintName: pk_users
+
+        - addUniqueConstraint:
+            schemaName: identity
+            tableName: users
+            columnNames: email
+            constraintName: uk_users_email
+
+        - addUniqueConstraint:
+            schemaName: identity
+            tableName: users
+            columnNames: phone
+            constraintName: uk_users_phone
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: identity
+            baseTableName: users
+            baseColumnNames: user_group_id
+            referencedTableSchemaName: identity
+            referencedTableName: user_groups
+            referencedColumnNames: id
+            constraintName: fk_users_user_group
+
         - createIndex:
             schemaName: identity
             tableName: users
@@ -112,3 +134,11 @@ databaseChangeLog:
             columns:
               - column:
                   name: user_group_id
+
+        - createIndex:
+            schemaName: identity
+            tableName: users
+            indexName: idx_users_deleted_at
+            columns:
+              - column:
+                  name: deleted_at

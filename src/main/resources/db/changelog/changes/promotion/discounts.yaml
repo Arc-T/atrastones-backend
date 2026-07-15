@@ -13,51 +13,46 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
                   name: name
                   type: ${short_text.type}
+                  remarks: Discount display name
                   constraints:
                     nullable: false
-                  remarks: Discount display name
 
               - column:
                   name: discountable_type
                   type: ${short_text.type}
+                  remarks: like coupons
                   constraints:
                     nullable: false
-                  remarks: like coupons
 
               - column:
                   name: discount_type_id
                   type: ${id.type}
+                  remarks: References discount_types.id
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_discounts_discount_type
-                    references: discount_types(id)
-                  remarks: References discount_types.id
 
               - column:
                   name: discount_scope_id
                   type: ${id.type}
+                  remarks: References discount_scopes.id
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_discounts_discount_scope
-                    references: discount_scopes(id)
-                  remarks: References discount_scopes.id
 
               - column:
                   name: amount
                   type: ${price.type}
+                  remarks: Discount amount or percentage (positive number)
                   constraints:
                     nullable: false
-                  remarks: Discount amount or percentage (positive number)
 
               - column:
                   name: selection_type
-                  #                  type: ENUM('ALL', 'INCLUDED', 'EXCLUDED')
+                  # type: ENUM('ALL', 'INCLUDED', 'EXCLUDED')
                   type: VARCHAR(500)
                   defaultValue: ALL
                   constraints:
@@ -78,17 +73,17 @@ databaseChangeLog:
               - column:
                   name: max_uses
                   type: ${integer_value.type}
+                  remarks: Global usage limit
                   constraints:
                     nullable: true
-                  remarks: Global usage limit
 
               - column:
                   name: used_count
                   type: ${integer_value.type}
                   defaultValue: 0
+                  remarks: Track actual usage
                   constraints:
                     nullable: false
-                  remarks: Track actual usage
 
               - column:
                   name: is_active
@@ -122,6 +117,30 @@ databaseChangeLog:
                   constraints:
                     nullable: true
 
+        - addPrimaryKey:
+            schemaName: promotion
+            tableName: discounts
+            columnNames: id
+            constraintName: pk_discounts
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: promotion
+            baseTableName: discounts
+            baseColumnNames: discount_type_id
+            referencedTableSchemaName: promotion
+            referencedTableName: discount_types
+            referencedColumnNames: id
+            constraintName: fk_discounts_discount_type
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: promotion
+            baseTableName: discounts
+            baseColumnNames: discount_scope_id
+            referencedTableSchemaName: promotion
+            referencedTableName: discount_scopes
+            referencedColumnNames: id
+            constraintName: fk_discounts_discount_scope
+
         - createIndex:
             schemaName: promotion
             indexName: idx_discounts_active_dates
@@ -143,3 +162,11 @@ databaseChangeLog:
                   name: discount_type_id
               - column:
                   name: discount_scope_id
+
+        - createIndex:
+            schemaName: promotion
+            indexName: idx_discounts_deleted_at
+            tableName: discounts
+            columns:
+              - column:
+                  name: deleted_at

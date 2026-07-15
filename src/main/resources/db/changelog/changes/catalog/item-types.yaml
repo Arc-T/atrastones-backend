@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 1783792615175-1
+      id: 1784121678785-1
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: catalog
             tableName: item_types
-            remarks: Stores catalog item type definitions.
+            remarks: Stores catalog item types that are purchasable.
             columns:
               - column:
                   name: id
@@ -16,45 +16,14 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: title
-                  type: ${name.type}
+                  name: catalog_item_type
+                  type: ${short_text.type}
+                  remarks: name of the item.
                   constraints:
                     nullable: false
-
-              - column:
-                  name: code
-                  type: ${name.type}
-                  remarks: Internal enum identifier.
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: created_at
-                  type: ${timestamp_value.type}
-                  defaultValueComputed: CURRENT_TIMESTAMP
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: updated_at
-                  type: ${timestamp_value.type}
-                  constraints:
-                    nullable: true
 
         - addPrimaryKey:
             schemaName: catalog
             tableName: item_types
             columnNames: id
             constraintName: pk_item_types
-
-        - addUniqueConstraint:
-            schemaName: catalog
-            tableName: item_types
-            columnNames: title
-            constraintName: uk_item_types_title
-
-        - addUniqueConstraint:
-            schemaName: catalog
-            tableName: item_types
-            columnNames: code
-            constraintName: uk_item_types_code

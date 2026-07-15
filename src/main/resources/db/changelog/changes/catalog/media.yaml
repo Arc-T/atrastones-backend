@@ -1,0 +1,118 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1767965225839-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: catalog
+            tableName: media
+            remarks: Stores media files associated with catalog products.
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: product_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: media_type_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: slug
+                  type: ${short_text.type}
+                  remarks: Unique media identifier or storage path.
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: ${short_text.type}
+                  remarks: Original file name.
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: mime_type
+                  type: ${short_text.type}
+                  remarks: MIME type of the media file.
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: display_order
+                  type: ${integer_value.type}
+                  defaultValueNumeric: '1'
+                  remarks: Starts at 1; the first media is the primary media.
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: ${timestamp_value.type}
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            schemaName: catalog
+            tableName: media
+            columnNames: id
+            constraintName: pk_media
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: catalog
+            baseTableName: media
+            baseColumnNames: product_id
+            referencedTableSchemaName: catalog
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: fk_media_product
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: catalog
+            baseTableName: media
+            baseColumnNames: media_type_id
+            referencedTableSchemaName: catalog
+            referencedTableName: media_types
+            referencedColumnNames: id
+            constraintName: fk_media_media_type
+
+        - addUniqueConstraint:
+            schemaName: catalog
+            tableName: media
+            columnNames: slug
+            constraintName: uk_media_slug
+
+        - createIndex:
+            schemaName: catalog
+            tableName: media
+            indexName: idx_media_product
+            columns:
+              - column:
+                  name: product_id
+
+        - createIndex:
+            schemaName: catalog
+            tableName: media
+            indexName: idx_media_media_type
+            columns:
+              - column:
+                  name: media_type_id
+
+        - createIndex:
+            schemaName: catalog
+            tableName: media
+            indexName: idx_media_slug
+            columns:
+              - column:
+                  name: slug

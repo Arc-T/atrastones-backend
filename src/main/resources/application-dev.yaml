@@ -4,7 +4,7 @@ spring:
     name: ASA
 
   config:
-    import: classpath:db/postgresql/postgresql-config.yml, classpath:sms/melipayamak.yml
+    import: classpath:db/postgresql.yaml, classpath:sms/melipayamak.yml
 
   main:
     lazy-initialization: true
@@ -41,8 +41,7 @@ spring:
 
   liquibase:
     enabled: true
-    drop-first: true
-    change-log: classpath:/db/changelog/master.yml
+    change-log: classpath:/db/changelog/master.yaml
     database-change-log-table: liquibase_changelogs
     database-change-log-lock-table: liquibase_changelog_locks
 
@@ -76,6 +75,10 @@ spring:
       resourceserver:
         jwt:
           authority-prefix: ''
+
+  cache:
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s
 
 server:
   address: 0.0.0.0

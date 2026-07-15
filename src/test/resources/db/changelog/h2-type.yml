@@ -12,6 +12,10 @@ databaseChangeLog:
       value: VARCHAR(100)
       dbms: h2
   - property:
+      name: boolean.type
+      value: BOOLEAN
+      dbms: h2
+  - property:
       name: medium_text.type
       value: VARCHAR(500)
       dbms: h2
@@ -106,4 +110,12 @@ databaseChangeLog:
   - property:
       name: item_type.type
       value: VARCHAR(20)
+      dbms: h2
+  - property:
+      name: uuid.type
+      value: UUID
+      dbms: h2
+  - property:
+      name: description.type
+      value: VARCHAR(4000)
       dbms: h2

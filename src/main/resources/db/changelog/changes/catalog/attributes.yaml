@@ -1,24 +1,17 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767965131634-1
+      id: 1784121655558-1
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: catalog
             tableName: attributes
-            remarks: Stores item attributes.
+            remarks: Stores item attributes such as Color, Size, Weight, Brand, etc.
             columns:
               - column:
                   name: id
                   type: ${id.type}
                   autoIncrement: true
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: name
-                  type: ${name.type}
-                  remarks: Supports Persian names.
                   constraints:
                     nullable: false
 
@@ -29,23 +22,34 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: type
-                  type: ${short_text.type}
-                  remarks: Attribute type (TEXT, NUMBER, SELECT, MULTISELECT).
-                  defaultValue: TEXT
+                  name: item_type_id
+                  type: ${id.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: is_filterable
-                  type: ${boolean_flag.type}
+                  name: name
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: filterable
+                  type: ${boolean.type}
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
 
               - column:
+                  name: type
+                  type: ${name.type}
+                  remarks: Attribute type enum
+                  constraints:
+                    nullable: false
+
+              - column:
                   name: description
-                  type: ${short_text.type}
+                  type: ${long_text.type}
                   constraints:
                     nullable: true
 
@@ -76,7 +80,15 @@ databaseChangeLog:
             referencedTableName: categories
             referencedColumnNames: id
             constraintName: fk_attributes_category
-            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: catalog
+            baseTableName: attributes
+            baseColumnNames: item_type_id
+            referencedTableSchemaName: catalog
+            referencedTableName: item_types
+            referencedColumnNames: id
+            constraintName: fk_attributes_item_type
 
         - createIndex:
             schemaName: catalog
@@ -89,7 +101,23 @@ databaseChangeLog:
         - createIndex:
             schemaName: catalog
             tableName: attributes
+            indexName: idx_attributes_item_type
+            columns:
+              - column:
+                  name: item_type_id
+
+        - createIndex:
+            schemaName: catalog
+            tableName: attributes
             indexName: idx_attributes_filterable
             columns:
               - column:
-                  name: is_filterable
+                  name: filterable
+
+        - createIndex:
+            schemaName: catalog
+            tableName: attributes
+            indexName: idx_attributes_type
+            columns:
+              - column:
+                  name: type

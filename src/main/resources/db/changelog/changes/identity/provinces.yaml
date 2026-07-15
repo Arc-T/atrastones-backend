@@ -13,7 +13,6 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
@@ -21,7 +20,6 @@ databaseChangeLog:
                   type: ${name.type}
                   constraints:
                     nullable: false
-                    unique: true
 
               - column:
                   name: created_at
@@ -29,3 +27,15 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: identity
+            tableName: provinces
+            columnNames: id
+            constraintName: pk_provinces
+
+        - addUniqueConstraint:
+            schemaName: identity
+            tableName: provinces
+            columnNames: name
+            constraintName: uk_provinces_name

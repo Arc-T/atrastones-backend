@@ -13,15 +13,14 @@ databaseChangeLog:
                   type: ${id.type}
                   autoIncrement: true
                   constraints:
-                    primaryKey: true
                     nullable: false
 
               - column:
                   name: code
                   type: ${short_text.type}
+                  remarks: UNIT, PERCENT, FIXED, BUY_X_GET_Y
                   constraints:
                     nullable: false
-                  remarks: UNIT, PERCENT, FIXED, BUY_X_GET_Y
 
               - column:
                   name: name
@@ -41,6 +40,12 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+
+        - addPrimaryKey:
+            schemaName: promotion
+            tableName: discount_types
+            columnNames: id
+            constraintName: pk_discount_types
 
         - addUniqueConstraint:
             constraintName: uk_discount_types_code
