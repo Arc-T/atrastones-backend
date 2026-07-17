@@ -9,7 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "item_variant_attribute_values", catalog = "catalog")
+@Table(name = "item_variant_attribute_values", schema = "catalog")
 public class ItemVariantAttributeValue {
 
     @Id

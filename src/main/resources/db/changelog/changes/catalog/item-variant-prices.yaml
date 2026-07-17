@@ -45,7 +45,7 @@ databaseChangeLog:
         - createIndex:
             schemaName: catalog
             tableName: item_variant_prices
-            indexName: idx_item_variant_prices_active
+            indexName: idx_item_variant_prices_is_active
             columns:
               - column:
                   name: is_active

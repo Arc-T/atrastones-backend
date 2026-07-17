@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.shop.member;
 
 import com.sashia.ecommerce.shop.internal.Shop;
-import com.sashia.ecommerce.user.User;
+import com.sashia.ecommerce.identity.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

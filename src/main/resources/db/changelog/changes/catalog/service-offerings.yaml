@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767965159792-1
+      id: 1784212766370-1
       author: Mr.Arc-T
       changes:
         - createTable:
@@ -11,6 +11,7 @@ databaseChangeLog:
               - column:
                   name: id
                   type: ${id.type}
+                  autoIncrement: true
                   constraints:
                     nullable: false
 
@@ -32,3 +33,9 @@ databaseChangeLog:
             tableName: service_offerings
             columnNames: id
             constraintName: pk_service_offerings
+
+        - addUniqueConstraint:
+            schemaName: catalog
+            tableName: service_offerings
+            columnNames: name
+            constraintName: uk_service_offerings_name

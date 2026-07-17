@@ -2,7 +2,6 @@ package com.sashia.ecommerce.catalog.category;
 
 import com.sashia.ecommerce.catalog.item.Item;
 import com.sashia.ecommerce.catalog.item.ItemType;
-import com.sashia.ecommerce.catalog.item.product.Product;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,14 +18,17 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "parent_id", insertable = false, updatable = false)
+    private Long parentId;
+
+    @Enumerated(EnumType.STRING)
+    private ItemType itemType;
+
     private String name;
 
     private String slug;
 
     private String icon;
-
-    @Column(name = "parent_id", insertable = false, updatable = false)
-    private Long parentId;
 
     private int displayOrder;
 
@@ -39,9 +41,6 @@ public class Category {
     private LocalDateTime updatedAt;
 
     /* **************************** FOREIGN-KEY RELATIONS ***************************** */
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ItemType itemType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
@@ -63,6 +62,14 @@ public class Category {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {
@@ -87,14 +94,6 @@ public class Category {
 
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
     }
 
     public int getDisplayOrder() {

@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767965244600-1
+      id: 1784293789196-1
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: ordering
             tableName: order_transactions
-            remarks: Tracks order status changes
+            remarks: Stores the history of status transitions for orders.
             columns:
               - column:
                   name: id
@@ -17,19 +17,19 @@ databaseChangeLog:
 
               - column:
                   name: order_id
-                  type: ${integer_value.type}
+                  type: ${id.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: status_id
-                  type: ${integer_value.type}
+                  name: order_status_id
+                  type: ${id.type}
                   constraints:
                     nullable: false
 
               - column:
                   name: description
-                  type: ${long_text.type}
+                  type: ${description.type}
                   constraints:
                     nullable: true
 
@@ -53,32 +53,37 @@ databaseChangeLog:
             referencedTableSchemaName: ordering
             referencedTableName: orders
             referencedColumnNames: id
-            constraintName: fk_transactions_order
-            onDelete: CASCADE
+            constraintName: fk_order_transactions_order
 
         - addForeignKeyConstraint:
             baseTableSchemaName: ordering
             baseTableName: order_transactions
-            baseColumnNames: status_id
+            baseColumnNames: order_status_id
             referencedTableSchemaName: ordering
             referencedTableName: order_statuses
             referencedColumnNames: id
-            constraintName: fk_transactions_status
+            constraintName: fk_order_transactions_status
 
         - createIndex:
             schemaName: ordering
             tableName: order_transactions
-            indexName: idx_transactions_order
+            indexName: idx_order_transactions_order
             columns:
               - column:
                   name: order_id
-              - column:
-                  name: created_at
 
         - createIndex:
             schemaName: ordering
             tableName: order_transactions
-            indexName: idx_transactions_status
+            indexName: idx_order_transactions_status
             columns:
               - column:
-                  name: status_id
+                  name: order_status_id
+
+        - createIndex:
+            schemaName: ordering
+            tableName: order_transactions
+            indexName: idx_order_transactions_created_at
+            columns:
+              - column:
+                  name: created_at

@@ -7,7 +7,6 @@ import com.sashia.ecommerce.catalog.category.dto.CategoryCreateRequest;
 import com.sashia.ecommerce.catalog.category.dto.CategoryResponse;
 import com.sashia.ecommerce.catalog.category.dto.CategorySearchRequest;
 import com.sashia.ecommerce.catalog.category.dto.CategoryUpdateRequest;
-import com.sashia.ecommerce.catalog.item.ItemTypeRepository;
 import com.sashia.ecommerce.shared.exception.BusinessRuleException;
 import com.sashia.ecommerce.shared.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
@@ -21,11 +20,9 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 
-    private final ItemTypeRepository itemTypeRepository;
     private final CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(ItemTypeRepository itemTypeRepository, CategoryRepository categoryRepository) {
-        this.itemTypeRepository = itemTypeRepository;
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -33,8 +30,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Long create(CategoryCreateRequest request) {
         Category category = CategoryMapper.toEntity(request);
-
-        category.setItemType(itemTypeRepository.getReferenceById(1L));
 
         if (request.parentId() != null) {
 

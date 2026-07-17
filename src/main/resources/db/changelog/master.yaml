@@ -31,7 +31,7 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/shop/shops.yaml
   - include:
-      file: db/changelog/changes/catalog/item-types.yaml
+      file: db/changelog/changes/catalog/item-delivery-options.yaml
   - include:
       file: db/changelog/changes/catalog/categories.yaml
   - include:
@@ -51,7 +51,15 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/catalog/item-variants.yaml
   - include:
+      file: db/changelog/changes/catalog/item-tags.yaml
+  - include:
+      file: db/changelog/changes/catalog/item-variant-attribute-values.yaml
+  - include:
+      file: db/changelog/changes/ordering/order-statuses.yaml
+  - include:
       file: db/changelog/changes/ordering/orders.yaml
+  - include:
+      file: db/changelog/changes/ordering/order-charges.yaml
   - include:
       file: db/changelog/changes/promotion/discount-types.yaml
   - include:
@@ -59,35 +67,37 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/promotion/discounts.yaml
   - include:
+      file: db/changelog/changes/ordering/order-items.yaml
+  - include:
+      file: db/changelog/changes/ordering/order-transactions.yaml
+  - include:
+      file: db/changelog/changes/ordering/wishlists.yaml
+  - include:
+      file: db/changelog/changes/ordering/shipment-statuses.yaml
+  - include:
+      file: db/changelog/changes/ordering/shipments.yaml
+  - include:
+      file: db/changelog/changes/ordering/shipment-transactions.yaml
+  - include:
+      file: db/changelog/changes/ordering/carts.yaml
+  - include:
+      file: db/changelog/changes/ordering/cart-items.yaml
+  - include:
       file: db/changelog/changes/promotion/discount-coupons.yml
   - include:
       file: db/changelog/changes/promotion/discount-conditions.yml
   - include:
       file: db/changelog/changes/promotion/discount-targets.yml
   - include:
-      file: db/changelog/changes/ordering/order-details.yaml
-  - include:
-      file: db/changelog/changes/catalog/product-tags.yaml
-  - include:
-      file: db/changelog/changes/catalog/item-attribute-values.yaml
-  - include:
-      file: db/changelog/changes/catalog/media-types.yaml
-  - include:
-      file: db/changelog/changes/catalog/media.yaml
-  - include:
-      file: db/changelog/changes/ordering/wishlists.yaml
-  - include:
-      file: db/changelog/changes/ordering/order-statuses.yaml
-  - include:
-      file: db/changelog/changes/ordering/order-transactions.yaml
-  - include:
-      file: db/changelog/changes/billing/invoice-types.yaml
+      file: db/changelog/changes/media/media.yaml
   - include:
       file: db/changelog/changes/billing/invoices.yaml
   - include:
-      file: db/changelog/changes/billing/payments.yaml
+      file: db/changelog/changes/billing/invoice-items.yaml
   - include:
-      file: db/changelog/changes/ordering/order-remaining-balances.yaml
+      file: db/changelog/changes/billing/invoice-charges.yaml
+  - include:
+      file: db/changelog/changes/billing/payments.yaml
   - include:
       file: db/changelog/changes/notification/sms-templates.yaml
   - include:
@@ -95,15 +105,9 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/notification/sms.yaml
   - include:
-      file: db/changelog/changes/ordering/carts.yaml
-  - include:
-      file: db/changelog/changes/ordering/cart-items.yaml
-  - include:
       file: db/changelog/changes/platform/event_publication.yaml
 
   ######################################## DATA ########################################
-  - include:
-      file: db/changelog/data/catalog/item-types.yaml
 #  - include:
 #      file: db/changelog/data/identity/roles.yml
 #  - include:

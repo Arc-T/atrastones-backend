@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767965239477-1
+      id: 1784293793275-1
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: ordering
             tableName: order_statuses
-            remarks: Stores order status definitions
+            remarks: Stores available order statuses.
             columns:
               - column:
                   name: id
@@ -22,10 +22,24 @@ databaseChangeLog:
                     nullable: false
 
               - column:
+                  name: type
+                  type: ${name.type}
+                  remarks: Order status type enum.
+                  constraints:
+                    nullable: false
+
+              - column:
                   name: description
-                  type: ${short_text.type}
+                  type: ${description.type}
                   constraints:
                     nullable: true
+
+              - column:
+                  name: active
+                  type: ${boolean.type}
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
 
               - column:
                   name: created_at
@@ -51,3 +65,33 @@ databaseChangeLog:
             tableName: order_statuses
             columnNames: name
             constraintName: uk_order_statuses_name
+
+        - addUniqueConstraint:
+            schemaName: ordering
+            tableName: order_statuses
+            columnNames: type
+            constraintName: uk_order_statuses_type
+
+        - createIndex:
+            schemaName: ordering
+            tableName: order_statuses
+            indexName: idx_order_statuses_name
+            columns:
+              - column:
+                  name: name
+
+        - createIndex:
+            schemaName: ordering
+            tableName: order_statuses
+            indexName: idx_order_statuses_type
+            columns:
+              - column:
+                  name: type
+
+        - createIndex:
+            schemaName: ordering
+            tableName: order_statuses
+            indexName: idx_order_statuses_active
+            columns:
+              - column:
+                  name: active

@@ -24,8 +24,8 @@ public class Product {
 
     /* ******************************* TABLE RELATIONS ******************************** */
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private Set<Media> media = new HashSet<>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+//    private Set<Media> media = new HashSet<>();
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 //    private Set<ProductComments> comments = new HashSet<>();
@@ -54,14 +54,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Media> getMedia() {
-        return media;
-    }
-
-    public void setMedia(Set<Media> media) {
-        this.media = media;
     }
 
 }

@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767965254794-1
+      id: 1784287817888-1
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: billing
             tableName: invoices
-            remarks: Stores invoices for orders
+            remarks: Stores invoice snapshots generated for completed orders.
             columns:
               - column:
                   name: id
@@ -17,31 +17,96 @@ databaseChangeLog:
 
               - column:
                   name: order_id
-                  type: ${integer_value.type}
+                  type: ${id.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: invoice_type_id
-                  type: ${integer_value.type}
+                  name: invoice_number
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              # **************************** Pricing ****************************
+
+              - column:
+                  name: currency
+                  type: ${name.type}
+                  remarks: Currency enum.
                   constraints:
                     nullable: false
 
               - column:
-                  name: total_price
-                  type: ${integer_value.type}
-                  remarks: Total in Toman
+                  name: subtotal
+                  type: ${price.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: description
-                  type: ${long_text.type}
+                  name: shipping_cost
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: tax
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: additional_charges
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: discount
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: total
+                  type: ${price.type}
+                  constraints:
+                    nullable: false
+
+              # ************************ Billing Details ************************
+
+              - column:
+                  name: billing_address
+                  type: ${description.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: customer_name
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: customer_email
+                  type: ${name.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: customer_phone
+                  type: ${phone.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: note
+                  type: ${description.type}
                   constraints:
                     nullable: true
 
               - column:
-                  name: created_at
+                  name: issued_at
                   type: ${timestamp_value.type}
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
@@ -57,20 +122,16 @@ databaseChangeLog:
             baseTableSchemaName: billing
             baseTableName: invoices
             baseColumnNames: order_id
-            referencedTableName: orders
             referencedTableSchemaName: ordering
+            referencedTableName: orders
             referencedColumnNames: id
             constraintName: fk_invoices_order
-            onDelete: CASCADE
 
-        - addForeignKeyConstraint:
-            baseTableSchemaName: billing
-            baseTableName: invoices
-            baseColumnNames: invoice_type_id
-            referencedTableSchemaName: billing
-            referencedTableName: invoice_types
-            referencedColumnNames: id
-            constraintName: fk_invoices_type
+        - addUniqueConstraint:
+            schemaName: billing
+            tableName: invoices
+            columnNames: invoice_number
+            constraintName: uk_invoices_invoice_number
 
         - createIndex:
             schemaName: billing
@@ -83,7 +144,16 @@ databaseChangeLog:
         - createIndex:
             schemaName: billing
             tableName: invoices
-            indexName: idx_invoices_type
+            indexName: idx_invoices_number
+            unique: true
             columns:
               - column:
-                  name: invoice_type_id
+                  name: invoice_number
+
+        - createIndex:
+            schemaName: billing
+            tableName: invoices
+            indexName: idx_invoices_issued_at
+            columns:
+              - column:
+                  name: issued_at

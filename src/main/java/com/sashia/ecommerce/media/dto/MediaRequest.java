@@ -9,7 +9,6 @@ public record MediaRequest(
         Long productId,
         String url,
         String type,
-        Integer displayOrder,
         String extension,
         LocalDateTime createdAt
 ) {
@@ -17,21 +16,19 @@ public record MediaRequest(
     public MediaRequest(Long productId,
                         String url,
                         String type,
-                        Integer displayOrder,
                         String extension,
                         LocalDateTime createdAt) {
-        this(null, productId, url, type, displayOrder, extension, createdAt);
+        this(null, productId, url, type, extension, createdAt);
     }
 
     public static MediaRequest toDTO(Media media) {
         return new MediaRequest(
-                media.id(),
-                media.product().getId(),
-                media.url(),
-                media.mediaType().name(),
-                media.displayOrder(),
-                media.extension(),
-                media.createdAt()
+                media.getId(),
+                media.getResourceId(),
+                media.getSlug(),
+                media.getMimeType(),
+                media.getExtension(),
+                media.getCreatedAt()
         );
     }
 

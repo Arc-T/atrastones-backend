@@ -1,10 +1,10 @@
 package com.sashia.ecommerce.shop.internal;
 
 import com.sashia.ecommerce.catalog.item.product.Product;
-import com.sashia.ecommerce.order.Order;
+import com.sashia.ecommerce.ordering.order.Order;
 import com.sashia.ecommerce.shop.member.ShopMember;
 import com.sashia.ecommerce.shop.dto.ShopStatus;
-import com.sashia.ecommerce.user.address.Address;
+import com.sashia.ecommerce.identity.user.address.Address;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

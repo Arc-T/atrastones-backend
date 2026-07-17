@@ -7,7 +7,7 @@ import com.sashia.ecommerce.catalog.item.product.ProductRepository;
 import com.sashia.ecommerce.catalog.item.product.ProductService;
 import com.sashia.ecommerce.catalog.item.product.dto.*;
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantPriceService;
-import com.sashia.ecommerce.discount.DiscountService;
+import com.sashia.ecommerce.promotion.discount.DiscountService;
 import com.sashia.ecommerce.media.MediaService;
 import com.sashia.ecommerce.shared.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;

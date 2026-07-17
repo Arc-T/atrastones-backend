@@ -116,6 +116,10 @@ databaseChangeLog:
       value: UUID
       dbms: h2
   - property:
+      name: json.type
+      value: jsonb
+      dbms: h2
+  - property:
       name: description.type
       value: VARCHAR(4000)
       dbms: h2

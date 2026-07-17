@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1784121668290-1
+      id: 1784149134805-1
       author: Mr.Arc-T
       changes:
         - createTable:
@@ -22,8 +22,8 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: item_type_id
-                  type: ${id.type}
+                  name: item_type
+                  type: ${name.type}
                   constraints:
                     nullable: false
 
@@ -40,14 +40,14 @@ databaseChangeLog:
                     nullable: true
 
               - column:
-                  name: featured
+                  name: is_featured
                   type: ${boolean.type}
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
 
               - column:
-                  name: published
+                  name: is_published
                   type: ${boolean.type}
                   defaultValueBoolean: false
                   constraints:
@@ -87,15 +87,6 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_items_category
 
-        - addForeignKeyConstraint:
-            baseTableSchemaName: catalog
-            baseTableName: items
-            baseColumnNames: item_type_id
-            referencedTableSchemaName: catalog
-            referencedTableName: item_types
-            referencedColumnNames: id
-            constraintName: fk_items_item_type
-
         - createIndex:
             schemaName: catalog
             tableName: items
@@ -110,28 +101,20 @@ databaseChangeLog:
             indexName: idx_items_item_type
             columns:
               - column:
-                  name: item_type_id
+                  name: item_type
 
         - createIndex:
             schemaName: catalog
             tableName: items
-            indexName: idx_items_published
+            indexName: idx_items_is_published
             columns:
               - column:
-                  name: published
+                  name: is_published
 
         - createIndex:
             schemaName: catalog
             tableName: items
-            indexName: idx_items_featured
+            indexName: idx_items_is_featured
             columns:
               - column:
-                  name: featured
-
-        - createIndex:
-            schemaName: catalog
-            tableName: items
-            indexName: idx_items_deleted_at
-            columns:
-              - column:
-                  name: deleted_at
+                  name: is_featured

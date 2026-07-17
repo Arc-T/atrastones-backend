@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767965300000-1
+      id: 1784293094528-1
       author: Mr.Arc-T
       changes:
         - createTable:
             schemaName: ordering
             tableName: shipments
-            remarks: Tracks shipment and delivery info per shop within an order
+            remarks: Stores shipment information for customer orders.
             columns:
               - column:
                   name: id
@@ -17,19 +17,19 @@ databaseChangeLog:
 
               - column:
                   name: order_id
-                  type: ${integer_value.type}
+                  type: ${id.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: shop_id
-                  type: ${integer_value.type}
+                  name: shipment_status_id
+                  type: ${id.type}
                   constraints:
                     nullable: false
 
               - column:
                   name: tracking_number
-                  type: ${short_text.type}
+                  type: ${name.type}
                   constraints:
                     nullable: true
 
@@ -40,28 +40,8 @@ databaseChangeLog:
                     nullable: true
 
               - column:
-                  name: status
-                  # type: ENUM('PENDING', 'PREPARING', 'SHIPPED', 'IN_TRANSIT', 'DELIVERED', 'RETURNED')
-                  type: VARCHAR(500)
-                  defaultValue: PENDING
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: shipped_at
-                  type: ${timestamp_value.type}
-                  constraints:
-                    nullable: true
-
-              - column:
-                  name: delivered_at
-                  type: ${timestamp_value.type}
-                  constraints:
-                    nullable: true
-
-              - column:
                   name: description
-                  type: ${long_text.type}
+                  type: ${description.type}
                   constraints:
                     nullable: true
 
@@ -71,12 +51,6 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
-
-              - column:
-                  name: updated_at
-                  type: ${timestamp_value.type}
-                  constraints:
-                    nullable: true
 
         - addPrimaryKey:
             schemaName: ordering
@@ -92,15 +66,15 @@ databaseChangeLog:
             referencedTableName: orders
             referencedColumnNames: id
             constraintName: fk_shipments_order
-            onDelete: CASCADE
 
         - addForeignKeyConstraint:
             baseTableSchemaName: ordering
             baseTableName: shipments
-            baseColumnNames: shop_id
-            referencedTableName: shops
+            baseColumnNames: shipment_status_id
+            referencedTableSchemaName: ordering
+            referencedTableName: shipment_statuses
             referencedColumnNames: id
-            constraintName: fk_shipments_shop
+            constraintName: fk_shipments_status
 
         - createIndex:
             schemaName: ordering
@@ -113,18 +87,10 @@ databaseChangeLog:
         - createIndex:
             schemaName: ordering
             tableName: shipments
-            indexName: idx_shipments_shop
-            columns:
-              - column:
-                  name: shop_id
-
-        - createIndex:
-            schemaName: ordering
-            tableName: shipments
             indexName: idx_shipments_status
             columns:
               - column:
-                  name: status
+                  name: shipment_status_id
 
         - createIndex:
             schemaName: ordering

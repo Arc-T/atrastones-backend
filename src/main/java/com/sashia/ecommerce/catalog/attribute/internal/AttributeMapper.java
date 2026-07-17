@@ -20,7 +20,7 @@ public final class AttributeMapper {
                 attribute.getName(),
                 attribute.getCategoryId(),
                 attribute.getType(),
-                attribute.getFilterable(),
+                attribute.getIsFilterable(),
                 attribute.getDescription(),
                 attribute.getCreatedAt(),
                 attribute.getUpdatedAt(),
@@ -34,7 +34,7 @@ public final class AttributeMapper {
         Attribute attribute = new Attribute();
         attribute.setName(dto.name());
         attribute.setCategory(category);
-        attribute.setFilterable(dto.isFilterable());
+        attribute.setIsFilterable(dto.isFilterable());
         attribute.setType(dto.type());
         attribute.setDescription(dto.description());
         return attribute;
@@ -44,7 +44,7 @@ public final class AttributeMapper {
         attribute.setName(request.name());
         attribute.setType(request.type());
         attribute.setDescription(request.description());
-        attribute.setFilterable(request.isFilterable());
+        attribute.setIsFilterable(request.isFilterable());
         attribute.setCategory(category);
     }
 

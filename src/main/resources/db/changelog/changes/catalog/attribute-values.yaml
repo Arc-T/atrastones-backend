@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1767965138235-1
+      id: 1784146599533-1
       author: Mr.Arc-T
       changes:
         - createTable:
@@ -54,7 +54,7 @@ databaseChangeLog:
             schemaName: catalog
             tableName: attribute_values
             columnNames: attribute_id, attribute_value
-            constraintName: uk_attribute_values_attribute_value
+            constraintName: uk_attribute_values_attribute_attribute_value
 
         - createIndex:
             schemaName: catalog

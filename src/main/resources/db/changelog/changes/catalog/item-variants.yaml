@@ -81,7 +81,7 @@ databaseChangeLog:
             schemaName: catalog
             tableName: item_variants
             columnNames: item_variant_price_id
-            constraintName: uk_item_variants_price
+            constraintName: uk_item_variants_item_variant_price
 
         - createIndex:
             schemaName: catalog
@@ -98,11 +98,3 @@ databaseChangeLog:
             columns:
               - column:
                   name: status
-
-        - createIndex:
-            schemaName: catalog
-            tableName: item_variants
-            indexName: idx_item_variants_deleted_at
-            columns:
-              - column:
-                  name: deleted_at

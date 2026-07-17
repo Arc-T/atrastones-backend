@@ -8,6 +8,10 @@ databaseChangeLog:
       value: VARCHAR(50)
       dbms: postgresql
   - property:
+      name: json.type
+      value: jsonb
+      dbms: postgresql
+  - property:
       name: short_text.type
       value: VARCHAR(255)
       dbms: postgresql
@@ -29,7 +33,7 @@ databaseChangeLog:
       dbms: postgresql
   - property:
       name: description.type
-      value: VARCHAR(4000)
+      value: VARCHAR(400)
       dbms: postgresql
   - property:
       name: decimal_value.type

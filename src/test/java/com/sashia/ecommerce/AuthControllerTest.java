@@ -1,6 +1,6 @@
 package com.sashia.ecommerce;
 
-import com.sashia.ecommerce.authentication.dto.LoginRequest;
+import com.sashia.ecommerce.identity.authentication.dto.LoginRequest;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;

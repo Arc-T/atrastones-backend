@@ -21,6 +21,12 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "category_id", insertable = false, updatable = false)
+    private Long categoryId;
+
+    @Enumerated(EnumType.STRING)
+    private ItemType itemType;
+
     private String title;
 
     private String coverImage;
@@ -39,9 +45,6 @@ public class Item {
     private LocalDateTime deletedAt;
 
     /* **************************** FOREIGN-KEY RELATIONS ***************************** */
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ItemType itemType;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Category category;
@@ -67,6 +70,22 @@ public class Item {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
     }
 
     public String getTitle() {
@@ -123,14 +142,6 @@ public class Item {
 
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
-    }
-
-    public ItemType getItemType() {
-        return itemType;
-    }
-
-    public void setItemType(ItemType itemType) {
-        this.itemType = itemType;
     }
 
     public Category getCategory() {

@@ -2,7 +2,6 @@ package com.sashia.ecommerce.catalog.tag;
 
 import com.sashia.ecommerce.catalog.item.Item;
 import com.sashia.ecommerce.catalog.item.ItemType;
-import com.sashia.ecommerce.catalog.item.product.Product;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,22 +10,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tags", schema = "catalog")
 public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private ItemType itemType;
+
     private String name;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-    /* **************************** FOREIGN-KEY RELATIONS ***************************** */
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ItemType itemType;
 
     /* ******************************* TABLE RELATIONS ******************************** */
 

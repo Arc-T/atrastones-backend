@@ -1,14 +1,15 @@
 package com.sashia.ecommerce.media;
 
-import com.sashia.ecommerce.catalog.item.product.Product;
-import com.sashia.ecommerce.media.internal.MediaType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Entity
-@Table(name = "media")
+@Table(name = "media", schema = "media")
 public class Media {
 
     @Id
@@ -17,24 +18,33 @@ public class Media {
 
     private String slug;
 
-    private Integer displayOrder;
+    private String checksum;
+
+    @Enumerated(EnumType.STRING)
+    private MediaResourceType resourceType;
+
+    @Enumerated(EnumType.STRING)
+    private MediaStatus status;
+
+    private Long resourceId;
+
+    private String mimeType;
 
     private String extension;
+
+    private Long size;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, Object> metadata;
+
+    private String description;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    /* **************************** FOREIGN-KEY RELATIONS **********************************/
+    /* ****************************** GETTER & SETTERS ******************************** */
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Product product;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private MediaType mediaType;
-
-    /* **************************** GETTER & SETTERS **********************************/
-
-    public Long id() {
+    public Long getId() {
         return id;
     }
 
@@ -42,23 +52,55 @@ public class Media {
         this.id = id;
     }
 
-    public String url() {
+    public String getSlug() {
         return slug;
     }
 
-    public void setSlug(String url) {
-        this.slug = url;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
-    public Integer displayOrder() {
-        return displayOrder;
+    public String getChecksum() {
+        return checksum;
     }
 
-    public void setDisplayOrder(Integer displayOrder) {
-        this.displayOrder = displayOrder;
+    public void setChecksum(String checksum) {
+        this.checksum = checksum;
     }
 
-    public String extension() {
+    public MediaResourceType getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(MediaResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public MediaStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MediaStatus status) {
+        this.status = status;
+    }
+
+    public Long getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    public String getExtension() {
         return extension;
     }
 
@@ -66,28 +108,36 @@ public class Media {
         this.extension = extension;
     }
 
-    public LocalDateTime createdAt() {
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Product product() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public MediaType mediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(MediaType mediaType) {
-        this.mediaType = mediaType;
     }
 
 }

@@ -1,10 +1,10 @@
 package com.sashia.ecommerce;
 
+import com.sashia.ecommerce.catalog.item.ItemType;
 import com.sashia.ecommerce.catalog.category.CategoryService;
 import com.sashia.ecommerce.catalog.category.dto.CategoryCreateRequest;
 import com.sashia.ecommerce.catalog.category.dto.CategoryResponse;
 import com.sashia.ecommerce.catalog.category.dto.CategoryUpdateRequest;
-import com.sashia.ecommerce.catalog.item.CatalogItemType;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;
@@ -36,7 +36,7 @@ class CategoryControllerTest extends BaseControllerTest {
     private static final String CATEGORY_ICON = "mui-necklace";
     private static final int CATEGORY_DISPLAY_ORDER = 1;
     private static final String CATEGORY_DESCRIPTION = "lorem ipsum";
-    private static final CatalogItemType CATEGORY_ITEM_TYPE = CatalogItemType.PRODUCT;
+    private static final ItemType CATEGORY_ITEM_TYPE = ItemType.PRODUCT;
 
     @Autowired
     private CategoryService categoryService;

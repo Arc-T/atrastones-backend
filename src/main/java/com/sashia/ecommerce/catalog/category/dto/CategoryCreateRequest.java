@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.catalog.category.dto;
 
-import com.sashia.ecommerce.catalog.item.CatalogItemType;
+import com.sashia.ecommerce.catalog.item.ItemType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +11,7 @@ public record CategoryCreateRequest(
         @NotBlank(message = "{category.url.required}")
         String url,
         @NotNull(message = "{category.catalogItemType.required}")
-        CatalogItemType itemType,
+        ItemType itemType,
         @NotBlank(message = "{category.icon.required}")
         String icon,
         Long parentId,

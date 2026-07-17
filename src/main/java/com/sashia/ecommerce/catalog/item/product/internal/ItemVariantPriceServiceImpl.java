@@ -3,7 +3,7 @@ package com.sashia.ecommerce.catalog.item.product.internal;
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantPriceService;
 import com.sashia.ecommerce.catalog.item.product.dto.ProductPriceDTO;
 import com.sashia.ecommerce.catalog.item.product.dto.ProductDTO;
-import com.sashia.ecommerce.discount.DiscountService;
+import com.sashia.ecommerce.promotion.discount.DiscountService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

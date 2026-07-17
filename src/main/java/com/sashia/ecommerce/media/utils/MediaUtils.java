@@ -114,7 +114,6 @@ public final class MediaUtils {
                 productId,
                 name,
                 MediaTypeEnum.IMAGE.name(),
-                order,
                 ext(name),
                 LocalDateTime.now()
         );

@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.shared.config;
 
-import com.sashia.ecommerce.user.UserRepository;
+import com.sashia.ecommerce.identity.user.UserRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

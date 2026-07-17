@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1784121655558-1
+      id: 1784147258818-1
       author: Mr.Arc-T
       changes:
         - createTable:
@@ -16,25 +16,19 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: category_id
-                  type: ${id.type}
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: item_type_id
-                  type: ${id.type}
-                  constraints:
-                    nullable: false
-
-              - column:
                   name: name
                   type: ${name.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: filterable
+                  name: category_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: is_filterable
                   type: ${boolean.type}
                   defaultValueBoolean: false
                   constraints:
@@ -49,7 +43,7 @@ databaseChangeLog:
 
               - column:
                   name: description
-                  type: ${long_text.type}
+                  type: ${description.type}
                   constraints:
                     nullable: true
 
@@ -81,15 +75,6 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_attributes_category
 
-        - addForeignKeyConstraint:
-            baseTableSchemaName: catalog
-            baseTableName: attributes
-            baseColumnNames: item_type_id
-            referencedTableSchemaName: catalog
-            referencedTableName: item_types
-            referencedColumnNames: id
-            constraintName: fk_attributes_item_type
-
         - createIndex:
             schemaName: catalog
             tableName: attributes
@@ -101,18 +86,10 @@ databaseChangeLog:
         - createIndex:
             schemaName: catalog
             tableName: attributes
-            indexName: idx_attributes_item_type
+            indexName: idx_attributes_is_filterable
             columns:
               - column:
-                  name: item_type_id
-
-        - createIndex:
-            schemaName: catalog
-            tableName: attributes
-            indexName: idx_attributes_filterable
-            columns:
-              - column:
-                  name: filterable
+                  name: is_filterable
 
         - createIndex:
             schemaName: catalog

@@ -3,7 +3,6 @@ package com.sashia.ecommerce.catalog.attribute;
 import com.sashia.ecommerce.catalog.attribute.dto.AttributeType;
 import com.sashia.ecommerce.catalog.attribute.internal.AttributeValue;
 import com.sashia.ecommerce.catalog.category.Category;
-import com.sashia.ecommerce.catalog.item.ItemType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -41,14 +40,11 @@ public class Attribute {
     /* **************************** FOREIGN-KEY RELATIONS ***************************** */
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ItemType itemType;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Category category;
 
     /* ******************************* TABLE RELATIONS ******************************** */
 
-    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attribute", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AttributeValue> attributeValues = new HashSet<>();
 
     /* ********************************** HELPERS ************************************* */
@@ -88,12 +84,12 @@ public class Attribute {
         this.categoryId = categoryId;
     }
 
-    public Boolean getFilterable() {
+    public Boolean getIsFilterable() {
         return isFilterable;
     }
 
-    public void setFilterable(Boolean filterable) {
-        isFilterable = filterable;
+    public void setIsFilterable(Boolean filterable) {
+        this.isFilterable = filterable;
     }
 
     public AttributeType getType() {
@@ -126,14 +122,6 @@ public class Attribute {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public ItemType getItemType() {
-        return itemType;
-    }
-
-    public void setItemType(ItemType itemType) {
-        this.itemType = itemType;
     }
 
     public Category getCategory() {
