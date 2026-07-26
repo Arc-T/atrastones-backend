@@ -9,6 +9,7 @@ import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "category_id", insertable = false, updatable = false)
     private Long categoryId;
@@ -28,6 +29,8 @@ public class Item {
     private ItemType itemType;
 
     private String title;
+
+    private BigDecimal price;
 
     private String coverImage;
 
@@ -64,11 +67,11 @@ public class Item {
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,6 +97,14 @@ public class Item {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getCoverImage() {

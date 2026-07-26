@@ -1,6 +1,5 @@
 package com.sashia.ecommerce.identity.user;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,7 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
                    JOIN FETCH r.permissions
             WHERE u.phone = :phone
             """)
-    @Cacheable(cacheNames = "user-authorities", unless = "#result == null")
     Optional<User> findByPhoneWithAuthorities(String phone);
 
 }

@@ -76,10 +76,6 @@ databaseChangeLog:
       value: TIMESTAMP
       dbms: h2
   - property:
-      name: json_data.type
-      value: JSON
-      dbms: h2
-  - property:
       name: gps.type
       value: DECIMAL(9,6)
       dbms: h2
@@ -117,7 +113,7 @@ databaseChangeLog:
       dbms: h2
   - property:
       name: json.type
-      value: jsonb
+      value: JSON
       dbms: h2
   - property:
       name: description.type

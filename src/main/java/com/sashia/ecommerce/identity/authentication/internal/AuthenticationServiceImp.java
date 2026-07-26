@@ -22,8 +22,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
-import static com.sashia.ecommerce.shared.util.SecurityUtils.AUTHORITIES_CLAIM;
-import static com.sashia.ecommerce.shared.util.SecurityUtils.JWT_ALGORITHM;
+import static com.sashia.shared.util.SecurityUtils.AUTHORITIES_CLAIM;
+import static com.sashia.shared.util.SecurityUtils.JWT_ALGORITHM;
 
 @Service
 class AuthenticationServiceImp implements AuthenticationService {

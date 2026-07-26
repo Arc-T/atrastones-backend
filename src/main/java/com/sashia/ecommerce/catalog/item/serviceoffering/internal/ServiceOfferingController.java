@@ -1,9 +1,9 @@
 package com.sashia.ecommerce.catalog.item.serviceoffering.internal;
 
+import com.sashia.ecommerce.catalog.item.internal.ServiceOfferingSearchRequest;
 import com.sashia.ecommerce.catalog.item.serviceoffering.ServiceOfferingService;
 import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceOfferingCreateRequest;
 import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceOfferingResponse;
-import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceSearchDTO;
 import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceUpdateDTO;
 import com.sashia.ecommerce.catalog.tag.dto.TagResponse;
 import jakarta.validation.Valid;
@@ -27,7 +27,7 @@ class ServiceOfferingController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('READ_ALL_SERVICES')")
-    ResponseEntity<Page<ServiceOfferingResponse>> readAll(Pageable pageable, ServiceSearchDTO search) {
+    ResponseEntity<Page<ServiceOfferingResponse>> readAll(Pageable pageable, ServiceOfferingSearchRequest search) {
         return ResponseEntity.ok(serviceOfferingService.getAll(pageable, search));
     }
 

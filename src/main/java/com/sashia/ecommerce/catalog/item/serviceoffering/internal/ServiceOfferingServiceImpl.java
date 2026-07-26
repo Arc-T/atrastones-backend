@@ -1,10 +1,10 @@
 package com.sashia.ecommerce.catalog.item.serviceoffering.internal;
 
+import com.sashia.ecommerce.catalog.item.internal.ServiceOfferingSearchRequest;
 import com.sashia.ecommerce.catalog.item.serviceoffering.ServiceOfferingRepository;
 import com.sashia.ecommerce.catalog.item.serviceoffering.ServiceOfferingService;
 import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceOfferingCreateRequest;
 import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceOfferingResponse;
-import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceSearchDTO;
 import com.sashia.ecommerce.catalog.item.serviceoffering.dto.ServiceUpdateDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +36,7 @@ public class ServiceOfferingServiceImpl implements ServiceOfferingService {
     }
 
     @Override
-    public Page<ServiceOfferingResponse> getAll(Pageable pageable, ServiceSearchDTO search) {
+    public Page<ServiceOfferingResponse> getAll(Pageable pageable, ServiceOfferingSearchRequest search) {
 //        return serviceOfferingRepository.findAll(pageable, search).map(ServiceOfferingResponse::toDTO);
         return null;
     }

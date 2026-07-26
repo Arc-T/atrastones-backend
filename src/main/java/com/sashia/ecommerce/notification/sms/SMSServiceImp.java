@@ -1,8 +1,8 @@
 package com.sashia.ecommerce.notification.sms;
 
+import com.sashia.ecommerce.notification.SMSService;
 import com.sashia.ecommerce.notification.dto.SMSDTO;
 import com.sashia.ecommerce.notification.dto.SMSEventDTO;
-import com.sashia.ecommerce.notification.SMSService;
 import com.sashia.ecommerce.notification.dto.SMSType;
 import com.sashia.ecommerce.notification.sms.common.SMSProvider;
 import com.sashia.ecommerce.notification.sms.common.SMSTemplateDTO;

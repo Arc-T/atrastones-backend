@@ -2,6 +2,10 @@ spring:
   profiles:
     active: test
 
+  mvc:
+    problemdetails:
+      enabled: true
+
   datasource:
     url: jdbc:h2:mem:test_db;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     type: org.springframework.jdbc.datasource.DriverManagerDataSource

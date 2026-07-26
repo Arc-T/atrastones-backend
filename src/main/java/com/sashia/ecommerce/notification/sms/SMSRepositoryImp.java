@@ -1,8 +1,8 @@
 package com.sashia.ecommerce.notification.sms;
 
-import com.sashia.ecommerce.shared.util.JdbcUtils;
 import com.sashia.ecommerce.notification.dto.SMSDTO;
 import com.sashia.ecommerce.notification.dto.SMSType;
+import com.sashia.shared.util.JdbcUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;

@@ -16,6 +16,8 @@ spring:
   mvc:
     static-path-pattern: /media/**
     log-resolved-exception: false
+    problemdetails:
+      enabled: true
 
   web:
     locale: fa_IR

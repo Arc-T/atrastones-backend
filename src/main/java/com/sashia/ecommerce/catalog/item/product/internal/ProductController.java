@@ -1,7 +1,11 @@
 package com.sashia.ecommerce.catalog.item.product.internal;
 
+import com.sashia.ecommerce.catalog.item.internal.ProductSearchRequest;
 import com.sashia.ecommerce.catalog.item.product.ProductService;
-import com.sashia.ecommerce.catalog.item.product.dto.*;
+import com.sashia.ecommerce.catalog.item.product.dto.ProductBriefInfoProjection;
+import com.sashia.ecommerce.catalog.item.product.dto.ProductCreateRequest;
+import com.sashia.ecommerce.catalog.item.product.dto.ProductDTO;
+import com.sashia.ecommerce.catalog.item.product.dto.ProductUpdateDTO;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,12 +40,12 @@ class ProductController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('READ_ALL_PRODUCTS')")
-    ResponseEntity<Page<ProductProjection>> readAll(Pageable pageable, ProductSearchDTO search) {
+    ResponseEntity<Page<ProductProjection>> readAll(Pageable pageable, ProductSearchRequest search) {
         return ResponseEntity.ok(productService.getAll(pageable, search));
     }
 
     @GetMapping("/brief")
-    ResponseEntity<Page<ProductBriefInfoProjection>> readAllBrief(Pageable pageable, ProductSearchDTO search) {
+    ResponseEntity<Page<ProductBriefInfoProjection>> readAllBrief(Pageable pageable, ProductSearchRequest search) {
         return ResponseEntity.ok(productService.getAllBriefInfo(pageable, search));
     }
 

@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1785085326325-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: promotion
+            tableName: condition_type
+            columns:
+              - column:
+                  name: code
+                  value: MIN_ORDER_AMOUNT
+              - column:
+                  name: title
+                  value: Minimum Order Amount
+              - column:
+                  name: description
+                  value: Requires a minimum order subtotal.
+
+        - insert:
+            schemaName: promotion
+            tableName: condition_type
+            columns:
+              - column:
+                  name: code
+                  value: MIN_ITEM_QUANTITY
+              - column:
+                  name: title
+                  value: Minimum Item Quantity
+              - column:
+                  name: description
+                  value: Requires a minimum quantity of applicable items.

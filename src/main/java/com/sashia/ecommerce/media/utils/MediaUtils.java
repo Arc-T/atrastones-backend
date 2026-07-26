@@ -1,8 +1,8 @@
 package com.sashia.ecommerce.media.utils;
 
+import com.sashia.ecommerce.media.dto.MediaRequest;
 import com.sashia.ecommerce.media.dto.MediaResponse;
 import com.sashia.ecommerce.media.dto.MediaTypeEnum;
-import com.sashia.ecommerce.media.dto.MediaRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;

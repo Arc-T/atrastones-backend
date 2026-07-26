@@ -1,13 +1,13 @@
 package com.sashia.ecommerce.media.internal;
 
+import com.sashia.ecommerce.catalog.item.product.ProductRepository;
 import com.sashia.ecommerce.media.Media;
 import com.sashia.ecommerce.media.MediaService;
-import com.sashia.ecommerce.shared.exception.InvalidResourceException;
-import com.sashia.ecommerce.shared.exception.ResourceNotFoundException;
-import com.sashia.ecommerce.catalog.item.product.ProductRepository;
 import com.sashia.ecommerce.media.dto.MediaCreateRequest;
 import com.sashia.ecommerce.media.dto.MediaResponse;
 import com.sashia.ecommerce.media.utils.MediaUtils;
+import com.sashia.shared.exception.InvalidResourceException;
+import com.sashia.shared.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,8 +37,7 @@ public class MediaServiceImpl implements MediaService {
     @Override
     @Transactional
     public void update(Long productId) {
-        return ;
-//        mediaRepository.createBatch(
+        //        mediaRepository.createBatch(
 //                MediaUtils.moveAllDraftsToProduct(productId, true)
 //        );
     }

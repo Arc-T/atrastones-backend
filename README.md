@@ -53,3 +53,29 @@ it should have dark/light theme and be responsive as well.
 modern UI/UX and beautiful design. font should be vazirmatn.
 
 i need these pages: login, categories,tags,attributes, serviceOfferings and serviceOffering groups, products, orders, discount and settings.
+
+PromotionEngine
+│
+▼
+PromotionResolver
+│
+▼
+PromotionPipeline
+│
+▼
+ActivationHandler
+│
+▼
+ScopeHandler
+│
+▼
+ConditionHandler
+│
+▼
+TargetHandler
+│
+▼
+PromotionStrategy
+│
+▼
+PromotionEffect

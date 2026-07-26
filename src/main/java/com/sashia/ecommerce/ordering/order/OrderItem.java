@@ -1,7 +1,5 @@
 package com.sashia.ecommerce.ordering.order;
 
-import com.sashia.ecommerce.catalog.item.ItemDeliveryOption;
-import com.sashia.ecommerce.catalog.item.ItemType;
 import com.sashia.ecommerce.catalog.item.ItemVariant;
 import com.sashia.ecommerce.promotion.discount.Discount;
 import jakarta.persistence.*;

@@ -8,10 +8,6 @@ databaseChangeLog:
       value: VARCHAR(50)
       dbms: postgresql
   - property:
-      name: json.type
-      value: jsonb
-      dbms: postgresql
-  - property:
       name: short_text.type
       value: VARCHAR(255)
       dbms: postgresql
@@ -64,7 +60,7 @@ databaseChangeLog:
       value: TIMESTAMP
       dbms: postgresql
   - property:
-      name: json_data.type
+      name: json.type
       value: JSON
       dbms: postgresql
   - property:

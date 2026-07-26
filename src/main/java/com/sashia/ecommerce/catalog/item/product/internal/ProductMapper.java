@@ -1,8 +1,11 @@
 package com.sashia.ecommerce.catalog.item.product.internal;
 
 import com.sashia.ecommerce.catalog.category.Category;
+import com.sashia.ecommerce.catalog.item.Item;
 import com.sashia.ecommerce.catalog.item.product.Product;
 import com.sashia.ecommerce.catalog.item.product.dto.ProductCreateRequest;
+import com.sashia.ecommerce.catalog.item.product.dto.ProductPriceDTO;
+import com.sashia.ecommerce.catalog.item.product.dto.ProductSummary;
 
 public final class ProductMapper {
 
@@ -20,6 +23,17 @@ public final class ProductMapper {
 //        product.setCategory(category);
 
         return product;
+    }
+
+    public static ProductSummary toSummary(Item item) {
+        return new ProductSummary(
+                item.getId(),
+                item.getTitle(),
+                ProductPriceDTO.toDTO(item.getPrice()),
+                item.getCoverImage(),
+                item.isFeatured(),
+                item.getCreatedAt()
+        );
     }
 
 }

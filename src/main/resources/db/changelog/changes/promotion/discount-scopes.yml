@@ -1,54 +1,25 @@
 databaseChangeLog:
   - changeSet:
-      id: 1771144523742-1
+      id: 1771151010200-1
       author: Mr.Arc-T
       changes:
-        - createTable:
+        - insert:
             schemaName: promotion
             tableName: discount_scopes
-            remarks: Defines where discounts can be applied
             columns:
               - column:
-                  name: id
-                  type: ${id.type}
-                  autoIncrement: true
-                  constraints:
-                    nullable: false
-
-              - column:
                   name: code
-                  type: ${name.type}
-                  remarks: ORDER, PRODUCT, CATEGORY, SHIPPING, CUSTOMER_SEGMENT
-                  constraints:
-                    nullable: false
-
+                  value: 'PRODUCT'
               - column:
                   name: name
-                  type: ${name.type}
-                  constraints:
-                    nullable: false
+                  value: 'product'
 
-              - column:
-                  name: description
-                  type: ${name.type}
-                  constraints:
-                    nullable: true
-
-              - column:
-                  name: created_at
-                  type: ${timestamp_value.type}
-                  defaultValueComputed: CURRENT_TIMESTAMP
-                  constraints:
-                    nullable: false
-
-        - addPrimaryKey:
-            schemaName: promotion
+        - insert:
             tableName: discount_scopes
-            columnNames: id
-            constraintName: pk_discount_scopes
-
-        - addUniqueConstraint:
-            constraintName: uk_discount_scopes_code
-            schemaName: promotion
-            tableName: discount_scopes
-            columnNames: code
+            columns:
+              - column:
+                  name: code
+                  value: 'CATEGORY'
+              - column:
+                  name: name
+                  value: 'category'

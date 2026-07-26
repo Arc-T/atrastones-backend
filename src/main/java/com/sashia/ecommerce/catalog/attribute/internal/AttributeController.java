@@ -1,11 +1,7 @@
 package com.sashia.ecommerce.catalog.attribute.internal;
 
 import com.sashia.ecommerce.catalog.attribute.AttributeService;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeType;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeCreateRequest;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeResponse;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeSearchRequest;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeUpdateRequest;
+import com.sashia.ecommerce.catalog.attribute.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

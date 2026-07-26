@@ -1,0 +1,22 @@
+package com.sashia.ecommerce.promotion.engine;
+
+import com.sashia.ecommerce.promotion.engine.price.PricedItem;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class PromotionResult {
+
+    private final Map<Long, PricedItem> pricedItems = new LinkedHashMap<>();
+
+    /* ***************************** PRICED ITEMS ***************************** */
+
+    public void addPricedItem(PricedItem item) {
+        pricedItems.put(item.getItem().id(), item);
+    }
+
+    public PricedItem getPricedItem(Long itemId) {
+        return pricedItems.get(itemId);
+    }
+
+}

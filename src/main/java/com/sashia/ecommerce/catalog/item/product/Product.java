@@ -1,11 +1,7 @@
 package com.sashia.ecommerce.catalog.item.product;
 
 import com.sashia.ecommerce.catalog.item.Item;
-import com.sashia.ecommerce.media.Media;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "products", schema = "catalog")

@@ -2,14 +2,16 @@ package com.sashia.ecommerce.catalog.item.product.internal;
 
 import com.sashia.ecommerce.catalog.category.Category;
 import com.sashia.ecommerce.catalog.category.CategoryRepository;
+import com.sashia.ecommerce.catalog.item.ItemRepository;
+import com.sashia.ecommerce.catalog.item.internal.ItemSpecification;
+import com.sashia.ecommerce.catalog.item.internal.ItemVariantPriceService;
+import com.sashia.ecommerce.catalog.item.internal.ProductSearchRequest;
 import com.sashia.ecommerce.catalog.item.product.Product;
 import com.sashia.ecommerce.catalog.item.product.ProductRepository;
 import com.sashia.ecommerce.catalog.item.product.ProductService;
 import com.sashia.ecommerce.catalog.item.product.dto.*;
-import com.sashia.ecommerce.catalog.item.internal.ItemVariantPriceService;
 import com.sashia.ecommerce.promotion.discount.DiscountService;
-import com.sashia.ecommerce.media.MediaService;
-import com.sashia.ecommerce.shared.exception.ResourceNotFoundException;
+import com.sashia.shared.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,16 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class ProductServiceImp implements ProductService {
 
-    private final MediaService mediaService;
-    private final ItemVariantPriceService itemVariantPriceService;
-    private final CategoryRepository categoryRepository;
+    private final ItemRepository itemRepository;
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductServiceImp(ProductRepository productRepository, MediaService mediaService, DiscountService discountService, CategoryRepository categoryRepository, ItemVariantPriceService itemVariantPriceService) {
+    public ProductServiceImp(ProductRepository productRepository, DiscountService discountService,
+                             CategoryRepository categoryRepository, ItemVariantPriceService itemVariantPriceService,
+                             ItemRepository itemRepository) {
         this.productRepository = productRepository;
-        this.mediaService = mediaService;
         this.categoryRepository = categoryRepository;
-        this.itemVariantPriceService = itemVariantPriceService;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -51,23 +53,18 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Page<ProductProjection> getAll(Pageable pageable, ProductSearchDTO filter) {
-//        return productRepository.findAll(pageable, filter);
-        return null;
+    public Page<ProductSummary> getAll(Pageable pageable, ProductSearchRequest request) {
+        return itemRepository.findAll(ItemSpecification.bySearch(request), pageable)
+                .map(ProductMapper::toSummary);
     }
 
     @Override
-    public Page<ProductBriefInfoProjection> getAllBriefInfo(Pageable pageable, ProductSearchDTO search) {
-//        Page<ProductDTO> productPage = productRepository.getAllBriefInfo(pageable, search)
-//                .map(ProductDTO::toDTO);
+    public Page<ProductBriefInfoProjection> getAllBriefInfo(Pageable pageable, ProductSearchRequest request) {
+        Page<ProductSummary> productPage = itemRepository.findAll(ItemSpecification.bySearch(request), pageable)
+                .map((item) -> DiscountService.applyDiscountToProducts(item))
+                .map(ProductMapper::toSummary);
 
 //        List<ProductPriceDTO> productPrices = productPriceService.applySellPrice(productPage.getContent());
-//
-//        return PageableExecutionUtils.getPage(
-//                ProductBriefInfoProjection.toListDTO(productPage.getContent(), productPrices),
-//                pageable,
-//                productPage::getTotalElements
-//        );
         return null;
     }
 

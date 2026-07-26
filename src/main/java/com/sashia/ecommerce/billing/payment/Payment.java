@@ -1,9 +1,9 @@
 package com.sashia.ecommerce.billing.payment;
 
-import com.sashia.ecommerce.ordering.order.Order;
 import com.sashia.ecommerce.billing.payment.dto.PaymentMethod;
 import com.sashia.ecommerce.billing.payment.dto.PaymentStatus;
 import com.sashia.ecommerce.identity.user.User;
+import com.sashia.ecommerce.ordering.order.Order;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 

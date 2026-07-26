@@ -1,14 +1,16 @@
 package com.sashia.ecommerce.catalog.item.product.internal;
 
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantPriceService;
-import com.sashia.ecommerce.catalog.item.product.dto.ProductPriceDTO;
 import com.sashia.ecommerce.catalog.item.product.dto.ProductDTO;
+import com.sashia.ecommerce.catalog.item.product.dto.ProductPriceDTO;
 import com.sashia.ecommerce.promotion.discount.DiscountService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class ItemVariantPriceServiceImpl implements ItemVariantPriceService {
 
     private final DiscountService discountService;
@@ -19,7 +21,7 @@ public class ItemVariantPriceServiceImpl implements ItemVariantPriceService {
 
     @Override
     public List<ProductPriceDTO> applySellPrice(List<ProductDTO> products) {
-        return discountService.getActiveDiscount()
+        return discountService.getActiveDiscounts()
                 .map(discount -> discountService.applyDiscountToProducts(discount, products))
                 .orElseGet(() -> createDefaultPrices(products));
     }

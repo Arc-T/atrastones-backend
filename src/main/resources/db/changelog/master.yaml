@@ -7,59 +7,59 @@ databaseChangeLog:
       file: db/changelog/changes/schema.yaml
   ######################################## TABLES #######################################
   - include:
-      file: db/changelog/changes/identity/roles.yaml
+      file: db/changelog/changes/identity/role/roles.yaml
   - include:
-      file: db/changelog/changes/identity/permissions.yaml
+      file: db/changelog/changes/identity/permission/permissions.yaml
   - include:
-      file: db/changelog/changes/identity/role-permissions.yaml
+      file: db/changelog/changes/identity/role/permission/role-permissions.yaml
   - include:
-      file: db/changelog/changes/identity/user-groups.yaml
+      file: db/changelog/changes/identity/user/group/user-groups.yaml
   - include:
-      file: db/changelog/changes/identity/users.yaml
+      file: db/changelog/changes/identity/user/users.yaml
   - include:
-      file: db/changelog/changes/identity/user-group-roles.yaml
+      file: db/changelog/changes/identity/user/group/role/user-group-roles.yaml
   - include:
-      file: db/changelog/changes/identity/vip-groups.yaml
+      file: db/changelog/changes/identity/vip/group/vip-groups.yaml
   - include:
-      file: db/changelog/changes/identity/vip-memberships.yaml
+      file: db/changelog/changes/identity/vip/membership/vip-memberships.yaml
   - include:
-      file: db/changelog/changes/identity/provinces.yaml
+      file: db/changelog/changes/identity/province/provinces.yaml
   - include:
-      file: db/changelog/changes/identity/addresses.yaml
+      file: db/changelog/changes/identity/address/addresses.yaml
   - include:
-      file: db/changelog/changes/identity/user-logs.yaml
+      file: db/changelog/changes/identity/user/group/log/user-logs.yaml
   - include:
       file: db/changelog/changes/shop/shops.yaml
   - include:
-      file: db/changelog/changes/catalog/item-delivery-options.yaml
+      file: db/changelog/changes/catalog/item/delivery-option/item-delivery-options.yaml
   - include:
-      file: db/changelog/changes/catalog/categories.yaml
+      file: db/changelog/changes/catalog/category/categories.yaml
   - include:
-      file: db/changelog/changes/catalog/items.yaml
+      file: db/changelog/changes/catalog/item/items.yaml
   - include:
-      file: db/changelog/changes/catalog/attributes.yaml
+      file: db/changelog/changes/catalog/attribute/attributes.yaml
   - include:
-      file: db/changelog/changes/catalog/attribute-values.yaml
+      file: db/changelog/changes/catalog/attribute/value/attribute-values.yaml
   - include:
-      file: db/changelog/changes/catalog/tags.yaml
+      file: db/changelog/changes/catalog/tag/tags.yaml
   - include:
-      file: db/changelog/changes/catalog/service-offerings.yaml
+      file: db/changelog/changes/catalog/service-offering/service-offerings.yaml
   - include:
-      file: db/changelog/changes/catalog/products.yaml
+      file: db/changelog/changes/catalog/product/products.yaml
   - include:
-      file: db/changelog/changes/catalog/item-variant-prices.yaml
+      file: db/changelog/changes/catalog/item/variant/price/item-variant-prices.yaml
   - include:
-      file: db/changelog/changes/catalog/item-variants.yaml
+      file: db/changelog/changes/catalog/item/variant/item-variants.yaml
   - include:
-      file: db/changelog/changes/catalog/item-tags.yaml
+      file: db/changelog/changes/catalog/item/tag/item-tags.yaml
   - include:
-      file: db/changelog/changes/catalog/item-variant-attribute-values.yaml
+      file: db/changelog/changes/catalog/item/variant/attribute-value/item-variant-attribute-values.yaml
   - include:
-      file: db/changelog/changes/ordering/order-statuses.yaml
+      file: db/changelog/changes/ordering/order/status/order-statuses.yaml
   - include:
-      file: db/changelog/changes/ordering/orders.yaml
+      file: db/changelog/changes/ordering/order/orders.yaml
   - include:
-      file: db/changelog/changes/ordering/order-charges.yaml
+      file: db/changelog/changes/ordering/order/charge/order-charges.yaml
   - include:
       file: db/changelog/changes/promotion/discount-types.yaml
   - include:
@@ -67,21 +67,21 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/promotion/discounts.yaml
   - include:
-      file: db/changelog/changes/ordering/order-items.yaml
+      file: db/changelog/changes/ordering/order/item/order-items.yaml
   - include:
-      file: db/changelog/changes/ordering/order-transactions.yaml
+      file: db/changelog/changes/ordering/order/transaction/order-transactions.yaml
   - include:
-      file: db/changelog/changes/ordering/wishlists.yaml
+      file: db/changelog/changes/ordering/wishlist/wishlists.yaml
   - include:
-      file: db/changelog/changes/ordering/shipment-statuses.yaml
+      file: db/changelog/changes/ordering/shipment/status/shipment-statuses.yaml
   - include:
-      file: db/changelog/changes/ordering/shipments.yaml
+      file: db/changelog/changes/ordering/shipment/shipments.yaml
   - include:
-      file: db/changelog/changes/ordering/shipment-transactions.yaml
+      file: db/changelog/changes/ordering/shipment/transaction/shipment-transactions.yaml
   - include:
-      file: db/changelog/changes/ordering/carts.yaml
+      file: db/changelog/changes/ordering/cart/carts.yaml
   - include:
-      file: db/changelog/changes/ordering/cart-items.yaml
+      file: db/changelog/changes/ordering/cart/item/cart-items.yaml
   - include:
       file: db/changelog/changes/promotion/discount-coupons.yml
   - include:
@@ -91,19 +91,19 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/media/media.yaml
   - include:
-      file: db/changelog/changes/billing/invoices.yaml
+      file: db/changelog/changes/billing/invoice/invoices.yaml
   - include:
-      file: db/changelog/changes/billing/invoice-items.yaml
+      file: db/changelog/changes/billing/invoice/item/invoice-items.yaml
   - include:
-      file: db/changelog/changes/billing/invoice-charges.yaml
+      file: db/changelog/changes/billing/invoice/charge/invoice-charges.yaml
   - include:
-      file: db/changelog/changes/billing/payments.yaml
+      file: db/changelog/changes/billing/payment/payments.yaml
   - include:
-      file: db/changelog/changes/notification/sms-templates.yaml
+      file: db/changelog/changes/notification/sms/template/sms-templates.yaml
   - include:
-      file: db/changelog/changes/notification/sms-statuses.yaml
+      file: db/changelog/changes/notification/sms/status/sms-statuses.yaml
   - include:
-      file: db/changelog/changes/notification/sms.yaml
+      file: db/changelog/changes/notification/sms/sms.yaml
   - include:
       file: db/changelog/changes/platform/event_publication.yaml
 
@@ -143,25 +143,25 @@ databaseChangeLog:
 #  - include:
 #      file: db/changelog/data/notification/sms-templates.yml
 #  - include:
-#      file: db/changelog/data/catalog/categories.yml
+#      file: db/changelog/data/catalog/insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/attributes.yml
+#      file: db/changelog/data/catalog/insert-data.yaml
 #  - include:
 #      file: db/changelog/data/identity/permissions.yml
 #  - include:
 #      file: db/changelog/data/identity/role-permissions.yml
 #  - include:
-#      file: db/changelog/data/catalog/attribute-values.yml
+#      file: db/changelog/data/catalog/insert-data.yaml
 #  - include:
 #      file: db/changelog/data/catalog/products.yml
 #  - include:
 #      file: db/changelog/data/catalog/product-prices.yml
 #  - include:
-#      file: db/changelog/data/catalog/tags.yml
+#      file: db/changelog/data/catalog/insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/product-tags.yml
+#      file: db/changelog/data/catalog/product-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/product-attribute-values.yml
+#      file: db/changelog/data/catalog/product-insert-data.yaml
 #  - include:
 #      file: db/changelog/data/catalog/media-types.yml
 #  - include:

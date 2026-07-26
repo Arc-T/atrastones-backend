@@ -2,11 +2,11 @@ package com.sashia.ecommerce.catalog.tag.internal;
 
 import com.sashia.ecommerce.catalog.tag.Tag;
 import com.sashia.ecommerce.catalog.tag.TagService;
-import com.sashia.ecommerce.shared.exception.ResourceNotFoundException;
 import com.sashia.ecommerce.catalog.tag.dto.TagCreateRequest;
 import com.sashia.ecommerce.catalog.tag.dto.TagResponse;
 import com.sashia.ecommerce.catalog.tag.dto.TagSearchRequest;
 import com.sashia.ecommerce.catalog.tag.dto.TagUpdateRequest;
+import com.sashia.shared.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
