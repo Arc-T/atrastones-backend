@@ -7,121 +7,121 @@ databaseChangeLog:
       file: db/changelog/changes/schema.yaml
   ######################################## TABLES #######################################
   - include:
-      file: db/changelog/changes/identity/role/roles.yaml
+      file: db/changelog/changes/identity/role/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/permission/permissions.yaml
+      file: db/changelog/changes/identity/permission/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/role/permission/role-permissions.yaml
+      file: db/changelog/changes/identity/role/permission/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/user/group/user-groups.yaml
+      file: db/changelog/changes/identity/user/group/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/user/users.yaml
+      file: db/changelog/changes/identity/user/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/user/group/role/user-group-roles.yaml
+      file: db/changelog/changes/identity/user/group/role/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/vip/group/vip-groups.yaml
+      file: db/changelog/changes/identity/vip/group/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/vip/membership/vip-memberships.yaml
+      file: db/changelog/changes/identity/vip/membership/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/province/provinces.yaml
+      file: db/changelog/changes/identity/province/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/address/addresses.yaml
+      file: db/changelog/changes/identity/address/001-create-table.yaml
   - include:
-      file: db/changelog/changes/identity/user/group/log/user-logs.yaml
+      file: db/changelog/changes/shop/001-create-table.yaml
   - include:
-      file: db/changelog/changes/shop/shops.yaml
+      file: db/changelog/changes/catalog/item/delivery-option/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/item/delivery-option/item-delivery-options.yaml
+      file: db/changelog/changes/catalog/category/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/category/categories.yaml
+      file: db/changelog/changes/catalog/item/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/item/items.yaml
+      file: db/changelog/changes/catalog/attribute/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/attribute/attributes.yaml
+      file: db/changelog/changes/catalog/attribute/value/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/attribute/value/attribute-values.yaml
+      file: db/changelog/changes/catalog/tag/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/tag/tags.yaml
+      file: db/changelog/changes/catalog/service-offering/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/service-offering/service-offerings.yaml
+      file: db/changelog/changes/catalog/product/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/product/products.yaml
+      file: db/changelog/changes/catalog/item/variant/price/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/item/variant/price/item-variant-prices.yaml
+      file: db/changelog/changes/catalog/item/variant/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/item/variant/item-variants.yaml
+      file: db/changelog/changes/catalog/item/tag/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/item/tag/item-tags.yaml
+      file: db/changelog/changes/catalog/item/variant/attribute-value/001-create-table.yaml
   - include:
-      file: db/changelog/changes/catalog/item/variant/attribute-value/item-variant-attribute-values.yaml
+      file: db/changelog/changes/promotion/type/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/order/status/order-statuses.yaml
+      file: db/changelog/changes/promotion/scope/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/order/orders.yaml
+      file: db/changelog/changes/promotion/target/type/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/order/charge/order-charges.yaml
+      file: db/changelog/changes/promotion/promotion/001-create-table.yaml
   - include:
-      file: db/changelog/changes/promotion/discount-types.yaml
+      file: db/changelog/changes/ordering/order/status/001-create-table.yaml
   - include:
-      file: db/changelog/changes/promotion/discount-scopes.yml
+      file: db/changelog/changes/ordering/order/001-create-table.yaml
   - include:
-      file: db/changelog/changes/promotion/discounts.yaml
+      file: db/changelog/changes/ordering/order/charge/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/order/item/order-items.yaml
+      file: db/changelog/changes/ordering/order/item/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/order/transaction/order-transactions.yaml
+      file: db/changelog/changes/ordering/order/transaction/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/wishlist/wishlists.yaml
+      file: db/changelog/changes/ordering/wishlist/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/shipment/status/shipment-statuses.yaml
+      file: db/changelog/changes/ordering/shipment/status/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/shipment/shipments.yaml
+      file: db/changelog/changes/ordering/shipment/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/shipment/transaction/shipment-transactions.yaml
+      file: db/changelog/changes/ordering/shipment/transaction/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/cart/carts.yaml
+      file: db/changelog/changes/ordering/cart/001-create-table.yaml
   - include:
-      file: db/changelog/changes/ordering/cart/item/cart-items.yaml
+      file: db/changelog/changes/ordering/cart/item/001-create-table.yaml
+  #  - include:
+  #      file: db/changelog/changes/promotion/discount-coupons.yml
+  #  - include:
+  #      file: db/changelog/changes/promotion/discount-conditions.yml
+  #  - include:
+  #      file: db/changelog/changes/promotion/discount-targets.yml
   - include:
-      file: db/changelog/changes/promotion/discount-coupons.yml
+      file: db/changelog/changes/media/001-create-table.yaml
   - include:
-      file: db/changelog/changes/promotion/discount-conditions.yml
+      file: db/changelog/changes/billing/invoice/001-create-table.yaml
   - include:
-      file: db/changelog/changes/promotion/discount-targets.yml
+      file: db/changelog/changes/billing/invoice/item/001-create-table.yaml
   - include:
-      file: db/changelog/changes/media/media.yaml
+      file: db/changelog/changes/billing/invoice/charge/001-create-table.yaml
   - include:
-      file: db/changelog/changes/billing/invoice/invoices.yaml
+      file: db/changelog/changes/billing/payment/001-create-table.yaml
   - include:
-      file: db/changelog/changes/billing/invoice/item/invoice-items.yaml
+      file: db/changelog/changes/notification/sms/template/001-create-table.yaml
   - include:
-      file: db/changelog/changes/billing/invoice/charge/invoice-charges.yaml
+      file: db/changelog/changes/notification/sms/status/001-create-table.yaml
   - include:
-      file: db/changelog/changes/billing/payment/payments.yaml
+      file: db/changelog/changes/notification/sms/001-create-table.yaml
   - include:
-      file: db/changelog/changes/notification/sms/template/sms-templates.yaml
-  - include:
-      file: db/changelog/changes/notification/sms/status/sms-statuses.yaml
-  - include:
-      file: db/changelog/changes/notification/sms/sms.yaml
-  - include:
-      file: db/changelog/changes/platform/event_publication.yaml
+      file: db/changelog/changes/platform/event-publication/001-create-table.yaml
 
-  ######################################## DATA ########################################
+  ######################################## DATA ##########################################
 #  - include:
-#      file: db/changelog/data/identity/roles.yml
+#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/identity/provinces.yml
+#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/identity/user-groups.yml
+#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/identity/users.yml
+#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/identity/user-group-roles.yml
+#      file: db/changelog/data/identity/user-group-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
 #      file: db/changelog/data/identity/addresses.yml
 #  - include:
-#      file: db/changelog/data/shop/shops.yml
+#      file: db/changelog/data/shop/001-001-001-001-001-insert-data.yaml
 #  - include:
 #      file: db/changelog/data/catalog/service-offerings.yml
 #  - include:
@@ -137,31 +137,31 @@ databaseChangeLog:
 #  #  - include:
 #  #      file: db/changelog/data/discount-targets.yml
 #  - include:
-#      file: db/changelog/data/order/order-statuses.yml
+#      file: db/changelog/data/order/001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/notification/sms-statuses.yml
+#      file: db/changelog/data/notification/001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/notification/sms-templates.yml
+#      file: db/changelog/data/notification/001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/insert-data.yaml
+#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/insert-data.yaml
+#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/identity/permissions.yml
+#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/identity/role-permissions.yml
+#      file: db/changelog/data/identity/role-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/insert-data.yaml
+#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
 #      file: db/changelog/data/catalog/products.yml
 #  - include:
 #      file: db/changelog/data/catalog/product-prices.yml
 #  - include:
-#      file: db/changelog/data/catalog/insert-data.yaml
+#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/product-insert-data.yaml
+#      file: db/changelog/data/catalog/product-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
-#      file: db/changelog/data/catalog/product-insert-data.yaml
+#      file: db/changelog/data/catalog/product-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
 #  - include:
 #      file: db/changelog/data/catalog/media-types.yml
 #  - include:

@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.ordering.order;
 
 import com.sashia.ecommerce.catalog.item.ItemVariant;
-import com.sashia.ecommerce.promotion.discount.Discount;
+import com.sashia.ecommerce.promotion.Promotion;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -57,7 +57,7 @@ public class OrderItem {
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Discount discount;
+    private Promotion promotion;
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
@@ -69,20 +69,20 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Long getItemVariantId() {
-        return itemVariantId;
-    }
-
-    public void setItemVariantId(Long itemVariantId) {
-        this.itemVariantId = itemVariantId;
-    }
-
     public Long getOrderId() {
         return orderId;
     }
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public Long getItemVariantId() {
+        return itemVariantId;
+    }
+
+    public void setItemVariantId(Long itemVariantId) {
+        this.itemVariantId = itemVariantId;
     }
 
     public Long getDiscountId() {
@@ -133,20 +133,20 @@ public class OrderItem {
         this.subtotal = subtotal;
     }
 
-    public BigDecimal getTaxAmount() {
-        return taxAmount;
-    }
-
-    public void setTaxAmount(BigDecimal taxAmount) {
-        this.taxAmount = taxAmount;
-    }
-
     public BigDecimal getTaxRate() {
         return taxRate;
     }
 
     public void setTaxRate(BigDecimal taxRate) {
         this.taxRate = taxRate;
+    }
+
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
     }
 
     public BigDecimal getDiscountAmount() {
@@ -197,12 +197,12 @@ public class OrderItem {
         this.order = order;
     }
 
-    public Discount getDiscount() {
-        return discount;
+    public Promotion getPromotion() {
+        return promotion;
     }
 
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 
 }

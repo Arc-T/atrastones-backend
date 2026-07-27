@@ -19,7 +19,6 @@ public record PromotionEvaluationDTO(
         Integer priority,
         boolean stackable,
         boolean active,
-        PromotionSelectionType selectionType,
         LocalDateTime validFrom,
         LocalDateTime validUntil,
         // **************************** RELATIONS ****************************

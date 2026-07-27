@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1785083642690-1
+      author: Mr.Arc-T
+      changes:
+        - createTable:
+            schemaName: promotion
+            tableName: targets
+            remarks: Stores promotion targets.
+            columns:
+              - column:
+                  name: id
+                  type: ${id.type}
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: promotion_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: target_id
+                  type: ${id.type}
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            schemaName: promotion
+            tableName: targets
+            columnNames: id
+            constraintName: pk_targets
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: promotion
+            baseTableName: targets
+            baseColumnNames: promotion_id
+            referencedTableSchemaName: promotion
+            referencedTableName: promotion
+            referencedColumnNames: id
+            constraintName: fk_targets_promotion
+
+        - createIndex:
+            schemaName: promotion
+            tableName: targets
+            indexName: idx_targets_promotion
+            columns:
+              - column:
+                  name: promotion_id

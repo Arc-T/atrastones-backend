@@ -18,7 +18,8 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     public List<PromotionDTO> getActivePromotions() {
-        return promotionRepository.findAllActivePromotions().stream().map(PromotionMapper::toDTO);
+//        return promotionRepository.findAllActivePromotions().stream().map(PromotionMapper::toDTO);
+        return null;
     }
 
 

@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.media.internal;
 
-import com.sashia.ecommerce.catalog.item.product.ProductRepository;
+import com.sashia.ecommerce.catalog.product.ProductRepository;
 import com.sashia.ecommerce.media.Media;
 import com.sashia.ecommerce.media.MediaService;
 import com.sashia.ecommerce.media.dto.MediaCreateRequest;

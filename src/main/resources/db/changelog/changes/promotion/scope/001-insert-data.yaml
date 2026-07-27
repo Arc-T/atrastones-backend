@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1785132199829-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: promotion
+            tableName: scope
+            columns:
+              - column:
+                  name: code
+                  value: ITEM
+              - column:
+                  name: title
+                  value: Item
+              - column:
+                  name: description
+                  value: Specifies promotion should be evaluated on Items.

@@ -21,7 +21,7 @@ public class Scope {
     @Enumerated(EnumType.STRING)
     private ScopeCode code;
 
-    private String name;
+    private String title;
 
     private String description;
 

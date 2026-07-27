@@ -16,7 +16,6 @@ public record PromotionDTO(
         String name,
         String discountableType,
         BigDecimal amount,
-        PromotionSelectionType selectionType,
         LocalDateTime startDate,
         LocalDateTime expireDate,
         Integer maxUses,

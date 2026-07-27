@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.catalog.item.internal;
 
-import com.sashia.ecommerce.catalog.item.product.dto.ProductDTO;
-import com.sashia.ecommerce.catalog.item.product.dto.ProductPriceDTO;
+import com.sashia.ecommerce.catalog.product.dto.ProductDTO;
+import com.sashia.ecommerce.catalog.product.dto.ProductPriceDTO;
 
 import java.util.List;
 
