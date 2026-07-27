@@ -1,6 +1,5 @@
 package com.sashia.ecommerce.promotion.condition.operator;
 
-import com.sashia.ecommerce.promotion.condition.ConditionOperatorCode;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

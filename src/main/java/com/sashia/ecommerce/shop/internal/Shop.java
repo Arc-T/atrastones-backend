@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.shop.internal;
 
 import com.sashia.ecommerce.catalog.product.Product;
-import com.sashia.ecommerce.identity.user.address.Address;
+import com.sashia.ecommerce.identity.address.Address;
 import com.sashia.ecommerce.ordering.order.Order;
 import com.sashia.ecommerce.shop.dto.ShopStatus;
 import com.sashia.ecommerce.shop.member.ShopMember;

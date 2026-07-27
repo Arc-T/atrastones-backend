@@ -1,60 +1,36 @@
 databaseChangeLog:
   - changeSet:
-      id: 1785136600400-1
+      id: 1785177128218-1
       author: Mr.Arc-T
       changes:
         - insert:
             schemaName: promotion
-            tableName: target_type
+            tableName: target_types
             columns:
-              - column:
-                  name: code
-                  value: PRODUCT
-              - column:
-                  name: title
-                  value: Item
-              - column:
-                  name: description
-                  value: Applies to specific catalog items.
+              - column: { name: code, value: 'PRODUCT' }
+              - column: { name: title, value: 'Item' }
+              - column: { name: description, value: 'Applies to specific catalog items.' }
 
         - insert:
             schemaName: promotion
-            tableName: target_type
+            tableName: target_types
             columns:
-              - column:
-                  name: code
-                  value: CATEGORY
-              - column:
-                  name: title
-                  value: Category
-              - column:
-                  name: description
-                  value: Applies to catalog categories.
+              - column: { name: code, value: 'CATEGORY' }
+              - column: { name: title, value: 'Category' }
+              - column: { name: description, value: 'Applies to catalog categories.' }
 
         - insert:
             schemaName: promotion
-            tableName: target_type
+            tableName: target_types
             columns:
-              - column:
-                  name: code
-                  value: TAG
-              - column:
-                  name: title
-                  value: Tag
-              - column:
-                  name: description
-                  value: Applies to items having specific tags.
+              - column: { name: code, value: 'TAG' }
+              - column: { name: title, value: 'Tag' }
+              - column: { name: description, value: 'Applies to items with specific tags.' }
 
         - insert:
             schemaName: promotion
-            tableName: target_type
+            tableName: target_types
             columns:
-              - column:
-                  name: code
-                  value: USER
-              - column:
-                  name: title
-                  value: User
-              - column:
-                  name: description
-                  value: Applies to specific users.
+              - column: { name: code, value: 'USER' }
+              - column: { name: title, value: 'User' }
+              - column: { name: description, value: 'Applies to specific users.' }

@@ -29,20 +29,20 @@ databaseChangeLog:
 
               - column:
                   name: usage_limit
-                  type: ${integer.type}
+                  type: ${integer_value.type}
                   constraints:
                     nullable: true
 
               - column:
                   name: usage_count
-                  type: ${integer.type}
+                  type: ${integer_value.type}
                   defaultValueNumeric: '0'
                   constraints:
                     nullable: false
 
               - column:
                   name: usage_limit_per_user
-                  type: ${integer.type}
+                  type: ${integer_value.type}
                   constraints:
                     nullable: true
 

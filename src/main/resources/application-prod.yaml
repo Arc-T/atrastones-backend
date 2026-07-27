@@ -33,8 +33,8 @@ spring:
       max-request-size: 30MB
 
   datasource:
-    url: jdbc:mysql://localhost:3306/atrastones?allowPublicKeyRetrieval=true&useSSL=false
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB.URL}
+    driver-class-name: ${DB.DRIVER}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     hikari:
@@ -43,14 +43,9 @@ spring:
       idle-timeout: 30000
       max-lifetime: 1800000
       connection-timeout: 30000
-      pool-name: Mysql-Pooling
+      pool-name: Postgres-Pooling
       auto-commit: false
       transaction-isolation: TRANSACTION_READ_COMMITTED
-
-  data:
-    jpa:
-      repositories:
-        enabled: false
 
   jpa:
     open-in-view: false

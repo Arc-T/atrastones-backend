@@ -1,8 +1,7 @@
 package com.sashia.ecommerce.promotion.engine.strategy.discount.calculator;
 
 import com.sashia.ecommerce.catalog.item.ItemDTO;
-import com.sashia.ecommerce.promotion.type.discount.dto.DiscountDTO;
-import com.sashia.ecommerce.promotion.type.discount.type.DiscountTypeCode;
+import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

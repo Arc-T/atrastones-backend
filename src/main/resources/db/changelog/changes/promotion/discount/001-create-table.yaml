@@ -29,7 +29,7 @@ databaseChangeLog:
 
               - column:
                   name: amount
-                  type: ${decimal.type}
+                  type: ${price.type}
                   constraints:
                     nullable: false
 

@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1785171000001-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: promotion
+            tableName: conditions
+            columns:
+              - column: { name: promotion_id, valueNumeric: '1' }
+              - column: { name: condition_type_id, valueNumeric: '1' }
+              - column: { name: operator_id, valueNumeric: '4' }
+              - column: { name: condition_value, value: '1000000' }

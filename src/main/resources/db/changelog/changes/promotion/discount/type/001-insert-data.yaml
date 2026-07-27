@@ -1,20 +1,18 @@
 databaseChangeLog:
   - changeSet:
-      id: 1785136529605-1
+      id: 1785177067840-1
       author: Mr.Arc-T
       changes:
         - insert:
             schemaName: promotion
             tableName: discount_types
             columns:
-              - column:
-                  name: code
-                  value: PERCENT
+              - column: { name: title, value: 'Percent' }
+              - column: { name: code, value: 'PERCENT' }
 
         - insert:
             schemaName: promotion
             tableName: discount_types
             columns:
-              - column:
-                  name: code
-                  value: FIXED
+              - column: { name: title, value: 'Fixed' }
+              - column: { name: code, value: 'FIXED' }

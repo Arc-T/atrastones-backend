@@ -11,6 +11,9 @@ databaseChangeLog:
                   name: name
                   value: 'زیور آلات'
               - column:
+                  name: item_type
+                  value: 'PRODUCT'
+              - column:
                   name: slug
                   value: 'accessory'
               - column:
@@ -24,6 +27,9 @@ databaseChangeLog:
               - column:
                   name: name
                   value: 'دستبند'
+              - column:
+                  name: item_type
+                  value: 'PRODUCT'
               - column:
                   name: slug
                   value: 'bracelet'
@@ -41,6 +47,9 @@ databaseChangeLog:
               - column:
                   name: name
                   value: 'گردنبند'
+              - column:
+                  name: item_type
+                  value: 'PRODUCT'
               - column:
                   name: slug
                   value: 'necklace'

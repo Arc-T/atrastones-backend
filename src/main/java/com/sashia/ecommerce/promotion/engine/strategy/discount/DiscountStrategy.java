@@ -9,7 +9,7 @@ import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.Discou
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.FixedDiscountCalculator;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.PercentDiscountCalculator;
 import com.sashia.ecommerce.promotion.type.TypeCode;
-import com.sashia.ecommerce.promotion.type.discount.dto.DiscountDTO;
+import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

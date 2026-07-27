@@ -2,7 +2,13 @@ databaseChangeLog:
   ######################################## TYPE ##########################################
   - include:
       file: db/changelog/h2-type.yml
-
   ######################################## MASTER ########################################
   - include:
       file: db/changelog/master.yaml
+  ######################################## DATA ##########################################
+  - include:
+      file: db/changelog/changes/promotion/promotion/insert-data.yaml
+  - include:
+      file: db/changelog/changes/promotion/discount/insert-data.yaml
+  - include:
+      file: db/changelog/changes/promotion/condition/insert-data.yaml

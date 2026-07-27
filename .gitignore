@@ -35,4 +35,5 @@ logs/
 ### Media ###
 uploads/*
 
-src/main/resources/secrets.properties
+src/main/resources/application-prod.yaml
+src/main/resources/db/secrets.yaml

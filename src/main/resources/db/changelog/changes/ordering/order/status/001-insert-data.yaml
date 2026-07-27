@@ -1,36 +1,28 @@
 databaseChangeLog:
   - changeSet:
-      id: 1768464175184-1
+      id: 1785176931798-1
       author: Mr.Arc-T
       changes:
         - insert:
             schemaName: ordering
             tableName: order_statuses
             columns:
-              - column:
-                  name: name
-                  value: 'PENDING'
+              - column: { name: name, value: 'PENDING' }
 
         - insert:
             schemaName: ordering
             tableName: order_statuses
             columns:
-              - column:
-                  name: name
-                  value: 'DELIVERED'
+              - column: { name: name, value: 'DELIVERED' }
 
         - insert:
             schemaName: ordering
             tableName: order_statuses
             columns:
-              - column:
-                  name: name
-                  value: 'RETURNED'
+              - column: { name: name, value: 'RETURNED' }
 
         - insert:
             schemaName: ordering
             tableName: order_statuses
             columns:
-              - column:
-                  name: name
-                  value: 'CANCELLED'
+              - column: { name: name, value: 'CANCELLED' }

@@ -61,6 +61,20 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/promotion/promotion/001-create-table.yaml
   - include:
+      file: db/changelog/changes/promotion/target/001-create-table.yaml
+  - include:
+      file: db/changelog/changes/promotion/condition/type/001-create-table.yaml
+  - include:
+      file: db/changelog/changes/promotion/condition/operator/001-create-table.yaml
+  - include:
+      file: db/changelog/changes/promotion/condition/001-create-table.yaml
+  - include:
+      file: db/changelog/changes/promotion/discount/type/001-create-table.yaml
+  - include:
+      file: db/changelog/changes/promotion/discount/001-create-table.yaml
+  - include:
+      file: db/changelog/changes/promotion/coupon/001-create-table.yaml
+  - include:
       file: db/changelog/changes/ordering/order/status/001-create-table.yaml
   - include:
       file: db/changelog/changes/ordering/order/001-create-table.yaml
@@ -82,12 +96,6 @@ databaseChangeLog:
       file: db/changelog/changes/ordering/cart/001-create-table.yaml
   - include:
       file: db/changelog/changes/ordering/cart/item/001-create-table.yaml
-  #  - include:
-  #      file: db/changelog/changes/promotion/discount-coupons.yml
-  #  - include:
-  #      file: db/changelog/changes/promotion/discount-conditions.yml
-  #  - include:
-  #      file: db/changelog/changes/promotion/discount-targets.yml
   - include:
       file: db/changelog/changes/media/001-create-table.yaml
   - include:
@@ -106,63 +114,28 @@ databaseChangeLog:
       file: db/changelog/changes/notification/sms/001-create-table.yaml
   - include:
       file: db/changelog/changes/platform/event-publication/001-create-table.yaml
-
   ######################################## DATA ##########################################
-#  - include:
-#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/identity/user-group-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/identity/addresses.yml
-#  - include:
-#      file: db/changelog/data/shop/001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/service-offerings.yml
-#  - include:
-#      file: db/changelog/data/promotion/discount-types.yml
-#  - include:
-#      file: db/changelog/data/promotion/discount-scopes.yml
-#  - include:
-#      file: db/changelog/data/promotion/discounts.yml
-#  #  - include:
-#  #      file: db/changelog/data/discount-coupons.yml
-#  #  - include:
-#  #      file: db/changelog/data/discount-conditions.yml
-#  #  - include:
-#  #      file: db/changelog/data/discount-targets.yml
-#  - include:
-#      file: db/changelog/data/order/001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/notification/001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/notification/001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/identity/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/identity/role-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/products.yml
-#  - include:
-#      file: db/changelog/data/catalog/product-prices.yml
-#  - include:
-#      file: db/changelog/data/catalog/001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/product-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/product-001-001-001-001-001-001-001-001-001-001-001-001-insert-data.yaml
-#  - include:
-#      file: db/changelog/data/catalog/media-types.yml
-#  - include:
-#      file: db/changelog/data/catalog/product-media.yml
+  - include:
+      file: db/changelog/changes/identity/user/group/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/identity/user/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/identity/province/001-insert-data.yaml
+  - include:
+      file: /db/changelog/changes/identity/address/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/shop/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/promotion/type/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/promotion/discount/type/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/promotion/scope/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/promotion/condition/type/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/promotion/target/type/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/notification/sms/template/001-insert-data.yaml
+  - include:
+      file: db/changelog/changes/notification/sms/status/001-insert-data.yaml

@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1785175912470-1
+      author: Mr.Arc-T
+      changes:
+        - insert:
+            schemaName: catalog
+            tableName: items
+            columns:
+              - column: { name: category_id, valueNumeric: '1' }
+              - column: { name: item_type, value: 'PRODUCT' }
+              - column: { name: title, value: 'Apple iPhone 16 Pro' }
+              - column: { name: price, valueNumeric: '1299.99' }
+              - column: { name: cover_image, value: 'iphone16pro.jpg' }
+              - column: { name: is_featured, valueBoolean: 'true' }
+              - column: { name: is_published, valueBoolean: 'true' }
+
+        - insert:
+            schemaName: catalog
+            tableName: items
+            columns:
+              - column: { name: category_id, valueNumeric: '1' }
+              - column: { name: item_type, value: 'PRODUCT' }
+              - column: { name: title, value: 'Samsung Galaxy S25 Ultra' }
+              - column: { name: price, valueNumeric: '1199.99' }
+              - column: { name: cover_image, value: 'galaxy-s25-ultra.jpg' }
+              - column: { name: is_featured, valueBoolean: 'true' }
+              - column: { name: is_published, valueBoolean: 'true' }
+
+        - insert:
+            schemaName: catalog
+            tableName: items
+            columns:
+              - column: { name: category_id, valueNumeric: '2' }
+              - column: { name: item_type, value: 'PRODUCT' }
+              - column: { name: title, value: 'Logitech MX Master 3S' }
+              - column: { name: price, valueNumeric: '99.99' }
+              - column: { name: cover_image, value: 'mx-master-3s.jpg' }
+              - column: { name: is_featured, valueBoolean: 'false' }
+              - column: { name: is_published, valueBoolean: 'true' }
+
+        - insert:
+            schemaName: catalog
+            tableName: items
+            columns:
+              - column: { name: category_id, valueNumeric: '2' }
+              - column: { name: item_type, value: 'PRODUCT' }
+              - column: { name: title, value: 'Dell UltraSharp U2723QE' }
+              - column: { name: price, valueNumeric: '549.99' }
+              - column: { name: cover_image, value: 'u2723qe.jpg' }
+              - column: { name: is_featured, valueBoolean: 'false' }
+              - column: { name: is_published, valueBoolean: 'true' }
+
+        - insert:
+            schemaName: catalog
+            tableName: items
+            columns:
+              - column: { name: category_id, valueNumeric: '1' }
+              - column: { name: item_type, value: 'SERVICE_OFFERING' }
+              - column: { name: title, value: 'Website Performance Audit' }
+              - column: { name: price, valueNumeric: '250.00' }
+              - column: { name: cover_image, value: 'performance-audit.jpg' }
+              - column: { name: is_featured, valueBoolean: 'false' }
+              - column: { name: is_published, valueBoolean: 'true' }
+
+        - insert:
+            schemaName: catalog
+            tableName: items
+            columns:
+              - column: { name: category_id, valueNumeric: '2' }
+              - column: { name: item_type, value: 'SERVICE_OFFERING' }
+              - column: { name: title, value: 'Spring Boot Architecture Review' }
+              - column: { name: price, valueNumeric: '450.00' }
+              - column: { name: cover_image, value: 'architecture-review.jpg' }
+              - column: { name: is_featured, valueBoolean: 'true' }
+              - column: { name: is_published, valueBoolean: 'true' }

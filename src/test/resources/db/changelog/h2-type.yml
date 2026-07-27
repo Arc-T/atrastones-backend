@@ -33,7 +33,7 @@ databaseChangeLog:
       dbms: h2
   - property:
       name: price.type
-      value: DECIMAL(12,0)
+      value: DECIMAL(12,2)
       dbms: h2
   - property:
       name: integer_value.type

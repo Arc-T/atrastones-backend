@@ -17,7 +17,7 @@ databaseChangeLog:
       dbms: postgresql
   - property:
       name: price.type
-      value: DECIMAL(12,0)
+      value: DECIMAL(12,2)
       dbms: postgresql
   - property:
       name: phone.type
