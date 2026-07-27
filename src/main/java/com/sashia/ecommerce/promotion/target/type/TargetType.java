@@ -1,5 +1,6 @@
 package com.sashia.ecommerce.promotion.target.type;
 
+import com.sashia.ecommerce.promotion.Promotion;
 import com.sashia.ecommerce.promotion.target.Target;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -29,7 +30,7 @@ public class TargetType {
     /* ******************************* TABLE RELATIONS ******************************** */
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "targetType")
-    private Set<Target> targets = new LinkedHashSet<>();
+    private Set<Promotion> promotion = new LinkedHashSet<>();
 
     /* ****************************** GETTER & SETTERS ******************************** */
 

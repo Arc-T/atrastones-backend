@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface ItemRepository extends JpaRepository<Item, Long>, JpaSpecificationExecutor<Item> {
 
-    Page<Item> findAllByItemType(Pageable pageable);
+    Page<Item> findAllByItemType(Pageable pageable, ItemType itemType);
 
 }
