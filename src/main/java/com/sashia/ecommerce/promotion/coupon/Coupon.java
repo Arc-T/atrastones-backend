@@ -45,20 +45,6 @@ public class Coupon {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Promotion promotion;
 
-    /* ********************************** HELPERS ************************************* */
-
-    public boolean isUnlimited() {
-        return usageLimit == null;
-    }
-
-    public boolean hasReachedUsageLimit() {
-        return usageLimit != null && usageCount >= usageLimit;
-    }
-
-    public void incrementUsageCount() {
-        usageCount++;
-    }
-
     /* ****************************** GETTER & SETTERS ******************************** */
 
 }

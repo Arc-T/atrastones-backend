@@ -31,7 +31,7 @@ databaseChangeLog:
                   name: target_type_id
                   type: ${id.type}
                   constraints:
-                    nullable: false
+                    nullable: true
 
               - column:
                   name: name

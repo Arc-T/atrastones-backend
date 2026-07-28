@@ -28,6 +28,13 @@ databaseChangeLog:
                     nullable: false
 
               - column:
+                  name: description
+                  type: ${description.type}
+                  remarks: Optional description.
+                  constraints:
+                    nullable: true
+
+              - column:
                   name: created_at
                   type: ${timestamp_value.type}
                   defaultValueComputed: CURRENT_TIMESTAMP

@@ -11,7 +11,7 @@ import java.util.Set;
 //What is being evaluated?
 
 @Entity
-@Table(name = "promotion_scopes", schema = "promotion")
+@Table(name = "scopes", schema = "promotion")
 public class Scope {
 
     @Id
@@ -39,18 +39,54 @@ public class Scope {
     )
     private Set<ConditionType> conditionTypes = new LinkedHashSet<>();
 
-    /* ********************************** HELPERS ************************************* */
-
-    public void addConditionType(ConditionType conditionType) {
-        conditionTypes.add(conditionType);
-//        conditionType.getLevels().add(this);
-    }
-
-    public void removeConditionType(ConditionType conditionType) {
-        conditionTypes.remove(conditionType);
-//        conditionType.getLevels().remove(this);
-    }
-
     /* ****************************** GETTER & SETTERS ******************************** */
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ScopeCode getCode() {
+        return code;
+    }
+
+    public void setCode(ScopeCode code) {
+        this.code = code;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Set<ConditionType> getConditionTypes() {
+        return conditionTypes;
+    }
+
+    public void setConditionTypes(Set<ConditionType> conditionTypes) {
+        this.conditionTypes = conditionTypes;
+    }
 
 }

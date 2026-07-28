@@ -7,14 +7,6 @@ databaseChangeLog:
             schemaName: promotion
             tableName: target_types
             columns:
-              - column: { name: code, value: 'PRODUCT' }
-              - column: { name: title, value: 'Item' }
-              - column: { name: description, value: 'Applies to specific catalog items.' }
-
-        - insert:
-            schemaName: promotion
-            tableName: target_types
-            columns:
               - column: { name: code, value: 'CATEGORY' }
               - column: { name: title, value: 'Category' }
               - column: { name: description, value: 'Applies to catalog categories.' }

@@ -18,7 +18,7 @@ public class ItemTargetMatcher implements PromotionTargetMatcher {
 
     @Override
     public TargetTypeCode type() {
-        return TargetTypeCode.ITEM;
+        return TargetTypeCode.CATEGORY;
     }
 
     @Override

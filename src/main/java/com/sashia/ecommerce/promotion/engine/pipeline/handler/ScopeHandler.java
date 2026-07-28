@@ -26,7 +26,7 @@ public class ScopeHandler implements PromotionHandler {
     public PromotionHandlerResult handle(PromotionContext context) {
         PromotionRequest request = context.getRequest();
         return switch (context.getPromotion().scope()) {
-            case ITEM -> CollectionUtils.isEmpty(request.items()) ?
+            case PRODUCT -> CollectionUtils.isEmpty(request.items()) ?
                     PromotionHandlerResult.failure("empty items") :
                     PromotionHandlerResult.success();
             case USER -> request.userId() == null ?

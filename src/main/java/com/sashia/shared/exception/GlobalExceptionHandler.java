@@ -43,6 +43,7 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     ProblemDetail handleUnexpected(Exception exception, WebRequest request) {
+        logger.error("Unexpected error", exception);
         return createProblemDetail(exception, HttpStatus.INTERNAL_SERVER_ERROR, "unexpected.error",
                 "internal.server.error", null, request);
     }

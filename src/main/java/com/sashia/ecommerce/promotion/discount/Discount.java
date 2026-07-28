@@ -33,9 +33,54 @@ public class Discount {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Promotion promotion;
 
-    /* ******************************* TABLE RELATIONS ******************************** */
-
-
     /* ****************************** GETTER & SETTERS ******************************** */
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public DiscountType getType() {
+        return type;
+    }
+
+    public void setType(DiscountType type) {
+        this.type = type;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
 
 }

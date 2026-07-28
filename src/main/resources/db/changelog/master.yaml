@@ -134,6 +134,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/promotion/condition/type/001-insert-data.yaml
   - include:
+      file: db/changelog/changes/promotion/condition/operator/001-insert-data.yaml
+  - include:
       file: db/changelog/changes/promotion/target/type/001-insert-data.yaml
   - include:
       file: db/changelog/changes/notification/sms/template/001-insert-data.yaml

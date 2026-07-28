@@ -31,8 +31,8 @@ public class ActivationHandler implements PromotionHandler {
         PromotionDTO promotion = context.getPromotion();
 
         boolean active = promotion.isActive()
-                && !promotion.startDate().isAfter(now)
-                && !promotion.expireDate().isBefore(now);
+                && !promotion.validFrom().isAfter(now)
+                && !promotion.validUntil().isBefore(now);
 
         return active
                 ? PromotionHandlerResult.success()

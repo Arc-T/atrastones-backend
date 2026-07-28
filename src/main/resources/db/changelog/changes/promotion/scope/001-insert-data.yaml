@@ -8,5 +8,5 @@ databaseChangeLog:
             tableName: scopes
             columns:
               - column: { name: title, value: 'Item' }
-              - column: { name: code, value: 'ITEM' }
+              - column: { name: code, value: 'PRODUCT' }
               - column: { name: description, value: 'Specifies the promotion should be evaluated on items.' }
