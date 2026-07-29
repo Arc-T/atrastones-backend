@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler;
 
-import com.sashia.ecommerce.promotion.engine.PromotionRequest;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

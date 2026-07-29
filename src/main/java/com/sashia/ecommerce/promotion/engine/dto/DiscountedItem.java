@@ -1,4 +1,4 @@
-package com.sashia.ecommerce.promotion.engine.effect;
+package com.sashia.ecommerce.promotion.engine.dto;
 
 import java.math.BigDecimal;
 

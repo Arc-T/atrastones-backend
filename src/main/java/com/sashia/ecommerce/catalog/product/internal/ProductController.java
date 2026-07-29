@@ -6,7 +6,7 @@ import com.sashia.ecommerce.catalog.product.dto.ProductBriefInfoProjection;
 import com.sashia.ecommerce.catalog.product.dto.ProductCreateRequest;
 import com.sashia.ecommerce.catalog.product.dto.ProductDTO;
 import com.sashia.ecommerce.catalog.product.dto.ProductUpdateDTO;
-import com.sashia.ecommerce.promotion.engine.PromotionResult;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

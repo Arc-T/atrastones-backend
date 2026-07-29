@@ -4,9 +4,7 @@ import jakarta.validation.constraints.Null;
 
 public record PromotionHandlerResult(
         boolean proceed,
-        @Null String reason
-
-) {
+        @Null String reason) {
 
     public static PromotionHandlerResult success() {
         return new PromotionHandlerResult(true, null);

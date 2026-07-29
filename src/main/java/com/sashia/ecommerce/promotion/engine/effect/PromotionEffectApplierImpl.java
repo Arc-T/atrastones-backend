@@ -1,12 +1,13 @@
-package com.sashia.ecommerce.promotion.engine;
+package com.sashia.ecommerce.promotion.engine.effect;
 
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
-import com.sashia.ecommerce.promotion.engine.effect.DiscountEffect;
-import com.sashia.ecommerce.promotion.engine.effect.DiscountedItem;
-import com.sashia.ecommerce.promotion.engine.effect.PromotionEffect;
+import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
 import com.sashia.ecommerce.promotion.engine.price.AppliedPromotion;
 import com.sashia.ecommerce.promotion.engine.price.PricedItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,8 +15,12 @@ import java.math.BigDecimal;
 @Service
 public class PromotionEffectApplierImpl implements PromotionEffectApplier {
 
+    private static final Logger log = LoggerFactory.getLogger(PromotionEffectApplierImpl.class);
+
     @Override
     public void apply(PromotionContext context, PromotionResult result) {
+
+        log.debug("Applicable items: {}", context.getApplicableItems());
 
         for (PromotionEffect effect : context.getEffects()) {
             applyEffect(effect, context, result);
@@ -23,20 +28,21 @@ public class PromotionEffectApplierImpl implements PromotionEffectApplier {
     }
 
     private void applyEffect(PromotionEffect effect, PromotionContext context, PromotionResult result) {
-
-        if (effect instanceof DiscountEffect discountEffect) {
-            applyDiscountEffect(discountEffect, context, result);
-            return;
+        switch (effect) {
+            case FreeShippingEffect shippingEffect -> IO.println(shippingEffect);
+            case BuyXGetYEffect buyXGetYEffect -> IO.println(buyXGetYEffect);
+            case DiscountEffect discountEffect -> applyDiscountEffect(discountEffect, context, result);
+            default -> throw new IllegalArgumentException("Unsupported promotion effect: "
+                    + effect.getClass().getSimpleName()
+            );
         }
-
-        throw new IllegalArgumentException("Unsupported promotion effect: "
-                        + effect.getClass().getSimpleName()
-        );
     }
 
     private void applyDiscountEffect(DiscountEffect effect, PromotionContext context, PromotionResult result) {
 
         PromotionDTO promotion = context.getPromotion();
+
+        log.debug("Discounted items: {}", effect.discountedItems());
 
         for (DiscountedItem discountedItem : effect.discountedItems()) {
 
@@ -44,8 +50,7 @@ public class PromotionEffectApplierImpl implements PromotionEffectApplier {
 
             BigDecimal priceBefore = pricedItem.getCurrentPrice();
 
-            BigDecimal priceAfter =
-                    priceBefore.subtract(discountedItem.amount());
+            BigDecimal priceAfter = priceBefore.subtract(discountedItem.amount());
 
             pricedItem.addPromotion(
                     new AppliedPromotion(
@@ -58,6 +63,7 @@ public class PromotionEffectApplierImpl implements PromotionEffectApplier {
                     )
             );
         }
+
     }
 
 }

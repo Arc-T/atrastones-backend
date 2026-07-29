@@ -3,7 +3,7 @@ package com.sashia.ecommerce.promotion.engine.strategy.discount;
 import com.sashia.ecommerce.catalog.item.ItemDTO;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.effect.DiscountEffect;
-import com.sashia.ecommerce.promotion.engine.effect.DiscountedItem;
+import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
 import com.sashia.ecommerce.promotion.engine.strategy.PromotionStrategy;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.DiscountCalculator;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.FixedDiscountCalculator;
@@ -54,8 +54,7 @@ public class DiscountStrategy implements PromotionStrategy {
 
         for (ItemDTO item : context.getApplicableItems()) {
 
-            BigDecimal discountAmount =
-                    calculator.calculate(item, discount);
+            BigDecimal discountAmount = calculator.calculate(item, discount);
 
             discountedItems.add(
                     new DiscountedItem(

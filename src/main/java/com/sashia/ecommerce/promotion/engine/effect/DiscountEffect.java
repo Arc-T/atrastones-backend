@@ -1,5 +1,7 @@
 package com.sashia.ecommerce.promotion.engine.effect;
 
+import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
+
 import java.util.List;
 
 /**

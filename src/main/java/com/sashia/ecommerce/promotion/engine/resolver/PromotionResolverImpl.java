@@ -2,7 +2,7 @@ package com.sashia.ecommerce.promotion.engine.resolver;
 
 import com.sashia.ecommerce.promotion.PromotionService;
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
-import com.sashia.ecommerce.promotion.engine.PromotionRequest;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

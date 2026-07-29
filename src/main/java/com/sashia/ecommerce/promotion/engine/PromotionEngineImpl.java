@@ -2,6 +2,9 @@ package com.sashia.ecommerce.promotion.engine;
 
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
+import com.sashia.ecommerce.promotion.engine.effect.PromotionEffectApplier;
 import com.sashia.ecommerce.promotion.engine.pipeline.PromotionPipeline;
 import com.sashia.ecommerce.promotion.engine.price.PricedItem;
 import com.sashia.ecommerce.promotion.engine.resolver.PromotionResolver;

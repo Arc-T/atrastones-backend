@@ -2,7 +2,7 @@ package com.sashia.ecommerce.promotion.engine.context;
 
 import com.sashia.ecommerce.catalog.item.ItemDTO;
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
-import com.sashia.ecommerce.promotion.engine.PromotionRequest;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
 import com.sashia.ecommerce.promotion.engine.effect.PromotionEffect;
 
 import java.util.ArrayList;

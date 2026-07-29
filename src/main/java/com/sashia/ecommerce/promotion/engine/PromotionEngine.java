@@ -1,5 +1,8 @@
 package com.sashia.ecommerce.promotion.engine;
 
+import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
+
 /**
  * Entry point of the promotion engine.
  *

@@ -6,9 +6,9 @@ import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 
 import java.util.List;
 
-public interface PromotionConditionEvaluator {
+public interface ConditionEvaluator {
 
-    ConditionTypeCode supports();
+    ConditionTypeCode type();
 
     boolean evaluate(List<ConditionDTO> conditions, PromotionContext context);
 
