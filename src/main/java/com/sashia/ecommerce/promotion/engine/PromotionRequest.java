@@ -13,4 +13,9 @@ public record PromotionRequest(
 //        @Nullable PaymentType paymentType
         @NonNull List<ItemDTO> items
 ) {
+
+    public PromotionRequest(List<ItemDTO> items) {
+        this(null, null, items);
+    }
+
 }

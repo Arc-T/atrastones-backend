@@ -5,6 +5,8 @@ import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.pipeline.PromotionPipeline;
 import com.sashia.ecommerce.promotion.engine.price.PricedItem;
 import com.sashia.ecommerce.promotion.engine.resolver.PromotionResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
 @Component
 public class PromotionEngineImpl implements PromotionEngine {
 
+    private static final Logger log = LoggerFactory.getLogger(PromotionEngineImpl.class);
     private final PromotionResolver promotionResolver;
     private final PromotionPipeline promotionPipeline;
     private final PromotionEffectApplier promotionEffectApplier;
@@ -30,13 +33,15 @@ public class PromotionEngineImpl implements PromotionEngine {
     }
 
     @Override
-    public PromotionResult evaluate(PromotionRequest request) {
+    public PromotionResult apply(PromotionRequest request) {
 
         PromotionResult result = new PromotionResult();
 
         initializePricedItems(request, result);
 
         List<PromotionDTO> promotions = promotionResolver.resolve(request);
+
+        log.debug("Entered engine with promotions: {}", promotions);
 
         if (!promotions.isEmpty()) {
 
@@ -50,11 +55,12 @@ public class PromotionEngineImpl implements PromotionEngine {
             }
         }
 
+        log.debug("Exited engine with result: {}", result);
+
         return result;
     }
 
     private void initializePricedItems(PromotionRequest request, PromotionResult result) {
-
         request.items()
                 .forEach(item -> result.addPricedItem(
                         new PricedItem(item))

@@ -29,6 +29,7 @@ public final class ProductMapper {
         return new ProductSummary(
                 item.getId(),
                 item.getTitle(),
+                item.getItemType(),
                 ProductPriceDTO.toDTO(item.getPrice()),
                 item.getCoverImage(),
                 item.isFeatured(),

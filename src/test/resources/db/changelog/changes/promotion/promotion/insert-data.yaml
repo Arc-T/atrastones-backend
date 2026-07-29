@@ -42,3 +42,7 @@ databaseChangeLog:
               - column:
                   name: valid_from
                   valueDate: 2026-01-01T00:00:00
+
+              - column:
+                  name: valid_until
+                  valueDate: 2029-01-01T00:00:00

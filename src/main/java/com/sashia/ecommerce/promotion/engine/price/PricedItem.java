@@ -37,10 +37,6 @@ public class PricedItem {
         return promotions.getLast().priceAfter();
     }
 
-    public boolean hasPromotions() {
-        return !promotions.isEmpty();
-    }
-
     /* ******************************** GETTERS ******************************** */
 
     public ItemDTO getItem() {
@@ -49,6 +45,14 @@ public class PricedItem {
 
     public List<AppliedPromotion> getPromotions() {
         return Collections.unmodifiableList(promotions);
+    }
+
+    @Override
+    public String toString() {
+        return "PricedItem{" +
+                "item=" + item +
+                ", promotions=" + promotions +
+                '}';
     }
 
 }

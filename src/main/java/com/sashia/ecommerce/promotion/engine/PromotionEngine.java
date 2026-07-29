@@ -12,6 +12,6 @@ package com.sashia.ecommerce.promotion.engine;
  */
 public interface PromotionEngine {
 
-    PromotionResult evaluate(PromotionRequest request);
+    PromotionResult apply(PromotionRequest request);
 
 }

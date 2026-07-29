@@ -10,5 +10,9 @@ databaseChangeLog:
       file: db/changelog/changes/promotion/promotion/insert-data.yaml
   - include:
       file: db/changelog/changes/promotion/discount/insert-data.yaml
+#  - include:
+#      file: db/changelog/changes/promotion/condition/insert-data.yaml
   - include:
-      file: db/changelog/changes/promotion/condition/insert-data.yaml
+      file: db/changelog/changes/catalog/category/insert-data.yaml
+  - include:
+      file: db/changelog/changes/catalog/item/001-insert-data.yaml

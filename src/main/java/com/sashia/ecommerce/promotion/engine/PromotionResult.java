@@ -2,6 +2,7 @@ package com.sashia.ecommerce.promotion.engine;
 
 import com.sashia.ecommerce.promotion.engine.price.PricedItem;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,6 +18,17 @@ public class PromotionResult {
 
     public PricedItem getPricedItem(Long itemId) {
         return pricedItems.get(itemId);
+    }
+
+    public Map<Long, PricedItem> getPricedItems() {
+        return Collections.unmodifiableMap(pricedItems);
+    }
+
+    @Override
+    public String toString() {
+        return "PromotionResult{" +
+                "pricedItems=" + pricedItems +
+                '}';
     }
 
 }

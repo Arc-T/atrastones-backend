@@ -39,14 +39,19 @@ public class ConditionHandler implements PromotionHandler {
 
         PromotionDTO promotion = context.getPromotion();
 
-        Map<ConditionTypeCode, List<ConditionDTO>> groupedConditions =
-                groupConditionsByType(promotion);
+        if (!promotion.conditions().isEmpty()) {
 
-        if (!conditionsSatisfied(groupedConditions, context)) {
-            return PromotionHandlerResult.failure("Condition not satisfied");
+            Map<ConditionTypeCode, List<ConditionDTO>> groupedConditions =
+                    groupConditionsByType(promotion);
+
+            if (!conditionsSatisfied(groupedConditions, context)) {
+                return PromotionHandlerResult.failure("Condition not satisfied");
+            }
+
         }
 
         return PromotionHandlerResult.success();
+
     }
 
     private Map<ConditionTypeCode, List<ConditionDTO>> groupConditionsByType(PromotionDTO promotion) {

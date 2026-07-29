@@ -35,15 +35,23 @@ public class TargetHandler implements PromotionHandler {
 
         PromotionDTO promotion = context.getPromotion();
 
-        PromotionTargetMatcher matcher = matcherFactory.get(promotion.targetType());
+        if (!promotion.targets().isEmpty()) {
 
-        TargetMatchResult result = matcher.matches(promotion.targets(), context);
+            PromotionTargetMatcher matcher = matcherFactory.get(promotion.targetType());
 
-        if (!result.applicable()) {
-            return PromotionHandlerResult.failure("Target not applicable");
+            TargetMatchResult result = matcher.matches(promotion.targets(), context);
+
+            if (!result.applicable()) {
+                return PromotionHandlerResult.failure("Target not applicable");
+            }
+
+            context.addApplicableItems(result.affectedItems());
+
+        } else {
+
+            context.addApplicableItems(context.getRequest().items());
+
         }
-
-        context.addApplicableItems(result.affectedItems());
 
         return PromotionHandlerResult.success();
     }
