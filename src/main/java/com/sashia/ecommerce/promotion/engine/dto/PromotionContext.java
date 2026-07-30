@@ -6,7 +6,6 @@ import com.sashia.ecommerce.promotion.dto.PromotionDTO;
 import com.sashia.ecommerce.promotion.engine.effect.PromotionEffect;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class PromotionContext {
 

@@ -1,9 +1,9 @@
 package com.sashia.ecommerce.catalog.category;
 
-import com.sashia.ecommerce.catalog.item.ItemType;
 import com.sashia.ecommerce.catalog.category.dto.CategoryCreateRequest;
 import com.sashia.ecommerce.catalog.category.dto.CategoryResponse;
 import com.sashia.ecommerce.catalog.category.dto.CategoryUpdateRequest;
+import com.sashia.ecommerce.catalog.item.ItemType;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;

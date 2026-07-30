@@ -1,8 +1,8 @@
 package com.sashia.ecommerce.identity.address;
 
-import com.sashia.ecommerce.identity.user.User;
 import com.sashia.ecommerce.identity.address.internal.AddressType;
 import com.sashia.ecommerce.identity.address.internal.Province;
+import com.sashia.ecommerce.identity.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SoftDelete;

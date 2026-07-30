@@ -1,10 +1,6 @@
 package com.sashia.ecommerce.catalog.attribute;
 
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeType;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeCreateRequest;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeResponse;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeUpdateRequest;
-import com.sashia.ecommerce.catalog.attribute.dto.AttributeValueRequest;
+import com.sashia.ecommerce.catalog.attribute.dto.*;
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import com.sashia.ecommerce.internal.Language;
 import com.sashia.ecommerce.internal.TestWithLocale;

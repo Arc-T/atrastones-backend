@@ -56,11 +56,11 @@ databaseChangeLog:
             columnNames: id
             constraintName: pk_cart_items
 
-#        - addCheckConstraint:
-#            schemaName: ordering
-#            tableName: cart_items
-#            constraintName: ck_cart_items_item_type
-#            constraintBody: item_type IN ('PRODUCT', 'SERVICE')
+        #        - addCheckConstraint:
+        #            schemaName: ordering
+        #            tableName: cart_items
+        #            constraintName: ck_cart_items_item_type
+        #            constraintBody: item_type IN ('PRODUCT', 'SERVICE')
 
         - addForeignKeyConstraint:
             baseTableSchemaName: ordering

@@ -1,15 +1,15 @@
 package com.sashia.ecommerce.promotion.engine.strategy.discount;
 
 import com.sashia.ecommerce.catalog.item.ItemDTO;
+import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
+import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
 import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.effect.DiscountEffect;
-import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
 import com.sashia.ecommerce.promotion.engine.strategy.PromotionStrategy;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.DiscountCalculator;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.FixedDiscountCalculator;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.PercentDiscountCalculator;
 import com.sashia.ecommerce.promotion.type.TypeCode;
-import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

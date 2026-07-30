@@ -1,11 +1,7 @@
 package com.sashia.ecommerce.promotion.engine.effect;
 
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
-import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
-import com.sashia.ecommerce.promotion.engine.dto.AppliedPromotion;
-import com.sashia.ecommerce.promotion.engine.dto.PricedItem;
+import com.sashia.ecommerce.promotion.engine.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

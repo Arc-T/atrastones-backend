@@ -1,6 +1,5 @@
 package com.sashia.ecommerce.media.internal;
 
-import com.sashia.ecommerce.catalog.product.ProductRepository;
 import com.sashia.ecommerce.media.Media;
 import com.sashia.ecommerce.media.MediaService;
 import com.sashia.ecommerce.media.dto.MediaCreateRequest;
@@ -18,11 +17,9 @@ import java.util.List;
 public class MediaServiceImpl implements MediaService {
 
     private final MediaRepository mediaRepository;
-    private final ProductRepository productRepository;
 
-    public MediaServiceImpl(ProductRepository productRepository, MediaRepository mediaRepository) {
+    public MediaServiceImpl(MediaRepository mediaRepository) {
         this.mediaRepository = mediaRepository;
-        this.productRepository = productRepository;
     }
 
     @Override

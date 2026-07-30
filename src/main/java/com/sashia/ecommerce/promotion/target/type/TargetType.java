@@ -1,7 +1,6 @@
 package com.sashia.ecommerce.promotion.target.type;
 
 import com.sashia.ecommerce.promotion.Promotion;
-import com.sashia.ecommerce.promotion.target.Target;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
