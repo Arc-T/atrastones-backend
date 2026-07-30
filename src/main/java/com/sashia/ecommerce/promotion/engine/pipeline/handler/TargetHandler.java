@@ -1,10 +1,11 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler;
 
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
-import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.pipeline.handler.target.PromotionTargetMatcher;
 import com.sashia.ecommerce.promotion.engine.pipeline.handler.target.PromotionTargetMatcherFactory;
-import com.sashia.ecommerce.promotion.engine.pipeline.handler.target.TargetMatchResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 @Order(value = 3)
 public class TargetHandler implements PromotionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(TargetHandler.class);
     private final PromotionTargetMatcherFactory matcherFactory;
 
     public TargetHandler(PromotionTargetMatcherFactory matcherFactory) {
@@ -39,17 +41,12 @@ public class TargetHandler implements PromotionHandler {
 
             PromotionTargetMatcher matcher = matcherFactory.get(promotion.targetType());
 
-            TargetMatchResult result = matcher.matches(promotion.targets(), context);
+            log.debug("Promotion target matcher for {} is {}", promotion.targetType(), matcher);
 
-            if (!result.applicable()) {
+            matcher.match(promotion.targets(), context);
+
+            if (context.getCandidateItems().isEmpty())
                 return PromotionHandlerResult.failure("Target not applicable");
-            }
-
-            context.addApplicableItems(result.affectedItems());
-
-        } else {
-
-            context.addApplicableItems(context.getRequest().items());
 
         }
 

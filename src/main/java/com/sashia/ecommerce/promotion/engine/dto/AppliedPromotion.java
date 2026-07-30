@@ -1,4 +1,4 @@
-package com.sashia.ecommerce.promotion.engine.price;
+package com.sashia.ecommerce.promotion.engine.dto;
 
 import com.sashia.ecommerce.promotion.type.TypeCode;
 
@@ -16,7 +16,5 @@ public record AppliedPromotion(
         TypeCode promotionType,
         BigDecimal discountAmount,
         BigDecimal priceBefore,
-        BigDecimal priceAfter
-
-) {
+        BigDecimal priceAfter) {
 }

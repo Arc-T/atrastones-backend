@@ -1,8 +1,10 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler;
 
-import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.strategy.PromotionStrategy;
 import com.sashia.ecommerce.promotion.engine.strategy.PromotionStrategyFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Component;
 @Order(value = 5)
 public class EffectGenerationHandler implements PromotionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(EffectGenerationHandler.class);
     private final PromotionStrategyFactory strategyFactory;
 
     public EffectGenerationHandler(PromotionStrategyFactory strategyFactory) {
@@ -30,6 +33,8 @@ public class EffectGenerationHandler implements PromotionHandler {
 
         PromotionStrategy strategy =
                 strategyFactory.resolve(context.getPromotion().type());
+
+        log.debug("Promotion strategy found: {}", strategy.getClass().getName());
 
         strategy.execute(context);
 

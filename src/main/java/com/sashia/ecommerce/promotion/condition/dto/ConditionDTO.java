@@ -3,5 +3,6 @@ package com.sashia.ecommerce.promotion.condition.dto;
 import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
 
 public record ConditionDTO(
-        ConditionTypeCode type) {
+        ConditionTypeCode type,
+        String value) {
 }

@@ -1,7 +1,5 @@
 package com.sashia.ecommerce.promotion.engine.dto;
 
-import com.sashia.ecommerce.promotion.engine.price.PricedItem;
-
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;

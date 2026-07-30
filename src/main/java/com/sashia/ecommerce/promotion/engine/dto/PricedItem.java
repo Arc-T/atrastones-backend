@@ -1,4 +1,4 @@
-package com.sashia.ecommerce.promotion.engine.price;
+package com.sashia.ecommerce.promotion.engine.dto;
 
 import com.sashia.ecommerce.catalog.item.ItemDTO;
 

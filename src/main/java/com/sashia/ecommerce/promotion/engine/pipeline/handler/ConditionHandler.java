@@ -5,7 +5,7 @@ import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
 import com.sashia.ecommerce.promotion.engine.condition.ConditionEvaluator;
 import com.sashia.ecommerce.promotion.engine.condition.ConditionEvaluatorFactory;
-import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -47,10 +47,10 @@ public class ConditionHandler implements PromotionHandler {
             Map<ConditionTypeCode, List<ConditionDTO>> groupedConditions =
                     groupConditionsByType(promotion);
 
-            if (!conditionsSatisfied(groupedConditions, context)) {
-                return PromotionHandlerResult.failure("Condition not satisfied");
-            }
+            applyConditions(groupedConditions, context);
 
+            if (context.getCandidateItems().isEmpty())
+                return PromotionHandlerResult.failure("Condition not satisfied");
         }
 
         log.debug("Promotion conditions satisfied by {} conditions", promotion.conditions().size());
@@ -60,7 +60,6 @@ public class ConditionHandler implements PromotionHandler {
     }
 
     private Map<ConditionTypeCode, List<ConditionDTO>> groupConditionsByType(PromotionDTO promotion) {
-
         return promotion.conditions()
                 .stream()
                 .collect(Collectors.groupingBy(
@@ -70,23 +69,17 @@ public class ConditionHandler implements PromotionHandler {
                 ));
     }
 
-    private boolean conditionsSatisfied(Map<ConditionTypeCode, List<ConditionDTO>> groupedConditions,
-                                        PromotionContext context) {
+    private void applyConditions(Map<ConditionTypeCode, List<ConditionDTO>> groupedConditions,
+                                 PromotionContext context) {
 
-        for (Map.Entry<ConditionTypeCode, List<ConditionDTO>> entry
-                : groupedConditions.entrySet()) {
+        for (Map.Entry<ConditionTypeCode, List<ConditionDTO>> entry : groupedConditions.entrySet()) {
 
-            ConditionEvaluator evaluator =
-                    evaluatorFactory.resolve(entry.getKey());
+            ConditionEvaluator evaluator = evaluatorFactory.resolve(entry.getKey());
 
             log.debug("Promotion condition evaluator: {}", evaluator);
 
-            if (!evaluator.evaluate(entry.getValue(), context)) {
-                return false;
-            }
+            evaluator.evaluate(entry.getValue(), context);
         }
-
-        return true;
     }
 
 }

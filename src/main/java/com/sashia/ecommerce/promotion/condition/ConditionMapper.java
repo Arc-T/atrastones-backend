@@ -6,7 +6,8 @@ public class ConditionMapper {
 
     public static ConditionDTO toDTO(Condition condition) {
         return new ConditionDTO(
-                condition.getConditionType().getCode()
+                condition.getConditionType().getCode(),
+                condition.getConditionValue()
         );
     }
 
