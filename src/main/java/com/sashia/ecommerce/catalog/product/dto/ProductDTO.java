@@ -9,7 +9,7 @@ public record ProductDTO(
         Long id,
         String name,
         Long shopId,
-        Integer quantity,
+        Integer stock,
         ProductStatus status,
         String description,
         LocalDateTime createdAt,

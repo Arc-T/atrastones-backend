@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.catalog.category.dto;
 
-import com.sashia.ecommerce.catalog.item.ItemType;
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.billing.invoice;
 
-import com.sashia.ecommerce.catalog.item.ItemType;
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

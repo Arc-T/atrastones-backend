@@ -20,7 +20,7 @@ public class OrderCharge {
     @Enumerated(EnumType.STRING)
     private OrderChargeType type;
 
-    private BigDecimal amount;
+    private BigDecimal cost;
 
     private String description;
 
@@ -62,11 +62,11 @@ public class OrderCharge {
     }
 
     public BigDecimal getAmount() {
-        return amount;
+        return cost;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setAmount(BigDecimal cost) {
+        this.cost = cost;
     }
 
     public String getDescription() {

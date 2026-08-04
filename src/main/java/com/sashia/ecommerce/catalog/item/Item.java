@@ -1,6 +1,7 @@
 package com.sashia.ecommerce.catalog.item;
 
 import com.sashia.ecommerce.catalog.category.Category;
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantPrice;
 import com.sashia.ecommerce.catalog.tag.Tag;
 import jakarta.persistence.*;
@@ -11,7 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,8 @@ public class Item {
     private ItemType itemType;
 
     private String title;
+
+    private Integer stock;
 
     private BigDecimal price;
 
@@ -60,10 +63,10 @@ public class Item {
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags = new LinkedHashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
-    private Set<ItemVariantPrice> itemVariantPrices = new HashSet<>();
+    private Set<ItemVariantPrice> itemVariantPrices = new LinkedHashSet<>();
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
@@ -97,6 +100,14 @@ public class Item {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public BigDecimal getPrice() {

@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.promotion.engine.dto;
 
-import com.sashia.ecommerce.catalog.item.ItemDTO;
-import com.sashia.ecommerce.catalog.item.ItemId;
+import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
+import com.sashia.ecommerce.catalog.item.dto.ItemId;
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
 import com.sashia.ecommerce.promotion.engine.effect.PromotionEffect;
 
@@ -38,14 +38,17 @@ public class PromotionContext {
     public PromotionContext(PromotionDTO promotion, PromotionRequest request) {
         this.promotion = promotion;
         this.request = request;
+        initialCandidateItems(request.items());
+    }
 
-        request.items().stream()
+    /* *********************************** HELPERS ************************************ */
+
+    private void initialCandidateItems(List<ItemDTO> items) {
+        items.stream()
                 .map(ItemDTO::id)
                 .map(ItemId::new)
                 .forEach(candidateItems::add);
     }
-
-    /* *********************************** HELPERS ************************************ */
 
     public Set<ItemId> getCandidateItems() {
         return Collections.unmodifiableSet(candidateItems);

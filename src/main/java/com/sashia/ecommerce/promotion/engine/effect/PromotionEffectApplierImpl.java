@@ -48,6 +48,11 @@ public class PromotionEffectApplierImpl implements PromotionEffectApplier {
 
             BigDecimal priceAfter = priceBefore.subtract(discountedItem.amount());
 
+            BigDecimal benefitPrice = priceBefore.subtract(priceAfter);
+
+            if (context.getRequest().order() != null)
+                result.addPromotionBenefit(promotion.name(), benefitPrice);
+
             pricedItem.addPromotion(
                     new AppliedPromotion(
                             promotion.id(),

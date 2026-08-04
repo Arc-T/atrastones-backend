@@ -22,6 +22,12 @@ databaseChangeLog:
                     nullable: false
 
               - column:
+                  name: stock
+                  type: ${integer_value.type}
+                  constraints:
+                    nullable: false
+
+              - column:
                   name: item_type
                   type: ${name.type}
                   constraints:

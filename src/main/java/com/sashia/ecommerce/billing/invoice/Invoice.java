@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.billing.invoice;
 
 import com.sashia.ecommerce.ordering.order.Order;
-import com.sashia.ecommerce.ordering.order.Pricing;
+import com.sashia.ecommerce.ordering.order.PricingDetails;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,7 +23,7 @@ public class Invoice {
     private String invoiceNumber;
 
     @Embedded
-    private Pricing pricing;
+    private PricingDetails pricingDetails;
 
     private String billingAddress;
 
@@ -77,12 +77,12 @@ public class Invoice {
         this.invoiceNumber = number;
     }
 
-    public Pricing getPricing() {
-        return pricing;
+    public PricingDetails getPricing() {
+        return pricingDetails;
     }
 
-    public void setPricing(Pricing pricing) {
-        this.pricing = pricing;
+    public void setPricing(PricingDetails pricingDetails) {
+        this.pricingDetails = pricingDetails;
     }
 
     public String getBillingAddress() {

@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.catalog.item.internal;
 
-import com.sashia.ecommerce.catalog.item.ItemType;
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 import org.jspecify.annotations.NonNull;
 
 public final class ProductSearchRequest extends ItemSearchRequest {

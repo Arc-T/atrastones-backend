@@ -3,6 +3,8 @@ package com.sashia.ecommerce.media.internal;
 import com.sashia.ecommerce.media.MediaService;
 import com.sashia.ecommerce.media.dto.MediaCreateRequest;
 import com.sashia.ecommerce.media.dto.MediaResponse;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/product-media")
+@RequestMapping(path = "/media")
 public class MediaController {
 
     private final MediaService mediaService;
@@ -33,6 +35,17 @@ public class MediaController {
     public ResponseEntity<List<MediaResponse>> readAllDraft(@PathVariable Long productId) {
         return ResponseEntity.ok().body(mediaService.readDraft(productId));
     }
+
+//    @GetMapping("/files/{filename:.+}")
+//    @ResponseBody
+//    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+//        Resource file = storageService.loadAsResource(filename);
+//        if (file == null)
+//            return ResponseEntity.notFound().build();
+//
+//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+//                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+//    }
 
     // ================================ POST ================================
 

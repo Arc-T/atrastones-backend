@@ -2,7 +2,7 @@ package com.sashia.ecommerce.catalog.product.internal;
 
 import com.sashia.ecommerce.catalog.category.Category;
 import com.sashia.ecommerce.catalog.category.CategoryRepository;
-import com.sashia.ecommerce.catalog.item.ItemDTO;
+import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 import com.sashia.ecommerce.catalog.item.ItemMapper;
 import com.sashia.ecommerce.catalog.item.ItemRepository;
 import com.sashia.ecommerce.catalog.item.internal.ItemSpecification;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -53,7 +54,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public ProductDTO get(Long id) {
+    public Optional<ProductDTO> get(Long id) {
 //        return productRepository.get(id).map(ProductDTO::toDTO)
 //                .orElseThrow(() -> new InvalidResourceException("product.not.found"));
         return null;

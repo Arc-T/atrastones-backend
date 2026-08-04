@@ -36,7 +36,7 @@ class ProductController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('READ_PRODUCT')")
     ResponseEntity<ProductDTO> read(@PathVariable Long id) {
-        return ResponseEntity.ok().body(productService.get(id));
+        return ResponseEntity.of(productService.get(id));
     }
 
     @GetMapping

@@ -3,7 +3,7 @@ package com.sashia.ecommerce.catalog.item;
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantAttributeValue;
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantPrice;
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantStatusType;
-import com.sashia.ecommerce.ordering.order.OrderItem;
+import com.sashia.ecommerce.ordering.order.OrderDetails;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SoftDelete;
@@ -54,7 +54,7 @@ public class ItemVariant {
     private Set<ItemVariantAttributeValue> itemVariantAttributeValues = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemVariant")
-    private Set<OrderItem> orderItems = new HashSet<>();
+    private Set<OrderDetails> orderDetails = new HashSet<>();
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
@@ -138,12 +138,12 @@ public class ItemVariant {
         this.itemVariantAttributeValues = itemVariantAttributeValues;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
+    public Set<OrderDetails> getOrderItems() {
+        return orderDetails;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setOrderItems(Set<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
 }

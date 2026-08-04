@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler.target;
 
-import com.sashia.ecommerce.catalog.item.ItemDTO;
+import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

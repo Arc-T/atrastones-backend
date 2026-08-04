@@ -25,6 +25,7 @@ import java.util.List;
 public class PromotionEngineImpl implements PromotionEngine {
 
     private static final Logger log = LoggerFactory.getLogger(PromotionEngineImpl.class);
+
     private final PromotionResolver promotionResolver;
     private final PromotionPipeline promotionPipeline;
     private final PromotionEffectApplier promotionEffectApplier;
@@ -38,9 +39,7 @@ public class PromotionEngineImpl implements PromotionEngine {
     @Override
     public PromotionResult apply(PromotionRequest request) {
 
-        PromotionResult result = new PromotionResult();
-
-        initializePricedItems(request, result);
+        PromotionResult result = new PromotionResult(request);
 
         List<PromotionDTO> promotions = promotionResolver.resolve(request);
 
@@ -61,13 +60,6 @@ public class PromotionEngineImpl implements PromotionEngine {
         log.debug("Exited engine with result: {}", result);
 
         return result;
-    }
-
-    private void initializePricedItems(PromotionRequest request, PromotionResult result) {
-        request.items()
-                .forEach(item -> result.addPricedItem(
-                        new PricedItem(item))
-                );
     }
 
 }

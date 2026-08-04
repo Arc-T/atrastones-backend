@@ -8,8 +8,6 @@ public interface AuthenticationService {
 
     AuthenticationResponse authenticateAdmin(LoginRequest request);
 
-    AuthenticationDTO attemptWithOTP(String phone, Integer otpCode);
-
     AuthenticationDTO authenticateCustomer(AuthenticationDTO authentication);
 
 }

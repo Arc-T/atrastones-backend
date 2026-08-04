@@ -6,9 +6,12 @@ import com.sashia.ecommerce.promotion.PromotionRepository;
 import com.sashia.ecommerce.promotion.PromotionService;
 import com.sashia.ecommerce.promotion.discount.Discount;
 import com.sashia.ecommerce.promotion.discount.DiscountRepository;
+import com.sashia.ecommerce.promotion.dto.PromotionCreateRequest;
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
+import com.sashia.ecommerce.promotion.dto.PromotionUpdateRequest;
 import com.sashia.ecommerce.promotion.type.TypeCode;
 import com.sashia.shared.exception.BusinessRuleException;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +31,20 @@ public class PromotionServiceImpl implements PromotionService {
     public PromotionServiceImpl(DiscountRepository discountRepository, PromotionRepository promotionRepository) {
         this.discountRepository = discountRepository;
         this.promotionRepository = promotionRepository;
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "promotions")
+    public Long create(PromotionCreateRequest request) {
+        return 0L;
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "promotions")
+    public void update(Long id, PromotionUpdateRequest request) {
+
     }
 
     @Override

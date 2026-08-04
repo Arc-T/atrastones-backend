@@ -23,7 +23,7 @@ public record ProductBriefInfoProjection(
                         products.get(i).id(),
                         products.get(i).name(),
                         products.get(i).media().stream().findFirst().get().url(),
-                        products.get(i).quantity(),
+                        products.get(i).stock(),
                         productPrices.get(i)
                 ));
             }

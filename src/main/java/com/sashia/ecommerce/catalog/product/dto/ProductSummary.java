@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.catalog.product.dto;
 
-import com.sashia.ecommerce.catalog.item.ItemType;
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 
 import java.time.LocalDateTime;
 

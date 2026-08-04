@@ -1,5 +1,6 @@
 package com.sashia.ecommerce.promotion;
 
+import com.sashia.ecommerce.ordering.order.Order;
 import com.sashia.ecommerce.promotion.condition.Condition;
 import com.sashia.ecommerce.promotion.scope.Scope;
 import com.sashia.ecommerce.promotion.target.Target;
@@ -59,11 +60,14 @@ public class Promotion {
 
     /* ******************************* TABLE RELATIONS ******************************** */
 
-    @OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
     private Set<Target> targets = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
     private Set<Condition> conditions = new LinkedHashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "promotions")
+    private Set<Order> orders = new LinkedHashSet<>();
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
@@ -193,6 +197,14 @@ public class Promotion {
 
     public void setConditions(Set<Condition> conditions) {
         this.conditions = conditions;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
 }

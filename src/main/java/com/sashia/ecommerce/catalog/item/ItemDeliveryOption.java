@@ -1,5 +1,6 @@
 package com.sashia.ecommerce.catalog.item;
 
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 import com.sashia.ecommerce.ordering.order.Order;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

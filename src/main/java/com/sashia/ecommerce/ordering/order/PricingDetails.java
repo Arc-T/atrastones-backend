@@ -7,14 +7,14 @@ import jakarta.persistence.Enumerated;
 import java.math.BigDecimal;
 
 @Embeddable
-public record Pricing(
+public record PricingDetails(
         @Enumerated(EnumType.STRING)
         CurrencyType currency,
         BigDecimal subtotal,
         BigDecimal shippingCost,
         BigDecimal tax,
         BigDecimal additionalCharges,
-        BigDecimal discount,
+        BigDecimal discountAmount,
         BigDecimal total
 ) {
 }

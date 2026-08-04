@@ -31,6 +31,8 @@ spring:
     properties:
       hibernate:
         generate_statistics: TRUE
+        connection:
+          autocommit: false
         jdbc:
           fetch_size: 50
 

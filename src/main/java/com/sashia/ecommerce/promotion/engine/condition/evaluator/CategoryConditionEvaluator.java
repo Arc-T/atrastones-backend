@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.condition.evaluator;
 
-import com.sashia.ecommerce.catalog.item.ItemId;
+import com.sashia.ecommerce.catalog.item.dto.ItemId;
 import com.sashia.ecommerce.promotion.condition.dto.ConditionDTO;
 import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
 import com.sashia.ecommerce.promotion.engine.condition.ConditionEvaluator;

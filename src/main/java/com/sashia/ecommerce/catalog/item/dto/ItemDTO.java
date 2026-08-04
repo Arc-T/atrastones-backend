@@ -1,4 +1,4 @@
-package com.sashia.ecommerce.catalog.item;
+package com.sashia.ecommerce.catalog.item.dto;
 
 import java.math.BigDecimal;
 

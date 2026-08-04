@@ -1,5 +1,6 @@
 package com.sashia.ecommerce.catalog.item;
 
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

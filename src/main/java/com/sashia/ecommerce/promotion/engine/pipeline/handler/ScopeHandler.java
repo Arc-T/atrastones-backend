@@ -24,15 +24,19 @@ public class ScopeHandler implements PromotionHandler {
 
     @Override
     public PromotionHandlerResult handle(PromotionContext context) {
+
         PromotionRequest request = context.getRequest();
+
         return switch (context.getPromotion().scope()) {
-            case PRODUCT -> CollectionUtils.isEmpty(request.items()) ?
+            case PRODUCT, SERVICE_OFFERING -> CollectionUtils.isEmpty(request.items()) ?
                     PromotionHandlerResult.failure("empty items") :
                     PromotionHandlerResult.success();
             case USER -> request.userId() == null ?
                     PromotionHandlerResult.failure("empty user") :
                     PromotionHandlerResult.success();
-            default -> null;
+            case ORDER -> request.order() == null ?
+                    PromotionHandlerResult.failure("empty order") :
+                    PromotionHandlerResult.success();
         };
     }
 

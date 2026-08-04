@@ -9,11 +9,13 @@ import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 public interface ProductService {
 
     Long create(ProductCreateRequest product);
 
-    ProductDTO get(Long id);
+    Optional<ProductDTO> get(Long id);
 
     Page<PromotionResult> getAll(Pageable pageable, ProductSearchRequest search);
 

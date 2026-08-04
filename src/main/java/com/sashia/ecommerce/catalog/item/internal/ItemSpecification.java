@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.catalog.item.internal;
 
 import com.sashia.ecommerce.catalog.item.Item;
-import com.sashia.ecommerce.catalog.item.ItemType;
+import com.sashia.ecommerce.catalog.item.dto.ItemType;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 

@@ -1,5 +1,7 @@
 package com.sashia.ecommerce.catalog.item;
 
+import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
+
 public class ItemMapper {
 
     public static ItemDTO toDTO(Item item) {
