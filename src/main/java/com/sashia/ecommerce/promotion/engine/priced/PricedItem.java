@@ -1,6 +1,7 @@
-package com.sashia.ecommerce.promotion.engine.dto;
+package com.sashia.ecommerce.promotion.engine.priced;
 
 import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
+import com.sashia.ecommerce.promotion.engine.dto.AppliedPromotion;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

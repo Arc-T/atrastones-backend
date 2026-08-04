@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.pipeline;
 
-import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.pipeline.handler.PromotionHandler;
 import com.sashia.ecommerce.promotion.engine.pipeline.handler.PromotionHandlerResult;
 import org.slf4j.Logger;

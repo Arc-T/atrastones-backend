@@ -5,7 +5,7 @@ import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
 import com.sashia.ecommerce.promotion.engine.condition.ConditionEvaluator;
 import com.sashia.ecommerce.promotion.engine.condition.ConditionEvaluatorFactory;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;

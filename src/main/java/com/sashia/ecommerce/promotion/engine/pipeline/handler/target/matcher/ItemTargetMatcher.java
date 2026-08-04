@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler.target.matcher;
 
 import com.sashia.ecommerce.catalog.item.dto.ItemId;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.pipeline.handler.target.PromotionTargetMatcher;
 import com.sashia.ecommerce.promotion.target.dto.TargetDTO;
 import com.sashia.ecommerce.promotion.target.type.TargetTypeCode;

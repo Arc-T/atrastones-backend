@@ -2,9 +2,9 @@ package com.sashia.ecommerce.catalog.product.internal;
 
 import com.sashia.ecommerce.catalog.category.Category;
 import com.sashia.ecommerce.catalog.category.CategoryRepository;
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 import com.sashia.ecommerce.catalog.item.ItemMapper;
 import com.sashia.ecommerce.catalog.item.ItemRepository;
+import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 import com.sashia.ecommerce.catalog.item.internal.ItemSpecification;
 import com.sashia.ecommerce.catalog.item.internal.ProductSearchRequest;
 import com.sashia.ecommerce.catalog.product.Product;
@@ -13,7 +13,6 @@ import com.sashia.ecommerce.catalog.product.ProductService;
 import com.sashia.ecommerce.catalog.product.dto.*;
 import com.sashia.ecommerce.promotion.engine.PromotionEngine;
 import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
 import com.sashia.shared.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,14 +59,14 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Page<PromotionResult> getAll(Pageable pageable, ProductSearchRequest request) {
+    public Page<ItemDTO> getAll(Pageable pageable, ProductSearchRequest request) {
 
         Page<ItemDTO> items = itemRepository.findAll(ItemSpecification.bySearch(request), pageable)
                 .map(ItemMapper::toDTO);
 
-        PromotionResult result = promotionEngine.apply(new PromotionRequest(items.stream().toList()));
+        promotionEngine.apply(new PromotionRequest(items.stream().toList()));
 
-        return new PageImpl<>(List.of(result), pageable, items.getTotalElements());
+        return new PageImpl<>(items.stream().toList(), pageable, items.getTotalElements());
     }
 
     @Override

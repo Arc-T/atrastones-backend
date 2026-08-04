@@ -1,12 +1,12 @@
 package com.sashia.ecommerce.catalog.product.internal;
 
+import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 import com.sashia.ecommerce.catalog.item.internal.ProductSearchRequest;
 import com.sashia.ecommerce.catalog.product.ProductService;
 import com.sashia.ecommerce.catalog.product.dto.ProductBriefInfoProjection;
 import com.sashia.ecommerce.catalog.product.dto.ProductCreateRequest;
 import com.sashia.ecommerce.catalog.product.dto.ProductDTO;
 import com.sashia.ecommerce.catalog.product.dto.ProductUpdateDTO;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +41,7 @@ class ProductController {
 
     @GetMapping
 //    @PreAuthorize("hasAuthority('READ_ALL_PRODUCTS')")
-    ResponseEntity<Page<PromotionResult>> readAll(Pageable pageable, ProductSearchRequest search) {
+    ResponseEntity<Page<ItemDTO>> readAll(Pageable pageable, ProductSearchRequest search) {
         return ResponseEntity.ok(productService.getAll(pageable, search));
     }
 

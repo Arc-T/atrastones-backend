@@ -2,15 +2,11 @@ package com.sashia.ecommerce.ordering.order.internal;
 
 import com.sashia.ecommerce.catalog.item.ItemService;
 import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
-import com.sashia.ecommerce.catalog.product.ProductService;
-import com.sashia.ecommerce.ordering.order.OrderRepository;
 import com.sashia.ecommerce.ordering.order.OrderService;
 import com.sashia.ecommerce.ordering.order.dto.OrderCreateRequest;
 import com.sashia.ecommerce.ordering.order.dto.OrderDTO;
 import com.sashia.ecommerce.ordering.order.dto.OrderSearchDTO;
 import com.sashia.ecommerce.promotion.engine.PromotionEngine;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
 import com.sashia.shared.exception.ResourceNotFoundException;
 import com.sashia.shared.util.SecurityUtils;
 import org.springframework.data.domain.Page;
@@ -27,18 +23,15 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService {
 
     private final ItemService itemService;
-    private final ProductService productService;
-    private final OrderRepository orderRepository;
     private final PromotionEngine promotionEngine;
 
-    public OrderServiceImpl(ItemService itemService, ProductService productService, OrderRepository orderRepository, PromotionEngine promotionEngine) {
+    public OrderServiceImpl(ItemService itemService, PromotionEngine promotionEngine) {
         this.itemService = itemService;
-        this.productService = productService;
-        this.orderRepository = orderRepository;
         this.promotionEngine = promotionEngine;
     }
 
     @Override
+    @Transactional
     public Long create(OrderCreateRequest request) {
 
         List<ItemDTO> items = new ArrayList<>(request.items().size());
@@ -51,10 +44,9 @@ public class OrderServiceImpl implements OrderService {
         Long userId = SecurityUtils.getCurrentUserId()
                 .orElseThrow(() -> new ResourceNotFoundException("user.not.found"));
 
-        PromotionResult promotionResults = promotionEngine.apply(
-                new PromotionRequest(userId, request.coupon(), request.shipmentMethod(),
-                        request.paymentMethod(), items)
-        );
+//        PromotionResult promotionResults = promotionEngine.apply(
+//                new PromotionRequest(userId, request, items)
+//        );
 
         return 0L;
     }

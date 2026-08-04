@@ -1,8 +1,9 @@
-package com.sashia.ecommerce.promotion.engine.dto;
+package com.sashia.ecommerce.promotion.engine.context;
 
 import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 import com.sashia.ecommerce.catalog.item.dto.ItemId;
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
 import com.sashia.ecommerce.promotion.engine.effect.PromotionEffect;
 
 import java.util.*;

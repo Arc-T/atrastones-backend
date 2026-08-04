@@ -6,15 +6,15 @@ import java.math.BigDecimal;
 
 public class OrderMapper {
 
-    public static OrderDTO toDTO(Order order) {
-        return new OrderDTO(
-                order.getId(),
-                order.getUserId(),
-                BigDecimal.ONE,
-                order.getDescription(),
-                order.getCreatedAt(),
-                order.getUpdatedAt()
-        );
-    }
+//    public static OrderDTO toDTO(Order order) {
+//        return new OrderDTO(
+//                order.getId(),
+//                order.getUserId(),
+//                BigDecimal.ONE,
+//                order.getDescription(),
+//                order.getCreatedAt(),
+//                order.getUpdatedAt()
+//        );
+//    }
 
 }

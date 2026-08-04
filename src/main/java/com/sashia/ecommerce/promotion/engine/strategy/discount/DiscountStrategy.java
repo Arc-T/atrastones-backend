@@ -3,7 +3,7 @@ package com.sashia.ecommerce.promotion.engine.strategy.discount;
 import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
 import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.effect.DiscountEffect;
 import com.sashia.ecommerce.promotion.engine.strategy.PromotionStrategy;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.DiscountCalculator;

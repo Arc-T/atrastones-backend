@@ -1,10 +1,8 @@
 package com.sashia.ecommerce.promotion.engine;
 
 import com.sashia.ecommerce.promotion.dto.PromotionDTO;
-import com.sashia.ecommerce.promotion.engine.dto.PricedItem;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionResult;
 import com.sashia.ecommerce.promotion.engine.effect.PromotionEffectApplier;
 import com.sashia.ecommerce.promotion.engine.pipeline.PromotionPipeline;
 import com.sashia.ecommerce.promotion.engine.resolver.PromotionResolver;
@@ -37,9 +35,7 @@ public class PromotionEngineImpl implements PromotionEngine {
     }
 
     @Override
-    public PromotionResult apply(PromotionRequest request) {
-
-        PromotionResult result = new PromotionResult(request);
+    public void apply(PromotionRequest request) {
 
         List<PromotionDTO> promotions = promotionResolver.resolve(request);
 
@@ -53,13 +49,9 @@ public class PromotionEngineImpl implements PromotionEngine {
 
                 promotionPipeline.execute(context);
 
-                promotionEffectApplier.apply(context, result);
+                promotionEffectApplier.apply(context);
             }
         }
-
-        log.debug("Exited engine with result: {}", result);
-
-        return result;
     }
 
 }

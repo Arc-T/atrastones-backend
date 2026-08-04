@@ -2,7 +2,7 @@ package com.sashia.ecommerce.promotion.engine.condition;
 
 import com.sashia.ecommerce.promotion.condition.dto.ConditionDTO;
 import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 
 import java.util.List;
 

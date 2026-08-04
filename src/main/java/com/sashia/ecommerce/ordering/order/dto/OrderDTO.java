@@ -15,16 +15,16 @@ public record OrderDTO(
         LocalDateTime updatedAt
 ) {
     // ********************** DTOs **********************
-    public static OrderDTO toDTO(Order order) {
-        return new OrderDTO(
-                order.getId(),
-                order.getUserId(),
-                order.getPricing().total(),
-//                order.status(),
-                order.getDescription(),
-                order.getCreatedAt(),
-                order.getUpdatedAt()
-        );
-    }
+//    public static OrderDTO toDTO(Order order) {
+//        return new OrderDTO(
+//                order.getId(),
+//                order.getUserId(),
+//                order.getPricing().total(),
+////                order.status(),
+//                order.getDescription(),
+//                order.getCreatedAt(),
+//                order.getUpdatedAt()
+//        );
+//    }
 
 }
