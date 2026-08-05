@@ -1,5 +1,7 @@
 package com.sashia.ecommerce.ordering.shipment.internal;
 
+import com.sashia.ecommerce.ordering.shipment.ShipmentRepository;
+import com.sashia.ecommerce.ordering.shipment.ShipmentService;
 import com.sashia.ecommerce.promotion.engine.PromotionEngine;
 import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
 import org.springframework.data.domain.Page;
@@ -28,7 +30,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         List<ShipmentDTO> shipments = shipmentRepository.findAll(pageable)
                 .stream().map(ShipmentMapper::toDTO).toList();
 
-//        promotionEngine.apply(new PromotionRequest(shipments));
+        promotionEngine.apply(PromotionRequest.ofShipments(shipments));
 
         return new PageImpl<>(shipments, pageable, shipments.size());
     }

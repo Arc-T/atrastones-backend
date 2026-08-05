@@ -8,7 +8,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-public record OrderCreateRequest(
+public record CheckoutRequest(
         @Nullable String coupon,
         @Nullable String description,
         @NonNull PaymentMethod paymentMethod,

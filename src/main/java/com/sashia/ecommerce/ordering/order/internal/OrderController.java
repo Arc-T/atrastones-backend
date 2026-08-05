@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.ordering.order.internal;
 
 import com.sashia.ecommerce.ordering.order.OrderService;
-import com.sashia.ecommerce.ordering.order.dto.OrderCreateRequest;
+import com.sashia.ecommerce.ordering.order.dto.CheckoutRequest;
 import com.sashia.ecommerce.ordering.order.dto.OrderDTO;
 import com.sashia.ecommerce.ordering.order.dto.OrderSearchDTO;
 import jakarta.validation.Valid;
@@ -35,7 +35,7 @@ class OrderController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('CREATE_ORDER')")
-    ResponseEntity<Long> create(@RequestBody @Valid OrderCreateRequest request) {
+    ResponseEntity<Long> create(@RequestBody @Valid CheckoutRequest request) {
         return ResponseEntity.ok(orderService.create(request));
     }
 

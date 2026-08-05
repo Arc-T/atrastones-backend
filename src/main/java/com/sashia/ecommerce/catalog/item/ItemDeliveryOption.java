@@ -22,7 +22,7 @@ public class ItemDeliveryOption {
     @Enumerated(EnumType.STRING)
     private ItemType type;
 
-    private BigDecimal price;
+    private BigDecimal cost;
 
     private String description;
 
@@ -56,11 +56,11 @@ public class ItemDeliveryOption {
     }
 
     public BigDecimal getPrice() {
-        return price;
+        return cost;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPrice(BigDecimal cost) {
+        this.cost = cost;
     }
 
     public String getDescription() {

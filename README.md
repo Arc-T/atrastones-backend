@@ -44,38 +44,4 @@ v0 - bold AI
 full calendar, react day picker, PReact, Shadcn Appwrite, DND kit, Pasthup in React
 https://www.dynx.pro/
 
-
-product.price.not.found
-discount.selectionType.required
-
-I need an ecomerce admin dashboard with support of multi lang (Persian, English) and RTL,LTR.
-it should have dark/light theme and be responsive as well.
-modern UI/UX and beautiful design. font should be vazirmatn.
-
-i need these pages: login, categories,tags,attributes, serviceOfferings and serviceOffering groups, products, orders, discount and settings.
-
-PromotionEngine
-│
-▼
-PromotionResolver
-│
-▼
-PromotionPipeline
-│
-▼
-ActivationHandler
-│
-▼
-ScopeHandler
-│
-▼
-ConditionHandler
-│
-▼
-TargetHandler
-│
-▼
-PromotionStrategy
-│
-▼
-PromotionEffect
+a warehouse module is considered for Premium

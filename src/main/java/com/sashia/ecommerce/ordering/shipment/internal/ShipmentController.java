@@ -1,5 +1,6 @@
 package com.sashia.ecommerce.ordering.shipment.internal;
 
+import com.sashia.ecommerce.ordering.shipment.ShipmentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

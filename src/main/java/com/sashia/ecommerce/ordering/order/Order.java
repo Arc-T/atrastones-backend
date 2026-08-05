@@ -29,14 +29,14 @@ public class Order {
 
     private String orderNumber;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatusType status;
+
     @Embedded
     private PricingDetails pricing;
 
     @Embedded
     private DeliveryDetails delivery;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatusType status;
 
     private String userNote;
 

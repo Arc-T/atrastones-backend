@@ -11,7 +11,7 @@ public record PricingDetails(
         @Enumerated(EnumType.STRING)
         CurrencyType currency,
         BigDecimal subtotal,
-        BigDecimal shippingCost,
+        BigDecimal deliveryCost,
         BigDecimal tax,
         BigDecimal additionalCharges,
         BigDecimal discountAmount,

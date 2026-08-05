@@ -3,10 +3,11 @@ package com.sashia.ecommerce.ordering.order.internal;
 import com.sashia.ecommerce.catalog.item.ItemService;
 import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
 import com.sashia.ecommerce.ordering.order.OrderService;
-import com.sashia.ecommerce.ordering.order.dto.OrderCreateRequest;
+import com.sashia.ecommerce.ordering.order.dto.CheckoutRequest;
 import com.sashia.ecommerce.ordering.order.dto.OrderDTO;
 import com.sashia.ecommerce.ordering.order.dto.OrderSearchDTO;
 import com.sashia.ecommerce.promotion.engine.PromotionEngine;
+import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
 import com.sashia.shared.exception.ResourceNotFoundException;
 import com.sashia.shared.util.SecurityUtils;
 import org.springframework.data.domain.Page;
@@ -32,7 +33,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Long create(OrderCreateRequest request) {
+    public Long create(CheckoutRequest request) {
+        //TODO: Validate the quantity of items
+        //TODO: Validate the shipping method
+        //TODO: Validate promotion if available
+        //TODO: Validate total sum of the request with calculated
+        //TODO: Idempotency for payment
 
         List<ItemDTO> items = new ArrayList<>(request.items().size());
 
@@ -44,9 +50,7 @@ public class OrderServiceImpl implements OrderService {
         Long userId = SecurityUtils.getCurrentUserId()
                 .orElseThrow(() -> new ResourceNotFoundException("user.not.found"));
 
-//        PromotionResult promotionResults = promotionEngine.apply(
-//                new PromotionRequest(userId, request, items)
-//        );
+//        promotionEngine.apply(PromotionRequest.ofCheckout(userId, request));
 
         return 0L;
     }

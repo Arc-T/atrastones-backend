@@ -1,6 +1,5 @@
-package com.sashia.ecommerce.ordering.shipment.internal;
+package com.sashia.ecommerce.ordering.shipment;
 
-import com.sashia.ecommerce.ordering.shipment.Shipment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ShipmentRepository extends JpaRepository<Shipment, Long> {

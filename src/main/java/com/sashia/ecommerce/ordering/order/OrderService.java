@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.ordering.order;
 
-import com.sashia.ecommerce.ordering.order.dto.OrderCreateRequest;
+import com.sashia.ecommerce.ordering.order.dto.CheckoutRequest;
 import com.sashia.ecommerce.ordering.order.dto.OrderDTO;
 import com.sashia.ecommerce.ordering.order.dto.OrderSearchDTO;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    Long create(OrderCreateRequest request);
+    Long create(CheckoutRequest request);
 
     Optional<OrderDTO> get(Long id);
 

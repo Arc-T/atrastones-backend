@@ -1,5 +1,6 @@
-package com.sashia.ecommerce.ordering.shipment.internal;
+package com.sashia.ecommerce.ordering.shipment;
 
+import com.sashia.ecommerce.ordering.shipment.internal.ShipmentDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

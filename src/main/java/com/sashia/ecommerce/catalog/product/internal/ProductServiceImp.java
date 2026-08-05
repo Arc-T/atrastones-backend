@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,6 +47,7 @@ public class ProductServiceImp implements ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("category.not.found"));
 
         Product product = ProductMapper.toEntity(request, category);
+
         productRepository.save(product);
 //        mediaService.create(productId);
         return product.getId();
@@ -61,12 +63,13 @@ public class ProductServiceImp implements ProductService {
     @Override
     public Page<ItemDTO> getAll(Pageable pageable, ProductSearchRequest request) {
 
-        Page<ItemDTO> items = itemRepository.findAll(ItemSpecification.bySearch(request), pageable)
-                .map(ItemMapper::toDTO);
+        List<ItemDTO> items = itemRepository.findAll(ItemSpecification.bySearch(request), pageable)
+                .map(ItemMapper::toDTO)
+                .toList();
 
-        promotionEngine.apply(new PromotionRequest(items.stream().toList()));
+        promotionEngine.apply(PromotionRequest.ofItems(items));
 
-        return new PageImpl<>(items.stream().toList(), pageable, items.getTotalElements());
+        return new PageImpl<>(items, pageable, items.size());
     }
 
     @Override
