@@ -83,4 +83,148 @@ public class Order {
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public OrderStatusType getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatusType status) {
+        this.status = status;
+    }
+
+    public PricingDetails getPricing() {
+        return pricing;
+    }
+
+    public void setPricing(PricingDetails pricing) {
+        this.pricing = pricing;
+    }
+
+    public DeliveryDetails getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(DeliveryDetails delivery) {
+        this.delivery = delivery;
+    }
+
+    public String getUserNote() {
+        return userNote;
+    }
+
+    public void setUserNote(String userNote) {
+        this.userNote = userNote;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ItemDeliveryOption getItemDeliveryOption() {
+        return itemDeliveryOption;
+    }
+
+    public void setItemDeliveryOption(ItemDeliveryOption itemDeliveryOption) {
+        this.itemDeliveryOption = itemDeliveryOption;
+    }
+
+    public Set<OrderCharge> getOrderCharges() {
+        return orderCharges;
+    }
+
+    public void setOrderCharges(Set<OrderCharge> orderCharges) {
+        this.orderCharges = orderCharges;
+    }
+
+    public Set<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public Set<OrderDetails> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<OrderDetails> items) {
+        this.items = items;
+    }
+
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    public Set<OrderTransaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<OrderTransaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public Set<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Set<Promotion> promotions) {
+        this.promotions = promotions;
+    }
+
 }

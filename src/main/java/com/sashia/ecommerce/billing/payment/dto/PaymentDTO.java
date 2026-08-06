@@ -14,6 +14,5 @@ public record PaymentDTO(
         String feeType,
         String fee,
         String description,
-        LocalDateTime createdAt
-) {
+        LocalDateTime createdAt) {
 }

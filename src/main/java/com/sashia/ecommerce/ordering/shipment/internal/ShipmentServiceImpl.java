@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,6 +23,11 @@ public class ShipmentServiceImpl implements ShipmentService {
     public ShipmentServiceImpl(PromotionEngine promotionEngine, ShipmentRepository shipmentRepository) {
         this.promotionEngine = promotionEngine;
         this.shipmentRepository = shipmentRepository;
+    }
+
+    @Override
+    public Optional<ShipmentDTO> read(Long id) {
+        return shipmentRepository.findById(id).map(ShipmentMapper::toDTO);
     }
 
     @Override

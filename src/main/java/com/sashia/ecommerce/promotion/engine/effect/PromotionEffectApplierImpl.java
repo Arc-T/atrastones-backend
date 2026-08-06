@@ -49,7 +49,6 @@ public class PromotionEffectApplierImpl implements PromotionEffectApplier {
                 .items()
                 .stream()
                 .collect(Collectors.toUnmodifiableMap(ItemDTO::id, itemDTO -> itemDTO));
-
         for (DiscountedItem discountedItem : effect.discountedItems()) {
 
             ItemDTO itemDTO = items.get(discountedItem.itemId());
@@ -72,6 +71,7 @@ public class PromotionEffectApplierImpl implements PromotionEffectApplier {
                     )
             );
         }
+
     }
 
 }

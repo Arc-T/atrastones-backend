@@ -13,6 +13,10 @@ public record PromotionRequest(
         @Nullable List<ShipmentDTO> shipments,
         @Nullable List<ItemDTO> items) {
 
+    public static PromotionRequest ofCheckout(Long userId, CheckoutRequest order) {
+        return new PromotionRequest(userId, order, null, null);
+    }
+
     public static PromotionRequest ofItems(List<ItemDTO> items) {
         return new PromotionRequest(null, null, null, items);
     }
