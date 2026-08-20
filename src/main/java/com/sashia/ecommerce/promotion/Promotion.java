@@ -2,6 +2,7 @@ package com.sashia.ecommerce.promotion;
 
 import com.sashia.ecommerce.ordering.order.Order;
 import com.sashia.ecommerce.promotion.condition.Condition;
+import com.sashia.ecommerce.promotion.discount.Discount;
 import com.sashia.ecommerce.promotion.scope.Scope;
 import com.sashia.ecommerce.promotion.target.Target;
 import com.sashia.ecommerce.promotion.target.type.TargetType;
@@ -49,16 +50,19 @@ public class Promotion {
 
     /* **************************** FOREIGN-KEY RELATIONS ***************************** */
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TargetType targetType;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Scope scope;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Type type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TargetType targetType;
-
     /* ******************************* TABLE RELATIONS ******************************** */
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "promotion")
+    private Discount discount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
     private Set<Target> targets = new LinkedHashSet<>();
@@ -159,6 +163,14 @@ public class Promotion {
         this.deletedAt = deletedAt;
     }
 
+    public TargetType getTargetType() {
+        return targetType;
+    }
+
+    public void setTargetType(TargetType targetType) {
+        this.targetType = targetType;
+    }
+
     public Scope getScope() {
         return scope;
     }
@@ -175,12 +187,12 @@ public class Promotion {
         this.type = type;
     }
 
-    public TargetType getTargetType() {
-        return targetType;
+    public Discount getDiscount() {
+        return discount;
     }
 
-    public void setTargetType(TargetType targetType) {
-        this.targetType = targetType;
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 
     public Set<Target> getTargets() {

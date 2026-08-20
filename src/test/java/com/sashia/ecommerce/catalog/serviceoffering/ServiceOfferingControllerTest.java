@@ -1,6 +1,5 @@
-package com.sashia.ecommerce.catalog.item.serviceoffering;
+package com.sashia.ecommerce.catalog.serviceoffering;
 
-import com.sashia.ecommerce.catalog.serviceoffering.ServiceOfferingService;
 import com.sashia.ecommerce.catalog.serviceoffering.dto.ServiceOfferingCreateRequest;
 import com.sashia.ecommerce.catalog.serviceoffering.dto.ServiceOfferingResponse;
 import com.sashia.ecommerce.catalog.serviceoffering.dto.ServiceUpdateDTO;

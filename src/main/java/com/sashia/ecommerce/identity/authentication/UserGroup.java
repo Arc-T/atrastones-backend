@@ -1,5 +1,6 @@
-package com.sashia.ecommerce.identity.authentication.internal;
+package com.sashia.ecommerce.identity.authentication;
 
+import com.sashia.ecommerce.identity.authentication.internal.Role;
 import com.sashia.ecommerce.identity.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

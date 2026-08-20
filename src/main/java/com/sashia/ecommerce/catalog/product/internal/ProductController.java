@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.catalog.product.internal;
 
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
+import com.sashia.ecommerce.catalog.item.dto.ItemSummaryDTO;
 import com.sashia.ecommerce.catalog.item.internal.ProductSearchRequest;
 import com.sashia.ecommerce.catalog.product.ProductService;
 import com.sashia.ecommerce.catalog.product.dto.ProductBriefInfoProjection;
@@ -40,8 +40,8 @@ class ProductController {
     }
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('READ_ALL_PRODUCTS')")
-    ResponseEntity<Page<ItemDTO>> readAll(Pageable pageable, ProductSearchRequest search) {
+    @PreAuthorize("hasAuthority('READ_ALL_PRODUCTS')")
+    ResponseEntity<Page<ItemSummaryDTO>> readAll(Pageable pageable, ProductSearchRequest search) {
         return ResponseEntity.ok(productService.getAll(pageable, search));
     }
 

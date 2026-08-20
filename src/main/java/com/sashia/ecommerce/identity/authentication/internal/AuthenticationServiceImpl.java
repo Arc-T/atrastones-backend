@@ -4,6 +4,7 @@ import com.sashia.ecommerce.identity.authentication.AuthenticationService;
 import com.sashia.ecommerce.identity.authentication.dto.AuthenticationDTO;
 import com.sashia.ecommerce.identity.authentication.dto.AuthenticationResponse;
 import com.sashia.ecommerce.identity.authentication.dto.LoginRequest;
+import com.sashia.shared.util.SecurityUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,8 +22,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
-import static com.sashia.shared.util.SecurityUtils.AUTHORITIES_CLAIM;
-import static com.sashia.shared.util.SecurityUtils.JWT_ALGORITHM;
+import static com.sashia.shared.config.JWTConfiguration.JWT_ALGORITHM;
 
 @Service
 @Transactional(readOnly = true)
@@ -47,6 +47,7 @@ class AuthenticationServiceImpl implements AuthenticationService {
         // TODO: authentication token should be dynamic ex: Username&Password - OTP
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(request.username(), request.password());
+
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         return new AuthenticationResponse(generateToken(authentication, request.rememberMe()));
     }
@@ -85,9 +86,10 @@ class AuthenticationServiceImpl implements AuthenticationService {
                 .issuer(ISSUER)
                 .issuedAt(now)
                 .expiresAt(validity)
-                .audience(List.of("sashia-ecommerce"))
-                .claim(AUTHORITIES_CLAIM, authorities)
-                .claim("amr", "something"); //TODO: Authentication method reference
+                .audience(List.of("sashia-ecommerce")) //TODO: configuration constant is needed !
+                .claim("scp", authorities) //TODO: configuration constant is needed !
+                .claim("amr", "something") //TODO: Authentication method reference
+                .claim("vip", SecurityUtils.getCurrentUserVipGroup());
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, builder.build())).getTokenValue();

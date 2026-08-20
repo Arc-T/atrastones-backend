@@ -1,13 +1,13 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler.target;
 
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
+import com.sashia.ecommerce.catalog.item.dto.ItemSummaryDTO;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public record TargetMatchResult(
         boolean applicable,
-        Set<ItemDTO> affectedItems) {
+        Set<ItemSummaryDTO> affectedItems) {
 
     public TargetMatchResult(boolean matched) {
         this(matched, new LinkedHashSet<>());

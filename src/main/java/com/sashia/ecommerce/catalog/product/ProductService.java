@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.catalog.product;
 
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
+import com.sashia.ecommerce.catalog.item.dto.ItemSummaryDTO;
 import com.sashia.ecommerce.catalog.item.internal.ProductSearchRequest;
 import com.sashia.ecommerce.catalog.product.dto.ProductBriefInfoProjection;
 import com.sashia.ecommerce.catalog.product.dto.ProductCreateRequest;
@@ -17,7 +17,7 @@ public interface ProductService {
 
     Optional<ProductDTO> get(Long id);
 
-    Page<ItemDTO> getAll(Pageable pageable, ProductSearchRequest search);
+    Page<ItemSummaryDTO> getAll(Pageable pageable, ProductSearchRequest search);
 
     Page<ProductBriefInfoProjection> getAllBriefInfo(Pageable pageable, ProductSearchRequest search);
 

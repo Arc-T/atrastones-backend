@@ -1,35 +1,42 @@
-package com.sashia.ecommerce.catalog.item;
+package com.sashia.ecommerce.catalog.item.variant;
 
+import com.sashia.ecommerce.catalog.item.Item;
 import com.sashia.ecommerce.catalog.item.internal.ItemVariantAttributeValue;
-import com.sashia.ecommerce.catalog.item.internal.ItemVariantPrice;
-import com.sashia.ecommerce.catalog.item.internal.ItemVariantStatusType;
+import com.sashia.ecommerce.catalog.item.variant.status.ItemVariantStatusCode;
+import com.sashia.ecommerce.ordering.order.CurrencyCode;
 import com.sashia.ecommerce.ordering.order.OrderDetails;
+import com.sashia.ecommerce.promotion.Promotable;
+import com.sashia.ecommerce.promotion.engine.dto.AppliedPromotion;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "item_variants", schema = "catalog")
-public class ItemVariant {
+public class ItemVariant implements Promotable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "item_id", insertable = false, updatable = false)
-    private Long itemId;
-
-    @Column(name = "item_variant_price_id", insertable = false, updatable = false)
-    private Long itemVariantPriceId;
+    private Integer stock;
 
     @Enumerated(EnumType.STRING)
-    private ItemVariantStatusType status;
+    private ItemVariantStatusCode status;
+
+    @Enumerated(EnumType.STRING)
+    private CurrencyCode currency;
+
+    private BigDecimal unitPrice;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -45,16 +52,21 @@ public class ItemVariant {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Item item;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private ItemVariantPrice itemVariantPrice;
-
     /* ******************************* TABLE RELATIONS ******************************** */
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemVariant")
-    private Set<ItemVariantAttributeValue> itemVariantAttributeValues = new HashSet<>();
+    private Set<ItemVariantAttributeValue> itemVariantAttributeValues = new LinkedHashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemVariant")
-    private Set<OrderDetails> orderDetails = new HashSet<>();
+    private Set<OrderDetails> orderDetails = new LinkedHashSet<>();
+
+    /* ********************************** TRANSIENT *********************************** */
+
+    @Transient
+    private Integer quantity;
+
+    @Transient
+    private List<AppliedPromotion> appliedPromotions = new ArrayList<>();
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
@@ -66,27 +78,19 @@ public class ItemVariant {
         this.id = id;
     }
 
-    public Long getItemId() {
-        return itemId;
+    public int getStock() {
+        return stock;
     }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
-    public Long getItemVariantPriceId() {
-        return itemVariantPriceId;
-    }
-
-    public void setItemVariantPriceId(Long itemVariantPriceId) {
-        this.itemVariantPriceId = itemVariantPriceId;
-    }
-
-    public ItemVariantStatusType getStatus() {
+    public ItemVariantStatusCode getStatus() {
         return status;
     }
 
-    public void setStatus(ItemVariantStatusType status) {
+    public void setStatus(ItemVariantStatusCode status) {
         this.status = status;
     }
 
@@ -122,14 +126,6 @@ public class ItemVariant {
         this.item = item;
     }
 
-    public ItemVariantPrice getItemVariantPrice() {
-        return itemVariantPrice;
-    }
-
-    public void setItemVariantPrice(ItemVariantPrice itemVariantPrice) {
-        this.itemVariantPrice = itemVariantPrice;
-    }
-
     public Set<ItemVariantAttributeValue> getItemVariantAttributeValues() {
         return itemVariantAttributeValues;
     }
@@ -138,12 +134,45 @@ public class ItemVariant {
         this.itemVariantAttributeValues = itemVariantAttributeValues;
     }
 
-    public Set<OrderDetails> getOrderItems() {
+    public Set<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderItems(Set<OrderDetails> orderDetails) {
+    public void setOrderDetails(Set<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    @Override
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    @Override
+    public CurrencyCode getCurrency() {
+        return currency;
+    }
+
+    @Override
+    @Transient
+    public List<AppliedPromotion> getAppliedPromotions() {
+        return appliedPromotions;
+    }
+
+    @Override
+    @Transient
+    public Integer getQuantity() {
+        return quantity == null ? 1 : quantity;
+    }
+
+    @Transient
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    @Transient
+    public void addAppliedPromotion(AppliedPromotion appliedPromotion) {
+        getAppliedPromotions().add(appliedPromotion);
     }
 
 }

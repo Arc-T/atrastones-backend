@@ -16,13 +16,13 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: item_id
-                  type: ${id.type}
+                  name: stock
+                  type: ${integer_value.type}
                   constraints:
                     nullable: false
 
               - column:
-                  name: item_variant_price_id
+                  name: item_id
                   type: ${id.type}
                   constraints:
                     nullable: false
@@ -31,6 +31,20 @@ databaseChangeLog:
                   name: status
                   type: ${name.type}
                   remarks: Item variant status enum
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: currency
+                  type: ${name.type}
+                  remarks: Stores currency code for price
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: unit_price
+                  type: ${price.type}
+                  remarks: Unit price of item variant
                   constraints:
                     nullable: false
 
@@ -67,21 +81,6 @@ databaseChangeLog:
             referencedTableName: items
             referencedColumnNames: id
             constraintName: fk_item_variants_item
-
-        - addForeignKeyConstraint:
-            baseTableSchemaName: catalog
-            baseTableName: item_variants
-            baseColumnNames: item_variant_price_id
-            referencedTableSchemaName: catalog
-            referencedTableName: item_variant_prices
-            referencedColumnNames: id
-            constraintName: fk_item_variants_price
-
-        - addUniqueConstraint:
-            schemaName: catalog
-            tableName: item_variants
-            columnNames: item_variant_price_id
-            constraintName: uk_item_variants_item_variant_price
 
         - createIndex:
             schemaName: catalog

@@ -1,10 +1,10 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler;
 
-import jakarta.validation.constraints.Null;
+import org.jspecify.annotations.Nullable;
 
 public record PromotionHandlerResult(
         boolean proceed,
-        @Null String reason) {
+        @Nullable String reason) {
 
     public static PromotionHandlerResult success() {
         return new PromotionHandlerResult(true, null);
@@ -15,18 +15,3 @@ public record PromotionHandlerResult(
     }
 
 }
-//public enum HandlerFailureReason {
-//
-//    PROMOTION_INACTIVE,
-//
-//    PROMOTION_EXPIRED,
-//
-//    INVALID_SCOPE,
-//
-//    CONDITIONS_NOT_MET,
-//
-//    NO_TARGET_MATCH,
-//
-//    EXECUTION_FAILED
-//
-//}

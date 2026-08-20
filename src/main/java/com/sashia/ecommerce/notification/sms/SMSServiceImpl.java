@@ -24,7 +24,8 @@ public class SMSServiceImpl implements SMSService {
 
     @Override
     public Long create(SMSDTO smsDTO) {
-        return smsRepository.create(smsDTO);
+        return null;
+        // return smsRepository.create(smsDTO);
     }
 
     @Override
@@ -34,7 +35,9 @@ public class SMSServiceImpl implements SMSService {
 
     @Override
     public Optional<SMSTemplateDTO> getTemplateByType(SMSType smsType) {
-        return smsRepository.getTemplateByType(smsType).map(SMSTemplateDTO::toDTO);
+        // return smsRepository.getTemplateByType(smsType).map(SMSTemplateDTO::toDTO);
+        return null;
+        
     }
 
     @Override

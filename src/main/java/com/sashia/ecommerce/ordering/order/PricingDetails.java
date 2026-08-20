@@ -9,11 +9,12 @@ import java.math.BigDecimal;
 @Embeddable
 public record PricingDetails(
         @Enumerated(EnumType.STRING)
-        CurrencyType currency,
+        CurrencyCode currency,
         BigDecimal subtotal,
         BigDecimal deliveryCost,
         BigDecimal tax,
         BigDecimal additionalCharges,
         BigDecimal discountAmount,
         BigDecimal total) {
+
 }

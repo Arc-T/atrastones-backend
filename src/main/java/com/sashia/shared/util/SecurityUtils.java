@@ -1,128 +1,88 @@
 package com.sashia.shared.util;
 
-import com.sashia.shared.config.AuthoritiesConstants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.ClaimAccessor;
-import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
-import org.springframework.security.oauth2.jwt.Jwt;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.Objects;
 
 public final class SecurityUtils {
-
-    public static final MacAlgorithm JWT_ALGORITHM = MacAlgorithm.HS512;
-
-    public static final String AUTHORITIES_CLAIM = "scp";
-
-    public static final String USER_ID_CLAIM = "userId";
 
     private SecurityUtils() {
     }
 
-    /**
-     * Get the login of the current user.
-     *
-     * @return the login of the current user.
-     */
-    public static Optional<String> getCurrentUserLogin() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return Optional.ofNullable(extractPrincipal(securityContext.getAuthentication()));
+    // ============================ CURRENT USER ============================
+
+    public static SashiaUser getCurrentUser() {
+        return (SashiaUser) getRequiredAuthentication().getPrincipal();
     }
 
-    private static String extractPrincipal(Authentication authentication) {
-        if (authentication == null) {
-            return null;
-        } else if (authentication.getPrincipal() instanceof UserDetails springSecurityUser) {
-            return springSecurityUser.getUsername();
-        } else if (authentication.getPrincipal() instanceof Jwt jwt) {
-            return jwt.getSubject();
-        } else if (authentication.getPrincipal() instanceof String s) {
-            return s;
-        }
-        return null;
+    public static Long getCurrentUserId() {
+        return getCurrentUser().getId();
     }
 
-    /**
-     * Get the JWT of the current user.
-     *
-     * @return the JWT of the current user.
-     */
-    public static Optional<String> getCurrentUserJWT() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return Optional.ofNullable(securityContext.getAuthentication()).map(SecurityUtils::extractCredentials);
+    public static String getCurrentUserVipGroup() {
+        return getCurrentUser().getVipGroup();
     }
 
-    private static String extractCredentials(Authentication authentication) {
-        if (authentication.getCredentials() instanceof String token) {
-            return token;
-        } else if (authentication.getCredentials() instanceof Jwt jwt) {
-            return jwt.getTokenValue();
-        }
-        return null;
+    public static String getCurrentUserUsername() {
+        return getCurrentUser().getUsername();
     }
 
-    /**
-     * Get the Id of the current user.
-     *
-     * @return the Id of the current user.
-     */
-    public static Optional<Long> getCurrentUserId() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return Optional.ofNullable(securityContext.getAuthentication())
-                .filter(authentication -> authentication.getPrincipal() instanceof ClaimAccessor)
-                .map(authentication -> (ClaimAccessor) authentication.getPrincipal())
-                .map(principal -> principal.getClaim(USER_ID_CLAIM));
+    public static Collection<GrantedAuthority> getAuthorities() {
+        return getCurrentUser().getAuthorities();
     }
 
-    /**
-     * Check if a user is authenticated.
-     *
-     * @return true if the user is authenticated, false otherwise.
-     */
+    // ============================ AUTHENTICATION ============================
+
     public static boolean isAuthenticated() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals);
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication != null
+                && authentication.isAuthenticated()
+                && authentication.getPrincipal() instanceof SashiaUser;
     }
 
-    /**
-     * Checks if the current user has any of the authorities.
-     *
-     * @param authorities the authorities to check.
-     * @return true if the current user has any of the authorities, false otherwise.
-     */
-    public static boolean hasCurrentUserAnyOfAuthorities(String... authorities) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (authentication != null && getAuthorities(authentication).anyMatch(authority -> List.of(authorities).contains(authority)));
+    public static boolean isAnonymous() {
+        return !isAuthenticated();
     }
 
-    /**
-     * Checks if the current user has none of the authorities.
-     *
-     * @param authorities the authorities to check.
-     * @return true if the current user has none of the authorities, false otherwise.
-     */
-    public static boolean hasCurrentUserNoneOfAuthorities(String... authorities) {
-        return !hasCurrentUserAnyOfAuthorities(authorities);
+    // ============================ AUTHORITIES ============================
+
+    public static boolean hasAuthority(String authority) {
+        return getAuthorities().stream()
+                .anyMatch(granted -> Objects.equals(granted.getAuthority(), authority));
     }
 
-    /**
-     * Checks if the current user has a specific authority.
-     *
-     * @param authority the authority to check.
-     * @return true if the current user has the authority, false otherwise.
-     */
-    public static boolean hasCurrentUserThisAuthority(String authority) {
-        return hasCurrentUserAnyOfAuthorities(authority);
+    public static boolean hasAnyAuthority(String... authorities) {
+        return getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(List.of(authorities)::contains);
     }
 
-    public static Stream<String> getAuthorities(Authentication authentication) {
-        return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority);
+    public static boolean hasNoneOfAuthorities(String... authorities) {
+        return !hasAnyAuthority(authorities);
+    }
+
+    // ============================ INTERNAL ============================
+
+    private static Authentication getRequiredAuthentication() {
+        Authentication authentication = getAuthentication();
+
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || !(authentication.getPrincipal() instanceof SashiaUser)) {
+            throw new IllegalStateException("No authenticated user");
+        }
+
+        return authentication;
+    }
+
+    private static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
 }

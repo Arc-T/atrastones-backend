@@ -3,6 +3,7 @@ package com.sashia.ecommerce.promotion.condition;
 import com.sashia.ecommerce.promotion.Promotion;
 import com.sashia.ecommerce.promotion.condition.operator.ConditionOperator;
 import com.sashia.ecommerce.promotion.condition.type.ConditionType;
+import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -35,6 +36,12 @@ public class Condition {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ConditionOperator operator;
+
+    /* ************************************ HELPERS *********************************** */
+
+    public ConditionTypeCode getConditionTypeCode() {
+        return conditionType.getCode();
+    }
 
     /* ****************************** GETTER & SETTERS ******************************** */
 

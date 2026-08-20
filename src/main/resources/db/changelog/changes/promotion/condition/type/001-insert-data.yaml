@@ -17,7 +17,7 @@ databaseChangeLog:
             columns:
               - column: { name: code, value: 'MIN_ITEM_QUANTITY' }
               - column: { name: title, value: 'Minimum Item Quantity' }
-              - column: { name: description, value: 'Requires a minimum quantity of applicable items.' }
+              - column: { name: description, value: 'Requires a minimum stock of applicable items.' }
 
         - insert:
             schemaName: promotion

@@ -3,8 +3,6 @@ package com.sashia.ecommerce.media.internal;
 import com.sashia.ecommerce.media.MediaService;
 import com.sashia.ecommerce.media.dto.MediaCreateRequest;
 import com.sashia.ecommerce.media.dto.MediaResponse;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

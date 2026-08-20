@@ -1,5 +1,5 @@
 package com.sashia.ecommerce.ordering.order;
 
-public enum CurrencyType {
+public enum CurrencyCode {
     IRR, USD
 }

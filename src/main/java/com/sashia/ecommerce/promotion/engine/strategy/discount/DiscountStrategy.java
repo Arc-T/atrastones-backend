@@ -1,20 +1,25 @@
 package com.sashia.ecommerce.promotion.engine.strategy.discount;
 
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
-import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
-import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
+import com.sashia.ecommerce.pricing.Priceable;
+import com.sashia.ecommerce.promotion.discount.Discount;
+import com.sashia.ecommerce.promotion.engine.context.PromotableType;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
+import com.sashia.ecommerce.promotion.engine.dto.CartPromotionRequest;
+import com.sashia.ecommerce.promotion.engine.dto.DiscountedItemVariant;
 import com.sashia.ecommerce.promotion.engine.effect.DiscountEffect;
 import com.sashia.ecommerce.promotion.engine.strategy.PromotionStrategy;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.DiscountCalculator;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.FixedDiscountCalculator;
 import com.sashia.ecommerce.promotion.engine.strategy.discount.calculator.PercentDiscountCalculator;
 import com.sashia.ecommerce.promotion.type.TypeCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Produces a {@link DiscountEffect} for a discount promotion.
@@ -25,7 +30,9 @@ import java.util.List;
  * {@code PromotionEffectApplier}.
  */
 @Component
-public class DiscountStrategy implements PromotionStrategy {
+public class DiscountStrategy implements PromotionStrategy<CartPromotionRequest> {
+
+    private static final Logger log = LoggerFactory.getLogger(DiscountStrategy.class);
 
     private final FixedDiscountCalculator fixedDiscountCalculator;
     private final PercentDiscountCalculator percentDiscountCalculator;
@@ -43,22 +50,27 @@ public class DiscountStrategy implements PromotionStrategy {
     @Override
     public void execute(PromotionContext context) {
 
-        DiscountDTO discount = context.getPromotion().discount();
+        Discount discount = context.getPromotion().getDiscount();
 
-        DiscountCalculator calculator = switch (discount.type()) {
+        DiscountCalculator calculator = switch (discount.getType().getCode()) {
             case FIXED -> fixedDiscountCalculator;
             case PERCENT -> percentDiscountCalculator;
         };
 
-        List<DiscountedItem> discountedItems = new ArrayList<>();
+        List<DiscountedItemVariant> discountedItemVariants = new ArrayList<>();
 
-        for (ItemDTO item : context.getApplicableItems()) {
+        log.debug("Candidates for discount: {}", context.getCandidateItems(PromotableType.ITEM_VARIANT).entrySet());
 
-            BigDecimal discountAmount = calculator.calculate(item, discount);
+        for (Map.Entry<Long, Priceable> candidate : context.getCandidateItems(PromotableType.ITEM_VARIANT).entrySet()) {
 
-            discountedItems.add(
-                    new DiscountedItem(
-                            item.id(),
+            BigDecimal discountAmount = calculator.calculate(candidate.getValue(), discount);
+
+            log.debug("Discounted item: {}", candidate.getValue());
+            log.debug("Discounted amount: {}", discountAmount);
+
+            discountedItemVariants.add(
+                    new DiscountedItemVariant(
+                            candidate.getKey(),
                             discountAmount
                     )
             );
@@ -66,10 +78,15 @@ public class DiscountStrategy implements PromotionStrategy {
 
         context.addEffect(
                 new DiscountEffect(
-                        context.getPromotion().id(),
-                        discountedItems
+                        context.getPromotion().getId(),
+                        discountedItemVariants
                 )
         );
+    }
+
+    @Override
+    public CartPromotionRequest getPromotionRequest(PromotionContext context) {
+        return (CartPromotionRequest) context.getRequest();
     }
 
 }

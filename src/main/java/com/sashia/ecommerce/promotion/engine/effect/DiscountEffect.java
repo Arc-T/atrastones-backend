@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.effect;
 
-import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
+import com.sashia.ecommerce.promotion.engine.dto.DiscountedItemVariant;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ import java.util.List;
  */
 public record DiscountEffect(
         Long promotionId,
-        List<DiscountedItem> discountedItems) implements PromotionEffect {
+        List<DiscountedItemVariant> discountedItemVariants) implements PromotionEffect {
 }

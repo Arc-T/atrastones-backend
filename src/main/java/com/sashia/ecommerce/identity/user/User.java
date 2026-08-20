@@ -1,24 +1,20 @@
 package com.sashia.ecommerce.identity.user;
 
-import com.sashia.ecommerce.identity.authentication.internal.UserGroup;
+import com.sashia.ecommerce.identity.authentication.UserGroup;
 import com.sashia.ecommerce.identity.user.dto.GenderType;
 import com.sashia.ecommerce.identity.user.internal.UserLog;
+import com.sashia.ecommerce.identity.user.vip.VipGroup;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.jspecify.annotations.NullMarked;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "identity")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +46,11 @@ public class User implements UserDetails {
 
     // ************************************** FOREIGN-KEY RELATIONS *******************************************
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private UserGroup userGroup;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private VipGroup vipGroup;
 
     // ******************************************** TABLE RELATIONS *******************************************
 
@@ -59,22 +58,6 @@ public class User implements UserDetails {
     private Set<UserLog> userLogs;
 
     // ******************************************** SECURITY *******************************************
-
-    @Override
-    @NullMarked
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getUserGroup().getRoles()
-                .stream()
-                .flatMap(role -> role.permissions().stream())
-                .map(permission -> new SimpleGrantedAuthority(permission.name()))
-                .toList();
-    }
-
-    @Override
-    @NullMarked
-    public String getUsername() {
-        return phone;
-    }
 
     public String getPassword() {
         return password;
@@ -84,27 +67,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
-
     /* **************************** GETTER & SETTERS **********************************/
-
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
-    }
 
     public Long getId() {
         return id;
@@ -194,6 +157,14 @@ public class User implements UserDetails {
         this.userGroup = userGroup;
     }
 
+    public VipGroup getVipGroup() {
+        return vipGroup;
+    }
+
+    public void setVipGroup(VipGroup vipGroup) {
+        this.vipGroup = vipGroup;
+    }
+
     public Set<UserLog> getUserLogs() {
         return userLogs;
     }
@@ -201,5 +172,4 @@ public class User implements UserDetails {
     public void setUserLogs(Set<UserLog> userLogs) {
         this.userLogs = userLogs;
     }
-
 }

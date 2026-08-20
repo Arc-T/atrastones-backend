@@ -65,7 +65,7 @@ public class Order {
     private Set<Payment> payments = new LinkedHashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private Set<OrderDetails> items = new LinkedHashSet<>();
+    private Set<OrderDetails> orderDetails = new LinkedHashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private Set<Invoice> invoices = new LinkedHashSet<>();
@@ -195,12 +195,12 @@ public class Order {
         this.payments = payments;
     }
 
-    public Set<OrderDetails> getItems() {
-        return items;
+    public Set<OrderDetails> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setItems(Set<OrderDetails> items) {
-        this.items = items;
+    public void setOrderDetails(Set<OrderDetails> items) {
+        this.orderDetails = items;
     }
 
     public Set<Invoice> getInvoices() {

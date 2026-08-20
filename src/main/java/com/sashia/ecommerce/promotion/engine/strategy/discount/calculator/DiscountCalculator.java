@@ -1,12 +1,12 @@
 package com.sashia.ecommerce.promotion.engine.strategy.discount.calculator;
 
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
-import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
+import com.sashia.ecommerce.pricing.Priceable;
+import com.sashia.ecommerce.promotion.discount.Discount;
 
 import java.math.BigDecimal;
 
 public interface DiscountCalculator {
 
-    BigDecimal calculate(ItemDTO item, DiscountDTO discount);
+    BigDecimal calculate(Priceable priceable, Discount discount);
 
 }

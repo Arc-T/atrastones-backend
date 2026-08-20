@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler;
 
-import com.sashia.ecommerce.promotion.dto.PromotionDTO;
+import com.sashia.ecommerce.promotion.Promotion;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -27,12 +27,13 @@ public class ActivationHandler implements PromotionHandler {
 
     @Override
     public PromotionHandlerResult handle(PromotionContext context) {
+
         LocalDateTime now = LocalDateTime.now();
-        PromotionDTO promotion = context.getPromotion();
+        Promotion promotion = context.getPromotion();
 
         boolean active = promotion.isActive()
-                && !promotion.validFrom().isAfter(now)
-                && !promotion.validUntil().isBefore(now);
+                && !promotion.getValidFrom().isAfter(now)
+                && !promotion.getValidUntil().isBefore(now);
 
         return active
                 ? PromotionHandlerResult.success()

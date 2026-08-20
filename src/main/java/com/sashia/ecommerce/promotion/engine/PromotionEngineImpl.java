@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine;
 
-import com.sashia.ecommerce.promotion.dto.PromotionDTO;
+import com.sashia.ecommerce.promotion.Promotion;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
 import com.sashia.ecommerce.promotion.engine.effect.PromotionEffectApplier;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * <p>The engine resolves all applicable promotions for the incoming request,
  * evaluates each promotion independently through the promotion pipeline and
- * aggregates the produced effects into a single {@link PromotionResult}.
+ * aggregates the produced effects into a single {@link com.sashia.ecommerce.promotion.engine.dto.AppliedPromotion}.
  */
 @Component
 public class PromotionEngineImpl implements PromotionEngine {
@@ -37,13 +37,13 @@ public class PromotionEngineImpl implements PromotionEngine {
     @Override
     public void apply(PromotionRequest request) {
 
-        List<PromotionDTO> promotions = promotionResolver.resolve(request);
+        List<Promotion> promotions = promotionResolver.resolve();
 
         log.debug("Entered engine with promotions: {}", promotions);
 
         if (!promotions.isEmpty()) {
 
-            for (PromotionDTO promotion : promotions) {
+            for (Promotion promotion : promotions) {
 
                 PromotionContext context = new PromotionContext(promotion, request);
 

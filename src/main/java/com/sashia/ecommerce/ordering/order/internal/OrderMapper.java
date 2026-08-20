@@ -5,7 +5,7 @@ import com.sashia.ecommerce.ordering.order.dto.CheckoutRequest;
 
 public class OrderMapper {
 
-    public static Order toEntity(CheckoutRequest request){
+    public static Order toEntity(CheckoutRequest request) {
         return null;
     }
 

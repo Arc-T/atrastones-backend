@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.dto;
 
-import com.sashia.ecommerce.promotion.type.TypeCode;
+import com.sashia.ecommerce.promotion.Promotion;
 
 import java.math.BigDecimal;
 
@@ -11,9 +11,7 @@ import java.math.BigDecimal;
  * was applied, making the pricing history fully traceable.
  */
 public record AppliedPromotion(
-        Long promotionId,
-        String promotionName,
-        TypeCode promotionType,
+        Promotion promotion,
         BigDecimal discountAmount,
         BigDecimal priceBefore,
         BigDecimal priceAfter) {

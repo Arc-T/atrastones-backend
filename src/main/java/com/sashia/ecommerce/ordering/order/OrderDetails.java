@@ -1,12 +1,14 @@
 package com.sashia.ecommerce.ordering.order;
 
-import com.sashia.ecommerce.catalog.item.ItemVariant;
+import com.sashia.ecommerce.catalog.item.variant.ItemVariant;
 import com.sashia.ecommerce.promotion.Promotion;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "order_details", schema = "ordering")
@@ -33,7 +35,7 @@ public class OrderDetails {
 
     private BigDecimal taxAmount;
 
-    private BigDecimal discountAmount;
+    private BigDecimal totalDiscountAmount;
 
     private BigDecimal total;
 
@@ -50,8 +52,13 @@ public class OrderDetails {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Promotion promotion;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "order_detail_promotions",
+            joinColumns = @JoinColumn(name = "order_detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "promotion_id")
+    )
+    private Set<Promotion> promotions = new LinkedHashSet<>();
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
@@ -127,12 +134,12 @@ public class OrderDetails {
         this.taxAmount = taxAmount;
     }
 
-    public BigDecimal getDiscountAmount() {
-        return discountAmount;
+    public BigDecimal getTotalDiscountAmount() {
+        return totalDiscountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
-        this.discountAmount = discountAmount;
+    public void setTotalDiscountAmount(BigDecimal discountAmount) {
+        this.totalDiscountAmount = discountAmount;
     }
 
     public BigDecimal getTotal() {
@@ -175,12 +182,12 @@ public class OrderDetails {
         this.order = order;
     }
 
-    public Promotion getPromotion() {
-        return promotion;
+    public Set<Promotion> getPromotions() {
+        return promotions;
     }
 
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
+    public void setPromotions(Set<Promotion> promotions) {
+        this.promotions = promotions;
     }
 
 }

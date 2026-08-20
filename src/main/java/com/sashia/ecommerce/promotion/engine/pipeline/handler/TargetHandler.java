@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler;
 
-import com.sashia.ecommerce.promotion.dto.PromotionDTO;
+import com.sashia.ecommerce.promotion.Promotion;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.pipeline.handler.target.PromotionTargetMatcher;
 import com.sashia.ecommerce.promotion.engine.pipeline.handler.target.PromotionTargetMatcherFactory;
@@ -22,10 +22,11 @@ import org.springframework.stereotype.Component;
  * promotion is not evaluated further.
  */
 @Component
-@Order(value = 3)
+@Order(value = 2)
 public class TargetHandler implements PromotionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(TargetHandler.class);
+
     private final PromotionTargetMatcherFactory matcherFactory;
 
     public TargetHandler(PromotionTargetMatcherFactory matcherFactory) {
@@ -35,19 +36,18 @@ public class TargetHandler implements PromotionHandler {
     @Override
     public PromotionHandlerResult handle(PromotionContext context) {
 
-        PromotionDTO promotion = context.getPromotion();
+        Promotion promotion = context.getPromotion();
 
-        if (!promotion.targets().isEmpty()) {
+        if (!promotion.getTargets().isEmpty()) {
 
-            PromotionTargetMatcher matcher = matcherFactory.get(promotion.targetType());
+            PromotionTargetMatcher matcher = matcherFactory.get(promotion.getTargetType().getCode());
 
-            log.debug("Promotion target matcher for {} is {}", promotion.targetType(), matcher);
+            matcher.match(promotion.getTargets(), context);
 
-            matcher.match(promotion.targets(), context);
+            log.debug("All candidates in PromotionHandler :{}", context.getCandidates().entrySet());
 
-            if (context.getCandidateItems().isEmpty())
+            if (context.isCandidatesEmpty())
                 return PromotionHandlerResult.failure("Target not applicable");
-
         }
 
         return PromotionHandlerResult.success();

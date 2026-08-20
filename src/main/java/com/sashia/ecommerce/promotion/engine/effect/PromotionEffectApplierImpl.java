@@ -1,27 +1,28 @@
 package com.sashia.ecommerce.promotion.engine.effect;
 
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
-import com.sashia.ecommerce.promotion.dto.PromotionDTO;
+import com.sashia.ecommerce.catalog.item.variant.ItemVariant;
+import com.sashia.ecommerce.promotion.Promotion;
+import com.sashia.ecommerce.promotion.engine.context.PromotableType;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 import com.sashia.ecommerce.promotion.engine.dto.AppliedPromotion;
-import com.sashia.ecommerce.promotion.engine.dto.DiscountedItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class PromotionEffectApplierImpl implements PromotionEffectApplier {
 
     private static final Logger log = LoggerFactory.getLogger(PromotionEffectApplierImpl.class);
+    private static final PromotableType DISCOUNT_PROMOTION_EFFECT_PROMOTABLE_TYPE = PromotableType.ITEM_VARIANT;
 
     @Override
     public void apply(PromotionContext context) {
 
-        log.debug("Applicable items: {}", context.getApplicableItems());
+        log.debug("Applicable items: {}", context.getCandidates());
 
         for (PromotionEffect effect : context.getEffects()) {
             applyEffect(effect, context);
@@ -41,32 +42,31 @@ public class PromotionEffectApplierImpl implements PromotionEffectApplier {
 
     private void applyDiscountEffect(DiscountEffect effect, PromotionContext context) {
 
-        PromotionDTO promotion = context.getPromotion();
+        Promotion promotion = context.getPromotion();
 
-        log.debug("Discounted items: {}", effect.discountedItems());
+        log.debug("Discounted items: {}", effect.discountedItemVariants());
 
-        Map<Long, ItemDTO> items = context.getRequest()
-                .items()
+        Map<Long, ItemVariant> priceableItemVariants = context.getCandidateItems(DISCOUNT_PROMOTION_EFFECT_PROMOTABLE_TYPE)
+                .entrySet()
                 .stream()
-                .collect(Collectors.toUnmodifiableMap(ItemDTO::id, itemDTO -> itemDTO));
-        for (DiscountedItem discountedItem : effect.discountedItems()) {
+                .collect(
+                        Collectors.toUnmodifiableMap(
+                                Map.Entry::getKey,
+                                priceable -> (ItemVariant) priceable.getValue()
+                        )
+                );
 
-            ItemDTO itemDTO = items.get(discountedItem.itemId());
+        for (var discountedItemVariant : effect.discountedItemVariants()) {
 
-            BigDecimal priceAfter = itemDTO.basePrice().subtract(discountedItem.amount());
+            ItemVariant itemVariant = priceableItemVariants.get(discountedItemVariant.itemVariantId());
 
-            BigDecimal benefitPrice = itemDTO.basePrice().subtract(priceAfter);
+            BigDecimal priceAfter = itemVariant.getUnitPrice().subtract(discountedItemVariant.amount());
 
-//            if (context.getRequest().order() != null)
-//                result.addPromotionBenefit(promotion.name(), benefitPrice);
-
-            itemDTO.promotions().add(
+            itemVariant.addAppliedPromotion(
                     new AppliedPromotion(
-                            promotion.id(),
-                            promotion.name(),
-                            promotion.type(),
-                            discountedItem.amount(),
-                            itemDTO.basePrice(),
+                            promotion,
+                            discountedItemVariant.amount(),
+                            itemVariant.getUnitPrice(),
                             priceAfter
                     )
             );

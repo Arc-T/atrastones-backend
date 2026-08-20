@@ -1,7 +1,7 @@
 package com.sashia.ecommerce.promotion.engine.strategy.discount.calculator;
 
-import com.sashia.ecommerce.catalog.item.dto.ItemDTO;
-import com.sashia.ecommerce.promotion.discount.dto.DiscountDTO;
+import com.sashia.ecommerce.pricing.Priceable;
+import com.sashia.ecommerce.promotion.discount.Discount;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 public class FixedDiscountCalculator implements DiscountCalculator {
 
     @Override
-    public BigDecimal calculate(ItemDTO item, DiscountDTO discount) {
-        return discount.amount();
+    public BigDecimal calculate(Priceable priceable, Discount discount) {
+        return discount.getAmount();
     }
 
 }

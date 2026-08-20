@@ -147,11 +147,11 @@
             <groupId>org.springframework.modulith</groupId>
             <artifactId>spring-modulith-starter-jdbc</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.modulith</groupId>-->
-<!--            <artifactId>spring-modulith-observability</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.modulith</groupId>-->
+        <!--            <artifactId>spring-modulith-observability</artifactId>-->
+        <!--            <scope>runtime</scope>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
@@ -166,26 +166,23 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-maven-plugin</artifactId>
                 <version>${hibernate.version}</version>
                 <executions>
                     <execution>
-                        <id>enhance</id>
                         <goals>
                             <goal>enhance</goal>
                         </goals>
                         <configuration>
-                            <enableAssociationManagement
-                            >true
-                            </enableAssociationManagement>
+                            <enableAssociationManagement>true</enableAssociationManagement>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

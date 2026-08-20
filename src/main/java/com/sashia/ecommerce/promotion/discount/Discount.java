@@ -27,7 +27,7 @@ public class Discount {
 
     /* **************************** FOREIGN-KEY RELATIONS ***************************** */
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private DiscountType type;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)

@@ -25,16 +25,16 @@ public final class ProductMapper {
         return product;
     }
 
-    public static ProductSummary toSummary(Item item) {
-        return new ProductSummary(
-                item.getId(),
-                item.getTitle(),
-                item.getItemType(),
-                ProductPriceDTO.toDTO(item.getPrice()),
-                item.getCoverImage(),
-                item.isFeatured(),
-                item.getCreatedAt()
-        );
-    }
+//    public static ProductSummary toSummary(Item item) {
+//        return new ProductSummary(
+//                item.getId(),
+//                item.getTitle(),
+//                item.getItemType(),
+//                ProductPriceDTO.toDTO(item.getUnitPrice()),
+//                item.getCoverImage(),
+//                item.isFeatured(),
+//                item.getCreatedAt()
+//        );
+//    }
 
 }

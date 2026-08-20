@@ -1,24 +1,23 @@
 package com.sashia.ecommerce.promotion.engine.resolver;
 
-import com.sashia.ecommerce.promotion.PromotionService;
-import com.sashia.ecommerce.promotion.dto.PromotionDTO;
-import com.sashia.ecommerce.promotion.engine.dto.PromotionRequest;
-import org.springframework.stereotype.Component;
+import com.sashia.ecommerce.promotion.Promotion;
+import com.sashia.ecommerce.promotion.PromotionRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class PromotionResolverImpl implements PromotionResolver {
 
-    private final PromotionService promotionService;
+    private final PromotionRepository promotionRepository;
 
-    public PromotionResolverImpl(PromotionService promotionService) {
-        this.promotionService = promotionService;
+    public PromotionResolverImpl(PromotionRepository promotionRepository) {
+        this.promotionRepository = promotionRepository;
     }
 
     @Override
-    public List<PromotionDTO> resolve(PromotionRequest request) {
-        return promotionService.getActivePromotions();
+    public List<Promotion> resolve() {
+        return promotionRepository.findAllActivePromotions();
     }
 
 }

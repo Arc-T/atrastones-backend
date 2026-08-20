@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -15,13 +16,12 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import static com.sashia.shared.util.SecurityUtils.JWT_ALGORITHM;
-
 @Configuration
 public class JWTConfiguration {
 
+    public static final MacAlgorithm JWT_ALGORITHM = MacAlgorithm.HS512;
     private static final Logger log = LoggerFactory.getLogger(JWTConfiguration.class);
-
+    //TODO: hardcoded in code !!!!
     private static final String JWT_KEY = "ZjJlOGM0ZDliN2E1ZjNlNmMyZDhiNGE5ZjdlNWMzZDZiOGEyZjllN2M0ZDFiNmE4ZjNlNWM5ZDdiMmE0ZjhlNmMzZDliNWE3ZjJlNGM4ZDZiM2E5ZjVlN2MyZDRiOGE2ZjNlOWM1ZDdiMWE0ZjhlNmMyZDliN2E1ZjNlOGM0ZDZiMmE5ZjdlNWMzZDhiNmE0ZjJlOWM3ZDViM2E4ZjZlNGMyZDliN2E1ZjNlOGM2ZDQ=";
 
     @Bean

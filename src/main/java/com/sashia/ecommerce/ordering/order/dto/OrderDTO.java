@@ -1,7 +1,5 @@
 package com.sashia.ecommerce.ordering.order.dto;
 
-import com.sashia.ecommerce.ordering.order.Order;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

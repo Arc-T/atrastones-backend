@@ -9,9 +9,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("""
             SELECT u FROM User u
+                   JOIN FETCH u.vipGroup
                    JOIN FETCH u.userGroup ug
-                   JOIN FETCH ug.roles r
-                   JOIN FETCH r.permissions
+                        JOIN FETCH ug.roles r
+                             JOIN FETCH r.permissions
             WHERE u.phone = :phone
             """)
     Optional<User> findByPhoneWithAuthorities(String phone);

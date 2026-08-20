@@ -40,7 +40,7 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: quantity
+                  name: stock
                   type: ${integer_value.type}
                   constraints:
                     nullable: false

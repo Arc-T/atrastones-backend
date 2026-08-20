@@ -1,4 +1,4 @@
-package com.sashia.ecommerce.catalog.item.product;
+package com.sashia.ecommerce.catalog.product;
 
 import com.sashia.ecommerce.internal.BaseControllerTest;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 class ProductControllerTest extends BaseControllerTest {
 
     @Test
-    @WithMockUser(authorities = "test")
+    @WithMockUser(authorities = "READ_ALL_PRODUCTS")
     void testGetAllProducts_returnsOk() throws Exception {
         mockMvc().perform(MockMvcRequestBuilders.get("/products")
                         .contentType(MediaType.APPLICATION_JSON))

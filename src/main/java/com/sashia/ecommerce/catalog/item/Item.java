@@ -2,7 +2,7 @@ package com.sashia.ecommerce.catalog.item;
 
 import com.sashia.ecommerce.catalog.category.Category;
 import com.sashia.ecommerce.catalog.item.dto.ItemType;
-import com.sashia.ecommerce.catalog.item.internal.ItemVariantPrice;
+import com.sashia.ecommerce.catalog.item.variant.ItemVariant;
 import com.sashia.ecommerce.catalog.tag.Tag;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,23 +22,12 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "category_id", insertable = false, updatable = false)
-    private Long categoryId;
-
     @Enumerated(EnumType.STRING)
     private ItemType itemType;
 
     private String title;
 
-    private Integer stock;
-
-    private BigDecimal price;
-
-    private String coverImage;
-
     private boolean isFeatured;
-
-    private boolean isPublished;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -66,7 +54,14 @@ public class Item {
     private Set<Tag> tags = new LinkedHashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
-    private Set<ItemVariantPrice> itemVariantPrices = new LinkedHashSet<>();
+    private Set<ItemVariant> itemVariants = new LinkedHashSet<>();
+
+    /* *********************************** HELPERS ************************************ */
+
+    @Transient
+    public ItemVariant getDefaultItemVariant() {
+        return itemVariants.stream().findFirst().orElse(null);
+    }
 
     /* ****************************** GETTER & SETTERS ******************************** */
 
@@ -76,14 +71,6 @@ public class Item {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
     }
 
     public ItemType getItemType() {
@@ -102,44 +89,12 @@ public class Item {
         this.title = title;
     }
 
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
-    }
-
     public boolean isFeatured() {
         return isFeatured;
     }
 
     public void setFeatured(boolean featured) {
         isFeatured = featured;
-    }
-
-    public boolean isPublished() {
-        return isPublished;
-    }
-
-    public void setPublished(boolean published) {
-        isPublished = published;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -182,12 +137,12 @@ public class Item {
         this.tags = tags;
     }
 
-    public Set<ItemVariantPrice> getItemVariantPrices() {
-        return itemVariantPrices;
+    public Set<ItemVariant> getItemVariants() {
+        return itemVariants;
     }
 
-    public void setItemVariantPrices(Set<ItemVariantPrice> itemVariantPrices) {
-        this.itemVariantPrices = itemVariantPrices;
+    public void setItemVariants(Set<ItemVariant> itemVariants) {
+        this.itemVariants = itemVariants;
     }
 
 }

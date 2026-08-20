@@ -1,24 +1,29 @@
 package com.sashia.ecommerce.ordering.shipment;
 
+import com.sashia.ecommerce.ordering.order.CurrencyCode;
 import com.sashia.ecommerce.ordering.order.Order;
+import com.sashia.ecommerce.promotion.Promotable;
+import com.sashia.ecommerce.promotion.engine.dto.AppliedPromotion;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "shipments", schema = "ordering")
-public class Shipment {
+public class Shipment implements Promotable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_id", insertable = false, updatable = false)
-    private Long orderId;
+    private CurrencyCode currency;
 
-    @Column(name = "shipment_status_id", insertable = false, updatable = false)
-    private Long shipmentStatusId;
+    private BigDecimal cost;
 
     private String trackingNumber;
 
@@ -37,6 +42,14 @@ public class Shipment {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private ShipmentStatus shipmentStatus;
 
+    /* ********************************** TRANSIENT *********************************** */
+
+    @Transient
+    private Integer quantity;
+
+    @Transient
+    private List<AppliedPromotion> appliedPromotions;
+
     /* ****************************** GETTER & SETTERS ******************************** */
 
     public Long getId() {
@@ -45,22 +58,6 @@ public class Shipment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public Long getShipmentStatusId() {
-        return shipmentStatusId;
-    }
-
-    public void setShipmentStatusId(Long shipmentStatusId) {
-        this.shipmentStatusId = shipmentStatusId;
     }
 
     public String getTrackingNumber() {
@@ -109,6 +106,38 @@ public class Shipment {
 
     public void setShipmentStatus(ShipmentStatus shipmentStatus) {
         this.shipmentStatus = shipmentStatus;
+    }
+
+    @Override
+    public List<AppliedPromotion> getAppliedPromotions() {
+        return !CollectionUtils.isEmpty(appliedPromotions)
+                ? Collections.unmodifiableList(appliedPromotions)
+                : Collections.emptyList();
+    }
+
+    @Override
+    public void addAppliedPromotion(AppliedPromotion appliedPromotion) {
+        getAppliedPromotions().add(appliedPromotion);
+    }
+
+    @Override
+    public BigDecimal getUnitPrice() {
+        return cost;
+    }
+
+    @Override
+    public CurrencyCode getCurrency() {
+        return currency;
+    }
+
+    @Override
+    @Transient
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
 }

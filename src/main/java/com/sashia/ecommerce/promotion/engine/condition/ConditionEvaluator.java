@@ -1,6 +1,6 @@
 package com.sashia.ecommerce.promotion.engine.condition;
 
-import com.sashia.ecommerce.promotion.condition.dto.ConditionDTO;
+import com.sashia.ecommerce.promotion.condition.Condition;
 import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
 
@@ -10,6 +10,6 @@ public interface ConditionEvaluator {
 
     ConditionTypeCode type();
 
-    void evaluate(List<ConditionDTO> conditions, PromotionContext context);
+    void evaluate(List<Condition> conditions, PromotionContext context);
 
 }

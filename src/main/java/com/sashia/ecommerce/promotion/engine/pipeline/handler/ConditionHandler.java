@@ -1,8 +1,8 @@
 package com.sashia.ecommerce.promotion.engine.pipeline.handler;
 
-import com.sashia.ecommerce.promotion.condition.dto.ConditionDTO;
+import com.sashia.ecommerce.promotion.Promotion;
+import com.sashia.ecommerce.promotion.condition.Condition;
 import com.sashia.ecommerce.promotion.condition.type.ConditionTypeCode;
-import com.sashia.ecommerce.promotion.dto.PromotionDTO;
 import com.sashia.ecommerce.promotion.engine.condition.ConditionEvaluator;
 import com.sashia.ecommerce.promotion.engine.condition.ConditionEvaluatorFactory;
 import com.sashia.ecommerce.promotion.engine.context.PromotionContext;
@@ -27,10 +27,11 @@ import java.util.stream.Collectors;
  * evaluator fails, the promotion pipeline is terminated.
  */
 @Component
-@Order(value = 4)
+@Order(value = 3)
 public class ConditionHandler implements PromotionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ConditionHandler.class);
+
     private final ConditionEvaluatorFactory evaluatorFactory;
 
     public ConditionHandler(ConditionEvaluatorFactory evaluatorFactory) {
@@ -40,39 +41,38 @@ public class ConditionHandler implements PromotionHandler {
     @Override
     public PromotionHandlerResult handle(PromotionContext context) {
 
-        PromotionDTO promotion = context.getPromotion();
+        Promotion promotion = context.getPromotion();
 
-        if (!promotion.conditions().isEmpty()) {
+        if (!promotion.getConditions().isEmpty()) {
 
-            Map<ConditionTypeCode, List<ConditionDTO>> groupedConditions =
-                    groupConditionsByType(promotion);
+            Map<ConditionTypeCode, List<Condition>> groupedConditions = groupConditionsByType(promotion);
 
             applyConditions(groupedConditions, context);
 
-            if (context.getCandidateItems().isEmpty())
+            if (context.isCandidatesEmpty())
                 return PromotionHandlerResult.failure("Condition not satisfied");
         }
 
-        log.debug("Promotion conditions satisfied by {} conditions", promotion.conditions().size());
+        log.debug("Promotion conditions satisfied by {} conditions", promotion.getConditions().size());
 
         return PromotionHandlerResult.success();
 
     }
 
-    private Map<ConditionTypeCode, List<ConditionDTO>> groupConditionsByType(PromotionDTO promotion) {
-        return promotion.conditions()
+    private Map<ConditionTypeCode, List<Condition>> groupConditionsByType(Promotion promotion) {
+        return promotion.getConditions()
                 .stream()
                 .collect(Collectors.groupingBy(
-                        ConditionDTO::type,
+                        Condition::getConditionTypeCode,
                         LinkedHashMap::new,
                         Collectors.toList()
                 ));
     }
 
-    private void applyConditions(Map<ConditionTypeCode, List<ConditionDTO>> groupedConditions,
+    private void applyConditions(Map<ConditionTypeCode, List<Condition>> groupedConditions,
                                  PromotionContext context) {
 
-        for (Map.Entry<ConditionTypeCode, List<ConditionDTO>> entry : groupedConditions.entrySet()) {
+        for (Map.Entry<ConditionTypeCode, List<Condition>> entry : groupedConditions.entrySet()) {
 
             ConditionEvaluator evaluator = evaluatorFactory.resolve(entry.getKey());
 
@@ -80,6 +80,7 @@ public class ConditionHandler implements PromotionHandler {
 
             evaluator.evaluate(entry.getValue(), context);
         }
+
     }
 
 }

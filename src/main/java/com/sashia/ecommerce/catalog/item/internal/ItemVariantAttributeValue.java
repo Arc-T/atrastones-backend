@@ -2,7 +2,7 @@ package com.sashia.ecommerce.catalog.item.internal;
 
 import com.sashia.ecommerce.catalog.attribute.Attribute;
 import com.sashia.ecommerce.catalog.attribute.internal.AttributeValue;
-import com.sashia.ecommerce.catalog.item.ItemVariant;
+import com.sashia.ecommerce.catalog.item.variant.ItemVariant;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
