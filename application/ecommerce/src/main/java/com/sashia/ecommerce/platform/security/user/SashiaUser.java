@@ -1,4 +1,4 @@
-package com.sashia.core.shared.util;
+package com.sashia.ecommerce.platform.security.user;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;

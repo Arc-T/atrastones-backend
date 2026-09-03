@@ -1,4 +1,4 @@
-package com.sashia.core.shared.config;
+package com.sashia.ecommerce.platform.security;
 
 public class AuthoritiesConstants {
 

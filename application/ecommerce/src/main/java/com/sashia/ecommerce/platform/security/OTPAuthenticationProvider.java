@@ -1,4 +1,4 @@
-package com.sashia.core.shared.config;
+package com.sashia.ecommerce.platform.security;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
